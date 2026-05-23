@@ -17,6 +17,11 @@ Generated outputs:
 - Root HTML files in `C:\Code6\dima2`
 - Deploy mirror in `C:\Code6\dima2\site-dist`
 
+Live deployment:
+- `https://cmf-surgery.netlify.app/`
+- Netlify publishes the prebuilt `site-dist` folder.
+- Netlify build command must be empty or `echo "No build"`.
+
 Source data:
 - Task/reference file: `C:\Code6\parse\TZ-build-static-cmf-surgery.md`
 - Parser output: `C:\Code6\parse\scrape-output`
@@ -62,10 +67,15 @@ At the end of a working session:
 3. Run quick verification.
 4. Commit with a clear message.
 5. Push to GitHub.
+6. Confirm Netlify deployed the latest `main` commit.
 
 Repository: `https://github.com/temakz/surgery.git`
 Branch: `main`
 First push completed by the user on 2026-05-23.
+
+Netlify production URL: `https://cmf-surgery.netlify.app/`
+
+Netlify note: do not run `node build-site.js` in Netlify UI. The parser data lives outside the repo locally, so Netlify should publish `site-dist` directly.
 
 Codex sandbox note: git may report `dubious ownership` because the repo is owned by the Windows user `Artyom`, while Codex runs as `CodexSandboxOffline`. If Codex needs to run git commands directly, the user can allow/check:
 

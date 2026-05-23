@@ -45,8 +45,13 @@
    - and so on.
 
 4. Update `docs/NEXT_STEPS.md`.
-5. Commit and push to GitHub when the repo/remote is available.
-6. In the final message, state:
+5. Commit and push to GitHub.
+6. Confirm Netlify deployed the latest `main` commit.
+   - Production URL: `https://cmf-surgery.netlify.app/`
+   - Netlify build command must be empty or `echo "No build"`.
+   - Publish directory must be `site-dist`.
+7. In the final message, state:
    - what changed;
    - what was verified;
-   - whether push succeeded or what blocked it.
+   - whether push succeeded;
+   - whether Netlify deploy succeeded.

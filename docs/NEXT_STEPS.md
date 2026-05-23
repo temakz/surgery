@@ -6,6 +6,8 @@
    - GitHub is connected: `https://github.com/temakz/surgery.git`
    - Branch: `main`
    - First push completed by the user on 2026-05-23.
+   - Netlify is connected: `https://cmf-surgery.netlify.app/`
+   - Netlify publishes prebuilt `site-dist` with empty build command.
 
 2. Check homepage desktop and mobile.
    - Check at least these service pages:
@@ -38,3 +40,4 @@
 2. Check `_redirects` routes.
 3. Check `robots.txt` and `sitemap.xml`.
 4. Push at every session close.
+5. Confirm Netlify deploy succeeds after every push.
