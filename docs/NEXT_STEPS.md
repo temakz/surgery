@@ -2,12 +2,12 @@
 
 ## Highest Priority
 
-1. Connect the project to GitHub.
-   - Current state: no `.git` directory found under `C:\Code6`.
-   - Need either an existing GitHub repo URL or permission to initialize a new repo and add a remote.
+1. Visual QA in browser.
+   - GitHub is connected: `https://github.com/temakz/surgery.git`
+   - Branch: `main`
+   - First push completed by the user on 2026-05-23.
 
-2. Visual QA in browser.
-   - Check homepage desktop and mobile.
+2. Check homepage desktop and mobile.
    - Check at least these service pages:
      - `tmj_treatment.html`
      - `exo.html`
@@ -37,4 +37,4 @@
 1. Confirm Netlify Drop package is `C:\Code6\dima2\site-dist`.
 2. Check `_redirects` routes.
 3. Check `robots.txt` and `sitemap.xml`.
-4. After GitHub is connected, push at every session close.
+4. Push at every session close.

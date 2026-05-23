@@ -63,4 +63,12 @@ At the end of a working session:
 4. Commit with a clear message.
 5. Push to GitHub.
 
-Current blocker: `C:\Code6` / `C:\Code6\dima2` is not currently a git repository and has no remote configured. Ask for the GitHub repo URL or initialize/link the repository before the first push.
+Repository: `https://github.com/temakz/surgery.git`
+Branch: `main`
+First push completed by the user on 2026-05-23.
+
+Codex sandbox note: git may report `dubious ownership` because the repo is owned by the Windows user `Artyom`, while Codex runs as `CodexSandboxOffline`. If Codex needs to run git commands directly, the user can allow/check:
+
+```powershell
+git config --global --add safe.directory C:/Code6/dima2
+```

@@ -53,11 +53,12 @@ Project: `C:\Code6\dima2`
 
 ## Known Issues / Risks
 
-- Project is not currently connected to git:
-  - `git -C C:\Code6 status` fails with `not a git repository`.
-  - `git -C C:\Code6\dima2 status` also fails.
-  - no `.git` folder was found under `C:\Code6`.
-- GitHub push could not be performed in this session because there is no repository/remote.
+- GitHub is now connected:
+  - repo: `https://github.com/temakz/surgery.git`
+  - branch: `main`
+  - first push completed by the user on 2026-05-23.
+- Codex may see `dubious ownership` when running git because the repo is owned by Windows user `Artyom`, while Codex runs as `CodexSandboxOffline`. If direct Codex git checks are needed, allow:
+  - `git config --global --add safe.directory C:/Code6/dima2`
 - Service-page content is now more complete, but visual ordering should still be spot-checked page by page.
 - Some gallery thumbnails use `object-cover`, which can crop diagrams. Consider `object-contain` for medical diagrams/slides.
 
@@ -67,8 +68,7 @@ Project: `C:\Code6\dima2`
    - `AGENTS.md`
    - `docs/SESSION_PROTOCOL.md`
    - `docs/NEXT_STEPS.md`
-2. Connect git/GitHub.
-3. Open the site in a browser and visually test:
+2. Open the site in a browser and visually test:
    - homepage;
    - `tmj_treatment.html`;
    - gallery lightbox;
