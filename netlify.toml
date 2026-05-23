@@ -1,3 +1,2 @@
 [build]
-  command = "node build-site.js"
   publish = "site-dist"
