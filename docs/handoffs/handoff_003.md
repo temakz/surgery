@@ -38,5 +38,7 @@ Screenshots:
 
 ## Notes
 
+- Branch decision after the local QA: keep production `main` untouched and publish this work as a separate preview branch named `service-pages-v2`.
+- Next session should continue from `service-pages-v2`; merge into `main` only after review approval.
 - Specialists, technologies, recommendations and related secondary pages still need a separate design/layout pass later.
 - `.cursorindexingignore` and `.specstory/` are still untracked and were not added.

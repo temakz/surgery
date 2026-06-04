@@ -9,6 +9,11 @@ GitHub:
 - `https://github.com/temakz/surgery.git`
 - branch: `main`
 
+Current preview workflow:
+- `service-pages-v2` is the review branch for the service-page v2 redesign/content cleanup.
+- Keep production `main` unchanged until the preview is approved.
+- After approval, merge `service-pages-v2` into `main` and let Netlify publish the merged `site-dist`.
+
 Netlify:
 - Publish directory: `site-dist`
 - Build command: empty
@@ -53,6 +58,15 @@ Then verify:
 - requested content exists.
 
 ## End-Of-Session Deploy Ritual
+
+For in-review work that should not go live yet, push the current branch instead of `main`.
+As of 2026-06-04, service-page v2 work is being pushed to:
+
+```bat
+git push -u origin service-pages-v2
+```
+
+Only merge/push to `main` after approval.
 
 1. Rebuild locally if generator/content changed:
 
