@@ -167,9 +167,119 @@ function usefulImages(page, limit = Number.POSITIVE_INFINITY) {
     })
     .map((img) => ({
       src: img.local_file.replace(/\\/g, "/"),
+      originalSrc: img.src || "",
       alt: img.alt || page.seo?.title || "Center of Surgery",
     }));
   return Number.isFinite(limit) ? images.slice(0, limit) : images;
+}
+
+function localImageFromOriginalUrl(url = "", page) {
+  const fileName = url.split("/").pop();
+  const tildaId = url.match(/\/(tild[\w-]+)\//)?.[1];
+  const candidates = [...(page.covers || []), ...(page.images || []), ...(page.additional_images || [])]
+    .filter((img) => img.local_file)
+    .map((img) => ({
+      src: img.local_file.replace(/\\/g, "/"),
+      originalSrc: img.src || "",
+      alt: img.alt || page.seo?.title || "Center of Surgery",
+    }));
+  const fromPage =
+    candidates.find((img) => tildaId && (img.src.includes(tildaId) || img.originalSrc.includes(tildaId))) ||
+    candidates.find((img) => fileName && (img.src.endsWith(`_${fileName}`) || img.src.endsWith(fileName) || img.originalSrc.endsWith(fileName)));
+  if (fromPage && fs.existsSync(path.join(scrapeRoot, fromPage.src))) return fromPage;
+
+  if (tildaId || fileName) {
+    const files = fs.readdirSync(imageRoot);
+    const match =
+      (tildaId && files.find((name) => name.includes(tildaId))) ||
+      (fileName && files.find((name) => name.endsWith(`_${fileName}`)));
+    if (match) {
+      return {
+        src: `assets/images/${match}`,
+        originalSrc: url,
+        alt: page.seo?.title || "Center of Surgery",
+      };
+    }
+  }
+  return null;
+}
+
+function heroImage(page, images) {
+  const ogImage = page.seo?.og?.["og:image"];
+  const fromOg = localImageFromOriginalUrl(ogImage, page);
+  if (fromOg) return fromOg;
+  return images[0] || null;
+}
+
+function normalizeContentKey(value = "") {
+  return cleanText(value)
+    .toLowerCase()
+    .replace(/^[\s•\-–—\d.]+/g, "")
+    .replace(/[.,;:!?()[\]«»"“”'’`]+/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function meaningfulText(value = "") {
+  const text = cleanText(value);
+  if (!text || text.length < 18) return "";
+  if (/Ваше имя|Ваш телефон|Заказ обратного звонка|Заявка отправлена|Отправляя форму|Политик[ае] обработки/i.test(text)) return "";
+  if (/^\+?\d[\d\s()\-]+$/.test(text)) return "";
+  return text;
+}
+
+function uniqueTexts(items, used = new Set()) {
+  const out = [];
+  for (const item of items) {
+    const text = meaningfulText(item);
+    if (!text) continue;
+    const key = normalizeContentKey(text);
+    if (!key || used.has(key)) continue;
+    used.add(key);
+    out.push(text);
+  }
+  return out;
+}
+
+function compactLead(value = "") {
+  return cleanText(value)
+    .replace(/✔/g, "")
+    .replace(/☎\s*\+?[0-9\s()\-]+\.?/g, "")
+    .replace(/\+7\s*\(?909\)?\s*957[-\s]?4107\.?/g, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+function sameContent(a = "", b = "") {
+  const ak = normalizeContentKey(a);
+  const bk = normalizeContentKey(b);
+  if (!ak || !bk) return false;
+  return ak === bk || (ak.length > 40 && bk.includes(ak)) || (bk.length > 40 && ak.includes(bk));
+}
+
+function isBulletRun(value = "") {
+  const text = cleanText(value);
+  return (text.match(/(^|\s)[•\-–—]\s+/g) || []).length > 1;
+}
+
+function collectTextSections(atoms) {
+  const longBlocks = atoms
+    .filter((atom) => atom.text.length > 120 && !/Ваше имя|Ваш телефон|Заказ обратного звонка/i.test(atom.text))
+    .map((atom) => atom.text)
+    .filter((text, i, arr) => arr.findIndex((item) => normalizeContentKey(item) === normalizeContentKey(text)) === i);
+  return longBlocks
+    .map((text) => splitLongText(text))
+    .filter((section) => section.paragraphs.length || section.bullets.length);
+}
+
+function renderParagraphs(paragraphs) {
+  return paragraphs.map((p) => `<p>${escapeHtml(p)}</p>`).join("\n");
+}
+
+function galleryImageClass(image) {
+  const src = image.src.toLowerCase();
+  const contain = /\.(png|gif|webp)$/.test(src) || /(scheme|schema|slide|copy|nt|mrt|кт|аксио|diagram|result)/i.test(src);
+  return contain ? "w-full aspect-[4/3] object-contain bg-white p-2" : "w-full aspect-[4/3] object-cover";
 }
 
 function updateKnownLinks(html) {
@@ -505,35 +615,49 @@ function renderGenericPage(slug, number = "—") {
   const atoms = extractAtoms(slug);
   const title = firstHeading(page, atoms);
   const h2 = [...(page.headings?.h2 || []), ...atoms.filter((a) => a.tag === "h2").map((a) => a.text)]
-    .map((text) => text.replace(/^•\s*/, "").trim())
+    .map((text) => text.replace(/^[\s•\-–—]+/, "").replace(/:$/, "").trim())
     .filter((text) => text && text.length > 3 && text.length < 95)
+    .filter((text) => !/записаться|консультац/i.test(text))
     .filter((text, i, arr) => arr.findIndex((item) => item.toLowerCase() === text.toLowerCase()) === i)
     .slice(0, 8);
-  const longBlocks = atoms
-    .filter((atom) => atom.text.length > 120 && !/Ваше имя|Ваш телефон|Заказ обратного звонка/i.test(atom.text))
-    .map((atom) => atom.text)
-    .filter((text, i, arr) => arr.findIndex((item) => item.toLowerCase() === text.toLowerCase()) === i);
-  const textSections = longBlocks
-    .map((text) => splitLongText(text))
-    .filter((section) => section.paragraphs.length || section.bullets.length);
-  const mainBlock = textSections[0] || splitLongText(page.seo?.description || "");
-  const secondBlock = textSections[1] || splitLongText("");
-  const extraTextSections = textSections;
   const images = usefulImages(page);
-  const lead = page.seo?.description || mainBlock.paragraphs[0] || "";
+  const hero = heroImage(page, images);
+  const galleryImages = images.filter((image) => !hero || image.src !== hero.src);
+  const textSections = collectTextSections(atoms);
+  const usedText = new Set([normalizeContentKey(title)]);
+  const seoLeadRaw = compactLead(page.seo?.description || "");
+  const seoLead = sameContent(title, seoLeadRaw) || isBulletRun(seoLeadRaw) ? "" : seoLeadRaw;
+  const allParagraphs = uniqueTexts(textSections.flatMap((section) => section.paragraphs).filter((text) => !isBulletRun(text)), usedText);
+  const allBullets = uniqueTexts(textSections.flatMap((section) => section.bullets), usedText);
+  const lead = seoLead || allParagraphs[0] || "На консультации врач оценивает клиническую ситуацию и подбирает индивидуальный план лечения по этому направлению.";
+  const paragraphsAfterLead = allParagraphs.filter((text) => !sameContent(text, lead));
+  const introParagraphs = paragraphsAfterLead.slice(0, 2);
+  const detailParagraphs = paragraphsAfterLead.slice(2, 8);
+  const remainingParagraphs = paragraphsAfterLead.slice(8);
 
-  const cards = (mainBlock.bullets.length ? mainBlock.bullets : h2).slice(0, 4);
-  const tags = h2.length ? h2 : cards;
-  const imageGrid = images.length
+  const cardPool = (allBullets.length ? allBullets : h2).filter((item) => !/^симптомы$/i.test(item));
+  const cards = cardPool.slice(0, 4);
+  const steps = cardPool.slice(cards.length, cards.length + 6);
+  const usedShortItems = new Set([...cards, ...steps].map(normalizeContentKey));
+  const tags = h2
+    .filter((item) => !/^симптомы$/i.test(item))
+    .filter((item) => !usedShortItems.has(normalizeContentKey(item)))
+    .slice(0, 8);
+  const sectionSummary = introParagraphs[0] || "Ниже собраны основные задачи и варианты помощи по этому направлению.";
+  const detailCopy = (detailParagraphs.length ? detailParagraphs : introParagraphs.slice(1)).filter(
+    (text) => !sameContent(text, lead) && !sameContent(text, sectionSummary)
+  );
+  const detailFallback = "Врач уточняет показания, противопоказания и оптимальный объем лечения после очной консультации и диагностики.";
+  const imageGrid = galleryImages.length
     ? `<section class="py-12 sm:py-14 lg:py-24">
   <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
     <div class="text-[13px] uppercase tracking-[0.2em] text-indigo2 font-semibold mb-4">— Материалы</div>
     <h2 class="font-display text-[32px] sm:text-4xl lg:text-5xl font-bold leading-[1] sm:leading-[0.98] tracking-tight mb-8 sm:mb-10">Изображения<br><span class="italic font-normal">из исходной страницы.</span></h2>
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      ${images
+      ${galleryImages
         .map(
           (image) => `<figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="${image.src}" alt="${escapeHtml(image.alt)}" class="w-full aspect-[4/3] object-cover">
+        <img src="${image.src}" alt="${escapeHtml(image.alt)}" class="${galleryImageClass(image)}" loading="lazy">
       </figure>`
         )
         .join("\n")}
@@ -541,24 +665,13 @@ function renderGenericPage(slug, number = "—") {
   </div>
 </section>`
     : "";
-  const extraTextHtml = extraTextSections.length
+  const extraTextHtml = remainingParagraphs.length
     ? `<section class="py-12 sm:py-14 lg:py-24 bg-cream border-y border-ink/5">
   <div class="max-w-[1100px] mx-auto px-5 lg:px-10">
-    <div class="text-[13px] uppercase tracking-[0.2em] text-indigo2 font-semibold mb-4">— Полное описание</div>
-    <h2 class="font-display text-[32px] sm:text-4xl lg:text-5xl font-bold leading-[1] sm:leading-[0.98] tracking-tight mb-8">Материалы<br><span class="italic font-normal">из исходной страницы.</span></h2>
-    <div class="space-y-9 text-[16px] sm:text-[17px] leading-relaxed text-ink/70">
-      ${extraTextSections
-        .map(
-          (section) => `<article class="space-y-4">
-        ${section.paragraphs.map((p) => `<p>${escapeHtml(p)}</p>`).join("\n")}
-        ${
-          section.bullets.length
-            ? `<ul class="space-y-2">${section.bullets.map((item) => `<li class="flex gap-2"><span class="text-pink2">•</span><span>${escapeHtml(item)}</span></li>`).join("\n")}</ul>`
-            : ""
-        }
-      </article>`
-        )
-        .join("\n")}
+    <div class="text-[13px] uppercase tracking-[0.2em] text-indigo2 font-semibold mb-4">— Подробнее</div>
+    <h2 class="font-display text-[32px] sm:text-4xl lg:text-5xl font-bold leading-[1] sm:leading-[0.98] tracking-tight mb-8">Дополнительная<br><span class="italic font-normal">информация.</span></h2>
+    <div class="space-y-4 text-[16px] sm:text-[17px] leading-relaxed text-ink/70">
+      ${renderParagraphs(remainingParagraphs)}
     </div>
   </div>
 </section>`
@@ -591,7 +704,7 @@ ${parts.nav}
         ${escapeHtml(title)}
       </h1>
       <p class="font-display text-lg sm:text-2xl lg:text-3xl text-ink/60 mt-3 sm:mt-4 italic">
-        <span class="gradient-text not-italic font-semibold">Center of Surgery</span><br class="hidden sm:block">Москва · Одинцово.
+        <span class="gradient-text not-italic font-semibold">Center of Surgery</span> <br class="hidden sm:block">Москва · Одинцово.
       </p>
       <p class="mt-6 max-w-2xl text-[15px] sm:text-[17px] leading-relaxed text-ink/75">${escapeHtml(lead)}</p>
       <div class="mt-8 flex flex-wrap items-center gap-3">
@@ -600,8 +713,8 @@ ${parts.nav}
       </div>
     </div>
     <aside class="lg:col-span-5">
-      <div class="relative aspect-[4/3] sm:aspect-[4/5] max-w-md mx-auto rounded-2xl sm:rounded-3xl overflow-hidden bg-gradient-to-br from-indigo2 via-violet2 to-pink2">
-        ${images[0] ? `<img src="${images[0].src}" alt="${escapeHtml(images[0].alt)}" class="absolute inset-0 w-full h-full object-cover opacity-70">` : ""}
+      <div class="relative aspect-[16/10] max-w-2xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden bg-gradient-to-br from-indigo2 via-violet2 to-pink2 shadow-2xl shadow-indigo2/10">
+        ${hero ? `<img src="${hero.src}" alt="${escapeHtml(hero.alt)}" class="absolute inset-0 w-full h-full object-cover opacity-85" fetchpriority="high" loading="eager">` : ""}
         <div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/5 to-transparent"></div>
         <div class="absolute inset-0 grain opacity-30"></div>
         <div class="absolute bottom-6 left-6 right-6 text-white">
@@ -620,7 +733,7 @@ ${parts.nav}
         <div class="text-[13px] uppercase tracking-[0.2em] text-indigo2 font-semibold mb-4">— О направлении</div>
         <h2 class="font-display text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[0.98] sm:leading-[0.95] tracking-tight">Что важно<br><span class="italic font-normal">знать пациенту.</span></h2>
       </div>
-      <p class="max-w-md text-ink/60 text-[15px] leading-relaxed">${escapeHtml(mainBlock.paragraphs[0] || lead)}</p>
+      <p class="max-w-md text-ink/60 text-[15px] leading-relaxed">${escapeHtml(sectionSummary)}</p>
     </div>
     <ul class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       ${cards
@@ -632,12 +745,12 @@ ${parts.nav}
         )
         .join("\n")}
     </ul>
-    <div class="mt-12 rounded-3xl bg-gradient-to-br from-indigo2/5 via-violet2/5 to-pink2/5 p-7 lg:p-10 border border-ink/5">
-      <div class="text-[13px] uppercase tracking-[0.2em] text-violet2 font-semibold mb-5">— Ключевые запросы</div>
+${tags.length ? `    <div class="mt-12 rounded-3xl bg-gradient-to-br from-indigo2/5 via-violet2/5 to-pink2/5 p-7 lg:p-10 border border-ink/5">
+      <div class="text-[13px] uppercase tracking-[0.2em] text-violet2 font-semibold mb-5">— С чем обращаются</div>
       <ul class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-3 text-[15px] text-ink/80">
         ${tags.map((tag) => `<li class="flex items-center gap-2"><span class="text-pink2">•</span> ${escapeHtml(tag)}</li>`).join("\n")}
       </ul>
-    </div>
+    </div>` : ""}
   </div>
 </section>
 
@@ -650,17 +763,17 @@ ${parts.nav}
         <span class="italic font-normal">план лечения.</span>
       </h2>
       <div class="text-ink/65 mt-6 leading-relaxed text-[16px] space-y-4">
-        ${(secondBlock.paragraphs.length ? secondBlock.paragraphs : mainBlock.paragraphs.slice(1)).map((p) => `<p>${escapeHtml(p)}</p>`).join("\n")}
+        ${renderParagraphs(detailCopy.length ? detailCopy : [detailFallback])}
       </div>
     </div>
-    <div class="lg:col-span-7">
+${steps.length ? `    <div class="lg:col-span-7">
       <ol class="space-y-1">
-        ${(secondBlock.bullets.length ? secondBlock.bullets : mainBlock.bullets.concat(h2)).slice(0, 5).map((item, i) => `<li class="step-line relative pl-16 py-5">
+        ${steps.map((item, i) => `<li class="step-line relative pl-16 py-5">
           <span class="absolute left-0 top-5 w-10 h-10 rounded-full bg-white border border-ink/10 flex items-center justify-center font-display font-bold text-indigo2">${i + 1}</span>
           <h3 class="font-display text-xl font-bold">${escapeHtml(item.replace(/[.;]$/, ""))}</h3>
         </li>`).join("\n")}
       </ol>
-    </div>
+    </div>` : ""}
   </div>
 </section>
 
@@ -675,10 +788,8 @@ function build() {
     .replace(/<!-- ============ SERVICES ============ -->[\s\S]*?<!-- ============ DOCTORS ============ -->/, `${renderHomeServicesSection()}\n\n<!-- ============ DOCTORS ============ -->`)
     .replace(/<!-- ============ DOCTORS ============ -->[\s\S]*?<!-- ============ TRUST ============ -->/, `${renderHomeDoctorsSection()}\n\n<!-- ============ TRUST ============ -->`)
     .replace(/<!-- ============ TRUST ============ -->[\s\S]*?<!-- ============ CTA \/ CONTACT ============ -->/, `${renderHomeTrustSection()}\n\n<!-- ============ CTA / CONTACT ============ -->`);
-  files["exo.html"] = updateKnownLinks(fs.readFileSync(path.join(originalRoot, "exo.html"), "utf8"));
 
   for (const [index, [slug]] of services.entries()) {
-    if (slug === "exo") continue;
     files[`${slug}.html`] = renderGenericPage(slug, String(index + 1).padStart(2, "0"));
   }
   for (const [slug] of secondary) {
