@@ -22,6 +22,12 @@ Live deployment:
 - Netlify publishes the prebuilt `site-dist` folder.
 - Netlify build command must be empty or `echo "No build"`.
 
+Current preview deployment:
+- Branch: `service-pages-v2`
+- Preview URL: `http://service-pages-v2--cmf-surgery.netlify.app/`
+- Use this preview for the current service-page v2 review cycle.
+- Do not merge or push these changes to production `main` until the user approves.
+
 Source data:
 - Task/reference file: `C:\Code6\parse\TZ-build-static-cmf-surgery.md`
 - Parser output: `C:\Code6\parse\scrape-output`
@@ -73,7 +79,12 @@ Repository: `https://github.com/temakz/surgery.git`
 Branch: `main`
 First push completed by the user on 2026-05-23.
 
+Current review branch: `service-pages-v2`.
+Continue service-page v2 work on this branch and push to `origin/service-pages-v2`.
+Merge into `main` only after the user approves the preview.
+
 Netlify production URL: `https://cmf-surgery.netlify.app/`
+Netlify preview URL for service-page v2: `http://service-pages-v2--cmf-surgery.netlify.app/`
 
 Netlify note: do not run `node build-site.js` in Netlify UI. The parser data lives outside the repo locally, so Netlify should publish `site-dist` directly.
 

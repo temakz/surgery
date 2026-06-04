@@ -16,6 +16,9 @@
    - generator: `build-site.js`;
    - output: root HTML and `site-dist`;
    - source content: parser output in `C:\Code6\parse\scrape-output`.
+6. For the current service-page v2 cycle, confirm the branch is `service-pages-v2`.
+   - Preview URL: `http://service-pages-v2--cmf-surgery.netlify.app/`
+   - Production `main` should remain unchanged until user approval.
 
 ## Working Ritual
 
@@ -46,8 +49,11 @@
 
 4. Update `docs/NEXT_STEPS.md`.
 5. Commit and push to GitHub.
-6. Confirm Netlify deployed the latest `main` commit.
+   - For in-review service-page v2 work, push `service-pages-v2`.
+   - Push/merge `main` only after user approval.
+6. Confirm the relevant Netlify deployment.
    - Production URL: `https://cmf-surgery.netlify.app/`
+   - Service-page v2 preview URL: `http://service-pages-v2--cmf-surgery.netlify.app/`
    - Netlify build command must be empty or `echo "No build"`.
    - Publish directory must be `site-dist`.
 7. In the final message, state:

@@ -6,13 +6,16 @@
    - GitHub is connected: `https://github.com/temakz/surgery.git`
    - Production branch: `main`
    - Service-page v2 preview branch: `service-pages-v2`
+   - Service-page v2 preview URL: `http://service-pages-v2--cmf-surgery.netlify.app/`
    - Do not push this work directly to `main` until the local preview is approved.
    - After approval, merge `service-pages-v2` into `main`.
    - First push completed by the user on 2026-05-23.
    - Netlify is connected: `https://cmf-surgery.netlify.app/`
    - Netlify publishes prebuilt `site-dist` with empty build command.
 
-2. Continue visual QA in browser after each content/design pass.
+2. Continue visual QA on the preview deployment after each content/design pass.
+   - Check `http://service-pages-v2--cmf-surgery.netlify.app/`.
+   - Priority pages: homepage, `scars`, `tmj_treatment`, `exo`, `implantology`, mobile layout and lightbox.
 
 3. Next design/content scope.
    - Specialists, technologies, recommendations, doctors and contact-like pages still need a separate layout/design pass.

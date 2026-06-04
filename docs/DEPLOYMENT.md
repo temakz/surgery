@@ -11,6 +11,7 @@ GitHub:
 
 Current preview workflow:
 - `service-pages-v2` is the review branch for the service-page v2 redesign/content cleanup.
+- Preview URL: `http://service-pages-v2--cmf-surgery.netlify.app/`
 - Keep production `main` unchanged until the preview is approved.
 - After approval, merge `service-pages-v2` into `main` and let Netlify publish the merged `site-dist`.
 
@@ -67,6 +68,11 @@ git push -u origin service-pages-v2
 ```
 
 Only merge/push to `main` after approval.
+For this review cycle, verify the preview deployment at:
+
+```txt
+http://service-pages-v2--cmf-surgery.netlify.app/
+```
 
 1. Rebuild locally if generator/content changed:
 
