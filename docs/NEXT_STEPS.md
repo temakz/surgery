@@ -13,15 +13,21 @@
    - Netlify is connected: `https://cmf-surgery.netlify.app/`
    - Netlify publishes prebuilt `site-dist` with empty build command.
 
-2. Continue visual QA on the preview deployment after each content/design pass.
+2. Apply the approved `nose_surgery` sample polish to all service pages.
+   - The user approved using `nose_surgery` as the style sample.
+   - Generalize the changes through `build-site.js`, not by hand-editing generated HTML.
+   - Preserve page-specific content and avoid empty/awkward sections when a page has fewer bullets, details, or gallery images.
+   - Rebuild with `node build-site.js`, then verify root and `site-dist`.
+
+3. Continue visual QA on the preview deployment after each content/design pass.
    - Check `http://service-pages-v2--cmf-surgery.netlify.app/`.
    - Priority pages: homepage, `scars`, `tmj_treatment`, `exo`, `implantology`, mobile layout and lightbox.
 
-3. Next design/content scope.
+4. Next design/content scope.
    - Specialists, technologies, recommendations, doctors and contact-like pages still need a separate layout/design pass.
    - Current service-page cleanup was applied through `build-site.js`, so secondary generated pages also inherited the cleaner generic renderer until a dedicated layout replaces it.
 
-4. Review service-page content completeness.
+5. Review service-page content completeness.
    - The 21 priority service pages now use the original Tilda/OG hero image as a rectangular top image.
    - Long parser duplicates were removed from service content by separating prose, bullet items, tags and detail copy.
    - Need medical/editorial spot-check for wording quality and exact order against the original site where it matters.

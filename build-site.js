@@ -620,9 +620,12 @@ function renderGenericPage(slug, number = "—") {
     .filter((text) => !/записаться|консультац/i.test(text))
     .filter((text, i, arr) => arr.findIndex((item) => item.toLowerCase() === text.toLowerCase()) === i)
     .slice(0, 8);
+  const isNosePolish = slug === "nose_surgery";
   const images = usefulImages(page);
   const hero = heroImage(page, images);
-  const galleryImages = images.filter((image) => !hero || image.src !== hero.src);
+  const galleryImages = images
+    .filter((image) => !hero || image.src !== hero.src)
+    .filter((image) => !isNosePolish || !/procedures-nose/i.test(image.src));
   const textSections = collectTextSections(atoms);
   const usedText = new Set([normalizeContentKey(title)]);
   const seoLeadRaw = compactLead(page.seo?.description || "");
@@ -648,11 +651,22 @@ function renderGenericPage(slug, number = "—") {
     (text) => !sameContent(text, lead) && !sameContent(text, sectionSummary)
   );
   const detailFallback = "Врач уточняет показания, противопоказания и оптимальный объем лечения после очной консультации и диагностики.";
+  const sectionLabel = (text, textClass = "text-indigo2", dotClass = "bg-indigo2", marginClass = "mb-4") =>
+    isNosePolish
+      ? `<div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm ${textClass} text-[12px] uppercase tracking-[0.18em] font-semibold ${marginClass}"><span class="w-2 h-2 rounded-full ${dotClass}"></span><span>${text}</span></div>`
+      : `<div class="text-[13px] uppercase tracking-[0.2em] ${textClass} font-semibold ${marginClass}">— ${text}</div>`;
+  const aboutSectionClass = isNosePolish
+    ? "py-8 sm:py-10 lg:py-16 bg-white border-y border-ink/5"
+    : "py-12 sm:py-14 lg:py-24 bg-white border-y border-ink/5";
+  const detailsSectionClass = isNosePolish ? "py-10 sm:py-12 lg:py-16" : "py-12 sm:py-14 lg:py-24";
+  const imageSectionClass = isNosePolish
+    ? "py-10 sm:py-12 lg:py-16 bg-white border-y border-ink/5"
+    : "py-12 sm:py-14 lg:py-24";
   const imageGrid = galleryImages.length
-    ? `<section class="py-12 sm:py-14 lg:py-24">
+    ? `<section class="${imageSectionClass}">
   <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
-    <div class="text-[13px] uppercase tracking-[0.2em] text-indigo2 font-semibold mb-4">— Материалы</div>
-    <h2 class="font-display text-[32px] sm:text-4xl lg:text-5xl font-bold leading-[1] sm:leading-[0.98] tracking-tight mb-8 sm:mb-10">Изображения<br><span class="italic font-normal">из исходной страницы.</span></h2>
+    ${sectionLabel("Материалы", "text-indigo2", "bg-indigo2")}
+    <h2 class="font-display text-[32px] sm:text-4xl lg:text-5xl font-bold leading-[1] sm:leading-[0.98] tracking-tight mb-8 sm:mb-10">${isNosePolish ? "Наши работы" : "Изображения<br><span class=\"italic font-normal\">из исходной страницы.</span>"}</h2>
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       ${galleryImages
         .map(
@@ -676,6 +690,24 @@ function renderGenericPage(slug, number = "—") {
   </div>
 </section>`
     : "";
+  const ctaFooter = isNosePolish
+    ? parts.ctaFooter
+        .replace(
+          '<div class="text-[13px] uppercase tracking-[0.2em] text-mint font-semibold mb-4">— Запись</div>',
+          `<div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/8 border border-mint/60 text-mint text-[12px] uppercase tracking-[0.18em] font-semibold mb-4 shadow-sm"><span class="w-2 h-2 rounded-full bg-mint"></span><span>Запись</span></div>`
+        )
+        .replace("на бесплатную<br>консультацию.</span>", "на бесплатную<br>консультацию</span>")
+        .replace(
+          "Опишите цель вашего обращения. Мы свяжемся в течение 15 минут в рабочее время.",
+          "Опишите цель вашего обращения.<br>Мы свяжемся с вами в течение рабочего дня"
+        )
+        .replace(
+          '<footer class="bg-ink text-white border-t border-white/10">',
+          '<footer class="bg-[#080617] text-white border-t border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">'
+        )
+        .replace('class="max-w-[1400px] mx-auto px-5 lg:px-10 py-14"', 'class="max-w-[1400px] mx-auto px-5 lg:px-10 py-10 lg:py-12"')
+        .replace('class="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between gap-3 text-[12px] text-white/40"', 'class="mt-8 pt-5 border-t border-white/10 flex flex-col md:flex-row justify-between gap-3 text-[12px] text-white/40"')
+    : parts.ctaFooter;
 
   const head = updateSeo(parts.head, page);
   return `${head}
@@ -726,38 +758,44 @@ ${parts.nav}
   </div>
 </section>
 
-<section class="py-12 sm:py-14 lg:py-24 bg-white border-y border-ink/5">
+<section class="${aboutSectionClass}">
   <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
     <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
       <div>
-        <div class="text-[13px] uppercase tracking-[0.2em] text-indigo2 font-semibold mb-4">— О направлении</div>
+        ${sectionLabel("О направлении", "text-indigo2", "bg-indigo2")}
         <h2 class="font-display text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[0.98] sm:leading-[0.95] tracking-tight">Что важно<br><span class="italic font-normal">знать пациенту.</span></h2>
       </div>
-      <p class="max-w-md text-ink/60 text-[15px] leading-relaxed">${escapeHtml(sectionSummary)}</p>
+      ${isNosePolish
+        ? `<blockquote class="max-w-xl rounded-2xl bg-cream/70 border border-ink/10 px-6 py-5 shadow-sm">
+        <p class="text-ink/70 text-[17px] sm:text-[18px] leading-relaxed text-pretty">${escapeHtml(sectionSummary)}</p>
+      </blockquote>`
+        : `<p class="max-w-md text-ink/60 text-[15px] leading-relaxed">${escapeHtml(sectionSummary)}</p>`}
     </div>
     <ul class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       ${cards
         .map(
-          (card, i) => `<li class="card-hover rounded-2xl bg-cream border border-ink/5 p-6">
-        <div class="w-12 h-12 rounded-xl gradient-bg flex items-center justify-center text-white mb-5 font-display font-bold">${i + 1}</div>
-        <h3 class="font-display text-xl font-bold">${escapeHtml(card.replace(/[.;]$/, ""))}</h3>
+          (card, i) => `<li class="${isNosePolish ? "card-hover rounded-2xl bg-cream border border-ink/5 p-6 sm:p-7 min-h-[220px]" : "card-hover rounded-2xl bg-cream border border-ink/5 p-6"}">
+        <div class="${isNosePolish ? "w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center text-white mb-7 font-display font-bold text-2xl shadow-lg shadow-indigo2/15" : "w-12 h-12 rounded-xl gradient-bg flex items-center justify-center text-white mb-5 font-display font-bold"}">${i + 1}</div>
+        <h3 class="font-display ${isNosePolish ? "text-[22px] leading-snug" : "text-xl"} font-bold">${escapeHtml(card.replace(/[.;]$/, ""))}</h3>
       </li>`
         )
         .join("\n")}
     </ul>
-${tags.length ? `    <div class="mt-12 rounded-3xl bg-gradient-to-br from-indigo2/5 via-violet2/5 to-pink2/5 p-7 lg:p-10 border border-ink/5">
-      <div class="text-[13px] uppercase tracking-[0.2em] text-violet2 font-semibold mb-5">— С чем обращаются</div>
-      <ul class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-3 text-[15px] text-ink/80">
-        ${tags.map((tag) => `<li class="flex items-center gap-2"><span class="text-pink2">•</span> ${escapeHtml(tag)}</li>`).join("\n")}
+${tags.length ? `    <div class="${isNosePolish ? "mt-8 rounded-3xl bg-white p-6 lg:p-8 border border-ink/10 shadow-sm" : "mt-12 rounded-3xl bg-gradient-to-br from-indigo2/5 via-violet2/5 to-pink2/5 p-7 lg:p-10 border border-ink/5"}">
+      ${sectionLabel("С чем обращаются", "text-violet2", "bg-violet2", "mb-5")}
+      <ul class="${isNosePolish ? "grid sm:grid-cols-2 lg:grid-cols-4 gap-3 text-[15px] text-ink/80" : "grid sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-3 text-[15px] text-ink/80"}">
+        ${tags.map((tag) => isNosePolish
+          ? `<li class="min-h-[70px] rounded-2xl bg-cream/80 border border-ink/5 px-4 py-3 flex items-start gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-pink2 shrink-0"></span><span>${escapeHtml(tag)}</span></li>`
+          : `<li class="flex items-center gap-2"><span class="text-pink2">•</span> ${escapeHtml(tag)}</li>`).join("\n")}
       </ul>
     </div>` : ""}
   </div>
 </section>
 
-<section class="py-12 sm:py-14 lg:py-24">
+<section class="${detailsSectionClass}">
   <div class="max-w-[1400px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12">
     <div class="lg:col-span-5">
-      <div class="text-[13px] uppercase tracking-[0.2em] text-pink2 font-semibold mb-4">— Подробности</div>
+      ${sectionLabel("Подробности", "text-pink2", "bg-pink2")}
       <h2 class="font-display text-[32px] sm:text-4xl lg:text-5xl font-bold leading-[1] sm:leading-[0.98] tracking-tight">
         <span class="gradient-text">Индивидуальный</span><br>
         <span class="italic font-normal">план лечения.</span>
@@ -779,7 +817,7 @@ ${steps.length ? `    <div class="lg:col-span-7">
 
 ${extraTextHtml}
 ${imageGrid}
-${parts.ctaFooter}`;
+${ctaFooter}`;
 }
 
 function build() {
