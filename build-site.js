@@ -34,6 +34,8 @@ const services = [
   ["endolifting", "НОВИНКА! Эндолифтинг лица, удаление комков Биша"],
 ];
 
+const serviceSlugs = new Set(services.map(([slug]) => slug));
+
 const secondary = [
   ["trofimov", "Трофимов Евгений Иванович"],
   ["kravchenko", "Кравченко Дмитрий Валерьевич"],
@@ -620,12 +622,12 @@ function renderGenericPage(slug, number = "—") {
     .filter((text) => !/записаться|консультац/i.test(text))
     .filter((text, i, arr) => arr.findIndex((item) => item.toLowerCase() === text.toLowerCase()) === i)
     .slice(0, 8);
-  const isNosePolish = slug === "nose_surgery";
+  const isServicePolish = serviceSlugs.has(slug);
   const images = usefulImages(page);
   const hero = heroImage(page, images);
   const galleryImages = images
     .filter((image) => !hero || image.src !== hero.src)
-    .filter((image) => !isNosePolish || !/procedures-nose/i.test(image.src));
+    .filter((image) => slug !== "nose_surgery" || !/procedures-nose/i.test(image.src));
   const textSections = collectTextSections(atoms);
   const usedText = new Set([normalizeContentKey(title)]);
   const seoLeadRaw = compactLead(page.seo?.description || "");
@@ -652,21 +654,21 @@ function renderGenericPage(slug, number = "—") {
   );
   const detailFallback = "Врач уточняет показания, противопоказания и оптимальный объем лечения после очной консультации и диагностики.";
   const sectionLabel = (text, textClass = "text-indigo2", dotClass = "bg-indigo2", marginClass = "mb-4") =>
-    isNosePolish
+    isServicePolish
       ? `<div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm ${textClass} text-[12px] uppercase tracking-[0.18em] font-semibold ${marginClass}"><span class="w-2 h-2 rounded-full ${dotClass}"></span><span>${text}</span></div>`
       : `<div class="text-[13px] uppercase tracking-[0.2em] ${textClass} font-semibold ${marginClass}">— ${text}</div>`;
-  const aboutSectionClass = isNosePolish
+  const aboutSectionClass = isServicePolish
     ? "py-8 sm:py-10 lg:py-16 bg-white border-y border-ink/5"
     : "py-12 sm:py-14 lg:py-24 bg-white border-y border-ink/5";
-  const detailsSectionClass = isNosePolish ? "py-10 sm:py-12 lg:py-16" : "py-12 sm:py-14 lg:py-24";
-  const imageSectionClass = isNosePolish
+  const detailsSectionClass = isServicePolish ? "py-10 sm:py-12 lg:py-16" : "py-12 sm:py-14 lg:py-24";
+  const imageSectionClass = isServicePolish
     ? "py-10 sm:py-12 lg:py-16 bg-white border-y border-ink/5"
     : "py-12 sm:py-14 lg:py-24";
   const imageGrid = galleryImages.length
     ? `<section class="${imageSectionClass}">
   <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
     ${sectionLabel("Материалы", "text-indigo2", "bg-indigo2")}
-    <h2 class="font-display text-[32px] sm:text-4xl lg:text-5xl font-bold leading-[1] sm:leading-[0.98] tracking-tight mb-8 sm:mb-10">${isNosePolish ? "Наши работы" : "Изображения<br><span class=\"italic font-normal\">из исходной страницы.</span>"}</h2>
+    <h2 class="font-display text-[32px] sm:text-4xl lg:text-5xl font-bold leading-[1] sm:leading-[0.98] tracking-tight mb-8 sm:mb-10">${isServicePolish ? "Наши работы" : "Изображения<br><span class=\"italic font-normal\">из исходной страницы.</span>"}</h2>
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       ${galleryImages
         .map(
@@ -690,7 +692,7 @@ function renderGenericPage(slug, number = "—") {
   </div>
 </section>`
     : "";
-  const ctaFooter = isNosePolish
+  const ctaFooter = isServicePolish
     ? parts.ctaFooter
         .replace(
           '<div class="text-[13px] uppercase tracking-[0.2em] text-mint font-semibold mb-4">— Запись</div>',
@@ -765,7 +767,7 @@ ${parts.nav}
         ${sectionLabel("О направлении", "text-indigo2", "bg-indigo2")}
         <h2 class="font-display text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[0.98] sm:leading-[0.95] tracking-tight">Что важно<br><span class="italic font-normal">знать пациенту.</span></h2>
       </div>
-      ${isNosePolish
+      ${isServicePolish
         ? `<blockquote class="max-w-xl rounded-2xl bg-cream/70 border border-ink/10 px-6 py-5 shadow-sm">
         <p class="text-ink/70 text-[17px] sm:text-[18px] leading-relaxed text-pretty">${escapeHtml(sectionSummary)}</p>
       </blockquote>`
@@ -774,17 +776,17 @@ ${parts.nav}
     <ul class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       ${cards
         .map(
-          (card, i) => `<li class="${isNosePolish ? "card-hover rounded-2xl bg-cream border border-ink/5 p-6 sm:p-7 min-h-[220px]" : "card-hover rounded-2xl bg-cream border border-ink/5 p-6"}">
-        <div class="${isNosePolish ? "w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center text-white mb-7 font-display font-bold text-2xl shadow-lg shadow-indigo2/15" : "w-12 h-12 rounded-xl gradient-bg flex items-center justify-center text-white mb-5 font-display font-bold"}">${i + 1}</div>
-        <h3 class="font-display ${isNosePolish ? "text-[22px] leading-snug" : "text-xl"} font-bold">${escapeHtml(card.replace(/[.;]$/, ""))}</h3>
+          (card, i) => `<li class="${isServicePolish ? "card-hover rounded-2xl bg-cream border border-ink/5 p-6 sm:p-7 min-h-[220px]" : "card-hover rounded-2xl bg-cream border border-ink/5 p-6"}">
+        <div class="${isServicePolish ? "w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center text-white mb-7 font-display font-bold text-2xl shadow-lg shadow-indigo2/15" : "w-12 h-12 rounded-xl gradient-bg flex items-center justify-center text-white mb-5 font-display font-bold"}">${i + 1}</div>
+        <h3 class="font-display ${isServicePolish ? "text-[22px] leading-snug" : "text-xl"} font-bold">${escapeHtml(card.replace(/[.;]$/, ""))}</h3>
       </li>`
         )
         .join("\n")}
     </ul>
-${tags.length ? `    <div class="${isNosePolish ? "mt-8 rounded-3xl bg-white p-6 lg:p-8 border border-ink/10 shadow-sm" : "mt-12 rounded-3xl bg-gradient-to-br from-indigo2/5 via-violet2/5 to-pink2/5 p-7 lg:p-10 border border-ink/5"}">
+${tags.length ? `    <div class="${isServicePolish ? "mt-8 rounded-3xl bg-white p-6 lg:p-8 border border-ink/10 shadow-sm" : "mt-12 rounded-3xl bg-gradient-to-br from-indigo2/5 via-violet2/5 to-pink2/5 p-7 lg:p-10 border border-ink/5"}">
       ${sectionLabel("С чем обращаются", "text-violet2", "bg-violet2", "mb-5")}
-      <ul class="${isNosePolish ? "grid sm:grid-cols-2 lg:grid-cols-4 gap-3 text-[15px] text-ink/80" : "grid sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-3 text-[15px] text-ink/80"}">
-        ${tags.map((tag) => isNosePolish
+      <ul class="${isServicePolish ? "grid sm:grid-cols-2 lg:grid-cols-4 gap-3 text-[15px] text-ink/80" : "grid sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-3 text-[15px] text-ink/80"}">
+        ${tags.map((tag) => isServicePolish
           ? `<li class="min-h-[70px] rounded-2xl bg-cream/80 border border-ink/5 px-4 py-3 flex items-start gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-pink2 shrink-0"></span><span>${escapeHtml(tag)}</span></li>`
           : `<li class="flex items-center gap-2"><span class="text-pink2">•</span> ${escapeHtml(tag)}</li>`).join("\n")}
       </ul>
