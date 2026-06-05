@@ -73,7 +73,9 @@ At the end of a working session:
 3. Run quick verification.
 4. Commit with a clear message.
 5. Push to GitHub.
-6. Confirm Netlify deployed the latest `main` commit.
+6. Confirm Netlify deployed the relevant branch:
+   - `service-pages-v2` preview during the current review cycle;
+   - `main` production only after explicit approval.
 
 Repository: `https://github.com/temakz/surgery.git`
 Branch: `main`
@@ -82,6 +84,9 @@ First push completed by the user on 2026-05-23.
 Current review branch: `service-pages-v2`.
 Continue service-page v2 work on this branch and push to `origin/service-pages-v2`.
 Merge into `main` only after the user approves the preview.
+
+Latest confirmed service-page v2 preview commit as of 2026-06-05:
+- `dbb3e68 polish service pages and tmj content`
 
 Netlify production URL: `https://cmf-surgery.netlify.app/`
 Netlify preview URL for service-page v2: `http://service-pages-v2--cmf-surgery.netlify.app/`

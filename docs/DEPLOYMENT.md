@@ -14,6 +14,7 @@ Current preview workflow:
 - Preview URL: `http://service-pages-v2--cmf-surgery.netlify.app/`
 - Keep production `main` unchanged until the preview is approved.
 - After approval, merge `service-pages-v2` into `main` and let Netlify publish the merged `site-dist`.
+- Latest confirmed preview commit as of 2026-06-05: `dbb3e68 polish service pages and tmj content`.
 
 Netlify:
 - Publish directory: `site-dist`
@@ -61,10 +62,10 @@ Then verify:
 ## End-Of-Session Deploy Ritual
 
 For in-review work that should not go live yet, push the current branch instead of `main`.
-As of 2026-06-04, service-page v2 work is being pushed to:
+As of 2026-06-05, service-page v2 work is being pushed to:
 
 ```bat
-git push -u origin service-pages-v2
+git push origin service-pages-v2
 ```
 
 Only merge/push to `main` after approval.
@@ -91,14 +92,29 @@ http://service-pages-v2--cmf-surgery.netlify.app/
    ```
 
 3. Check Netlify deploy:
-   - open Netlify Deploys;
-   - confirm deploy from latest `main` commit is successful;
+   - for preview work, confirm deploy from latest `service-pages-v2` commit is successful;
+   - for production work after approval, confirm deploy from latest `main` commit is successful;
    - if needed, trigger redeploy manually.
 
-4. Open:
+4. Open the relevant URL:
 
    ```txt
+   http://service-pages-v2--cmf-surgery.netlify.app/
    https://cmf-surgery.netlify.app/
    ```
 
 5. Record deploy status in the latest handoff file.
+
+## Latest Preview Verification
+
+After pushing `dbb3e68` on 2026-06-05, the preview page was checked directly:
+
+```txt
+https://service-pages-v2--cmf-surgery.netlify.app/tmj_treatment.html
+```
+
+Confirmed:
+- HTTP status `200`;
+- restored TMJ text marker `Динамическая МРТ аксиография`;
+- compact YouTube thumbnail marker `i.ytimg.com/vi/_I0rorCC29s/hqdefault.jpg`;
+- fourth video marker `JAs0wK6AK4g`.

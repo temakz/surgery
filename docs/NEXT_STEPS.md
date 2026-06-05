@@ -13,17 +13,18 @@
    - Netlify is connected: `https://cmf-surgery.netlify.app/`
    - Netlify publishes prebuilt `site-dist` with empty build command.
 
-2. Apply the approved `nose_surgery` sample polish to all service pages.
-   - The user approved using `nose_surgery` as the style sample.
-   - Generalize the changes through `build-site.js`, not by hand-editing generated HTML.
-   - Preserve page-specific content and avoid empty/awkward sections when a page has fewer bullets, details, or gallery images.
-   - Rebuild with `node build-site.js`, then verify root and `site-dist`.
-
-3. Continue visual QA on the preview deployment after each content/design pass.
+2. Continue visual QA on the preview deployment after the completed service-page polish rollout.
    - Check `http://service-pages-v2--cmf-surgery.netlify.app/`.
-   - Priority pages: homepage, `scars`, `tmj_treatment`, `exo`, `implantology`, mobile layout and lightbox.
+   - Latest pushed preview commit: `dbb3e68 polish service pages and tmj content`.
+   - Priority pages: homepage, `nose_surgery`, `scars`, `tmj_treatment`, `exo`, `implantology`, mobile layout, lightbox and TMJ video thumbnail cards.
+   - `tmj_treatment` preview was confirmed updated after push: status `200`, compact YouTube thumbnail cards present, restored TMJ text present.
 
-4. Next design/content scope.
+3. Approve or continue service-page review.
+   - The approved `nose_surgery` sample polish has now been generalized through `build-site.js`.
+   - Root HTML and `site-dist` were rebuilt and pushed to `origin/service-pages-v2`.
+   - Do not merge to `main` until the user explicitly approves the preview.
+
+4. Next design/content scope after service-page approval.
    - Specialists, technologies, recommendations, doctors and contact-like pages still need a separate layout/design pass.
    - Current service-page cleanup was applied through `build-site.js`, so secondary generated pages also inherited the cleaner generic renderer until a dedicated layout replaces it.
 
@@ -31,6 +32,7 @@
    - The 21 priority service pages now use the original Tilda/OG hero image as a rectangular top image.
    - Long parser duplicates were removed from service content by separating prose, bullet items, tags and detail copy.
    - Need medical/editorial spot-check for wording quality and exact order against the original site where it matters.
+   - `tmj_treatment` received extra manual restoration of lost long-form content and video thumbnail links during the 2026-06-05 session.
 
 ## Content And Design
 
