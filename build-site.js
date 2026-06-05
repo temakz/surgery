@@ -92,6 +92,80 @@ function escapeHtml(value = "") {
     .replaceAll('"', "&quot;");
 }
 
+function capitalizeFirst(value = "") {
+  const text = String(value).trim();
+  if (!text) return "";
+  return text.charAt(0).toLocaleUpperCase("ru-RU") + text.slice(1);
+}
+
+function cleanHeroLead(value = "") {
+  return String(value)
+    .replace(/\s*Московская область,\s*Одинцово\.?/gi, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+const tmjTreatmentCards = [
+  {
+    title: "Сплинт терапия",
+    text: "Лечение окклюзионными шинами, окклюзионными аппаратами (производство Германия, Австрия, Швейцария), либо совместное с Россией.",
+  },
+  {
+    title: "Векторная Botox терапия",
+    text: "Микро-инъекции в жевательную мускулатуру для проведения мышечного релаксационного ремоделирования.",
+  },
+  {
+    title: "Микротоковая магнитная терапия",
+    text: "Магнитная релаксационная корригирующая терапия.",
+  },
+  {
+    title: "Декомпрессионный артроцентез-артролаваж",
+    text: "Введение специфических противовоспалительных средств прямо внутрь сустава.",
+  },
+  {
+    title: "Устранение внутрисуставных спаек",
+    text: "Репозиция, вправление диска и его фиксация имплантатами и имплантацией задней связки.",
+  },
+];
+
+const tmjArthroplastyIntro =
+  "Артроскопическая артропластика. В продолжение методики Артоскопии (суть которой заключалась в проведении диагностики состояния сустава и дальнейшего его промывания, удалении участков деструкции хрящевой ткани и расширении суставной полости) были разработаны и внедрены в практику мировой артрогнатологии следующие методы возможной коррекции, которые выполняются в нашем центре:";
+
+const tmjArthroplastyItems = [
+  "репонирование диска",
+  "фиксация диска резорбируемыми (рассасывающимися) материалами",
+  "пластика мягких тканей сустава",
+  "имплантация мягкотканых элементов для протезирования внутрисуставного диска и внутрисуставных связок",
+];
+
+const tmjTreatmentVideos = [
+  {
+    id: "_I0rorCC29s",
+    title: "Артроскопия внчс патология виден сппечный процесс в верхнем этаже ВНЧС",
+  },
+  {
+    id: "4R6QFMyCJe8",
+    title: "Артроскопия внчс - норма",
+  },
+  {
+    id: "3Mn4pa5f0Cs",
+    title: "Принцип работы жевательного аппарата и этапы развития патологии жевательного аппарата ВНЧС",
+  },
+  {
+    id: "JAs0wK6AK4g",
+    title: "Принцип лечения пациентов с функциональными нарушениями жевательного аппарата, ВНЧС. Сплинт терапия.",
+  },
+];
+
+function stripTmjTreatmentExtra(paragraphs) {
+  return paragraphs.filter(
+    (text) =>
+      !/^Виды лечения/.test(text) &&
+      !/^Артроскопическая артропластика/.test(text) &&
+      !/^В продолжение методики Артоскопии/.test(text)
+  );
+}
+
 function decodeEntities(value = "") {
   return value
     .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
@@ -276,6 +350,89 @@ function collectTextSections(atoms) {
 
 function renderParagraphs(paragraphs) {
   return paragraphs.map((p) => `<p>${escapeHtml(p)}</p>`).join("\n");
+}
+
+function strongPrefix(text, prefix) {
+  const escapedText = escapeHtml(text);
+  const escapedPrefix = escapeHtml(prefix);
+  return escapedText.startsWith(escapedPrefix)
+    ? `<strong class="font-semibold text-ink">${escapedPrefix}</strong>${escapedText.slice(escapedPrefix.length)}`
+    : escapedText;
+}
+
+function renderTmjDetailCopy() {
+  const paragraphs = [
+    "Динамическая МРТ аксиография – запись движение ВНЧС при открывании, закрывании и жевании, а так же внутрисуставных структур и жевательных мышц. Возможность так же определять состояние ВНЧС и жевательной мускулатуры при нагрузке. Данная методика даёт исчерпывающий ответ на вопрос состояния, морфологии структур ВНЧС, жевательной мускулатуры, а так же состояния и положения прикуса.",
+    "Гнатоанализ в системе полностью юстируемых артикуляторов, MPI анализ, механическая и ультрозвуковая аксиография, миография жевательной мускулатуры, УЗИ ВНЧС и жевательной мускулатуры.",
+    "Hi-tech – персонализированный 3D-артикулятор изготовленный на основе STL-модели черепа пациента полученной методом спиральной компьютерной томографии и с возможностью анализа движения нижней челюсти в системе и программе полного виртуального анализа.",
+  ];
+
+  return paragraphs
+    .map((paragraph) => `<p>${strongPrefix(paragraph, "Hi-tech – персонализированный 3D-артикулятор")}</p>`)
+    .join("\n");
+}
+
+function tmjSubheading(text) {
+  return `<h3 class="font-display text-[22px] sm:text-[24px] leading-snug font-bold text-ink mt-8 first:mt-0">${escapeHtml(text)}</h3>`;
+}
+
+function tmjTextParagraph(text, strong = []) {
+  let html = escapeHtml(text);
+  for (const phrase of strong) {
+    const escapedPhrase = escapeHtml(phrase);
+    html = html.replace(escapedPhrase, `<strong class="font-semibold text-ink">${escapedPhrase}</strong>`);
+  }
+  return `<p>${html}</p>`;
+}
+
+function renderTmjExtraContent() {
+  return [
+    tmjSubheading("Нашими новыми разработками и новыми технологическими внедрениями явились:"),
+    tmjTextParagraph("Кинематическое МРТ — исследование движения нижней челюсти, ВНЧС, внутрисуставного диска, связок и жевательной мускулатуры в динамике."),
+    tmjTextParagraph("Данный вид исследования несёт в себе более 90 % информативности и наглядно демонстрирует состояние тканей в динамике и при нагрузке. Это является важным и информативным в диагностике и понимании патологических процессов."),
+    tmjSubheading("Эндоскопический остеосинтез челюстей"),
+    tmjTextParagraph("Уникальностью данного исследования является то, что оно в себе одном объединяет: аксиографию, MPI исследования, миографию. И самое главное даёт визуальное отображение данных."),
+    tmjSubheading("Лечебная и диагностическая артроскопия ВНЧС"),
+    tmjTextParagraph("Также для врачей ортопедов и ортодонтов возможно проведение исследования для оценки влияния окклюзии, созданной во время лечения, на функцию ВНЧС при жевании и различных нагрузочных тестах, а также расчётов кривизны суставного пути и углов Беннета."),
+    tmjSubheading("Гнатология и Артрология ВНЧС"),
+    tmjTextParagraph("У пациентов с выраженными явлениями деструкции височно-нижнечелюстного сустава."),
+    tmjTextParagraph("При разрушении диска или его выраженной вторичной деформации, атрофии, склерозировании связочного компонента или полном разрыве связок, гипертрофии и деформации костных структур, при деформирующем остеоартрозе ВНЧС, при компрессионном синдроме в нашем Центре выполняются операции реконструкции ВНЧС."),
+    tmjTextParagraph("В виде открытой артропластики с реконструкцией, трансплантацией связочного аппарата ВНЧС, трансплантацией и пластикой диска ВНЧС и биламинарной зоны, с пластикой и моделированием костных структур, с удалением разрастаний и восстановлением функции ВНЧС.", ["открытой артропластики"]),
+    tmjTextParagraph("У пациентов с отсутствием ВНЧС, больших дефектах нижней челюсти, у пациентов после онкологических заболеваний, у пациентов с тяжелыми травмами или огнестрельными ранениями нижней челюсти в нашем центре выполняются операции по дистракционному остеонеогенезу – аппаратному выращиванию суставного отростка, пересадка и пластика свободным костно-хрящевым трансплантатом и пересадка и пластика реваскуляризированным костно-хрящевым трансплантатом (микрохирургическая реконструкция).", ["остеонеогенезу"]),
+    tmjTextParagraph("Отдельным направлением является новое революционное изобретение в виде наружнего (искусственного) сустава, по принципу экзоскелета, который на время может заменять функцию сустава и не позволять срастаться суставным поверхностям или запустить функцию сустава, вытянуть разрушающийся сустав, дав возможность убрать явления сдавливания и вернуть внутрисуставные структуры обратно в анатомически правильное положение."),
+    tmjTextParagraph("Самое главное для структур сустава и окружающих его тканей является ранее восстановление их активности. Уникальностью данной технологии является возможность управлять степенью растяжения сустава, вытяжением суставного отростка (головки нижней челюсти) и его направлении."),
+    tmjTextParagraph("При этом сама операция по установке данного устройства не травматична и малокровна, операционный доступ делается в волосистой части головы и в виде двух проколов в области угла нижней челюсти."),
+    tmjSubheading("Направление аппаратной механотерапии пациентов с ограничением открывания рта"),
+    tmjTextParagraph("В нашем центре применяется целый ряд аппаратов и методик для разработки открывания рта и движения нижней челюсти."),
+    tmjTextParagraph("Hi-tech – получение, подготовка и введение – установка аутоклеточного тканевого материала взятого у самого пациента для регенерации хрящевой ткани и связачного аппарата сустава, способ введения через инъекции либо артроскопический.", ["Hi-tech"]),
+  ].join("\n");
+}
+
+function renderTmjVideoSection(sectionLabel) {
+  if (!tmjTreatmentVideos.length) return "";
+  return `<section class="py-8 sm:py-10 lg:py-14 bg-white border-y border-ink/5">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+    ${sectionLabel("Видео", "text-indigo2", "bg-indigo2")}
+    <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance mb-6 sm:mb-8">Видео<br><span class="italic font-normal">по лечению ВНЧС</span></h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      ${tmjTreatmentVideos
+        .map(
+          (video) => `<article class="rounded-2xl bg-cream border border-ink/5 overflow-hidden shadow-sm">
+        <h3 class="min-h-[88px] px-4 pt-4 pb-3 text-[13px] sm:text-[14px] leading-snug font-semibold text-indigo2">ВИДЕО: ${escapeHtml(video.title)}</h3>
+        <a href="https://www.youtube.com/watch?v=${encodeURIComponent(video.id)}" target="_blank" rel="noopener" class="group relative block aspect-video bg-ink overflow-hidden" aria-label="Смотреть видео на YouTube: ${escapeHtml(video.title)}">
+          <img src="https://i.ytimg.com/vi/${encodeURIComponent(video.id)}/hqdefault.jpg" alt="${escapeHtml(video.title)}" class="absolute inset-0 w-full h-full object-cover transition duration-300 group-hover:scale-[1.03]" loading="lazy">
+          <span class="absolute inset-0 bg-ink/20 group-hover:bg-ink/10 transition"></span>
+          <span class="absolute left-1/2 top-1/2 w-14 h-10 -translate-x-1/2 -translate-y-1/2 rounded-xl bg-[#ff0000] text-white shadow-lg flex items-center justify-center transition duration-300 group-hover:scale-105">
+            <span class="ml-1 w-0 h-0 border-y-[9px] border-y-transparent border-l-[15px] border-l-white"></span>
+          </span>
+          <span class="absolute right-3 bottom-3 rounded-full bg-ink/80 px-3 py-1.5 text-[12px] font-semibold text-white backdrop-blur">Смотреть на YouTube</span>
+        </a>
+      </article>`
+        )
+        .join("\n")}
+    </div>
+  </div>
+</section>`;
 }
 
 function galleryImageClass(image) {
@@ -627,18 +784,20 @@ function renderGenericPage(slug, number = "—") {
   const hero = heroImage(page, images);
   const galleryImages = images
     .filter((image) => !hero || image.src !== hero.src)
-    .filter((image) => slug !== "nose_surgery" || !/procedures-nose/i.test(image.src));
+    .filter((image) => slug !== "nose_surgery" || !/procedures-nose/i.test(image.src))
+    .filter((image) => slug !== "tmj_treatment" || !/_tmj_treatment1/i.test(image.src));
   const textSections = collectTextSections(atoms);
   const usedText = new Set([normalizeContentKey(title)]);
   const seoLeadRaw = compactLead(page.seo?.description || "");
   const seoLead = sameContent(title, seoLeadRaw) || isBulletRun(seoLeadRaw) ? "" : seoLeadRaw;
   const allParagraphs = uniqueTexts(textSections.flatMap((section) => section.paragraphs).filter((text) => !isBulletRun(text)), usedText);
   const allBullets = uniqueTexts(textSections.flatMap((section) => section.bullets), usedText);
-  const lead = seoLead || allParagraphs[0] || "На консультации врач оценивает клиническую ситуацию и подбирает индивидуальный план лечения по этому направлению.";
+  const rawLead = seoLead || allParagraphs[0] || "На консультации врач оценивает клиническую ситуацию и подбирает индивидуальный план лечения по этому направлению.";
+  const lead = cleanHeroLead(rawLead) || rawLead;
   const paragraphsAfterLead = allParagraphs.filter((text) => !sameContent(text, lead));
   const introParagraphs = paragraphsAfterLead.slice(0, 2);
   const detailParagraphs = paragraphsAfterLead.slice(2, 8);
-  const remainingParagraphs = paragraphsAfterLead.slice(8);
+  let remainingParagraphs = paragraphsAfterLead.slice(8);
 
   const cardPool = (allBullets.length ? allBullets : h2).filter((item) => !/^симптомы$/i.test(item));
   const cards = cardPool.slice(0, 4);
@@ -648,10 +807,14 @@ function renderGenericPage(slug, number = "—") {
     .filter((item) => !/^симптомы$/i.test(item))
     .filter((item) => !usedShortItems.has(normalizeContentKey(item)))
     .slice(0, 8);
+  if (slug === "tmj_treatment") remainingParagraphs = stripTmjTreatmentExtra(remainingParagraphs);
+  const treatmentCards = slug === "tmj_treatment" ? tmjTreatmentCards : cards.map((card) => ({ title: card.replace(/[.;]$/, ""), text: "" }));
+  const treatmentGridClass = slug === "tmj_treatment" ? "grid sm:grid-cols-2 lg:grid-cols-5 gap-4" : "grid sm:grid-cols-2 lg:grid-cols-4 gap-4";
   const sectionSummary = introParagraphs[0] || "Ниже собраны основные задачи и варианты помощи по этому направлению.";
   const detailCopy = (detailParagraphs.length ? detailParagraphs : introParagraphs.slice(1)).filter(
     (text) => !sameContent(text, lead) && !sameContent(text, sectionSummary)
   );
+  const visibleDetailCopy = slug === "tmj_treatment" ? stripTmjTreatmentExtra(detailCopy) : detailCopy;
   const detailFallback = "Врач уточняет показания, противопоказания и оптимальный объем лечения после очной консультации и диагностики.";
   const sectionLabel = (text, textClass = "text-indigo2", dotClass = "bg-indigo2", marginClass = "mb-4") =>
     isServicePolish
@@ -668,7 +831,7 @@ function renderGenericPage(slug, number = "—") {
     ? `<section class="${imageSectionClass}">
   <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
     ${sectionLabel("Материалы", "text-indigo2", "bg-indigo2")}
-    <h2 class="font-display text-[32px] sm:text-4xl lg:text-5xl font-bold leading-[1] sm:leading-[0.98] tracking-tight mb-8 sm:mb-10">${isServicePolish ? "Наши работы" : "Изображения<br><span class=\"italic font-normal\">из исходной страницы.</span>"}</h2>
+    <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance mb-8 sm:mb-10">${isServicePolish ? "Наши работы" : "Изображения<br><span class=\"italic font-normal\">из исходной страницы.</span>"}</h2>
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       ${galleryImages
         .map(
@@ -681,19 +844,24 @@ function renderGenericPage(slug, number = "—") {
   </div>
 </section>`
     : "";
-  const extraTextHtml = remainingParagraphs.length
-    ? `<section class="py-12 sm:py-14 lg:py-24 bg-cream border-y border-ink/5">
+  const extraBodyHtml = slug === "tmj_treatment" ? renderTmjExtraContent() : renderParagraphs(remainingParagraphs);
+  const extraTextHtml = slug === "tmj_treatment" || remainingParagraphs.length
+    ? `<section class="py-8 sm:py-10 lg:py-14 bg-cream border-y border-ink/5">
   <div class="max-w-[1100px] mx-auto px-5 lg:px-10">
     <div class="text-[13px] uppercase tracking-[0.2em] text-indigo2 font-semibold mb-4">— Подробнее</div>
-    <h2 class="font-display text-[32px] sm:text-4xl lg:text-5xl font-bold leading-[1] sm:leading-[0.98] tracking-tight mb-8">Дополнительная<br><span class="italic font-normal">информация.</span></h2>
-    <div class="space-y-4 text-[16px] sm:text-[17px] leading-relaxed text-ink/70">
-      ${renderParagraphs(remainingParagraphs)}
+    <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance mb-8">Дополнительная<br><span class="italic font-normal">информация</span></h2>
+    <div class="space-y-4 text-[16px] leading-relaxed text-ink/70">
+      ${extraBodyHtml}
     </div>
   </div>
 </section>`
     : "";
   const ctaFooter = isServicePolish
     ? parts.ctaFooter
+        .replace(
+          '<section id="book" class="py-12 sm:py-14 lg:py-24 bg-ink text-white relative overflow-hidden">',
+          '<section id="book" class="py-8 sm:py-10 lg:py-16 bg-ink text-white relative overflow-hidden">'
+        )
         .replace(
           '<div class="text-[13px] uppercase tracking-[0.2em] text-mint font-semibold mb-4">— Запись</div>',
           `<div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/8 border border-mint/60 text-mint text-[12px] uppercase tracking-[0.18em] font-semibold mb-4 shadow-sm"><span class="w-2 h-2 rounded-full bg-mint"></span><span>Запись</span></div>`
@@ -707,9 +875,33 @@ function renderGenericPage(slug, number = "—") {
           '<footer class="bg-ink text-white border-t border-white/10">',
           '<footer class="bg-[#080617] text-white border-t border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">'
         )
+        .replace('class="bg-white/5 backdrop-blur border border-white/10 rounded-3xl p-7 lg:p-9"', 'class="bg-white/5 backdrop-blur border border-white/10 rounded-3xl p-6 lg:p-8"')
         .replace('class="max-w-[1400px] mx-auto px-5 lg:px-10 py-14"', 'class="max-w-[1400px] mx-auto px-5 lg:px-10 py-10 lg:py-12"')
         .replace('class="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between gap-3 text-[12px] text-white/40"', 'class="mt-8 pt-5 border-t border-white/10 flex flex-col md:flex-row justify-between gap-3 text-[12px] text-white/40"')
     : parts.ctaFooter;
+  const detailStepsHtml =
+    slug === "tmj_treatment"
+      ? `<div class="lg:col-span-7">
+      <h3 class="font-display text-[22px] leading-snug font-bold mb-4">Артроскопическая артропластика</h3>
+      <p class="text-[16px] leading-relaxed text-ink/70 mb-6">${escapeHtml(tmjArthroplastyIntro.replace(/^Артроскопическая артропластика\.\s*/, ""))}</p>
+      <ol class="space-y-1">
+        ${tmjArthroplastyItems.map((item, i) => `<li class="step-line relative pl-16 py-5">
+          <span class="absolute left-0 top-5 w-10 h-10 rounded-full bg-white border border-ink/10 flex items-center justify-center font-display font-bold text-indigo2">${i + 1}</span>
+          <h3 class="font-display text-xl font-bold">${escapeHtml(item)}</h3>
+        </li>`).join("\n")}
+      </ol>
+    </div>`
+      : steps.length
+        ? `<div class="lg:col-span-7">
+      <ol class="space-y-1">
+        ${steps.map((item, i) => `<li class="step-line relative pl-16 py-5">
+          <span class="absolute left-0 top-5 w-10 h-10 rounded-full bg-white border border-ink/10 flex items-center justify-center font-display font-bold text-indigo2">${i + 1}</span>
+          <h3 class="font-display text-xl font-bold">${escapeHtml(item.replace(/[.;]$/, ""))}</h3>
+        </li>`).join("\n")}
+      </ol>
+    </div>`
+        : "";
+  const videoSectionHtml = slug === "tmj_treatment" ? renderTmjVideoSection(sectionLabel) : "";
 
   const head = updateSeo(parts.head, page);
   return `${head}
@@ -734,7 +926,7 @@ ${parts.nav}
         <span class="text-[11px] font-mono text-pink2">№ ${number}</span>
         <span class="text-[12px] text-ink/60">в списке направлений</span>
       </div>
-      <h1 class="font-display text-[32px] sm:text-[48px] md:text-[58px] lg:text-[74px] leading-[1] sm:leading-[0.96] tracking-tight font-bold">
+      <h1 class="font-display text-[26px] sm:text-[42px] md:text-[52px] lg:text-[68px] leading-[1.12] sm:leading-[1.06] tracking-tight font-bold text-balance">
         ${escapeHtml(title)}
       </h1>
       <p class="font-display text-lg sm:text-2xl lg:text-3xl text-ink/60 mt-3 sm:mt-4 italic">
@@ -765,7 +957,7 @@ ${parts.nav}
     <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
       <div>
         ${sectionLabel("О направлении", "text-indigo2", "bg-indigo2")}
-        <h2 class="font-display text-[32px] sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[0.98] sm:leading-[0.95] tracking-tight">Что важно<br><span class="italic font-normal">знать пациенту.</span></h2>
+        <h2 class="font-display text-[26px] sm:text-[30px] md:text-[42px] lg:text-[54px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance">Что важно<br><span class="italic font-normal">знать пациенту</span></h2>
       </div>
       ${isServicePolish
         ? `<blockquote class="max-w-xl rounded-2xl bg-cream/70 border border-ink/10 px-6 py-5 shadow-sm">
@@ -773,12 +965,12 @@ ${parts.nav}
       </blockquote>`
         : `<p class="max-w-md text-ink/60 text-[15px] leading-relaxed">${escapeHtml(sectionSummary)}</p>`}
     </div>
-    <ul class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      ${cards
+${slug === "tmj_treatment" ? `    ${sectionLabel("Виды лечения", "text-indigo2", "bg-indigo2", "mb-5")}\n` : ""}    <ul class="${treatmentGridClass}">
+      ${treatmentCards
         .map(
           (card, i) => `<li class="${isServicePolish ? "card-hover rounded-2xl bg-cream border border-ink/5 p-6 sm:p-7 min-h-[220px]" : "card-hover rounded-2xl bg-cream border border-ink/5 p-6"}">
         <div class="${isServicePolish ? "w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center text-white mb-7 font-display font-bold text-2xl shadow-lg shadow-indigo2/15" : "w-12 h-12 rounded-xl gradient-bg flex items-center justify-center text-white mb-5 font-display font-bold"}">${i + 1}</div>
-        <h3 class="font-display ${isServicePolish ? "text-[22px] leading-snug" : "text-xl"} font-bold">${escapeHtml(card.replace(/[.;]$/, ""))}</h3>
+        <h3 class="font-display ${isServicePolish ? "text-[20px] leading-snug" : "text-xl"} font-bold">${escapeHtml(card.title)}</h3>${card.text ? `\n        <p class="mt-3 text-[14px] leading-relaxed text-ink/65">${escapeHtml(card.text)}</p>` : ""}
       </li>`
         )
         .join("\n")}
@@ -787,7 +979,7 @@ ${tags.length ? `    <div class="${isServicePolish ? "mt-8 rounded-3xl bg-white 
       ${sectionLabel("С чем обращаются", "text-violet2", "bg-violet2", "mb-5")}
       <ul class="${isServicePolish ? "grid sm:grid-cols-2 lg:grid-cols-4 gap-3 text-[15px] text-ink/80" : "grid sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-3 text-[15px] text-ink/80"}">
         ${tags.map((tag) => isServicePolish
-          ? `<li class="min-h-[70px] rounded-2xl bg-cream/80 border border-ink/5 px-4 py-3 flex items-start gap-3"><span class="mt-2 w-1.5 h-1.5 rounded-full bg-pink2 shrink-0"></span><span>${escapeHtml(tag)}</span></li>`
+          ? `<li class="min-h-[70px] rounded-2xl bg-cream/80 border border-ink/5 px-4 py-3 flex items-center justify-center gap-3 text-center"><span class="w-1.5 h-1.5 rounded-full bg-pink2 shrink-0"></span><span class="[text-box:trim-both_cap_alphabetic]">${escapeHtml(capitalizeFirst(tag))}</span></li>`
           : `<li class="flex items-center gap-2"><span class="text-pink2">•</span> ${escapeHtml(tag)}</li>`).join("\n")}
       </ul>
     </div>` : ""}
@@ -798,26 +990,20 @@ ${tags.length ? `    <div class="${isServicePolish ? "mt-8 rounded-3xl bg-white 
   <div class="max-w-[1400px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12">
     <div class="lg:col-span-5">
       ${sectionLabel("Подробности", "text-pink2", "bg-pink2")}
-      <h2 class="font-display text-[32px] sm:text-4xl lg:text-5xl font-bold leading-[1] sm:leading-[0.98] tracking-tight">
+      <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance">
         <span class="gradient-text">Индивидуальный</span><br>
-        <span class="italic font-normal">план лечения.</span>
+        <span class="italic font-normal">план лечения</span>
       </h2>
       <div class="text-ink/65 mt-6 leading-relaxed text-[16px] space-y-4">
-        ${renderParagraphs(detailCopy.length ? detailCopy : [detailFallback])}
+        ${slug === "tmj_treatment" ? renderTmjDetailCopy() : renderParagraphs(visibleDetailCopy.length ? visibleDetailCopy : [detailFallback])}
       </div>
     </div>
-${steps.length ? `    <div class="lg:col-span-7">
-      <ol class="space-y-1">
-        ${steps.map((item, i) => `<li class="step-line relative pl-16 py-5">
-          <span class="absolute left-0 top-5 w-10 h-10 rounded-full bg-white border border-ink/10 flex items-center justify-center font-display font-bold text-indigo2">${i + 1}</span>
-          <h3 class="font-display text-xl font-bold">${escapeHtml(item.replace(/[.;]$/, ""))}</h3>
-        </li>`).join("\n")}
-      </ol>
-    </div>` : ""}
+${detailStepsHtml}
   </div>
 </section>
 
 ${extraTextHtml}
+${videoSectionHtml}
 ${imageGrid}
 ${ctaFooter}`;
 }
