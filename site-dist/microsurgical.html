@@ -85,6 +85,147 @@ tailwind.config = {
 img[data-lightbox-image] {
   cursor: zoom-in;
 }
+.sensitive-media {
+  position: relative;
+  overflow: hidden;
+  container-type: inline-size;
+  background: #f8f5ef;
+}
+.sensitive-media > img {
+  display: block;
+  transition: filter 240ms ease, transform 240ms ease, opacity 240ms ease;
+}
+.sensitive-media[data-sensitive-media="locked"] > img {
+  filter: blur(18px) saturate(0.68) contrast(0.9);
+  transform: scale(1.03);
+  opacity: 0.2;
+}
+.sensitive-media[data-sensitive-media="locked"] img[data-lightbox-image] {
+  cursor: default;
+}
+.sensitive-media__cover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  text-align: center;
+  color: #151222;
+  background:
+    radial-gradient(circle at 34% 22%, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.72) 38%, transparent 68%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(248, 245, 239, 0.96));
+  border: 0;
+  cursor: pointer;
+  transition: opacity 180ms ease, filter 180ms ease;
+}
+.sensitive-media__cover:hover {
+  filter: brightness(1.01);
+}
+.sensitive-media__panel {
+  display: inline-flex;
+  width: min(76%, 360px);
+  max-height: calc(100% - 24px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+.sensitive-media__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(218, 67, 169, 0.28);
+  background: rgba(255, 255, 255, 0.52);
+  padding: 6px 11px;
+  font-size: 9px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #9c55d9;
+  box-shadow: inset 0 0 0 1px rgba(84, 73, 205, 0.08);
+}
+.sensitive-media__badge svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+.sensitive-media__title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
+  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+.sensitive-media__text {
+  max-width: 280px;
+  font-size: 12px;
+  line-height: 1.35;
+  color: rgba(21, 18, 34, 0.46);
+}
+.sensitive-media__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #5044e6 0%, #d9419b 100%);
+  color: #fff;
+  padding: 9px 20px;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 700;
+  box-shadow: 0 14px 26px rgba(84, 73, 205, 0.22);
+}
+.sensitive-media__action svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+@container (max-width: 340px) {
+  .sensitive-media__cover {
+    padding: 12px;
+  }
+  .sensitive-media__panel {
+    width: min(82%, 300px);
+    gap: 7px;
+  }
+  .sensitive-media__badge {
+    padding: 5px 9px;
+    font-size: 8px;
+  }
+  .sensitive-media__badge svg {
+    width: 13px;
+    height: 13px;
+  }
+  .sensitive-media__title {
+    font-size: 21px;
+  }
+  .sensitive-media__text {
+    font-size: 11px;
+  }
+  .sensitive-media__action {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+}
+.sensitive-media[data-sensitive-media="revealed"] .sensitive-media__cover {
+  opacity: 0;
+  pointer-events: none;
+}
 </style>
 </head>
 <body class="antialiased">
@@ -359,7 +500,7 @@ img[data-lightbox-image] {
     <li>/</li>
     <li><a href="index.html#services" class="hover:text-indigo2">Наши услуги</a></li>
     <li>/</li>
-    <li class="text-ink/80">Микрохирургическая реконструкция отсутствующих частей лица и</li>
+    <li class="text-ink/80">Микрохирургическая реконструкция отсутствующих частей лица</li>
   </ol>
 </nav>
 
@@ -373,8 +514,9 @@ img[data-lightbox-image] {
         <span class="text-[12px] text-ink/60">в списке направлений</span>
       </div>
       <h1 class="font-display text-[26px] sm:text-[42px] md:text-[52px] lg:text-[68px] leading-[1.12] sm:leading-[1.06] tracking-tight font-bold text-balance">
-        Микрохирургическая реконструкция отсутствующих частей лица и
+        Микрохирургическая реконструкция отсутствующих частей лица
       </h1>
+<p class="mt-4 max-w-4xl text-[18px] sm:text-[22px] lg:text-[26px] leading-snug text-ink/70 text-balance">и лицевого скелета с трансплантацией мягких, костных и комбинированных тканей</p>
       <p class="font-display text-lg sm:text-2xl lg:text-3xl text-ink/60 mt-3 sm:mt-4 italic">
         <span class="gradient-text not-italic font-semibold">Center of Surgery</span> <br class="hidden sm:block">Москва · Одинцово.
       </p>
@@ -409,22 +551,23 @@ img[data-lightbox-image] {
         <p class="text-ink/70 text-[17px] sm:text-[18px] leading-relaxed text-pretty">Ниже собраны основные задачи и варианты помощи по этому направлению.</p>
       </blockquote>
     </div>
+    <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm text-indigo2 text-[12px] uppercase tracking-[0.18em] font-semibold mb-5"><span class="w-2 h-2 rounded-full bg-indigo2"></span><span>Виды лечения</span></div>
     <ul class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <li class="card-hover rounded-2xl bg-cream border border-ink/5 p-6 sm:p-7 min-h-[220px]">
         <div class="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center text-white mb-7 font-display font-bold text-2xl shadow-lg shadow-indigo2/15">1</div>
-        <h3 class="font-display text-[20px] leading-snug font-bold">Восстановление тканей лица после тяжелой травмы, онкологических операций огнестрельного ранения</h3>
+        <h3 class="font-display text-[20px] leading-snug font-bold">Восстановление тканей лица</h3>
       </li>
 <li class="card-hover rounded-2xl bg-cream border border-ink/5 p-6 sm:p-7 min-h-[220px]">
         <div class="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center text-white mb-7 font-display font-bold text-2xl shadow-lg shadow-indigo2/15">2</div>
-        <h3 class="font-display text-[20px] leading-snug font-bold">Пересадка тканевых комплексов самого пациента с возможностью замещения большого объёма отсутствующих тканей, как костных так и мягких</h3>
+        <h3 class="font-display text-[20px] leading-snug font-bold">Пересадка тканевых комплексов</h3>
       </li>
 <li class="card-hover rounded-2xl bg-cream border border-ink/5 p-6 sm:p-7 min-h-[220px]">
         <div class="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center text-white mb-7 font-display font-bold text-2xl shadow-lg shadow-indigo2/15">3</div>
-        <h3 class="font-display text-[20px] leading-snug font-bold">Использование 3D-анализа планирования и моделирования CAD/CAM технологии, робототехники, получение твердотельных моделей лица и лицевого скелета – дает возможность увидеть результат лечения и операций еще до их проведения</h3>
+        <h3 class="font-display text-[20px] leading-snug font-bold">3D-анализ и CAD/CAM</h3>
       </li>
 <li class="card-hover rounded-2xl bg-cream border border-ink/5 p-6 sm:p-7 min-h-[220px]">
         <div class="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center text-white mb-7 font-display font-bold text-2xl shadow-lg shadow-indigo2/15">4</div>
-        <h3 class="font-display text-[20px] leading-snug font-bold">Возможность выращивания – гисто и органогенеза в заранее изготовленных биоматречных формах моделей будущие части лица и лицевого скелета, с дальнейшей их пересадкой в область отсутствующей части лица – идеальная форма, размер, объём, кровоснабжение пересаженного комплекса, а самое главное их совместимость с организмом пациента</h3>
+        <h3 class="font-display text-[20px] leading-snug font-bold">Выращивание тканей</h3>
       </li>
     </ul>
     <div class="mt-8 rounded-3xl bg-white p-6 lg:p-8 border border-ink/10 shadow-sm">
@@ -445,14 +588,27 @@ img[data-lightbox-image] {
 
 <section class="py-10 sm:py-12 lg:py-16">
   <div class="max-w-[1400px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12">
-    <div class="lg:col-span-5">
+    <div class="lg:col-span-10">
       <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm text-pink2 text-[12px] uppercase tracking-[0.18em] font-semibold mb-4"><span class="w-2 h-2 rounded-full bg-pink2"></span><span>Подробности</span></div>
       <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance">
         <span class="gradient-text">Индивидуальный</span><br>
         <span class="italic font-normal">план лечения</span>
       </h2>
       <div class="text-ink/65 mt-6 leading-relaxed text-[16px] space-y-4">
-        <p>Врач уточняет показания, противопоказания и оптимальный объем лечения после очной консультации и диагностики.</p>
+        <ul class="space-y-5 text-[16px] leading-relaxed text-ink/70 text-pretty">
+        <li class="relative pl-5 before:absolute before:left-0 before:top-[0.72em] before:w-1.5 before:h-1.5 before:rounded-full before:bg-indigo2">
+          <strong class="font-semibold text-ink">Восстановление тканей лица</strong> после тяжелой травмы, онкологических операций огнестрельного ранения.
+        </li>
+<li class="relative pl-5 before:absolute before:left-0 before:top-[0.72em] before:w-1.5 before:h-1.5 before:rounded-full before:bg-indigo2">
+          <strong class="font-semibold text-ink">Пересадка тканевых комплексов</strong> самого пациента с возможностью замещения большого объёма отсутствующих тканей, как костных так и мягких.
+        </li>
+<li class="relative pl-5 before:absolute before:left-0 before:top-[0.72em] before:w-1.5 before:h-1.5 before:rounded-full before:bg-indigo2">
+          <strong class="font-semibold text-ink">Использование 3D-анализа</strong> планирования и моделирования CAD/CAM технологии, робототехники, получение твердотельных моделей лица и лицевого скелета – дает возможность увидеть результат лечения и операций еще до их проведения.
+        </li>
+<li class="relative pl-5 before:absolute before:left-0 before:top-[0.72em] before:w-1.5 before:h-1.5 before:rounded-full before:bg-indigo2">
+          <strong class="font-semibold text-ink">Возможность выращивания</strong> – гисто и органогенеза в заранее изготовленных биоматречных формах моделей будущие части лица и лицевого скелета, с дальнейшей их пересадкой в область отсутствующей части лица – идеальная форма, размер, объём, кровоснабжение пересаженного комплекса, а самое главное их совместимость с организмом пациента.
+        </li>
+      </ul>
       </div>
     </div>
 
@@ -465,39 +621,199 @@ img[data-lightbox-image] {
   <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
     <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm text-indigo2 text-[12px] uppercase tracking-[0.18em] font-semibold mb-4"><span class="w-2 h-2 rounded-full bg-indigo2"></span><span>Материалы</span></div>
     <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance mb-8 sm:mb-10">Наши работы</h2>
+<div class="mb-5 sm:mb-6 rounded-xl bg-white border border-ink/10 px-4 py-3 sm:px-5 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div class="max-w-[760px]">
+        <p class="text-[14px] sm:text-[15px] leading-relaxed font-semibold text-ink">Часть фотографий содержит медицинские изображения хирургического лечения.</p>
+        <p class="mt-0.5 text-[13px] sm:text-[14px] leading-relaxed text-ink/60">Чувствительные материалы скрыты до просмотра.</p>
+      </div>
+      <button type="button" data-sensitive-media-reveal-all class="inline-flex items-center justify-center rounded-full border border-ink/15 bg-white px-4 py-2.5 text-[13px] font-semibold text-ink hover:border-indigo2/30 hover:text-indigo2 transition focus:outline-none focus:ring-2 focus:ring-indigo2/20">Показать скрытые фото</button>
+    </div>
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
         <img src="assets/images/tild6330-3737-4336-b731-346433623833_06-02.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="assets/images/tild6638-3830-4466-b639-636162626262_06-03.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+        <div class="sensitive-media" data-sensitive-media="locked">
+          <img src="assets/images/tild6638-3830-4466-b639-636162626262_06-03.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+          <button type="button" data-sensitive-media-reveal class="sensitive-media__cover" aria-label="Показать медицинское изображение">
+            <span class="sensitive-media__panel">
+              <span class="sensitive-media__badge">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.7 5.1A10.9 10.9 0 0 1 12 5c5.4 0 9 5 9 7a8.7 8.7 0 0 1-2.3 3.4"/><path d="M6.6 6.6C4.2 8.1 3 10.4 3 12c0 2 3.6 7 9 7 1.4 0 2.7-.3 3.8-.9"/><path d="M9.9 9.9A3 3 0 0 0 14.1 14.1"/></svg>
+                <span>Медицинское фото</span>
+              </span>
+              <span class="sensitive-media__title">Скрыто до просмотра</span>
+              <span class="sensitive-media__text">Изображение хирургического лечения.</span>
+              <span class="sensitive-media__action">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>Показать</span>
+                <span aria-hidden="true">→</span>
+              </span>
+            </span>
+          </button>
+        </div>
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="assets/images/tild6131-3137-4637-b131-303562393035_06-04.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+        <div class="sensitive-media" data-sensitive-media="locked">
+          <img src="assets/images/tild6131-3137-4637-b131-303562393035_06-04.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+          <button type="button" data-sensitive-media-reveal class="sensitive-media__cover" aria-label="Показать медицинское изображение">
+            <span class="sensitive-media__panel">
+              <span class="sensitive-media__badge">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.7 5.1A10.9 10.9 0 0 1 12 5c5.4 0 9 5 9 7a8.7 8.7 0 0 1-2.3 3.4"/><path d="M6.6 6.6C4.2 8.1 3 10.4 3 12c0 2 3.6 7 9 7 1.4 0 2.7-.3 3.8-.9"/><path d="M9.9 9.9A3 3 0 0 0 14.1 14.1"/></svg>
+                <span>Медицинское фото</span>
+              </span>
+              <span class="sensitive-media__title">Скрыто до просмотра</span>
+              <span class="sensitive-media__text">Изображение хирургического лечения.</span>
+              <span class="sensitive-media__action">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>Показать</span>
+                <span aria-hidden="true">→</span>
+              </span>
+            </span>
+          </button>
+        </div>
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="assets/images/tild3465-6364-4136-b038-323765306439_06-05.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+        <div class="sensitive-media" data-sensitive-media="locked">
+          <img src="assets/images/tild3465-6364-4136-b038-323765306439_06-05.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+          <button type="button" data-sensitive-media-reveal class="sensitive-media__cover" aria-label="Показать медицинское изображение">
+            <span class="sensitive-media__panel">
+              <span class="sensitive-media__badge">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.7 5.1A10.9 10.9 0 0 1 12 5c5.4 0 9 5 9 7a8.7 8.7 0 0 1-2.3 3.4"/><path d="M6.6 6.6C4.2 8.1 3 10.4 3 12c0 2 3.6 7 9 7 1.4 0 2.7-.3 3.8-.9"/><path d="M9.9 9.9A3 3 0 0 0 14.1 14.1"/></svg>
+                <span>Медицинское фото</span>
+              </span>
+              <span class="sensitive-media__title">Скрыто до просмотра</span>
+              <span class="sensitive-media__text">Изображение хирургического лечения.</span>
+              <span class="sensitive-media__action">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>Показать</span>
+                <span aria-hidden="true">→</span>
+              </span>
+            </span>
+          </button>
+        </div>
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="assets/images/tild6439-3339-4731-b730-316438353863_06-06.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+        <div class="sensitive-media" data-sensitive-media="locked">
+          <img src="assets/images/tild6439-3339-4731-b730-316438353863_06-06.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+          <button type="button" data-sensitive-media-reveal class="sensitive-media__cover" aria-label="Показать медицинское изображение">
+            <span class="sensitive-media__panel">
+              <span class="sensitive-media__badge">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.7 5.1A10.9 10.9 0 0 1 12 5c5.4 0 9 5 9 7a8.7 8.7 0 0 1-2.3 3.4"/><path d="M6.6 6.6C4.2 8.1 3 10.4 3 12c0 2 3.6 7 9 7 1.4 0 2.7-.3 3.8-.9"/><path d="M9.9 9.9A3 3 0 0 0 14.1 14.1"/></svg>
+                <span>Медицинское фото</span>
+              </span>
+              <span class="sensitive-media__title">Скрыто до просмотра</span>
+              <span class="sensitive-media__text">Изображение хирургического лечения.</span>
+              <span class="sensitive-media__action">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>Показать</span>
+                <span aria-hidden="true">→</span>
+              </span>
+            </span>
+          </button>
+        </div>
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="assets/images/tild6566-3163-4333-a335-326234396136_06-07.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+        <div class="sensitive-media" data-sensitive-media="locked">
+          <img src="assets/images/tild6566-3163-4333-a335-326234396136_06-07.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+          <button type="button" data-sensitive-media-reveal class="sensitive-media__cover" aria-label="Показать медицинское изображение">
+            <span class="sensitive-media__panel">
+              <span class="sensitive-media__badge">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.7 5.1A10.9 10.9 0 0 1 12 5c5.4 0 9 5 9 7a8.7 8.7 0 0 1-2.3 3.4"/><path d="M6.6 6.6C4.2 8.1 3 10.4 3 12c0 2 3.6 7 9 7 1.4 0 2.7-.3 3.8-.9"/><path d="M9.9 9.9A3 3 0 0 0 14.1 14.1"/></svg>
+                <span>Медицинское фото</span>
+              </span>
+              <span class="sensitive-media__title">Скрыто до просмотра</span>
+              <span class="sensitive-media__text">Изображение хирургического лечения.</span>
+              <span class="sensitive-media__action">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>Показать</span>
+                <span aria-hidden="true">→</span>
+              </span>
+            </span>
+          </button>
+        </div>
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="assets/images/tild3233-3466-4139-b462-313231653736_06-08.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+        <div class="sensitive-media" data-sensitive-media="locked">
+          <img src="assets/images/tild3233-3466-4139-b462-313231653736_06-08.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+          <button type="button" data-sensitive-media-reveal class="sensitive-media__cover" aria-label="Показать медицинское изображение">
+            <span class="sensitive-media__panel">
+              <span class="sensitive-media__badge">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.7 5.1A10.9 10.9 0 0 1 12 5c5.4 0 9 5 9 7a8.7 8.7 0 0 1-2.3 3.4"/><path d="M6.6 6.6C4.2 8.1 3 10.4 3 12c0 2 3.6 7 9 7 1.4 0 2.7-.3 3.8-.9"/><path d="M9.9 9.9A3 3 0 0 0 14.1 14.1"/></svg>
+                <span>Медицинское фото</span>
+              </span>
+              <span class="sensitive-media__title">Скрыто до просмотра</span>
+              <span class="sensitive-media__text">Изображение хирургического лечения.</span>
+              <span class="sensitive-media__action">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>Показать</span>
+                <span aria-hidden="true">→</span>
+              </span>
+            </span>
+          </button>
+        </div>
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="assets/images/tild6166-3865-4637-a134-386133356431_06-09.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+        <div class="sensitive-media" data-sensitive-media="locked">
+          <img src="assets/images/tild6166-3865-4637-a134-386133356431_06-09.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+          <button type="button" data-sensitive-media-reveal class="sensitive-media__cover" aria-label="Показать медицинское изображение">
+            <span class="sensitive-media__panel">
+              <span class="sensitive-media__badge">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.7 5.1A10.9 10.9 0 0 1 12 5c5.4 0 9 5 9 7a8.7 8.7 0 0 1-2.3 3.4"/><path d="M6.6 6.6C4.2 8.1 3 10.4 3 12c0 2 3.6 7 9 7 1.4 0 2.7-.3 3.8-.9"/><path d="M9.9 9.9A3 3 0 0 0 14.1 14.1"/></svg>
+                <span>Медицинское фото</span>
+              </span>
+              <span class="sensitive-media__title">Скрыто до просмотра</span>
+              <span class="sensitive-media__text">Изображение хирургического лечения.</span>
+              <span class="sensitive-media__action">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>Показать</span>
+                <span aria-hidden="true">→</span>
+              </span>
+            </span>
+          </button>
+        </div>
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
         <img src="assets/images/tild3939-6135-4236-b930-303938653431_06-10.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="assets/images/tild6265-6334-4933-b933-666535623763_06-11.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+        <div class="sensitive-media" data-sensitive-media="locked">
+          <img src="assets/images/tild6265-6334-4933-b933-666535623763_06-11.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+          <button type="button" data-sensitive-media-reveal class="sensitive-media__cover" aria-label="Показать медицинское изображение">
+            <span class="sensitive-media__panel">
+              <span class="sensitive-media__badge">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.7 5.1A10.9 10.9 0 0 1 12 5c5.4 0 9 5 9 7a8.7 8.7 0 0 1-2.3 3.4"/><path d="M6.6 6.6C4.2 8.1 3 10.4 3 12c0 2 3.6 7 9 7 1.4 0 2.7-.3 3.8-.9"/><path d="M9.9 9.9A3 3 0 0 0 14.1 14.1"/></svg>
+                <span>Медицинское фото</span>
+              </span>
+              <span class="sensitive-media__title">Скрыто до просмотра</span>
+              <span class="sensitive-media__text">Изображение хирургического лечения.</span>
+              <span class="sensitive-media__action">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>Показать</span>
+                <span aria-hidden="true">→</span>
+              </span>
+            </span>
+          </button>
+        </div>
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="assets/images/tild3064-3366-4866-a339-383561343330_06-12.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+        <div class="sensitive-media" data-sensitive-media="locked">
+          <img src="assets/images/tild3064-3366-4866-a339-383561343330_06-12.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+          <button type="button" data-sensitive-media-reveal class="sensitive-media__cover" aria-label="Показать медицинское изображение">
+            <span class="sensitive-media__panel">
+              <span class="sensitive-media__badge">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.7 5.1A10.9 10.9 0 0 1 12 5c5.4 0 9 5 9 7a8.7 8.7 0 0 1-2.3 3.4"/><path d="M6.6 6.6C4.2 8.1 3 10.4 3 12c0 2 3.6 7 9 7 1.4 0 2.7-.3 3.8-.9"/><path d="M9.9 9.9A3 3 0 0 0 14.1 14.1"/></svg>
+                <span>Медицинское фото</span>
+              </span>
+              <span class="sensitive-media__title">Скрыто до просмотра</span>
+              <span class="sensitive-media__text">Изображение хирургического лечения.</span>
+              <span class="sensitive-media__action">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>Показать</span>
+                <span aria-hidden="true">→</span>
+              </span>
+            </span>
+          </button>
+        </div>
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
         <img src="assets/images/tild3234-3230-4536-b031-623833333833_06-13.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
@@ -509,13 +825,64 @@ img[data-lightbox-image] {
         <img src="assets/images/tild3939-6439-4364-a637-303335383739_06-15.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="assets/images/tild6139-6532-4330-b535-333365313363_06-16.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+        <div class="sensitive-media" data-sensitive-media="locked">
+          <img src="assets/images/tild6139-6532-4330-b535-333365313363_06-16.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+          <button type="button" data-sensitive-media-reveal class="sensitive-media__cover" aria-label="Показать медицинское изображение">
+            <span class="sensitive-media__panel">
+              <span class="sensitive-media__badge">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.7 5.1A10.9 10.9 0 0 1 12 5c5.4 0 9 5 9 7a8.7 8.7 0 0 1-2.3 3.4"/><path d="M6.6 6.6C4.2 8.1 3 10.4 3 12c0 2 3.6 7 9 7 1.4 0 2.7-.3 3.8-.9"/><path d="M9.9 9.9A3 3 0 0 0 14.1 14.1"/></svg>
+                <span>Медицинское фото</span>
+              </span>
+              <span class="sensitive-media__title">Скрыто до просмотра</span>
+              <span class="sensitive-media__text">Изображение хирургического лечения.</span>
+              <span class="sensitive-media__action">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>Показать</span>
+                <span aria-hidden="true">→</span>
+              </span>
+            </span>
+          </button>
+        </div>
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="assets/images/tild6565-3137-4336-b766-333239356430_06-17.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+        <div class="sensitive-media" data-sensitive-media="locked">
+          <img src="assets/images/tild6565-3137-4336-b766-333239356430_06-17.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+          <button type="button" data-sensitive-media-reveal class="sensitive-media__cover" aria-label="Показать медицинское изображение">
+            <span class="sensitive-media__panel">
+              <span class="sensitive-media__badge">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.7 5.1A10.9 10.9 0 0 1 12 5c5.4 0 9 5 9 7a8.7 8.7 0 0 1-2.3 3.4"/><path d="M6.6 6.6C4.2 8.1 3 10.4 3 12c0 2 3.6 7 9 7 1.4 0 2.7-.3 3.8-.9"/><path d="M9.9 9.9A3 3 0 0 0 14.1 14.1"/></svg>
+                <span>Медицинское фото</span>
+              </span>
+              <span class="sensitive-media__title">Скрыто до просмотра</span>
+              <span class="sensitive-media__text">Изображение хирургического лечения.</span>
+              <span class="sensitive-media__action">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>Показать</span>
+                <span aria-hidden="true">→</span>
+              </span>
+            </span>
+          </button>
+        </div>
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="assets/images/tild3530-6665-4466-a538-636466316635_06-18.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+        <div class="sensitive-media" data-sensitive-media="locked">
+          <img src="assets/images/tild3530-6665-4466-a538-636466316635_06-18.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+          <button type="button" data-sensitive-media-reveal class="sensitive-media__cover" aria-label="Показать медицинское изображение">
+            <span class="sensitive-media__panel">
+              <span class="sensitive-media__badge">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.7 5.1A10.9 10.9 0 0 1 12 5c5.4 0 9 5 9 7a8.7 8.7 0 0 1-2.3 3.4"/><path d="M6.6 6.6C4.2 8.1 3 10.4 3 12c0 2 3.6 7 9 7 1.4 0 2.7-.3 3.8-.9"/><path d="M9.9 9.9A3 3 0 0 0 14.1 14.1"/></svg>
+                <span>Медицинское фото</span>
+              </span>
+              <span class="sensitive-media__title">Скрыто до просмотра</span>
+              <span class="sensitive-media__text">Изображение хирургического лечения.</span>
+              <span class="sensitive-media__action">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>Показать</span>
+                <span aria-hidden="true">→</span>
+              </span>
+            </span>
+          </button>
+        </div>
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
         <img src="assets/images/tild3162-3935-4531-a235-616639316663_06-19.jpg" alt="Микрохирургическая реконструкция отсутствующих частей лица | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
@@ -658,6 +1025,10 @@ img[data-lightbox-image] {
 
   const image = dialog.querySelector("img");
   const closeButton = dialog.querySelector("[data-lightbox-close]");
+  const revealSensitive = (frame) => {
+    if (!frame) return;
+    frame.dataset.sensitiveMedia = "revealed";
+  };
   const isExcluded = (img) => {
     const src = img.getAttribute("src") || "";
     return img.closest("#imageLightbox, a, button") || /(^|\/)(logo|favicon)\.png$/i.test(src);
@@ -668,8 +1039,30 @@ img[data-lightbox-image] {
   });
 
   document.addEventListener("click", (event) => {
+    const revealAllButton = event.target.closest("[data-sensitive-media-reveal-all]");
+    if (revealAllButton) {
+      event.preventDefault();
+      const scope = revealAllButton.closest("section") || document;
+      scope.querySelectorAll('[data-sensitive-media="locked"]').forEach(revealSensitive);
+      return;
+    }
+
+    const revealButton = event.target.closest("[data-sensitive-media-reveal]");
+    if (revealButton) {
+      event.preventDefault();
+      revealSensitive(revealButton.closest("[data-sensitive-media]"));
+      return;
+    }
+
     const target = event.target.closest("img[data-lightbox-image]");
     if (!target) return;
+
+    const sensitiveFrame = target.closest("[data-sensitive-media]");
+    if (sensitiveFrame?.dataset.sensitiveMedia === "locked") {
+      event.preventDefault();
+      revealSensitive(sensitiveFrame);
+      return;
+    }
 
     event.preventDefault();
     image.src = target.currentSrc || target.src;

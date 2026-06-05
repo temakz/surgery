@@ -63,7 +63,21 @@ Source data:
 - Header social links use inline SVG icons for WhatsApp, Instagram, and email.
 - Homepage doctors and trust cards use parser images.
 - Service-page gallery images open in a native lightbox dialog on click.
+- Selected sensitive medical gallery images are hidden behind the reusable `sensitive-media` reveal banner before lightbox viewing. The current curated patterns are maintained in `build-site.js` via `sensitiveGalleryImagePatterns`; do not broaden this to whole pages unless the user asks.
+- The sensitive-photo reveal banner is intentionally compact/minimal: pale card overlay, `Медицинское фото` pill with hidden-eye icon, `Скрыто до просмотра`, short explanatory line, and a smaller gradient `Показать` button. Preserve its proportions inside gallery cards.
 - Homepage contact form section is back to the original dark `bg-ink` style.
+
+## Service Page Customization Rule
+
+When customizing service pages, reuse the already approved page patterns first instead of inventing a new style for each page.
+
+Established patterns:
+- `nose_surgery`: baseline polished service-page style.
+- `tmj_treatment`: long-form medical text, semantic subheadings, compact media/video cards, and restored special content.
+- `implantology`: page-specific structured content split across the left details column, right step column, `Дополнительная информация`, compact two-column media cards with captions, and selected sensitive-photo reveal treatment.
+- `microsurgical`: short treatment cards plus detailed bullet copy below, restored hero subtitle, and selected sensitive-photo reveal treatment for clinical/operative collages.
+
+Only introduce a new visual/detail pattern when the existing patterns do not fit the content. Any new pattern should be small, consistent with the existing polish system, and reusable by future pages where possible.
 
 ## Git Rule
 
