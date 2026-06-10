@@ -15,9 +15,9 @@
 
 2. Continue visual QA on the preview deployment after the completed service-page polish rollout.
    - Check `http://service-pages-v2--cmf-surgery.netlify.app/`.
-   - Latest service-page v2 session closing commit before the 2026-06-10 pass: `polish implantology microsurgical sensitive media` (see `git log` for the final hash).
-   - Current 2026-06-10 pass is closing with page-specific content edits for `scars`, `cleft`, `tmj_dysfunction`, `tmj`, `orthognathic_surgery`, `ilizarov_method`, `plastic_surgeries`, `alveolar`, and `face_surgery`.
-   - Priority pages: homepage, `nose_surgery`, `scars`, `tmj_treatment`, `exo`, `implantology`, `microsurgical`, `tmj_dysfunction`, `tmj`, `orthognathic_surgery`, `ilizarov_method`, `plastic_surgeries`, `alveolar`, `face_surgery`, mobile layout, lightbox, selective sensitive-photo reveal banners, and TMJ video thumbnail cards.
+   - Latest pushed service-page v2 commit before handoff 009: `0604eda polish service pages content pass`.
+   - Current 2026-06-10 closing pass includes page-specific edits for `face_surgery`, `restoration`, `surgical_dentistry`, `bite_restoration`, and `endolifting`, plus removal of the quota/VMP page and MAX social icon cleanup.
+   - Priority QA pages: homepage, `restoration`, `surgical_dentistry`, `bite_restoration`, `endolifting`, header/footer MAX icon, mobile menu numbering, lightbox, and selective sensitive-photo reveal banners.
    - `tmj_treatment` preview was confirmed updated after push: status `200`, compact YouTube thumbnail cards present, restored TMJ text present.
 
 3. Approve or continue service-page review.
@@ -32,12 +32,13 @@
    - Current service-page cleanup was applied through `build-site.js`, so secondary generated pages also inherited the cleaner generic renderer until a dedicated layout replaces it.
 
 5. Review service-page content completeness.
-   - The 21 priority service pages now use the original Tilda/OG hero image as a rectangular top image.
+   - The active service list now has 20 pages after removing `free.html` / `Бесплатное лечение по квоте ВМП`.
+   - The 20 priority service pages now use the original Tilda/OG hero image as a rectangular top image.
    - Long parser duplicates were removed from service content by separating prose, bullet items, tags and detail copy.
    - Need medical/editorial spot-check for wording quality and exact order against the original site where it matters.
    - `tmj_treatment` received extra manual restoration of lost long-form content and video thumbnail links during the 2026-06-05 session.
    - `implantology` and `microsurgical` received page-specific content/layout passes during the 2026-06-05 follow-up session.
-   - `scars`, `cleft`, `tmj_dysfunction`, `tmj`, `orthognathic_surgery`, `ilizarov_method`, `plastic_surgeries`, `alveolar`, and `face_surgery` received page-specific content/layout passes during the 2026-06-10 session; verify final wording and sensitive-image selection visually on preview.
+   - `scars`, `cleft`, `tmj_dysfunction`, `tmj`, `orthognathic_surgery`, `ilizarov_method`, `plastic_surgeries`, `alveolar`, `face_surgery`, `restoration`, `surgical_dentistry`, `bite_restoration`, and `endolifting` received page-specific content/layout passes during the 2026-06-10 work; verify final wording and sensitive-image selection visually on preview.
 
 ## Content And Design
 
@@ -47,7 +48,7 @@
 2. Check whether service-page image cards should use `object-contain` for diagrams/slides instead of `object-cover`.
    - Current behavior: probable diagrams/slides use `object-contain`; photos use `object-cover`.
 
-3. Confirm homepage service-card copy and order.
+3. Confirm homepage service-card copy and order after the service list was reduced from 21 to 20 items.
 
 4. Confirm doctors section: names, titles, photos.
 

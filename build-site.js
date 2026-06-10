@@ -4,6 +4,7 @@ const path = require("path");
 const root = __dirname;
 const originalRoot = path.join(root, "original");
 const sourceLogo = path.resolve(root, "..", "logo.png");
+const sourceMaxLogo = path.join(root, "max.svg");
 const scrapeRoot = path.resolve(root, "..", "parse", "scrape-output");
 const pagesRoot = path.join(scrapeRoot, "pages");
 const rawRoot = path.join(pagesRoot, "raw-html");
@@ -13,7 +14,6 @@ const outRoots = [root, path.join(root, "site-dist")];
 const services = [
   ["exo", "Экзопротезирование лица — протезирование ушей, носа, пальцев"],
   ["nose_surgery", "Операция на нос"],
-  ["free", "Бесплатное лечение по квоте ВМП"],
   ["tmj_treatment", "Артрогнатология (лечение ВНЧС)"],
   ["implantology", "Имплантология"],
   ["nasal_surgery", "Хирургия восстановления носового дыхания"],
@@ -373,6 +373,91 @@ const faceSurgeryDetailItems = [
   "Ринопластика – пластика носа (уменьшение, увеличение, исправление искривления, восстановление носового дыхания).",
   "Контурная пластика лица контурными имплантатами Gore-Tex (стандартными и индивидуально изготовленными).",
   "Пластика губ увеличение и уменьшение, филлеры – гелиевые имплантаты для губ – пересадка собственной ткани, контурные имплантаты для увеличения губ.",
+];
+
+const restorationTitle = "Восстановление мягких тканей лица и костей лицевого скелета";
+const restorationLead = "Восстановление мягких тканей лица и костей лицевого скелета – восстановление лица после травм, головы после травм и операций";
+const restorationExtraTags = ["остеопороз челюсти", "атрофия кости", "атрофия челюсти", "пародонтоз"];
+const restorationDetailParagraphs = [
+  "Использование рассасывающих материалов для био остеосинтеза (скрепления костей) даёт возможность устранить проблему пребывания метала в тканях пациента и иногда необходимость его снятия.",
+  "Использование ультразвука, лазера делает низкотравматичным и высокодоступной проведение операций даже в области прилегания сосудисто-нервных пучков.",
+  "Реконструкция век с биоматречными материалами и пластикой мышц.",
+  "Реконструкция дефекта и деформации лобно-орбитальной области справа, персонализированным эндопротезом с применением 3D проектирования, анализа, моделирования и аддетивных технологий.",
+];
+const restorationStepTitle = "Реконструктивная хирургия мягких тканей лица и костей лицевого скелета при посттравматических деформациях и деффектах черепно-челюстно-лицевой области.";
+const restorationStepItems = [
+  "Пересадка своей аутокостной ткани, восстановление костной ткани;",
+  "Проведения операций без одного разреза на лице (использование только косметических доступов);",
+  "Пересадка и восстановление мягких тканей и хрящевой ткани;",
+  "Использование 3D анализа планирования и моделирования CAD/CAM технологии, робототехники;",
+  "Проектирование операций;",
+  "Инженерная медицина;",
+  "Получение твердотельных моделей лица и лицевого скелета.",
+];
+
+const surgicalDentistryTreatmentCards = [
+  { title: "удаление восьмерок", text: "" },
+  { title: "удаление 8ых зубов", text: "" },
+  { title: "удаление кисты зуба", text: "" },
+  { title: "удаление кист зубов", text: "" },
+  { title: "пластика десны", text: "" },
+  { title: "пересадка десны", text: "" },
+  { title: "восстановление десны", text: "" },
+];
+
+const biteRestorationTitle = "Восстановление прикуса и устранение челюстно-лицевых деформаций";
+const biteRestorationDetailItems = [
+  "Использование, лазерного и рентген сканирования лица, головы, 3D анализа планирования и моделирования CAD/CAM технологии, робототехники, получение твердотельных моделей лица и лицевого скелета – вы, можете увидеть результат лечения и операций еще до их проведения и даже примерить новое лицо к своему, проектирование операций – инженерная медицина.",
+  "При проведение операций используются только внутриротовые доступы без наружных разрезов на лице;",
+  "Возможность использования дистракционных аппаратов даёт возможность выращивать недостающую костную ткань и мягкие ткани лица;",
+  "Контурные имплантаты из пористых биоматериалов дают идеально и безопасно доработать врожденные и приобретенные деформации лица;",
+  "Использование рассасывающих материалов для биостеосинтеза (скрепления костей), даёт возможность устранить проблему пребывания метала в тканях пациента и иногда необходимость его снятия;",
+  "Возможность применения малоинвазивных – вмешательств с коррекцией положения отдельный фрагментов челюстей при их деформациях;",
+  "Использования систем управляемого роста позволяет исправлять зубочелюстные деформации уже на ранних стадиях с 12-14 лет и в дальнейшем управлять ростом лицевого скелета (устраняя малейшие отклонения и ассиметрии в нём).",
+];
+const biteRestorationStepItems = [
+  "Результаты операции по устранению сочетанной деформации челюстей верхнечелюстной промакрогнатии, с увеличением продольного роста верхней челюсти, и нижнечелюстной ретрогнатии с нарушением – отставанием продольного роста нижней челюсти, и увеличенным вертикальным ростом подбородочного отдела.",
+  "Результаты операции по устранению верхнечелюстной микроретрогнатии и нижнечелюстной промакрогнатии, с применением трехмерного моделирования и проектирования оперативного лечения 3D CAD/CAM, с учетом тканевых факторов.",
+  "Реконструкция верхней челюсти и носа с использованием аутотрансплантатов тканей (пациента).",
+];
+
+const endoliftingHeroCardTitle = "Эндолифтинг лица, удаление комков Биша";
+const endoliftingTreatmentIntro = "Если вы хотите обрести красивый аристократический овал лица, то Вам к нам! В нашей клинике появились четыре новые процедуры «Французские щечки», «Эндолифтинг», «Удаление комков Биша», «Увеличение губ комками Биша», которые помогут вам стать еще прекрасней и моложе.";
+const endoliftingTreatmentCards = [
+  { title: "«Французские щечки»", text: "" },
+  { title: "«Эндолифтинг»", text: "" },
+  { title: "«Удаление комков Биша»", text: "" },
+  { title: "«Увеличение губ комками Биша»", text: "" },
+];
+const endoliftingDetailSections = [
+  [
+    "«Французские щечки»",
+    [
+      "Чтобы избавиться от пухлых щек и обрести четко выраженные высокие скулы и была разработана методика «Французские щечки». Суть процедуры «Французские щечки» состоит в удаление комочков Биша (инкапсулированные жировые ткани, расположенные в нижней части щеки, названные в честь французского анатома Мари Франсуа Биша) и подтягивание ткани слизистой оболочки щек с дальнейшим нанесением двойного шва.",
+      "В большинстве случаев под местной анестезией наши хирурги проводят процедуру с помощью лазера СО2, что делает эту манипуляцию малотравмичной и дает тканям восстановится в течение 3-5 дней. Манипуляции проводятся внутренней стороны щеки и поэтому абсолютно никаких шрамов не остается. В итоге вы получаете впалые щеки и подчеркнутые скулы. Многие из голливудских звезд уже прибегли к процедуре «Французские щечки».",
+    ],
+  ],
+  [
+    "Удаление комков Биша",
+    [
+      "Эту процедуру также в основном проводят под местной анастезией. По времени она всего занимает минут 30-40 и сразу же как отойдет анастезия вы сможете отправиться домой. Это абсолютно не сложная и не травма опасная процедура.",
+      "Хирург делает разрез 1-2 см на внутренней стороне щеки, удаляет комочки Биша полностью или частично, так же возможно перемещение комочка в скуловую область, что сделает ваши скулы еще более выраженными, а затем врач делает косметический шов и на этом вся операция будет закончена. Отек спадет уже на третий день.",
+    ],
+  ],
+  [
+    "Эндолифтинг",
+    [
+      "Эндоскопический фейслифтинг рекомендован при следующих проблемах: морщины на переносице и в зоне лба, «гусиные лапки» около глаз, опущение век, нависание бровей, углубление слезной борозды и складок в носогубной области, опущение уголков рта, морщины в области шеи и нижней части лица, снижение упругости щек.",
+      "Эндолифтинг как правило делают людям в возрасте 35-50 лет, когда кожа еще упругая для достижения наилучшего результата. Эндолифтинг позволяет корректировать как все лицо, так и лишь его отдельные зоны. Наиболее часто проводят подтяжку верней части лица – лба и бровей.",
+      "Другая распространенная зона исправления – средняя, где осуществляется «стирание» гусиных лапок, носогубных морщин. Зачастую во время одной операции проводят коррекцию обеих зон лица. Фeйслифтинг нижнeй трeти лицa затрагивает зону подбородка, шеи, губы (производится подтяжка их уголков), щек. При актуальности проблемы «двойного подбородка» дополнительно производят его липосакцию.",
+      "Сделав несколько небольших разрезов, через один из них хирург направляет эндоскоп, а через другие – тончайшие хирургические инструменты, при помощи которых производит удаление или направленное передвижение жировых пакетов, подтягивает мышцы и ткани лица.",
+      "В конце операции врач накладывает незаметные швы и надевает фиксирующую маску, носить которую нужно в течение недели. Затем швы снимаются. Отечность после подтяжки сохраняется не более 5-7 дней. Иногда при помощи Эндоскопического лифтинга можно скорректировать разрез глаз, форму и взаимное расположение бровей.",
+    ],
+  ],
+  [
+    "Консультация и реабилитация",
+    ["На консультации наши специалисты дадут Вам рекомендации о подготовке к процедуре и дадут указания для после реабилитационного периода."],
+  ],
 ];
 
 function stripTmjTreatmentExtra(paragraphs) {
@@ -1062,6 +1147,82 @@ function renderFaceSurgeryDetailCopy() {
       </ul>`;
 }
 
+function renderRestorationDetailCopy() {
+  return restorationDetailParagraphs.map((text) => `<p>${escapeHtml(text)}</p>`).join("\n");
+}
+
+function renderRestorationStepCopy() {
+  return `<div class="lg:col-span-7">
+      <h3 class="font-display text-[22px] leading-snug font-bold mb-5 text-balance">${escapeHtml(restorationStepTitle)}</h3>
+      <ol class="space-y-1">
+        ${restorationStepItems
+          .map(
+            (item, i) => `<li class="step-line relative pl-16 py-5">
+          <span class="absolute left-0 top-5 w-10 h-10 rounded-full bg-white border border-ink/10 flex items-center justify-center font-display font-bold text-indigo2">${i + 1}</span>
+          <h3 class="font-display text-xl font-bold">${escapeHtml(item)}</h3>
+        </li>`
+          )
+          .join("\n")}
+      </ol>
+    </div>`;
+}
+
+function renderSurgicalDentistryDetailCopy() {
+  return [
+    medicalTextParagraph(
+      "Удаление зубов с помощью ультразвука – ультразвуковой волны. Смысл технологии заключается в проникновение ультразвуковой волны в пространства между зубом и костью – лункой зуба, таким образом происходит расшатывание зуба и его удаление.",
+      ["Удаление зубов с помощью ультразвука"]
+    ),
+    medicalTextParagraph("Преимущества: Безболезненность, отсутствие силового влияния-давления (без щипцов), антисептическая обработка тканей – обеззараживание за счет эффекта кавитации – вспенивания – что, убивает бактерии, безболезненность во время и после манипуляции, резко снижается время манипуляции до 3-х минут."),
+    medicalTextParagraph("Особенно успешно данная методика проводится при удалении зубов мудрости – 8 зубов."),
+    medicalTextParagraph("Резко снижая травматичность и время манипуляции до 3 минут."),
+    medicalTextParagraph("Возможность проведения манипуляций под седацией – медикаментозным сном (не наркоз), под наблюдением врача анестезиолога мониторов."),
+    tmjSubheading("Хирургия кистозных образований – кист челюстей"),
+    tmjSubheading("Hi-tech! НОВЫЕ ТЕХНОЛОГИИ"),
+    medicalTextParagraph("Удаление КИСТ с помощью ультразвука – ультразвуковой волны.", ["Удаление КИСТ с помощью ультразвука"]),
+    medicalTextParagraph("Так же реконструкция – восстановление дефекта челюсти – кости уникальными остеоиндуктивными и остеокондуктивными составами с мощным антибактериальным и консервирующим действием."),
+    medicalTextParagraph("Что дает длительный многолетний эффект стабильности и отсутствие рецидива воспаление в области корней зубов."),
+    medicalTextParagraph("Спасение зубов от удаления, которые в других клиниках вам предложили удалять (во многих случаях)."),
+    medicalTextParagraph("Так же уникальность методики позволяет проводить вмешательства не снимая коронки – ортопедические конструкции."),
+  ].join("\n");
+}
+
+function renderBiteRestorationDetailCopy() {
+  return `<ul class="space-y-3 text-[16px] leading-relaxed text-ink/70 text-pretty">
+        ${biteRestorationDetailItems
+          .map(
+            (item) => `<li class="relative pl-5 before:absolute before:left-0 before:top-[0.72em] before:w-1.5 before:h-1.5 before:rounded-full before:bg-pink2">${escapeHtml(item)}</li>`
+          )
+          .join("\n")}
+      </ul>`;
+}
+
+function renderBiteRestorationStepCopy() {
+  return `<div class="lg:col-span-7">
+      <ol class="space-y-1">
+        ${biteRestorationStepItems
+          .map(
+            (item, i) => `<li class="step-line relative pl-16 py-5">
+          <span class="absolute left-0 top-5 w-10 h-10 rounded-full bg-white border border-ink/10 flex items-center justify-center font-display font-bold text-indigo2">${i + 1}</span>
+          <h3 class="font-display text-xl font-bold leading-snug">${escapeHtml(item)}</h3>
+        </li>`
+          )
+          .join("\n")}
+      </ol>
+    </div>`;
+}
+
+function renderEndoliftingDetailCopy() {
+  return endoliftingDetailSections
+    .map(
+      ([heading, paragraphs]) => `<div class="space-y-3">
+          <h3 class="font-display text-[22px] sm:text-[24px] leading-snug font-bold text-ink text-balance">${escapeHtml(heading)}</h3>
+          ${paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("\n")}
+        </div>`
+    )
+    .join("\n");
+}
+
 function renderTmjExtraContent() {
   return [
     tmjSubheading("Нашими новыми разработками и новыми технологическими внедрениями явились:"),
@@ -1125,6 +1286,8 @@ function isSensitiveGalleryImage(slug, image = {}) {
   if (slug === "orthognathic_surgery") return /_01\.jpg/i.test(src);
   if (slug === "alveolar") return /_14-0[23]\.jpg/i.test(src);
   if (slug === "face_surgery") return /_15-07\.jpg/i.test(src);
+  if (slug === "restoration") return /_16-(0[235789]|10)\.jpg/i.test(src);
+  if (slug === "bite_restoration") return /_18-0[34]\.jpg/i.test(src);
   return sensitiveGalleryImagePatterns.some((pattern) => pattern.test(src));
 }
 
@@ -1218,15 +1381,16 @@ function updateKnownLinks(html) {
   return out;
 }
 
-function updateSeo(html, page) {
+function updateSeo(html, page, titleOverride = "") {
   const seo = page.seo || {};
-  const title = (seo.title || "Center of Surgery").replaceAll("—", "–");
+  const title = (titleOverride || seo.title || "Center of Surgery").replaceAll("—", "–");
+  const ogTitle = (titleOverride || seo.og?.["og:title"] || seo.title || "").replaceAll("—", "–");
   return html
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(title)}</title>`)
     .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${escapeHtml(seo.description || "")}">`)
     .replace(/<meta name="keywords" content="[^"]*">/, `<meta name="keywords" content="${escapeHtml(seo.keywords || "")}">`)
     .replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${escapeHtml(seo.canonical || page.url || "")}">`)
-    .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${escapeHtml(seo.og?.["og:title"] || seo.title || "")}">`)
+    .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${escapeHtml(ogTitle)}">`)
     .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${escapeHtml(seo.og?.["og:description"] || seo.description || "")}">`);
 }
 
@@ -1234,10 +1398,41 @@ function socialIcon(name) {
   if (name === "whatsapp") {
     return `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4l-2.6-1.3c-.4-.2-.8-.1-1 .2l-.7.9c-.2.3-.5.3-.8.2-.8-.4-1.9-1-2.7-2.6-.2-.3 0-.6.2-.8l.8-.9c.2-.2.2-.6.1-.8L9.6 6.6c-.2-.4-.7-.6-1.1-.4l-1.1.5c-.5.2-.9.7-.8 1.3.2 1.2.8 3.4 2.9 5.6 2.2 2.2 4.5 2.9 5.7 3.1.6.1 1.1-.3 1.3-.8l.5-1.1c.2-.4 0-.9-.5-1.4zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.1-1.3c1.5.8 3.1 1.3 4.9 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>`;
   }
+  if (name === "max") {
+    return `<img src="max.png" alt="" class="block w-4 h-4 max-w-none object-contain" width="16" height="16" aria-hidden="true">`;
+  }
   if (name === "instagram") {
     return `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`;
   }
   return `<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`;
+}
+
+function renderSitemap(files) {
+  const baseUrl = "https://cmf-surgery.netlify.app";
+  const urls = Object.keys(files).map((name) => (name === "index.html" ? "/" : `/${name}`));
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
+    .map((url) => `  <url><loc>${baseUrl}${url}</loc></url>`)
+    .join("\n")}\n</urlset>\n`;
+}
+
+function renderDesktopServiceMenuLinks() {
+  return services
+    .map(
+      ([slug, title], index) => `            <a href="${pageHref(slug)}" class="flex items-start gap-3 px-3 py-2 rounded-lg hover:bg-cream group/i transition">
+              <span class="text-[11px] font-mono text-pink2/70 mt-0.5 w-5 shrink-0">${String(index + 1).padStart(2, "0")}</span>
+              <span class="text-[13px] text-ink/80 group-hover/i:text-indigo2 leading-snug">${escapeHtml(title)}</span>
+            </a>`
+    )
+    .join("\n");
+}
+
+function renderMobileServiceMenuLinks() {
+  return services
+    .map(
+      ([slug, title], index) =>
+        `          <a href="${pageHref(slug)}" class="flex gap-2 px-3 py-2 rounded-lg hover:bg-white text-[13px] text-ink/75"><span class="text-pink2/60 font-mono w-5 shrink-0">${String(index + 1).padStart(2, "0")}</span><span>${escapeHtml(title)}</span></a>`
+    )
+    .join("\n");
 }
 
 function lightboxAssets() {
@@ -1495,11 +1690,31 @@ function applyGlobalEnhancements(html) {
     )
     .replace(
       /<a href="https:\/\/www\.instagram\.com\/dmitriikravchenko992" class="hover:text-pinklight">Instagram<\/a>/g,
-      `<a href="https://www.instagram.com/dmitriikravchenko992" class="inline-flex items-center gap-1.5 hover:text-pinklight" aria-label="Instagram">${socialIcon("instagram")}<span>Instagram</span></a>`
+      `<a href="https://web.max.ru/" class="inline-flex items-center gap-1.5 hover:text-pinklight" aria-label="MAX: +7 926 332-93-69" title="MAX: +7 926 332-93-69">${socialIcon("max")}<span>MAX</span></a>`
     )
     .replace(
       /<a href="mailto:surgery79@mail\.ru" class="hidden md:inline hover:text-pinklight">surgery79@mail\.ru<\/a>/g,
       `<a href="mailto:surgery79@mail.ru" class="hidden md:inline-flex items-center gap-1.5 hover:text-pinklight" aria-label="Email">${socialIcon("email")}<span>surgery79@mail.ru</span></a>`
+    )
+    .replace(
+      /<a href="https:\/\/www\.instagram\.com\/dmitriikravchenko992" class="w-10 h-10 rounded-full bg-white\/5 border border-white\/10 flex items-center justify-center hover:bg-pink2 transition" aria-label="Instagram">[\s\S]*?<\/a>/g,
+      `<a href="https://web.max.ru/" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-pink2 transition" aria-label="MAX: +7 926 332-93-69" title="MAX: +7 926 332-93-69">${socialIcon("max")}</a>`
+    )
+    .replace(
+      /(<div class="text-\[11px\] text-ink\/40 font-mono">)21 услуга(<\/div>)/g,
+      `$1${services.length} услуг$2`
+    )
+    .replace(
+      /(<div class="grid grid-cols-2 gap-x-3 gap-y-0\.5">\n)[\s\S]*?(?=\n            <\/div>\n          <\/div>\n        <\/div>\n      <\/div>\n\n      <div class="nav-item relative">\n        <button[\s\S]*?Наши специалисты)/g,
+      `$1${renderDesktopServiceMenuLinks()}`
+    )
+    .replace(
+      /(<span>Наши услуги <span class="text-ink\/40 text-\[12px\] font-mono">)21(<\/span><\/span>)/g,
+      `$1${services.length}$2`
+    )
+    .replace(
+      /(<summary class="flex items-center justify-between px-3 py-3 rounded-lg hover:bg-white cursor-pointer list-none">\s*<span>Наши услуги[\s\S]*?<\/summary>\s*<div class="pl-3 space-y-0\.5 mt-1">\n)[\s\S]*?(?=\n        <\/div>\n      <\/details>\n      <details class="group">\n        <summary[\s\S]*?Наши специалисты)/g,
+      `$1${renderMobileServiceMenuLinks()}`
     )
     .replace(
       /<a href="([^"]+)" class="flex items-center gap-3 shrink-0">[\s\S]*?<div class="leading-\[1\.55\]">[\s\S]*?<\/div>\s*<\/a>/g,
@@ -1509,13 +1724,51 @@ function applyGlobalEnhancements(html) {
       /<a href="([^"]+)" class="flex items-center gap-3">\s*<div class="relative w-10 h-10">[\s\S]*?<div class="leading-\[1\.55\]">[\s\S]*?<\/div>\s*<\/a>/g,
       `<a href="$1" class="flex items-center gap-3" aria-label="Center of Surgery"><img src="logo.png" alt="Center of Surgery" class="h-12 w-auto"></a>`
     )
+    .replaceAll(
+      `Центр пластической и <span class="italic font-normal">реконструктивной</span><br>
+        хирургии.`,
+      `Центр <span class="italic font-normal">реконструктивной</span><br>
+        хирургии`
+    )
+    .replaceAll(
+      `Центр пластической и <span class="italic font-normal">реконструктивной</span><br>
+        <span class="gradient-text">хирургии.</span>`,
+      `Центр <span class="italic font-normal">реконструктивной</span><br>
+        <span class="gradient-text">хирургии</span>`
+    )
+    .replaceAll(
+      `Отделение<br>
+        <span class="italic font-normal">микрохирургии</span>`,
+      `Центр<br>
+        <span class="italic font-normal">микрохирургии</span>`
+    )
+    .replaceAll(
+      `Отделение<br>
+        микрохирургии<br>`,
+      `Центр<br>
+        микрохирургии<br>`
+    )
+    .replaceAll(
+      `Пластическая хирургия в <strong class="text-ink">Center of Surgery</strong> оказывает комплекс услуг`,
+      `Реконструктивная хирургия в <strong class="text-ink">Center of Surgery</strong> оказывает комплекс услуг`
+    )
+    .replaceAll(
+      "Центр реконструктивной, пластической хирургии головы и шеи. Москва, Одинцово.",
+      "Центр реконструктивной. Москва, Одинцово."
+    )
+    .replaceAll(
+      "Первая консультация бесплатная. Перезвоним в течение 15 минут.",
+      "Первая консультация бесплатная.<br>Перезвоним в течение рабочего дня."
+    )
+    .replaceAll("Мы свяжемся в течение 15 минут в рабочее время.", "Мы свяжемся в течение рабочего дня.")
+    .replaceAll("Заявка отправлена! Свяжемся с вами в течение 15 минут.", "Заявка отправлена! Свяжемся с вами в течение рабочего дня.")
+    .replaceAll("~ 15 мин", "1-2 часа")
     .replace("</body>", `${lightbox.markup}\n</body>`);
 }
 
 const homeServiceCards = [
   ["exo", "Экзопротезирование лица<br>протезирование ушей,<br>носа, пальцев", "assets/images/tild3266-6533-4838-b264-646436623035_exo.png"],
   ["nose_surgery", "Операции на нос", "assets/images/tild3762-3030-4335-a465-313065346635_01.png"],
-  ["free", "Бесплатное лечение<br>по квоте ВМП", "assets/images/tild6365-3836-4263-b739-613331393930_02-00.png"],
   ["tmj_treatment", "Артрогнатология<br>(Лечение ВНЧС)", "assets/images/tild3537-6239-4336-b132-623837333566_tmj_treatment1_copy.png"],
   ["implantology", "Имплантология", "assets/images/tild6431-6535-4237-a433-343335376137_04-01_copy.png"],
   ["nasal_surgery", "Хирургия<br>восстановления<br>носового дыхания", "assets/images/tild3861-3861-4561-b464-383933643661_05-01_copy.png"],
@@ -1537,17 +1790,16 @@ const homeServiceCards = [
 ];
 
 function renderHomeServicesSection() {
+  const lastIndex = homeServiceCards.length - 1;
   const cardClass = (index) => {
     if (index === 0) return "card-hover relative block bg-ink text-white rounded-xl p-5 h-full";
-    if (index === 2) return "card-hover block bg-gradient-to-br from-mint/15 to-indigo2/10 rounded-xl p-5 h-full";
-    if (index === 11) return "card-hover block bg-gradient-to-br from-pink2/10 to-violet2/10 rounded-xl p-5 h-full";
-    if (index === 20) return "card-hover relative block bg-gradient-to-br from-pink2 to-violet2 text-white rounded-xl p-5 h-full overflow-hidden";
+    if (index === 10) return "card-hover block bg-gradient-to-br from-pink2/10 to-violet2/10 rounded-xl p-5 h-full";
+    if (index === lastIndex) return "card-hover relative block bg-gradient-to-br from-pink2 to-violet2 text-white rounded-xl p-5 h-full overflow-hidden";
     return "card-hover block bg-white rounded-xl border border-ink/5 p-5 h-full";
   };
   const numberClass = (index) => {
     if (index === 0) return "text-mint";
-    if (index === 2) return "text-emerald-700";
-    if (index === 20) return "text-white/80";
+    if (index === lastIndex) return "text-white/80";
     return ["text-indigo2", "text-violet2", "text-pink2"][index % 3];
   };
 
@@ -1558,7 +1810,7 @@ function renderHomeServicesSection() {
       <div>
         <div class="text-[13px] uppercase tracking-[0.2em] text-indigo2 font-semibold mb-4">— Наши услуги</div>
         <h2 class="font-display text-[34px] sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[0.98] sm:leading-[0.95] tracking-tight">
-          21 направление<br>
+          ${homeServiceCards.length} направлений<br>
           <span class="italic font-normal">лечения.</span>
         </h2>
       </div>
@@ -1579,7 +1831,7 @@ function renderHomeServicesSection() {
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono ${numberClass(index)}">${String(index + 1).padStart(2, "0")}</span>
               ${index === 0 ? '<span class="ml-2 text-[10px] px-2 py-1 rounded-full bg-pink2 text-white uppercase tracking-wider font-semibold">Флагман</span>' : ""}
-              ${index === 20 ? '<span class="ml-2 text-[10px] px-2 py-1 rounded-full bg-white text-pink2 uppercase tracking-wider font-bold">Новинка</span>' : ""}
+              ${index === lastIndex ? '<span class="ml-2 text-[10px] px-2 py-1 rounded-full bg-white text-pink2 uppercase tracking-wider font-bold">Новинка</span>' : ""}
               <h3 class="font-display text-[17px] font-bold mt-3 leading-snug">${title}</h3>
             </span>
           </div>
@@ -1708,10 +1960,14 @@ function renderGenericPage(slug, number = "—") {
   const displayTitle =
     slug === "microsurgical"
       ? title.replace(/\s+и$/i, "")
-      : slug === "ilizarov_method"
+    : slug === "ilizarov_method"
       ? ilizarovHeroTitle
-      : slug === "plastic_surgeries"
+    : slug === "plastic_surgeries"
       ? plasticSurgeriesTitle
+    : slug === "restoration"
+      ? restorationTitle
+    : slug === "bite_restoration"
+      ? biteRestorationTitle
       : title;
   const h2 = [...(page.headings?.h2 || []), ...atoms.filter((a) => a.tag === "h2").map((a) => a.text)]
     .map((text) => text.replace(/^[\s•\-–—]+/, "").replace(/:$/, "").trim())
@@ -1732,7 +1988,10 @@ function renderGenericPage(slug, number = "—") {
     .filter((image) => slug !== "tmj" || !/10_01/i.test(image.src))
     .filter((image) => slug !== "orthognathic_surgery" || !/tild3331-6237-4638-b134-343233653037_00/i.test(image.src))
     .filter((image) => slug !== "alveolar" || !/_14-01\.jpg/i.test(image.src))
-    .filter((image) => slug !== "face_surgery" || !/_15-01\.jpg/i.test(image.src));
+    .filter((image) => slug !== "face_surgery" || !/_15-01\.jpg/i.test(image.src))
+    .filter((image) => slug !== "restoration" || !/_16-01\.jpg/i.test(image.src))
+    .filter((image) => slug !== "surgical_dentistry")
+    .filter((image) => slug !== "bite_restoration" || !/_18-01\.jpg/i.test(image.src));
   const textSections = collectTextSections(atoms);
   const usedText = new Set([normalizeContentKey(title)]);
   const seoLeadRaw = compactLead(page.seo?.description || "");
@@ -1747,6 +2006,8 @@ function renderGenericPage(slug, number = "—") {
   if (slug === "ilizarov_method") lead = ilizarovHeroLead;
   if (slug === "plastic_surgeries") lead = plasticSurgeriesLead;
   if (slug === "face_surgery") lead = "Эстетическая – пластическая хирургия лица";
+  if (slug === "restoration") lead = restorationLead;
+  if (slug === "bite_restoration") lead = biteRestorationTitle;
   const paragraphsAfterLead = allParagraphs.filter((text) => !sameContent(text, lead));
   const introParagraphs = paragraphsAfterLead.slice(0, 2);
   const detailParagraphs = paragraphsAfterLead.slice(2, 8);
@@ -1786,9 +2047,12 @@ function renderGenericPage(slug, number = "—") {
     ];
   }
   if (slug === "face_surgery") tags = faceSurgeryTags;
+  if (slug === "restoration") tags = [...tags, ...restorationExtraTags].filter((item, i, arr) => arr.findIndex((value) => value.toLowerCase() === item.toLowerCase()) === i);
   if (slug === "tmj_treatment") remainingParagraphs = stripTmjTreatmentExtra(remainingParagraphs);
   if (slug === "alveolar") remainingParagraphs = [];
   if (slug === "face_surgery") remainingParagraphs = [];
+  if (slug === "surgical_dentistry") remainingParagraphs = [];
+  if (slug === "endolifting") remainingParagraphs = [];
   const treatmentCards =
     slug === "tmj_treatment"
       ? tmjTreatmentCards
@@ -1804,6 +2068,12 @@ function renderGenericPage(slug, number = "—") {
       ? alveolarTreatmentCards
       : slug === "face_surgery"
       ? faceSurgeryTreatmentCards
+      : slug === "surgical_dentistry"
+      ? surgicalDentistryTreatmentCards
+      : slug === "bite_restoration"
+      ? []
+      : slug === "endolifting"
+      ? endoliftingTreatmentCards
       : slug === "cleft"
         ? cleftTreatmentCards
       : slug === "microsurgical"
@@ -1821,8 +2091,26 @@ function renderGenericPage(slug, number = "—") {
       <p class="text-[16px] sm:text-[17px] leading-relaxed text-ink/75"><span class="font-semibold text-indigo2">Костная инженерия bone engineering</span> – направленная регенерации, изменение биотипа кости – направленная остеоконденсация при остеопорозе</p>
     </div>
 `
+      : slug === "endolifting"
+      ? `    <div class="mb-5 rounded-2xl bg-gradient-to-br from-indigo2/5 via-violet2/5 to-pink2/5 border border-indigo2/10 px-5 py-4 sm:px-6 shadow-sm">
+      <p class="text-[16px] sm:text-[17px] leading-relaxed text-ink/75">${escapeHtml(endoliftingTreatmentIntro)}</p>
+    </div>
+`
       : "";
   const treatmentGridClass = slug === "tmj_treatment" ? "grid sm:grid-cols-2 lg:grid-cols-5 gap-4" : "grid sm:grid-cols-2 lg:grid-cols-4 gap-4";
+  const treatmentCardsHtml =
+    slug === "bite_restoration" && !treatmentCards.length
+      ? ""
+      : `    <ul class="${treatmentGridClass}">
+      ${treatmentCards
+        .map(
+          (card, i) => `<li class="${isServicePolish ? "card-hover rounded-2xl bg-cream border border-ink/5 p-6 sm:p-7 min-h-[220px]" : "card-hover rounded-2xl bg-cream border border-ink/5 p-6"}">
+        <div class="${isServicePolish ? "w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center text-white mb-7 font-display font-bold text-2xl shadow-lg shadow-indigo2/15" : "w-12 h-12 rounded-xl gradient-bg flex items-center justify-center text-white mb-5 font-display font-bold"}">${i + 1}</div>
+        <h3 class="font-display ${isServicePolish ? "text-[20px] leading-snug" : "text-xl"} font-bold">${escapeHtml(card.title)}</h3>${card.text ? `\n        <p class="mt-3 text-[14px] leading-relaxed text-ink/65">${escapeHtml(card.text)}</p>` : ""}
+      </li>`
+        )
+        .join("\n")}
+    </ul>`;
   const treatmentLabelText = slug === "tmj_dysfunction" ? "Виды патологии" : "Виды лечения";
   let sectionSummary = introParagraphs[0] || "Ниже собраны основные задачи и варианты помощи по этому направлению.";
   if (slug === "implantology") {
@@ -1832,6 +2120,18 @@ function renderGenericPage(slug, number = "—") {
   if (slug === "tmj_dysfunction") sectionSummary = "Виды патологии ВНЧС пациентов, которых мы лечим";
   if (slug === "plastic_surgeries") sectionSummary = plasticSurgeriesLead;
   if (slug === "face_surgery") sectionSummary = "Эстетическая – пластическая хирургия лица";
+  if (slug === "restoration") sectionSummary = restorationTitle;
+  if (slug === "surgical_dentistry") sectionSummary = "Hi-tech! НОВЫЕ ТЕХНОЛОГИИ";
+  if (slug === "bite_restoration") sectionSummary = "Наши возможности и технологии";
+  if (slug === "endolifting") sectionSummary = "";
+  const aboutSummaryHtml = sectionSummary
+    ? isServicePolish
+      ? `<blockquote class="max-w-xl rounded-2xl bg-cream/70 border border-ink/10 px-6 py-5 shadow-sm">
+        <p class="text-ink/70 text-[17px] sm:text-[18px] leading-relaxed text-pretty">${escapeHtml(sectionSummary)}</p>
+      </blockquote>`
+      : `<p class="max-w-md text-ink/60 text-[15px] leading-relaxed">${escapeHtml(sectionSummary)}</p>`
+    : "";
+  const aboutSummaryLine = aboutSummaryHtml ? `      ${aboutSummaryHtml}` : "";
   const detailCopy = (detailParagraphs.length ? detailParagraphs : introParagraphs.slice(1)).filter(
     (text) => !sameContent(text, lead) && !sameContent(text, sectionSummary)
   );
@@ -1845,7 +2145,7 @@ function renderGenericPage(slug, number = "—") {
     ? "py-8 sm:py-10 lg:py-16 bg-white border-y border-ink/5"
     : "py-12 sm:py-14 lg:py-24 bg-white border-y border-ink/5";
   const aboutHeaderAlignClass = slug === "implantology" ? "lg:items-start" : "lg:items-end";
-  const detailColumnClass = slug === "microsurgical" || slug === "face_surgery" ? "lg:col-span-10" : "lg:col-span-5";
+  const detailColumnClass = slug === "microsurgical" || slug === "face_surgery" || slug === "surgical_dentistry" || slug === "endolifting" ? "lg:col-span-10" : "lg:col-span-5";
   const heroCardTitle =
     slug === "scars"
       ? displayTitle
@@ -1857,6 +2157,12 @@ function renderGenericPage(slug, number = "—") {
       ? plasticSurgeriesTitle
       : slug === "alveolar"
       ? alveolarHeroCardTitle
+      : slug === "restoration"
+      ? restorationTitle
+      : slug === "bite_restoration"
+      ? biteRestorationTitle
+      : slug === "endolifting"
+      ? endoliftingHeroCardTitle
       : displayTitle.slice(0, 42);
   const heroSubtitleHtml =
     slug === "microsurgical"
@@ -1865,6 +2171,8 @@ function renderGenericPage(slug, number = "—") {
   const heroHeadingHtml =
     slug === "ilizarov_method"
       ? `<a href="https://cmf-surgery.ru/ilizarov_method" class="hover:text-indigo2 transition">${escapeHtml(displayTitle)}</a>`
+      : slug === "face_surgery"
+      ? "Эстетическая –<br>пластическая хирургия лица"
       : escapeHtml(displayTitle);
   const detailsSectionClass = isServicePolish ? "py-10 sm:py-12 lg:py-16" : "py-12 sm:py-14 lg:py-24";
   const imageSectionClass = isServicePolish
@@ -1933,6 +2241,8 @@ ${hasSensitiveGalleryImages ? renderSensitiveGalleryNotice() : ""}
   const detailStepsHtml =
     slug === "scars"
       ? renderScarsStepCopy()
+      : slug === "restoration"
+      ? renderRestorationStepCopy()
       : slug === "tmj_dysfunction"
       ? renderTmjDysfunctionStepCopy()
       : slug === "cleft"
@@ -1941,11 +2251,15 @@ ${hasSensitiveGalleryImages ? renderSensitiveGalleryNotice() : ""}
       ? renderImplantologyStepCopy()
       : slug === "tmj"
       ? renderTmjPageStepCopy()
+      : slug === "bite_restoration"
+      ? renderBiteRestorationStepCopy()
       : slug === "orthognathic_surgery"
       ? renderOrthognathicStepCopy()
       : slug === "alveolar"
       ? renderAlveolarStepCopy()
       : slug === "face_surgery"
+      ? ""
+      : slug === "surgical_dentistry"
       ? ""
       : slug === "ilizarov_method"
       ? ""
@@ -1977,7 +2291,8 @@ ${hasSensitiveGalleryImages ? renderSensitiveGalleryNotice() : ""}
         ? renderTmjVideoSection(sectionLabel, tmjDysfunctionVideos)
         : "";
 
-  const head = updateSeo(parts.head, page);
+  const seoTitleOverride = slug === "bite_restoration" ? `${biteRestorationTitle} | Москва, Одинцово | Center of Surgery` : "";
+  const head = updateSeo(parts.head, page, seoTitleOverride);
   return `${head}
 ${parts.nav}
 <!-- ============ BREADCRUMB ============ -->
@@ -2038,22 +2353,9 @@ ${heroSubtitleHtml}
         ${sectionLabel("О направлении", "text-indigo2", "bg-indigo2")}
         <h2 class="font-display text-[26px] sm:text-[30px] md:text-[42px] lg:text-[54px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance">Что важно<br><span class="italic font-normal">знать пациенту</span></h2>
       </div>
-      ${isServicePolish
-        ? `<blockquote class="max-w-xl rounded-2xl bg-cream/70 border border-ink/10 px-6 py-5 shadow-sm">
-        <p class="text-ink/70 text-[17px] sm:text-[18px] leading-relaxed text-pretty">${escapeHtml(sectionSummary)}</p>
-      </blockquote>`
-        : `<p class="max-w-md text-ink/60 text-[15px] leading-relaxed">${escapeHtml(sectionSummary)}</p>`}
+${aboutSummaryLine}
     </div>
-${showTreatmentLabel ? `    ${sectionLabel(treatmentLabelText, "text-indigo2", "bg-indigo2", "mb-5")}\n` : ""}${implantologyTreatmentNoteHtml}    <ul class="${treatmentGridClass}">
-      ${treatmentCards
-        .map(
-          (card, i) => `<li class="${isServicePolish ? "card-hover rounded-2xl bg-cream border border-ink/5 p-6 sm:p-7 min-h-[220px]" : "card-hover rounded-2xl bg-cream border border-ink/5 p-6"}">
-        <div class="${isServicePolish ? "w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center text-white mb-7 font-display font-bold text-2xl shadow-lg shadow-indigo2/15" : "w-12 h-12 rounded-xl gradient-bg flex items-center justify-center text-white mb-5 font-display font-bold"}">${i + 1}</div>
-        <h3 class="font-display ${isServicePolish ? "text-[20px] leading-snug" : "text-xl"} font-bold">${escapeHtml(card.title)}</h3>${card.text ? `\n        <p class="mt-3 text-[14px] leading-relaxed text-ink/65">${escapeHtml(card.text)}</p>` : ""}
-      </li>`
-        )
-        .join("\n")}
-    </ul>
+${showTreatmentLabel ? `    ${sectionLabel(treatmentLabelText, "text-indigo2", "bg-indigo2", "mb-5")}\n` : ""}${implantologyTreatmentNoteHtml}${treatmentCardsHtml}
 ${tags.length ? `    <div class="${isServicePolish ? "mt-8 rounded-3xl bg-white p-6 lg:p-8 border border-ink/10 shadow-sm" : "mt-12 rounded-3xl bg-gradient-to-br from-indigo2/5 via-violet2/5 to-pink2/5 p-7 lg:p-10 border border-ink/5"}">
       ${sectionLabel("С чем обращаются", "text-violet2", "bg-violet2", "mb-5")}
       <ul class="${isServicePolish ? "grid sm:grid-cols-2 lg:grid-cols-4 gap-3 text-[15px] text-ink/80" : "grid sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-3 text-[15px] text-ink/80"}">
@@ -2074,7 +2376,7 @@ ${slug === "plastic_surgeries" ? "" : `<section class="${detailsSectionClass}">
         <span class="italic font-normal">план лечения</span>
       </h2>
       <div class="text-ink/65 mt-6 leading-relaxed text-[16px] space-y-4">
-        ${slug === "tmj_treatment" ? renderTmjDetailCopy() : slug === "implantology" ? renderImplantologyDetailCopy() : slug === "alveolar" ? renderAlveolarDetailCopy() : slug === "face_surgery" ? renderFaceSurgeryDetailCopy() : slug === "microsurgical" ? renderMicrosurgicalDetailCopy() : slug === "scars" ? renderScarsDetailCopy() : slug === "cleft" ? renderCleftDetailCopy() : slug === "tmj_dysfunction" ? renderTmjDysfunctionDetailCopy() : slug === "tmj" ? renderTmjPageDetailCopy() : renderParagraphs(visibleDetailCopy.length ? visibleDetailCopy : [detailFallback])}
+        ${slug === "tmj_treatment" ? renderTmjDetailCopy() : slug === "implantology" ? renderImplantologyDetailCopy() : slug === "alveolar" ? renderAlveolarDetailCopy() : slug === "face_surgery" ? renderFaceSurgeryDetailCopy() : slug === "restoration" ? renderRestorationDetailCopy() : slug === "surgical_dentistry" ? renderSurgicalDentistryDetailCopy() : slug === "bite_restoration" ? renderBiteRestorationDetailCopy() : slug === "endolifting" ? renderEndoliftingDetailCopy() : slug === "microsurgical" ? renderMicrosurgicalDetailCopy() : slug === "scars" ? renderScarsDetailCopy() : slug === "cleft" ? renderCleftDetailCopy() : slug === "tmj_dysfunction" ? renderTmjDysfunctionDetailCopy() : slug === "tmj" ? renderTmjPageDetailCopy() : renderParagraphs(visibleDetailCopy.length ? visibleDetailCopy : [detailFallback])}
       </div>
     </div>
 ${detailStepsHtml}
@@ -2120,13 +2422,16 @@ function build() {
       fs.copyFileSync(sourceLogo, path.join(outRoot, "logo.png"));
       fs.copyFileSync(sourceLogo, path.join(outRoot, "favicon.png"));
     }
+    if (fs.existsSync(sourceMaxLogo)) {
+      fs.copyFileSync(sourceMaxLogo, path.join(outRoot, "max.png"));
+    }
 
     for (const [name, html] of Object.entries(files)) {
       fs.writeFileSync(path.join(outRoot, name), applyGlobalEnhancements(html), "utf8");
     }
 
     fs.copyFileSync(path.join(scrapeRoot, "robots.txt"), path.join(outRoot, "robots.txt"));
-    fs.copyFileSync(path.join(scrapeRoot, "sitemap.xml"), path.join(outRoot, "sitemap.xml"));
+    fs.writeFileSync(path.join(outRoot, "sitemap.xml"), renderSitemap(files), "utf8");
     fs.writeFileSync(
       path.join(outRoot, "_redirects"),
       ["/home / 301", ...Object.keys(files).filter((name) => name !== "index.html").map((name) => `/${name.replace(/\.html$/, "")} /${name} 200`), "/* /index.html 200", ""].join("\n"),
