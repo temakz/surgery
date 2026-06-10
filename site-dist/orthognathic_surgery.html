@@ -520,10 +520,14 @@ img[data-lightbox-image] {
       <p class="font-display text-lg sm:text-2xl lg:text-3xl text-ink/60 mt-3 sm:mt-4 italic">
         <span class="gradient-text not-italic font-semibold">Center of Surgery</span> <br class="hidden sm:block">Москва · Одинцово.
       </p>
-      <p class="mt-6 max-w-2xl text-[15px] sm:text-[17px] leading-relaxed text-ink/75">Примеры хирургической техники. Вид зубных рядов после проведения хирургического и ортодонтического лечения, через 3 месяца Бесплатная консультация</p>
+      <p class="mt-6 max-w-2xl text-[15px] sm:text-[17px] leading-relaxed text-ink/75">Примеры хирургической техники. Вид зубных рядов после проведения хирургического и ортодонтического лечения, через 3 месяца</p>
       <div class="mt-8 flex flex-wrap items-center gap-3">
         <a href="#book" class="btn-primary px-7 py-4 rounded-full font-semibold text-[15px] inline-flex items-center gap-2 arrow-cta">Записаться на консультацию <span class="arrow">→</span></a>
         <a href="tel:+79263329369" class="px-7 py-4 rounded-full font-semibold text-[15px] border border-ink/15 hover:border-ink/40 transition">+7 (926) 332-93-69</a>
+      </div>
+      <div class="mt-4 inline-flex max-w-full items-center gap-3 rounded-2xl bg-white/85 border border-pink2/20 px-4 py-3 text-[14px] sm:text-[15px] leading-snug text-ink shadow-sm shadow-pink2/5">
+        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo2 via-violet2 to-pink2 text-white font-display text-lg font-bold">✓</span>
+        <span class="min-w-0"><span class="font-semibold text-ink">Бесплатная консультация</span><span class="hidden sm:inline text-ink/55"> · первичный разбор обращения</span></span>
       </div>
     </div>
     <aside class="lg:col-span-5">
@@ -603,6 +607,14 @@ img[data-lightbox-image] {
           <span class="absolute left-0 top-5 w-10 h-10 rounded-full bg-white border border-ink/10 flex items-center justify-center font-display font-bold text-indigo2">4</span>
           <h3 class="font-display text-xl font-bold">деформация челюстей</h3>
         </li>
+<li class="step-line relative pl-16 py-5">
+          <span class="absolute left-0 top-5 w-10 h-10 rounded-full bg-white border border-ink/10 flex items-center justify-center font-display font-bold text-indigo2">5</span>
+          <h3 class="font-display text-xl font-bold">искривление прикуса</h3>
+        </li>
+<li class="step-line relative pl-16 py-5">
+          <span class="absolute left-0 top-5 w-10 h-10 rounded-full bg-white border border-ink/10 flex items-center justify-center font-display font-bold text-indigo2">6</span>
+          <h3 class="font-display text-xl font-bold">искривление челюсти</h3>
+        </li>
       </ol>
     </div>
   </div>
@@ -614,25 +626,50 @@ img[data-lightbox-image] {
   <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
     <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm text-indigo2 text-[12px] uppercase tracking-[0.18em] font-semibold mb-4"><span class="w-2 h-2 rounded-full bg-indigo2"></span><span>Материалы</span></div>
     <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance mb-8 sm:mb-10">Наши работы</h2>
-
+<div class="mb-5 sm:mb-6 rounded-xl bg-white border border-ink/10 px-4 py-3 sm:px-5 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div class="max-w-[760px]">
+        <p class="text-[14px] sm:text-[15px] leading-relaxed font-semibold text-ink">Часть фотографий содержит медицинские изображения хирургического лечения.</p>
+        <p class="mt-0.5 text-[13px] sm:text-[14px] leading-relaxed text-ink/60">Чувствительные материалы скрыты до просмотра.</p>
+      </div>
+      <button type="button" data-sensitive-media-reveal-all class="inline-flex items-center justify-center rounded-full border border-ink/15 bg-white px-4 py-2.5 text-[13px] font-semibold text-ink hover:border-indigo2/30 hover:text-indigo2 transition focus:outline-none focus:ring-2 focus:ring-indigo2/20">Показать скрытые фото</button>
+    </div>
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="assets/images/tild6365-6337-4233-b162-326565373266_01.jpg" alt="Ортодонтическая амбулаторная хирургия | Москва, Одинцово | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+        <div class="sensitive-media" data-sensitive-media="locked">
+          <img src="assets/images/tild6365-6337-4233-b162-326565373266_01.jpg" alt="Примеры хирургической техники" class="w-full aspect-[4/3] object-contain bg-white p-2" loading="lazy">
+          <button type="button" data-sensitive-media-reveal class="sensitive-media__cover" aria-label="Показать медицинское изображение">
+            <span class="sensitive-media__panel">
+              <span class="sensitive-media__badge">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.7 5.1A10.9 10.9 0 0 1 12 5c5.4 0 9 5 9 7a8.7 8.7 0 0 1-2.3 3.4"/><path d="M6.6 6.6C4.2 8.1 3 10.4 3 12c0 2 3.6 7 9 7 1.4 0 2.7-.3 3.8-.9"/><path d="M9.9 9.9A3 3 0 0 0 14.1 14.1"/></svg>
+                <span>Медицинское фото</span>
+              </span>
+              <span class="sensitive-media__title">Скрыто до просмотра</span>
+              <span class="sensitive-media__text">Изображение хирургического лечения.</span>
+              <span class="sensitive-media__action">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>Показать</span>
+                <span aria-hidden="true">→</span>
+              </span>
+            </span>
+          </button>
+        </div>
+        <figcaption class="px-4 pt-3 pb-4 text-[14px] sm:text-[15px] leading-snug font-semibold text-ink/80 text-balance">Примеры хирургической техники</figcaption>
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="assets/images/tild3961-6463-4435-a362-323332646663_02.jpg" alt="Ортодонтическая амбулаторная хирургия | Москва, Одинцово | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+        <img src="assets/images/tild3961-6463-4435-a362-323332646663_02.jpg" alt="Примеры хирургической техники" class="w-full aspect-[4/3] object-contain bg-white p-2" loading="lazy">
+        <figcaption class="px-4 pt-3 pb-4 text-[14px] sm:text-[15px] leading-snug font-semibold text-ink/80 text-balance">Примеры хирургической техники</figcaption>
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="assets/images/tild3631-3536-4037-b864-396636346366_03.jpg" alt="Ортодонтическая амбулаторная хирургия | Москва, Одинцово | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+        <img src="assets/images/tild3631-3536-4037-b864-396636346366_03.jpg" alt="Вид зубных рядов до начала хирургического и ортодонтического лечения" class="w-full aspect-[4/3] object-contain bg-white p-2" loading="lazy">
+        <figcaption class="px-4 pt-3 pb-4 text-[14px] sm:text-[15px] leading-snug font-semibold text-ink/80 text-balance">Вид зубных рядов до начала хирургического и ортодонтического лечения</figcaption>
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="assets/images/tild6562-3237-4661-b730-356430623263_05.jpg" alt="Ортодонтическая амбулаторная хирургия | Москва, Одинцово | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+        <img src="assets/images/tild6562-3237-4661-b730-356430623263_05.jpg" alt="Вид зубных рядов после проведения хирургического и ортодонтического лечения, через 3 месяца!" class="w-full aspect-[4/3] object-contain bg-white p-2" loading="lazy">
+        <figcaption class="px-4 pt-3 pb-4 text-[14px] sm:text-[15px] leading-snug font-semibold text-ink/80 text-balance">Вид зубных рядов после проведения хирургического и ортодонтического лечения, через 3 месяца!</figcaption>
       </figure>
 <figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="assets/images/tild3161-3565-4139-b237-646239353632_04.jpg" alt="Ортодонтическая амбулаторная хирургия | Москва, Одинцово | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
-      </figure>
-<figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="assets/images/tild3331-6237-4638-b134-343233653037_00.jpg" alt="Ортодонтическая амбулаторная хирургия | Москва, Одинцово | Center of Surgery" class="w-full aspect-[4/3] object-cover" loading="lazy">
+        <img src="assets/images/tild3161-3565-4139-b237-646239353632_04.jpg" alt="Вид зубных рядов на этапе хирургического и ортодонтического лечения" class="w-full aspect-[4/3] object-contain bg-white p-2" loading="lazy">
+        <figcaption class="px-4 pt-3 pb-4 text-[14px] sm:text-[15px] leading-snug font-semibold text-ink/80 text-balance">Вид зубных рядов на этапе хирургического и ортодонтического лечения</figcaption>
       </figure>
     </div>
   </div>

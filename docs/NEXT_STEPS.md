@@ -15,8 +15,9 @@
 
 2. Continue visual QA on the preview deployment after the completed service-page polish rollout.
    - Check `http://service-pages-v2--cmf-surgery.netlify.app/`.
-   - Latest service-page v2 session closing commit: `polish implantology microsurgical sensitive media` (see `git log` for the final hash).
-   - Priority pages: homepage, `nose_surgery`, `scars`, `tmj_treatment`, `exo`, `implantology`, `microsurgical`, mobile layout, lightbox, selective sensitive-photo reveal banners, and TMJ video thumbnail cards.
+   - Latest service-page v2 session closing commit before the 2026-06-10 pass: `polish implantology microsurgical sensitive media` (see `git log` for the final hash).
+   - Current 2026-06-10 pass is closing with page-specific content edits for `scars`, `cleft`, `tmj_dysfunction`, `tmj`, `orthognathic_surgery`, `ilizarov_method`, `plastic_surgeries`, `alveolar`, and `face_surgery`.
+   - Priority pages: homepage, `nose_surgery`, `scars`, `tmj_treatment`, `exo`, `implantology`, `microsurgical`, `tmj_dysfunction`, `tmj`, `orthognathic_surgery`, `ilizarov_method`, `plastic_surgeries`, `alveolar`, `face_surgery`, mobile layout, lightbox, selective sensitive-photo reveal banners, and TMJ video thumbnail cards.
    - `tmj_treatment` preview was confirmed updated after push: status `200`, compact YouTube thumbnail cards present, restored TMJ text present.
 
 3. Approve or continue service-page review.
@@ -35,7 +36,8 @@
    - Long parser duplicates were removed from service content by separating prose, bullet items, tags and detail copy.
    - Need medical/editorial spot-check for wording quality and exact order against the original site where it matters.
    - `tmj_treatment` received extra manual restoration of lost long-form content and video thumbnail links during the 2026-06-05 session.
-   - `implantology` and `microsurgical` received page-specific content/layout passes during the 2026-06-05 follow-up session; verify final wording and sensitive-image selection visually on preview.
+   - `implantology` and `microsurgical` received page-specific content/layout passes during the 2026-06-05 follow-up session.
+   - `scars`, `cleft`, `tmj_dysfunction`, `tmj`, `orthognathic_surgery`, `ilizarov_method`, `plastic_surgeries`, `alveolar`, and `face_surgery` received page-specific content/layout passes during the 2026-06-10 session; verify final wording and sensitive-image selection visually on preview.
 
 ## Content And Design
 

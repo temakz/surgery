@@ -39,6 +39,8 @@ const sensitiveGalleryImagePatterns = [
   /04-0[2-6]/,
   /06-0[3-9]/,
   /06-1[12678]/,
+  /07-0[2-4]/,
+  /08-0[3-4]/,
 ];
 const microsurgicalHeroSubtitle = "и лицевого скелета с трансплантацией мягких, костных и комбинированных тканей";
 
@@ -107,6 +109,9 @@ function capitalizeFirst(value = "") {
 function cleanHeroLead(value = "") {
   return String(value)
     .replace(/\s*Московская область,\s*Одинцово\.?/gi, "")
+    .replace(/\s*✔\s*Бесплатная консультация.*$/i, "")
+    .replace(/\s*☎.*$/i, "")
+    .replace(/\s*Бесплатная консультация\s*$/i, "")
     .replace(/\s{2,}/g, " ")
     .trim();
 }
@@ -132,6 +137,52 @@ const tmjTreatmentCards = [
     title: "Устранение внутрисуставных спаек",
     text: "Репозиция, вправление диска и его фиксация имплантатами и имплантацией задней связки.",
   },
+];
+
+const cleftTreatmentCards = [
+  {
+    title: "Расщелина верхней губы",
+    text: "дефект мягких тканей верхней губы («заячья губа»).",
+  },
+  {
+    title: "Расщелина твердого нёба",
+    text: "дефект мягких и твёрдых тканей нёба («волчья пасть»).",
+  },
+  {
+    title: "Недостаточность мягкого нёба",
+    text: "нёбная недостаточность.",
+  },
+  {
+    title: "Нарушение звукопроизношения",
+    text: "различные виды нарушений, связанные с нёбной недостаточностью.",
+  },
+  {
+    title: "Односторонняя расщелина лица",
+    text: "односторонний дефект твердых и мягких тканей лица.",
+  },
+  {
+    title: "Двухсторонняя расщелина лица",
+    text: "двухсторонний дефект твердых и мягких тканей лица.",
+  },
+  {
+    title: "Расщелина губы и нёба с деформацией носа",
+    text: "сочетание с недоразвитием и деформацией носа.",
+  },
+  {
+    title: "Расщелина губы и нёба с деформацией верхней челюсти",
+    text: "сочетание с недоразвитием и деформацией верхней челюсти.",
+  },
+];
+
+const tmjDysfunctionTreatmentCards = [
+  { title: "Дисфункция ВНЧС", text: "" },
+  { title: "Вывихи и подвывихи диска ВНЧС", text: "" },
+  { title: "Остеоартроз, деформирующий остеоартроз ВНЧС", text: "" },
+  { title: "Вентральные дистопии диска", text: "" },
+  { title: "Миофасциальный болевой синдром", text: "" },
+  { title: "Анкилозы ВНЧС (фиброзный и костный)", text: "" },
+  { title: "Контрактуры нижней челюсти", text: "" },
+  { title: "Патология ВНЧС с нарушением прикуса", text: "" },
 ];
 
 const microsurgicalTreatmentCards = [
@@ -180,6 +231,148 @@ const tmjTreatmentVideos = [
     id: "JAs0wK6AK4g",
     title: "Принцип лечения пациентов с функциональными нарушениями жевательного аппарата, ВНЧС. Сплинт терапия.",
   },
+];
+
+const tmjDysfunctionVideos = tmjTreatmentVideos.slice(1);
+
+const tmjPageTreatmentCards = [
+  { title: "Протезы сустава", text: "" },
+  { title: "Протезирование сустава", text: "" },
+  { title: "Протезирование сустава челюсти", text: "" },
+];
+
+const tmjPageDetailText =
+  "Данное направление было крайне необходимым в усовершенствуем и клиническом применении, так как помимо повреждённых тканей сустава, требующие замены окружающие мягкие ткани: мышцы, связки, кожные покровы, подвержены вторичным рубцовым изменениям ограничивающие движения в суставе открывания рта и т.д., что требует их активного разрабатывания и растягивания в виде дистракции на аппаратах.";
+
+const tmjPageEndoprosthesisItems = [
+  "Индивидуальное моделирование",
+  "Изготовление из медицинского титанового сплава высокого качества.",
+  "Использование CAD/CAM технологий в проектировании и изготовление эндопротезов.",
+  "Изготовление титановых эндопротезов с помощью методов фрезеровки из моноблока титана.",
+  "Аппаратные методики разработки открывания рта.",
+];
+
+const tmjPageGalleryCaptions = [
+  [/10-2/i, "Остеоартроз ВНЧС с деструктированной головкой ВНЧС и диском"],
+  [/10-3/i, "Остеоартроз ВНЧС с деструктированной головкой ВНЧС и диском"],
+  [/10-4/i, "Фрагменты деструктированного диска и фибрознокостного анкилоза ВНЧС"],
+  [/10-5/i, "Комбинированный хондрографт с мембранным покрытием"],
+  [/10-6/i, "Имплантация комбинированного хондротрансплантата"],
+  [/10-7/i, "Наружный искусственный сустав по принципу экзоскелета"],
+  [/10-8/i, "Эндоскопический остеосинтез челюстей (внутриротовым доступом)"],
+  [/10-9/i, "Эндоскопический остеосинтез челюстей (внутриротовым доступом)"],
+];
+
+const orthognathicStepItems = [
+  "исправление прикуса",
+  "деформация лица",
+  "недоразвитие челюсти",
+  "деформация челюстей",
+  "искривление прикуса",
+  "искривление челюсти",
+];
+
+const orthognathicGalleryCaptions = [
+  [/01\.jpg/i, "Примеры хирургической техники"],
+  [/02\.jpg/i, "Примеры хирургической техники"],
+  [/03\.jpg/i, "Вид зубных рядов до начала хирургического и ортодонтического лечения"],
+  [/05\.jpg/i, "Вид зубных рядов после проведения хирургического и ортодонтического лечения, через 3 месяца!"],
+  [/04\.jpg/i, "Вид зубных рядов на этапе хирургического и ортодонтического лечения"],
+];
+
+const ilizarovHeroTitle = "Использование систем челюстных дистракторов по методу Илизарова";
+
+const ilizarovHeroLead =
+  "Использование систем челюстных дистракторов для устранения челюстных деформаций при выраженном дефиците челюстной кости по методу Илизарова (остеонеогенез, «выращивание» кости)";
+
+const ilizarovTreatmentCards = [
+  { title: "исправление прикуса", text: "" },
+  { title: "деформация лица", text: "" },
+  { title: "деформация челюстей", text: "" },
+  { title: "недоразвитие челюсти", text: "" },
+  { title: "искривление прикуса", text: "" },
+  { title: "искривление челюсти", text: "" },
+];
+
+const plasticSurgeriesTitle = "Пластические операции";
+
+const plasticSurgeriesLead = "Пластические операции на живот, грудь, ягодицы, икры, руки, ног";
+
+const plasticSurgeriesTreatmentCards = [
+  { title: "Пластические операции живота", text: "Абдоминопластика" },
+  { title: "Пластические операции молочной железы – груди", text: "Увеличивающая – маммопластика" },
+  { title: "Редукционная мамопластика и лифтинг молочных желез", text: "" },
+  { title: "Ремамопластика – исправление деформаций", text: "" },
+  { title: "Последующая установка имплантов молочной железы", text: "" },
+  { title: "Устранение гинекомастии у мужчин", text: "" },
+  { title: "Пластика ягодиц – увеличение и лифтинг – подтяжка ягодиц", text: "" },
+  { title: "Бодилифт и липосакция", text: "" },
+  { title: "Липосакция и бодилифт", text: "" },
+];
+
+const alveolarHeroCardTitle = "Восстановительные операции альвеолярного отростка";
+
+const alveolarTreatmentCards = [
+  { title: "Реконструкция кости альвеолярного отростка –", text: "свободными расщепленными костными трансплантатами" },
+  { title: "Реконструкция кости альвеолярного отростка –", text: "с помощью дистракторов" },
+  { title: "Реконструкция кости альвеолярного отростка –", text: "костными блоками" },
+  { title: "Реконструкция кости альвеолярного отростка –", text: "туннельной пластикой" },
+];
+
+const alveolarHighTechItems = [
+  { title: "реконструкция альвеолярного отростка свободными расщепленными костными;" },
+  { title: "аутотрансплантатами нижней челюсти, теменных костей, гребня подвздошной кости;" },
+  { title: "реконструкция альвеолярного отростка с помощью дистракционного остеонеогенеза", detail: "выращивание кости методом Илизарова;" },
+  { title: "латерализация нижнечелюстного нерва с одномоментной установкой имплантатов;" },
+  { title: "реконструкция альвеолярного отростка туннельной пластикой;" },
+  { title: "реконструкция альвеолярного отростка методом аутоклеточной матрицы", detail: "(выращивание кости с помощью Вашего клеточного материала);" },
+  {
+    title: "реконструкция нижней и верхней челюсти с помощью микрохирургического метода пересадки васкулярезированных аутотрансплантатов (комплекса тканей, имеющих собственное кровоснабжение).",
+    detail:
+      "Пересадка осуществляется с подсоединением сосудистой ножки трансплантата к магистральным сосудам в области отсутствующей челюсти. Данная методика используется у пациентов с полным или частичным отсутствием верхней или нижней челюсти после удаления опухолевых процессов или травм, приведших к потере челюсти;",
+  },
+  {
+    title: "реконструкция нижней либо верхней челюсти методом префабрикации.",
+    detail:
+      "Суть заключается в проектировании копии верхней либо нижней (отсутствующей) челюсти, после чего по данным проектирования изготавливается матрица будущей челюсти, которая заполняется биоимплантатом и помещается в заранее выбранный участок тела человека с магистральным сосудисто-нервным пучком. Через 1 год происходит прорастание сосудов и тканей в данный имплантат, позволяя в дальнейшем пересаживать его на собственной сосудистой ножке в область отсутствующей челюсти.",
+  },
+];
+
+const faceSurgeryTags = [
+  "пластика лица",
+  "атрофия кости",
+  "фейслифтинг",
+  "подтяжка лица",
+  "омоложение лица",
+  "пластика век",
+  "блефаропластика",
+  "пластика лба",
+  "удаление морщин",
+  "морщины лица",
+  "морщины век",
+];
+
+const faceSurgeryTreatmentCards = [
+  { title: "Круговая подтяжка лица", text: "(фейслифтинг или ритидэктомия)" },
+  { title: "Микрофейс лифтинг", text: "векторный лифтинг лица." },
+  { title: "Эндоскопический фейс лифтинг", text: "(средней зоны лица, нижней зоны лица)." },
+  { title: "Эндоскопический лифтинг лба", text: "" },
+  { title: "Круговая подтяжка лица", text: "(фейслифтинг или ритидэктомия) с SMAS и DMAS фиксацией и аппликацией." },
+];
+
+const faceSurgeryDetailItems = [
+  "Глубокий субпериостальный лифтинг лица.",
+  "Био армирование и Био каркастирование мягких тканей лица.",
+  "Блефаропластика (пластика век), блефаропластика верхних и нижних век.",
+  "Эндоскопическое удаление грыж верхних и нижних век.",
+  "Микроблефаропластика – микрографтовая техника.",
+  "Пластика ушей – отопластика – исправление форм, размеров, отопырености ушных раковин, а так же восстановление ушных раковин при их полном и частичном отсутствии.",
+  "Био армирование и Био каркастирование лица (нити полипропилен, золотые нити, полилактид), установка биоматриц и лифтинг лица биоматрицами. Нитевой лифтинг лица – нити силуэт лифт (Франция).",
+  "Botox терапия лица, мезоBotox.",
+  "Контурная пластика лица филлерами, плазмолифтинг, тканевыми филлерами.",
+  "Ринопластика – пластика носа (уменьшение, увеличение, исправление искривления, восстановление носового дыхания).",
+  "Контурная пластика лица контурными имплантатами Gore-Tex (стандартными и индивидуально изготовленными).",
+  "Пластика губ увеличение и уменьшение, филлеры – гелиевые имплантаты для губ – пересадка собственной ткани, контурные имплантаты для увеличения губ.",
 ];
 
 function stripTmjTreatmentExtra(paragraphs) {
@@ -410,6 +603,49 @@ function tmjTextParagraph(text, strong = []) {
   return `<p>${html}</p>`;
 }
 
+function renderTmjPageDetailCopy() {
+  return `<p>${escapeHtml(tmjPageDetailText)}</p>`;
+}
+
+function renderTmjPageStepCopy() {
+  return `<div class="lg:col-span-7">
+      <h3 class="font-display text-[22px] leading-snug font-bold mb-4">Эндопротезирование ВНЧС</h3>
+      <p class="text-[16px] leading-relaxed text-ink/70 mb-6">Изготовление и установка титановых эндопротезов при анкилозах ВНЧС и анкилозирующих состояниях.</p>
+      <ol class="space-y-1">
+        ${tmjPageEndoprosthesisItems.map((item, i) => `<li class="step-line relative pl-16 py-5">
+          <span class="absolute left-0 top-5 w-10 h-10 rounded-full bg-white border border-ink/10 flex items-center justify-center font-display font-bold text-indigo2">${i + 1}</span>
+          <h3 class="font-display text-xl font-bold">${escapeHtml(item)}</h3>
+        </li>`).join("\n")}
+      </ol>
+    </div>`;
+}
+
+function renderOrthognathicStepCopy() {
+  return `<div class="lg:col-span-7">
+      <ol class="space-y-1">
+        ${orthognathicStepItems.map((item, i) => `<li class="step-line relative pl-16 py-5">
+          <span class="absolute left-0 top-5 w-10 h-10 rounded-full bg-white border border-ink/10 flex items-center justify-center font-display font-bold text-indigo2">${i + 1}</span>
+          <h3 class="font-display text-xl font-bold">${escapeHtml(item)}</h3>
+        </li>`).join("\n")}
+      </ol>
+    </div>`;
+}
+
+function renderTmjPageExtraContent() {
+  return [
+    tmjTextParagraph("Отдельным направлением являлось новое революционное изобретение в виде наружнего – искусственного сустава экзо сустава – по принципу экзоскелета который на время может заменять функцию сустава и не давать срастаться суставным поверхностям или запустить функцию сустава вытянуть разрушающейся сустав дав возможность убрать явления сдавливания и вернуть внутрисуставные структуры обратно в анатомически правильное положение при этом давая пациенту постоянное функционирование его сустава."),
+    tmjTextParagraph("Эндопротезирование ВНЧС сустава и окружающих тканей лица является их ранее восстановление активности. Уникальность данной технологии является возможность управлять степенью растяжения сустава – вытяжение суставного отростка-головки нижней челюсти и его направлением. При этом сама операция по установки данного устройства не травматична и малокровна операционный доступ делается в волосистой части головы и в виде 2-х проколов в области угла нижней челюсти."),
+    tmjSubheading("Эндоскопический остеосинтез в хирургии переломов ВНЧС"),
+    `<ul class="space-y-3 pl-5 list-disc marker:text-indigo2 text-pretty">
+      ${[
+        "Малотравматичность",
+        "Широкий спектр возможностей в различных случаях",
+        "Визуальный контроль за правельностью сопоставления фрагментов",
+      ].map((item) => `<li>${escapeHtml(item)}</li>`).join("\n")}
+    </ul>`,
+  ].join("\n");
+}
+
 function medicalTextParagraph(text, strong = [], className = "") {
   let html = escapeHtml(text);
   for (const phrase of strong) {
@@ -448,6 +684,176 @@ function renderMicrosurgicalDetailCopy() {
           )
           .join("\n")}
       </ul>`;
+}
+
+function renderScarsListGroup(title, items) {
+  return `<section class="pt-7 first:pt-0">
+          <h3 class="font-display text-[22px] sm:text-[24px] leading-snug font-bold text-ink text-balance">${escapeHtml(title)}</h3>
+          <ul class="mt-4 space-y-2.5 text-[15px] sm:text-[16px] leading-relaxed text-ink/70 text-pretty">
+            ${items
+              .map(
+                (item) => `<li class="relative pl-5 before:absolute before:left-0 before:top-[0.72em] before:w-1.5 before:h-1.5 before:rounded-full before:bg-pink2">${escapeHtml(item)}</li>`
+              )
+              .join("\n")}
+          </ul>
+        </section>`;
+}
+
+function renderScarsDetailCopy() {
+  return [
+    renderScarsListGroup("Причины появления рубцов:", [
+      "Рубцы после операций;",
+      "Рубцы после травм и укусов;",
+      "Рубцы после ожогов.",
+    ]),
+    renderScarsListGroup("Виды рубцов и рубцовых деформаций, которые мы лечим:", [
+      "Атрофические;",
+      "Гипертрофические;",
+      "Келоидные;",
+      "Постакне;",
+      "Стрии («растяжки»);",
+      "Рубцовые деформации тканей лица и тела.",
+    ]),
+    renderScarsListGroup("Виды лечения, которые применяются в нашем центре:", [
+      "Механическая шлифовка;",
+      "Лазерная шлифовка;",
+      "Фракционный фототермолиз;",
+      "Пластика рубцов хирургическая – иссечение рубцов;",
+      "Пластика рубцов хирургическая – местными тканями (Z пластика, U-Y пластика, пластика встречными лоскутами);",
+      "Выращивание тканей с помощью систем – аппаратов тканевых экспандеров;",
+      "Микрохирургическая трансплантация – пересадка мягких тканей, кожи;",
+      "Свободная пересадка мягких тканей, кожи.",
+    ]),
+  ].join("\n");
+}
+
+function renderScarsStepCopy() {
+  const items = [
+    [
+      "Пигментный медицинский татуаж",
+      "С помощью биопегмента технология позволяет подобрать цветовые оттенки кожи и, в прямом смысле слова, закрасить рубец или рубцы.",
+    ],
+    [
+      "Давящие индивидуальные и стандартные силиконовые накладки",
+      "Принцип действия которых основан на атрофии рубцовой ткани и её последующего рассасывания под действием материалов с эффектом памяти.",
+    ],
+    [
+      "Инъекционные методики",
+      "Введение различных видов препаратов, рассасывающих рубцы и рубцовые ткани.",
+    ],
+  ];
+
+  return `<div class="lg:col-span-7">
+      <h3 class="font-display text-[24px] sm:text-[28px] leading-snug font-bold mb-5 text-balance">Новые безоперационные технологии!</h3>
+      <ol class="space-y-1">
+        ${items
+          .map(
+            ([title, text], i) => `<li class="step-line relative pl-16 py-5">
+          <span class="absolute left-0 top-5 w-10 h-10 rounded-full bg-white border border-ink/10 flex items-center justify-center font-display font-bold text-indigo2">${i + 1}</span>
+          <h4 class="font-display text-xl font-bold">${escapeHtml(title)}</h4>
+          <p class="mt-2 text-[15px] sm:text-[16px] leading-relaxed text-ink/65 text-pretty">${escapeHtml(text)}</p>
+        </li>`
+          )
+          .join("\n")}
+      </ol>
+    </div>`;
+}
+
+function renderCleftDetailCopy() {
+  const methods = [
+    "Пластика местными тканями – закрытие мягкотканых дефектов;",
+    "Свободная пересадка мягких тканей и их перемещение;",
+    "Микрохирургическая реконструкция дефектов мягких тканей губы и нёба;",
+    "Пересадка костных блоков (нижняя челюсть, теменная кость) – восстановление верхней челюсти, ее непрерывности;",
+    "Микрохирургическая реконструкция дефектов костных тканей верхней челюсти, нёба;",
+    "Дистракционный остеонеогенез (выращивание) верхней челюсти, закрытие костных дефектов верхней челюсти и устранение её деформации, а также недоразвития;",
+    "Дистракционный остеонеогенез (выращивание) твёрдого нёба – устранение нёбной недостаточности;",
+    "Реконструкция костно-хрящевого отдела носа, устранение ассиметрии носа;",
+    "Ортодонтическое лечение – брекеты, аппаратные технологии;",
+    "Ортопедические методы лечения – протезирование (съёмное, несъёмное);",
+  ];
+
+  return `<h3 class="font-display text-[22px] sm:text-[24px] leading-snug font-bold text-ink text-balance">Сочетанные и комбинированные патологии</h3>
+        <h3 class="font-display text-[22px] sm:text-[24px] leading-snug font-bold text-ink mt-7 text-balance">Методы лечения, применяемые в нашем центре</h3>
+        <ul class="mt-4 space-y-3 text-[16px] leading-relaxed text-ink/70 text-pretty">
+          ${methods
+            .map(
+              (item) => `<li class="relative pl-5 before:absolute before:left-0 before:top-[0.72em] before:w-1.5 before:h-1.5 before:rounded-full before:bg-pink2">${escapeHtml(item)}</li>`
+            )
+            .join("\n")}
+        </ul>`;
+}
+
+function renderCleftStepCopy() {
+  const items = [
+    "Планирование, проектирование, изготовление и установка контурных имплантатов лица для устранения дефектов и деформаций.",
+    "Контурная пластика глоточного кольца для устранения нёбной недостаточности местными тканями и жидкими имплантатами (безоперационный метод).",
+    "Метод выращивания костной, хрящевой ткани и кожи – аутоклеточная матрица, аутоклеточные технологии, метод тканевой инженерии.",
+    "Нейроэлектромиостимуляция мышц мягкого нёба и губы – реабилитационная терапия.",
+  ];
+
+  return `<div class="lg:col-span-7">
+      <ol class="space-y-1">
+        ${items
+          .map(
+            (item, i) => `<li class="step-line relative pl-16 py-5">
+          <span class="absolute left-0 top-5 w-10 h-10 rounded-full bg-white border border-ink/10 flex items-center justify-center font-display font-bold text-indigo2">${i + 1}</span>
+          <p class="text-[16px] sm:text-[17px] leading-relaxed text-ink/70 text-pretty">${escapeHtml(item)}</p>
+        </li>`
+          )
+          .join("\n")}
+      </ol>
+    </div>`;
+}
+
+function renderTmjDysfunctionDetailCopy() {
+  return [
+    medicalTextParagraph("МРТ – Ядерно магнитно резонансная томография жевательной мускулатуры и височно-нижнечелюстного сустава, внутрисуставного диска его положения, связок."),
+    medicalTextParagraph("Динамическая МРТ аксиография – запись движение ВНЧС при открывании, закрывании и жевании, а так же внутрисуставных структур и жевательных мышц, возможность так же определять состояние ВНЧС и жевательной мускулатуры при нагрузке – данная методика даёт исчерпывающий ответ на вопрос состояния, морфологии структур ВНЧС, жевательной мускулатуры, а так же состояния и положения прикуса."),
+    medicalTextParagraph("Гнатоанализ в системе полностью юстируемых артикуляторов, MPI анализ, механическая и ультрозвуковая аксиография, миография жевательной мускулатуры, УЗИ ВНЧС и жевательной мускулатуры."),
+    medicalTextParagraph("Hi-tech - Персонализированный 3D артикулятор изготовленный на основе STL-модели (твердотельной) вашего черепа с персонализированным диском и жевательной мускулатуры, моделями зубных рядов и т.д. Это позволяет с высокой точность определить и отобразить состояние ВНЧС, положение-нарушение прикуса, провести изготовление коронок, смоделировать ортодонтическое лечение (лечение на брекет системе или другой аппаратуре), провести моделирование операции по исправлению прикуса и деформации челюстей.", ["Hi-tech"]),
+  ].join("\n");
+}
+
+function renderTmjDysfunctionStepCopy() {
+  const items = [
+    "внутрисуставная декомпрессия",
+    "внутрисуставная имплантация",
+    "внутрисуставная пластика мягких тканей",
+  ];
+
+  return `<div class="lg:col-span-7">
+      <h3 class="font-display text-[22px] leading-snug font-bold mb-4">Лечебная и диагностическая артроскопия ВНЧС:</h3>
+      <ol class="space-y-1">
+        ${items
+          .map(
+            (item, i) => `<li class="step-line relative pl-16 py-5">
+          <span class="absolute left-0 top-5 w-10 h-10 rounded-full bg-white border border-ink/10 flex items-center justify-center font-display font-bold text-indigo2">${i + 1}</span>
+          <h3 class="font-display text-xl font-bold">${escapeHtml(item)}</h3>
+        </li>`
+          )
+          .join("\n")}
+      </ol>
+    </div>`;
+}
+
+function renderTmjDysfunctionExtraContent() {
+  const items = [
+    "Сплинт терапия – Лечение окклюзионными шинами – окклюзионными аппаратами (производство Германия, Австрия, Швейцария), либо совместное с Россией. Изменение прикуса;",
+    "Векторная Botox терапия – микро инъекции в жевательную мускулатуру - для проведения мышечного релаксационного ремоделирования;",
+    "Микротоковая – магнитная – релаксационная корригирующая терапия;",
+    "Декомпрессионный артроцентез -артролаваж с введением специфических противовоспалительных средств прямо внутрь сустава;",
+    "Устранение внутрисуставных спаек, репозиция – вправление диска и его фиксация –фиксирующими имплантатами и имплантацией задней связки (процедура проводится закрытым способом под местной анестезией с дополнительной седацией) – уникальность процедуры заключается в возможности избежать перепротезирования!",
+    "Нашими новыми разработками и новыми технологическими внедрениями явились: Кинематическое МРТ (магнитно-резонансная томография) ВНЧС (височно-нижнечелюстного сустава). Данный вид диагностики позволяет оценить состояние тканей и структур данного сочленения и связочно-мышечного комплекса.",
+    "Данный вид исследования несёт в себе более 90 % информативности и наглядно демонстрирует состояние тканей в динамике и при нагрузке. Это является важным и информативным в диагностике и понимании патологических процессов.",
+  ];
+
+  return `<p><strong class="font-semibold text-ink">Виды лечения – Авторские методики - Запатентованные международными стандартами выполняемые сертифицированными специалистами:</strong></p>
+${items
+  .map(
+    (item) => `<p class="relative pl-5 before:absolute before:left-0 before:top-[0.72em] before:w-1.5 before:h-1.5 before:rounded-full before:bg-pink2">${escapeHtml(item)}</p>`
+  )
+  .join("\n")}`;
 }
 
 function implantologySubheading(text) {
@@ -549,6 +955,113 @@ function renderImplantologyExtraContent() {
   ].join("\n");
 }
 
+function renderAlveolarDetailCopy() {
+  const items = [
+    [
+      medicalTextParagraph("Мы используем более 15 видов систем имплантатов", ["более 15 видов систем имплантатов"]),
+    ],
+    [
+      medicalTextParagraph(
+        "В сложных случаях мы можем изготовить Вам индивидуальный имплантат (из оксида циркония, сплава титана), учитывая Вашу анатомию, индивидуальные качественные и количественные показатели костной ткани. Это поможет Вам избежать многих осложнений, минимизировать риски операции, найти наиболее оптимальный вариант в решении Вашего вопроса, минимизировать травматичность.",
+        ["индивидуальный имплантат"]
+      ),
+    ],
+    [
+      medicalTextParagraph(
+        "Возможность проведения имплантации без разрезов. При этом все манипуляции проводятся через десневые проколы и не требуют наложения швов.",
+        ["без разрезов"]
+      ),
+    ],
+    [
+      medicalTextParagraph("Часто установка имплантатов возможна только после реконструкции альвеолярного отростка."),
+      medicalTextParagraph(
+        "Мы используем новые методики, запатентованные нами – технология вакуумного синус-лифтинга, микротрепанационного синус-лифтинга, также каркаснотуннельной пластики альвеолярного отростка.",
+        ["запатентованные", "вакуумного синус-лифтинга, микротрепанационного синус-лифтинга, также каркаснотуннельной пластики альвеолярного отростка"]
+      ),
+    ],
+    [
+      medicalTextParagraph(
+        "К Вашим услугам работает лаборатория по 3D CAD/CAM биопроектированию и моделированию.",
+        ["лаборатория по 3D CAD/CAM"]
+      ),
+      medicalTextParagraph("Это позволяет решать комплекс сложных проблем, связанных с моделированием и проектированием хирургических вмешательств в челюстно-лицевой хирургии и имплантологии."),
+    ],
+    [
+      medicalTextParagraph(
+        "При большой степени атрофии альвеолярных отростков нашим пациентам мы можем предложить технологии по установке систем субпериостальных имплантатов, или экзоскелетов.",
+        ["экзоскелетов"]
+      ),
+      medicalTextParagraph("Принцип заключен в создании точной копии поверхности кости верхней и нижней челюсти. По этой копии будет моделироваться будущий экзоскелет с посадочными местами под искусственные зубы. Конструкция дополнительно крепится к кости фиксационными элементами."),
+      medicalTextParagraph("Такая конструкция изготавливается индивидуально на основании данных компьютерной томографии пациента и проектируется в 3D режиме CAD/CAM инженерных приложений. Это обеспечивает высокую точность в изготовлении конструкции. Экзоскелеты могут быть изготовлены как из медицинских сплавов титана, так и из оксида циркония."),
+    ],
+  ];
+
+  return `<ol class="space-y-5 list-decimal pl-5 marker:font-display marker:text-indigo2 marker:font-bold">
+        ${items
+          .map((paragraphs) => `<li class="pl-1 space-y-3 text-pretty">${paragraphs.join("\n")}</li>`)
+          .join("\n")}
+      </ol>`;
+}
+
+function renderAlveolarStepCopy() {
+  return `<div class="lg:col-span-7">
+      <h3 class="font-display text-[22px] leading-snug font-bold mb-5 text-balance">В нашем центре пациенты могут получить высокотехнологическую медицинскую помощь в решении своих сложных проблем, в виде:</h3>
+      <ol class="space-y-1">
+        ${alveolarHighTechItems
+          .map(
+            (item, i) => `<li class="step-line relative pl-16 py-5">
+          <span class="absolute left-0 top-5 w-10 h-10 rounded-full bg-white border border-ink/10 flex items-center justify-center font-display font-bold text-indigo2">${i + 1}</span>
+          <h3 class="font-display text-xl font-bold">${escapeHtml(item.title)}</h3>${item.detail ? `\n          <p class="mt-2 text-[14px] leading-relaxed text-ink/60 text-pretty">${escapeHtml(item.detail)}</p>` : ""}
+        </li>`
+          )
+          .join("\n")}
+      </ol>
+    </div>`;
+}
+
+function renderAlveolarExtraContent() {
+  return [
+    medicalTextParagraph(
+      "При большой степени атрофии альвеолярных отростков нашим пациентам мы можем предложить технологии по установке систем субпериостальных имплантатов, или экзоскелетов.",
+      ["экзоскелетов"]
+    ),
+    medicalTextParagraph("Принцип заключен в создании точной копии поверхности кости верхней и нижней челюсти. По этой копии будет моделироваться будущий экзоскелет с посадочными местами под искусственные зубы. Конструкция дополнительно крепится к кости фиксационными элементами."),
+    medicalTextParagraph("Такая конструкция изготавливается индивидуально на основании данных компьютерной томографии пациента и проектируется в 3D режиме CAD/CAM инженерных приложений. Это обеспечивает высокую точность в изготовлении конструкции. Экзоскелеты могут быть изготовлены как из медицинских сплавов титана, так и из оксида циркония."),
+    medicalTextParagraph(
+      "В нашем центре пациенты могут получить высокотехнологическую медицинскую помощь в решении своих сложных проблем, в виде:",
+      ["высокотехнологическую медицинскую помощь"]
+    ),
+    `<ul class="space-y-3 pl-5 list-disc marker:text-indigo2 text-pretty">
+      ${alveolarHighTechItems
+        .map(
+          (item) => `<li><strong class="font-semibold text-ink">${escapeHtml(item.title)}</strong>${item.detail ? `<p class="mt-1 text-[14px] leading-relaxed text-ink/60">${escapeHtml(item.detail)}</p>` : ""}</li>`
+        )
+        .join("\n")}
+    </ul>`,
+    medicalTextParagraph("Данная методика также позволяет избежать излишнюю травматизацию при заборе собственного трансплантата из ноги либо гребня подвздошной кости.", [], "italic text-ink/80"),
+    medicalTextParagraph("Данная методика относится к HI-TECH технологиям органогенеза.", [], "italic text-ink/80"),
+    medicalTextParagraph(
+      "В нашем центре возможно проведение хирургических манипуляций и операций под всеми видами общего обезболивания и седации.",
+      ["всеми видами общего обезболивания и седации"]
+    ),
+    medicalTextParagraph(
+      "В нашем центре мы можем предложить услуги по имплантации пациентам, имеющим заболевания сердечно-сосудистой системы, сахарным диабетом и т.д.",
+      ["услуги по имплантации пациентам, имеющим заболевания сердечно-сосудистой системы, сахарным диабетом"]
+    ),
+    medicalTextParagraph("В условиях стациона проводится полное обследование, включая гистологическое исследование костной ткани, детензитометрию, исследования обменных процессов организма, состояния внутренних органов. После предварительной подготовки в условиях стациона проводится имплантация и последующее наблюдение за пациентом до полного выздоровления."),
+  ].join("\n");
+}
+
+function renderFaceSurgeryDetailCopy() {
+  return `<ul class="space-y-3 text-[16px] leading-relaxed text-ink/70 text-pretty">
+        ${faceSurgeryDetailItems
+          .map(
+            (item) => `<li class="relative pl-5 before:absolute before:left-0 before:top-[0.72em] before:w-1.5 before:h-1.5 before:rounded-full before:bg-pink2">${escapeHtml(item)}</li>`
+          )
+          .join("\n")}
+      </ul>`;
+}
+
 function renderTmjExtraContent() {
   return [
     tmjSubheading("Нашими новыми разработками и новыми технологическими внедрениями явились:"),
@@ -572,14 +1085,14 @@ function renderTmjExtraContent() {
   ].join("\n");
 }
 
-function renderTmjVideoSection(sectionLabel) {
-  if (!tmjTreatmentVideos.length) return "";
+function renderTmjVideoSection(sectionLabel, videos = tmjTreatmentVideos) {
+  if (!videos.length) return "";
   return `<section class="py-8 sm:py-10 lg:py-14 bg-white border-y border-ink/5">
   <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
     ${sectionLabel("Видео", "text-indigo2", "bg-indigo2")}
     <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance mb-6 sm:mb-8">Видео<br><span class="italic font-normal">по лечению ВНЧС</span></h2>
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      ${tmjTreatmentVideos
+      ${videos
         .map(
           (video) => `<article class="rounded-2xl bg-cream border border-ink/5 overflow-hidden shadow-sm">
         <h3 class="min-h-[88px] px-4 pt-4 pb-3 text-[13px] sm:text-[14px] leading-snug font-semibold text-indigo2">ВИДЕО: ${escapeHtml(video.title)}</h3>
@@ -601,13 +1114,25 @@ function renderTmjVideoSection(sectionLabel) {
 
 function galleryImageClass(image) {
   const src = image.src.toLowerCase();
+  if (/10[-_]/i.test(src)) return "w-full aspect-[4/3] object-contain bg-white p-2";
   const contain = /\.(png|gif|webp)$/.test(src) || /(scheme|schema|slide|copy|nt|mrt|кт|аксио|diagram|result)/i.test(src);
   return contain ? "w-full aspect-[4/3] object-contain bg-white p-2" : "w-full aspect-[4/3] object-cover";
 }
 
 function isSensitiveGalleryImage(slug, image = {}) {
   const src = String(image.src || "").toLowerCase();
+  if (slug === "tmj") return /10-[3-9]/i.test(src);
+  if (slug === "orthognathic_surgery") return /_01\.jpg/i.test(src);
+  if (slug === "alveolar") return /_14-0[23]\.jpg/i.test(src);
+  if (slug === "face_surgery") return /_15-07\.jpg/i.test(src);
   return sensitiveGalleryImagePatterns.some((pattern) => pattern.test(src));
+}
+
+function galleryCaption(slug, image = {}) {
+  const src = String(image.src || "");
+  if (slug === "orthognathic_surgery") return orthognathicGalleryCaptions.find(([pattern]) => pattern.test(src))?.[1] || "";
+  if (slug !== "tmj") return "";
+  return tmjPageGalleryCaptions.find(([pattern]) => pattern.test(src))?.[1] || "";
 }
 
 function renderSensitiveGalleryNotice() {
@@ -1180,7 +1705,14 @@ function renderGenericPage(slug, number = "—") {
   const page = readJson(slug);
   const atoms = extractAtoms(slug);
   const title = firstHeading(page, atoms);
-  const displayTitle = slug === "microsurgical" ? title.replace(/\s+и$/i, "") : title;
+  const displayTitle =
+    slug === "microsurgical"
+      ? title.replace(/\s+и$/i, "")
+      : slug === "ilizarov_method"
+      ? ilizarovHeroTitle
+      : slug === "plastic_surgeries"
+      ? plasticSurgeriesTitle
+      : title;
   const h2 = [...(page.headings?.h2 || []), ...atoms.filter((a) => a.tag === "h2").map((a) => a.text)]
     .map((text) => text.replace(/^[\s•\-–—]+/, "").replace(/:$/, "").trim())
     .filter((text) => text && text.length > 3 && text.length < 95)
@@ -1195,7 +1727,12 @@ function renderGenericPage(slug, number = "—") {
     .filter((image) => slug !== "nose_surgery" || !/procedures-nose/i.test(image.src))
     .filter((image) => slug !== "tmj_treatment" || !/_tmj_treatment1/i.test(image.src))
     .filter((image) => slug !== "implantology" || !/04-01/i.test(image.src))
-    .filter((image) => slug !== "nasal_surgery" || !/05-01/i.test(image.src));
+    .filter((image) => slug !== "nasal_surgery" || !/05-01/i.test(image.src))
+    .filter((image) => slug !== "tmj_dysfunction" || !/09-01/i.test(image.src))
+    .filter((image) => slug !== "tmj" || !/10_01/i.test(image.src))
+    .filter((image) => slug !== "orthognathic_surgery" || !/tild3331-6237-4638-b134-343233653037_00/i.test(image.src))
+    .filter((image) => slug !== "alveolar" || !/_14-01\.jpg/i.test(image.src))
+    .filter((image) => slug !== "face_surgery" || !/_15-01\.jpg/i.test(image.src));
   const textSections = collectTextSections(atoms);
   const usedText = new Set([normalizeContentKey(title)]);
   const seoLeadRaw = compactLead(page.seo?.description || "");
@@ -1203,7 +1740,13 @@ function renderGenericPage(slug, number = "—") {
   const allParagraphs = uniqueTexts(textSections.flatMap((section) => section.paragraphs).filter((text) => !isBulletRun(text)), usedText);
   const allBullets = uniqueTexts(textSections.flatMap((section) => section.bullets), usedText);
   const rawLead = seoLead || allParagraphs[0] || "На консультации врач оценивает клиническую ситуацию и подбирает индивидуальный план лечения по этому направлению.";
-  const lead = cleanHeroLead(rawLead) || rawLead;
+  let lead = cleanHeroLead(rawLead) || rawLead;
+  if (slug === "scars") lead = lead.replace(/:\s*$/, "");
+  if (slug === "tmj_dysfunction") lead = lead.replace(/:\s*$/, "");
+  if (slug === "tmj") lead = lead.replace(/\s*Бесплатная консультация\s*$/i, "").trim();
+  if (slug === "ilizarov_method") lead = ilizarovHeroLead;
+  if (slug === "plastic_surgeries") lead = plasticSurgeriesLead;
+  if (slug === "face_surgery") lead = "Эстетическая – пластическая хирургия лица";
   const paragraphsAfterLead = allParagraphs.filter((text) => !sameContent(text, lead));
   const introParagraphs = paragraphsAfterLead.slice(0, 2);
   const detailParagraphs = paragraphsAfterLead.slice(2, 8);
@@ -1213,30 +1756,82 @@ function renderGenericPage(slug, number = "—") {
   const cards = cardPool.slice(0, 4);
   const steps = cardPool.slice(cards.length, cards.length + 6);
   const usedShortItems = new Set([...cards, ...steps].map(normalizeContentKey));
-  const tags = h2
+  let tags = h2
     .filter((item) => !/^симптомы$/i.test(item))
     .filter((item) => !usedShortItems.has(normalizeContentKey(item)))
     .slice(0, 8);
+  if (slug === "tmj_dysfunction") {
+    tags = [
+      "Болит челюсть",
+      "Болит сустав",
+      "Болит сустав в челюсти",
+      "Хрустит челюсть",
+      "Хрустит сустав",
+      "Не открывается рот",
+      "Болят мышцы челюсти",
+      "Болит челюстной сустав",
+      "Болит височно-нижнечелюстной сустав",
+    ];
+  }
+  if (slug === "tmj") {
+    tags = [
+      "болит челюсть",
+      "болит сустав",
+      "болит сустав в челюсти",
+      "хрустит челюсть",
+      "хрустит сустав",
+      "не открывается рот",
+      "болят мышцы челюсти",
+      "болит челюстной сустав",
+    ];
+  }
+  if (slug === "face_surgery") tags = faceSurgeryTags;
   if (slug === "tmj_treatment") remainingParagraphs = stripTmjTreatmentExtra(remainingParagraphs);
+  if (slug === "alveolar") remainingParagraphs = [];
+  if (slug === "face_surgery") remainingParagraphs = [];
   const treatmentCards =
     slug === "tmj_treatment"
       ? tmjTreatmentCards
+      : slug === "tmj_dysfunction"
+      ? tmjDysfunctionTreatmentCards
+      : slug === "tmj"
+      ? tmjPageTreatmentCards
+      : slug === "ilizarov_method"
+      ? ilizarovTreatmentCards
+      : slug === "plastic_surgeries"
+      ? plasticSurgeriesTreatmentCards
+      : slug === "alveolar"
+      ? alveolarTreatmentCards
+      : slug === "face_surgery"
+      ? faceSurgeryTreatmentCards
+      : slug === "cleft"
+        ? cleftTreatmentCards
       : slug === "microsurgical"
         ? microsurgicalTreatmentCards
         : cards.map((card) => ({ title: card.replace(/[.;]$/, ""), text: "" }));
-  const showTreatmentLabel = slug === "tmj_treatment" || slug === "implantology" || slug === "microsurgical";
+  const showTreatmentLabel = slug === "tmj_treatment" || slug === "implantology" || slug === "microsurgical" || slug === "cleft" || slug === "tmj_dysfunction";
   const implantologyTreatmentNoteHtml =
     slug === "implantology"
       ? `    <div class="mb-5 rounded-2xl bg-gradient-to-br from-indigo2/5 via-violet2/5 to-pink2/5 border border-indigo2/10 px-5 py-4 sm:px-6 shadow-sm">
       <p class="text-[16px] sm:text-[17px] leading-relaxed text-ink/75"><span class="font-semibold text-indigo2">Костная инженерия bone engineering</span> – направленная регенерации, изменение биотипа кости – направленная остеоконденсация при остеопорозе.</p>
     </div>
 `
+      : slug === "alveolar"
+      ? `    <div class="mb-5 rounded-2xl bg-gradient-to-br from-indigo2/5 via-violet2/5 to-pink2/5 border border-indigo2/10 px-5 py-4 sm:px-6 shadow-sm">
+      <p class="text-[16px] sm:text-[17px] leading-relaxed text-ink/75"><span class="font-semibold text-indigo2">Костная инженерия bone engineering</span> – направленная регенерации, изменение биотипа кости – направленная остеоконденсация при остеопорозе</p>
+    </div>
+`
       : "";
   const treatmentGridClass = slug === "tmj_treatment" ? "grid sm:grid-cols-2 lg:grid-cols-5 gap-4" : "grid sm:grid-cols-2 lg:grid-cols-4 gap-4";
+  const treatmentLabelText = slug === "tmj_dysfunction" ? "Виды патологии" : "Виды лечения";
   let sectionSummary = introParagraphs[0] || "Ниже собраны основные задачи и варианты помощи по этому направлению.";
   if (slug === "implantology") {
     sectionSummary = "Имплантология в Center of Surgery объединяет восстановление костной ткани, цифровое планирование и индивидуальный подбор системы имплантации под клиническую ситуацию пациента.";
   }
+  if (slug === "cleft") sectionSummary = sectionSummary.replace(/:\s*$/, "");
+  if (slug === "tmj_dysfunction") sectionSummary = "Виды патологии ВНЧС пациентов, которых мы лечим";
+  if (slug === "plastic_surgeries") sectionSummary = plasticSurgeriesLead;
+  if (slug === "face_surgery") sectionSummary = "Эстетическая – пластическая хирургия лица";
   const detailCopy = (detailParagraphs.length ? detailParagraphs : introParagraphs.slice(1)).filter(
     (text) => !sameContent(text, lead) && !sameContent(text, sectionSummary)
   );
@@ -1250,11 +1845,27 @@ function renderGenericPage(slug, number = "—") {
     ? "py-8 sm:py-10 lg:py-16 bg-white border-y border-ink/5"
     : "py-12 sm:py-14 lg:py-24 bg-white border-y border-ink/5";
   const aboutHeaderAlignClass = slug === "implantology" ? "lg:items-start" : "lg:items-end";
-  const detailColumnClass = slug === "microsurgical" ? "lg:col-span-10" : "lg:col-span-5";
+  const detailColumnClass = slug === "microsurgical" || slug === "face_surgery" ? "lg:col-span-10" : "lg:col-span-5";
+  const heroCardTitle =
+    slug === "scars"
+      ? displayTitle
+      : slug === "tmj_dysfunction"
+      ? "Лечение пациентов с дисфункцией ВНЧС"
+      : slug === "ilizarov_method"
+      ? ilizarovHeroTitle
+      : slug === "plastic_surgeries"
+      ? plasticSurgeriesTitle
+      : slug === "alveolar"
+      ? alveolarHeroCardTitle
+      : displayTitle.slice(0, 42);
   const heroSubtitleHtml =
     slug === "microsurgical"
       ? `<p class="mt-4 max-w-4xl text-[18px] sm:text-[22px] lg:text-[26px] leading-snug text-ink/70 text-balance">${escapeHtml(microsurgicalHeroSubtitle)}</p>`
       : "";
+  const heroHeadingHtml =
+    slug === "ilizarov_method"
+      ? `<a href="https://cmf-surgery.ru/ilizarov_method" class="hover:text-indigo2 transition">${escapeHtml(displayTitle)}</a>`
+      : escapeHtml(displayTitle);
   const detailsSectionClass = isServicePolish ? "py-10 sm:py-12 lg:py-16" : "py-12 sm:py-14 lg:py-24";
   const imageSectionClass = isServicePolish
     ? "py-10 sm:py-12 lg:py-16 bg-white border-y border-ink/5"
@@ -1271,17 +1882,21 @@ ${hasSensitiveGalleryImages ? renderSensitiveGalleryNotice() : ""}
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       ${galleryImages
         .map(
-          (image) => `<figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        ${renderGalleryImage(image, galleryImageClass(image), image.alt, isSensitiveGalleryImage(slug, image))}
+          (image) => {
+            const caption = galleryCaption(slug, image);
+            const imageClass = slug === "orthognathic_surgery" ? "w-full aspect-[4/3] object-contain bg-white p-2" : galleryImageClass(image);
+            return `<figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
+        ${renderGalleryImage(image, imageClass, caption || image.alt, isSensitiveGalleryImage(slug, image))}${caption ? `\n        <figcaption class="px-4 pt-3 pb-4 text-[14px] sm:text-[15px] leading-snug font-semibold text-ink/80 text-balance">${escapeHtml(caption)}</figcaption>` : ""}
       </figure>`
+          }
         )
         .join("\n")}
     </div>
   </div>
 </section>`
     : "";
-  const extraBodyHtml = slug === "tmj_treatment" ? renderTmjExtraContent() : slug === "implantology" ? renderImplantologyExtraContent() : renderParagraphs(remainingParagraphs);
-  const extraTextHtml = slug === "tmj_treatment" || slug === "implantology" || remainingParagraphs.length
+  const extraBodyHtml = slug === "tmj_treatment" ? renderTmjExtraContent() : slug === "implantology" ? renderImplantologyExtraContent() : slug === "alveolar" ? renderAlveolarExtraContent() : slug === "tmj_dysfunction" ? renderTmjDysfunctionExtraContent() : slug === "tmj" ? renderTmjPageExtraContent() : renderParagraphs(remainingParagraphs);
+  const extraTextHtml = slug === "tmj_treatment" || slug === "implantology" || slug === "alveolar" || slug === "tmj_dysfunction" || slug === "tmj" || remainingParagraphs.length
     ? `<section class="py-8 sm:py-10 lg:py-14 bg-cream border-y border-ink/5">
   <div class="max-w-[1100px] mx-auto px-5 lg:px-10">
     <div class="text-[13px] uppercase tracking-[0.2em] text-indigo2 font-semibold mb-4">— Подробнее</div>
@@ -1316,8 +1931,24 @@ ${hasSensitiveGalleryImages ? renderSensitiveGalleryNotice() : ""}
         .replace('class="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between gap-3 text-[12px] text-white/40"', 'class="mt-8 pt-5 border-t border-white/10 flex flex-col md:flex-row justify-between gap-3 text-[12px] text-white/40"')
     : parts.ctaFooter;
   const detailStepsHtml =
-    slug === "implantology"
+    slug === "scars"
+      ? renderScarsStepCopy()
+      : slug === "tmj_dysfunction"
+      ? renderTmjDysfunctionStepCopy()
+      : slug === "cleft"
+      ? renderCleftStepCopy()
+      : slug === "implantology"
       ? renderImplantologyStepCopy()
+      : slug === "tmj"
+      ? renderTmjPageStepCopy()
+      : slug === "orthognathic_surgery"
+      ? renderOrthognathicStepCopy()
+      : slug === "alveolar"
+      ? renderAlveolarStepCopy()
+      : slug === "face_surgery"
+      ? ""
+      : slug === "ilizarov_method"
+      ? ""
       : slug === "tmj_treatment"
       ? `<div class="lg:col-span-7">
       <h3 class="font-display text-[22px] leading-snug font-bold mb-4">Артроскопическая артропластика</h3>
@@ -1339,7 +1970,12 @@ ${hasSensitiveGalleryImages ? renderSensitiveGalleryNotice() : ""}
       </ol>
     </div>`
         : "";
-  const videoSectionHtml = slug === "tmj_treatment" ? renderTmjVideoSection(sectionLabel) : "";
+  const videoSectionHtml =
+    slug === "tmj_treatment"
+      ? renderTmjVideoSection(sectionLabel)
+      : slug === "tmj_dysfunction"
+        ? renderTmjVideoSection(sectionLabel, tmjDysfunctionVideos)
+        : "";
 
   const head = updateSeo(parts.head, page);
   return `${head}
@@ -1365,7 +2001,7 @@ ${parts.nav}
         <span class="text-[12px] text-ink/60">в списке направлений</span>
       </div>
       <h1 class="font-display text-[26px] sm:text-[42px] md:text-[52px] lg:text-[68px] leading-[1.12] sm:leading-[1.06] tracking-tight font-bold text-balance">
-        ${escapeHtml(displayTitle)}
+        ${heroHeadingHtml}
       </h1>
 ${heroSubtitleHtml}
       <p class="font-display text-lg sm:text-2xl lg:text-3xl text-ink/60 mt-3 sm:mt-4 italic">
@@ -1376,6 +2012,10 @@ ${heroSubtitleHtml}
         <a href="#book" class="btn-primary px-7 py-4 rounded-full font-semibold text-[15px] inline-flex items-center gap-2 arrow-cta">Записаться на консультацию <span class="arrow">→</span></a>
         <a href="tel:+79263329369" class="px-7 py-4 rounded-full font-semibold text-[15px] border border-ink/15 hover:border-ink/40 transition">+7 (926) 332-93-69</a>
       </div>
+      <div class="mt-4 inline-flex max-w-full items-center gap-3 rounded-2xl bg-white/85 border border-pink2/20 px-4 py-3 text-[14px] sm:text-[15px] leading-snug text-ink shadow-sm shadow-pink2/5">
+        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo2 via-violet2 to-pink2 text-white font-display text-lg font-bold">✓</span>
+        <span class="min-w-0"><span class="font-semibold text-ink">Бесплатная консультация</span><span class="hidden sm:inline text-ink/55"> · первичный разбор обращения</span></span>
+      </div>
     </div>
     <aside class="lg:col-span-5">
       <div class="relative aspect-[16/10] max-w-2xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden bg-gradient-to-br from-indigo2 via-violet2 to-pink2 shadow-2xl shadow-indigo2/10">
@@ -1384,7 +2024,7 @@ ${heroSubtitleHtml}
         <div class="absolute inset-0 grain opacity-30"></div>
         <div class="absolute bottom-6 left-6 right-6 text-white">
           <div class="text-[11px] font-mono text-white/70 uppercase tracking-widest">[ направление лечения ]</div>
-          <div class="font-display text-2xl italic mt-2">${escapeHtml(displayTitle.slice(0, 42))}</div>
+          <div class="font-display text-2xl italic mt-2">${escapeHtml(heroCardTitle)}</div>
         </div>
       </div>
     </aside>
@@ -1404,7 +2044,7 @@ ${heroSubtitleHtml}
       </blockquote>`
         : `<p class="max-w-md text-ink/60 text-[15px] leading-relaxed">${escapeHtml(sectionSummary)}</p>`}
     </div>
-${showTreatmentLabel ? `    ${sectionLabel("Виды лечения", "text-indigo2", "bg-indigo2", "mb-5")}\n` : ""}${implantologyTreatmentNoteHtml}    <ul class="${treatmentGridClass}">
+${showTreatmentLabel ? `    ${sectionLabel(treatmentLabelText, "text-indigo2", "bg-indigo2", "mb-5")}\n` : ""}${implantologyTreatmentNoteHtml}    <ul class="${treatmentGridClass}">
       ${treatmentCards
         .map(
           (card, i) => `<li class="${isServicePolish ? "card-hover rounded-2xl bg-cream border border-ink/5 p-6 sm:p-7 min-h-[220px]" : "card-hover rounded-2xl bg-cream border border-ink/5 p-6"}">
@@ -1425,7 +2065,7 @@ ${tags.length ? `    <div class="${isServicePolish ? "mt-8 rounded-3xl bg-white 
   </div>
 </section>
 
-<section class="${detailsSectionClass}">
+${slug === "plastic_surgeries" ? "" : `<section class="${detailsSectionClass}">
   <div class="max-w-[1400px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12">
     <div class="${detailColumnClass}">
       ${sectionLabel("Подробности", "text-pink2", "bg-pink2")}
@@ -1434,12 +2074,12 @@ ${tags.length ? `    <div class="${isServicePolish ? "mt-8 rounded-3xl bg-white 
         <span class="italic font-normal">план лечения</span>
       </h2>
       <div class="text-ink/65 mt-6 leading-relaxed text-[16px] space-y-4">
-        ${slug === "tmj_treatment" ? renderTmjDetailCopy() : slug === "implantology" ? renderImplantologyDetailCopy() : slug === "microsurgical" ? renderMicrosurgicalDetailCopy() : renderParagraphs(visibleDetailCopy.length ? visibleDetailCopy : [detailFallback])}
+        ${slug === "tmj_treatment" ? renderTmjDetailCopy() : slug === "implantology" ? renderImplantologyDetailCopy() : slug === "alveolar" ? renderAlveolarDetailCopy() : slug === "face_surgery" ? renderFaceSurgeryDetailCopy() : slug === "microsurgical" ? renderMicrosurgicalDetailCopy() : slug === "scars" ? renderScarsDetailCopy() : slug === "cleft" ? renderCleftDetailCopy() : slug === "tmj_dysfunction" ? renderTmjDysfunctionDetailCopy() : slug === "tmj" ? renderTmjPageDetailCopy() : renderParagraphs(visibleDetailCopy.length ? visibleDetailCopy : [detailFallback])}
       </div>
     </div>
 ${detailStepsHtml}
   </div>
-</section>
+</section>`}
 
 ${extraTextHtml}
 ${videoSectionHtml}
@@ -1452,7 +2092,18 @@ function build() {
   files["index.html"] = updateKnownLinks(fs.readFileSync(path.join(originalRoot, "index.html"), "utf8"))
     .replace(/<!-- ============ SERVICES ============ -->[\s\S]*?<!-- ============ DOCTORS ============ -->/, `${renderHomeServicesSection()}\n\n<!-- ============ DOCTORS ============ -->`)
     .replace(/<!-- ============ DOCTORS ============ -->[\s\S]*?<!-- ============ TRUST ============ -->/, `${renderHomeDoctorsSection()}\n\n<!-- ============ TRUST ============ -->`)
-    .replace(/<!-- ============ TRUST ============ -->[\s\S]*?<!-- ============ CTA \/ CONTACT ============ -->/, `${renderHomeTrustSection()}\n\n<!-- ============ CTA / CONTACT ============ -->`);
+    .replace(/<!-- ============ TRUST ============ -->[\s\S]*?<!-- ============ CTA \/ CONTACT ============ -->/, `${renderHomeTrustSection()}\n\n<!-- ============ CTA / CONTACT ============ -->`)
+    .replace("Бесплатная консультация <span class=\"arrow\">→</span>", "Записаться на консультацию <span class=\"arrow\">→</span>")
+    .replace(
+      `      </div>\n\n      <dl class="mt-10 sm:mt-14 grid grid-cols-3 max-w-2xl divide-x divide-ink/10">`,
+      `      </div>
+      <div class="mt-4 inline-flex max-w-full items-center gap-3 rounded-2xl bg-white/85 border border-pink2/20 px-4 py-3 text-[14px] sm:text-[15px] leading-snug text-ink shadow-sm shadow-pink2/5">
+        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo2 via-violet2 to-pink2 text-white font-display text-lg font-bold">✓</span>
+        <span class="min-w-0"><span class="font-semibold text-ink">Бесплатная консультация</span><span class="hidden sm:inline text-ink/55"> · первичный разбор обращения</span></span>
+      </div>
+
+      <dl class="mt-10 sm:mt-14 grid grid-cols-3 max-w-2xl divide-x divide-ink/10">`
+    );
 
   for (const [index, [slug]] of services.entries()) {
     files[`${slug}.html`] = renderGenericPage(slug, String(index + 1).padStart(2, "0"));
