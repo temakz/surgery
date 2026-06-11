@@ -15,7 +15,7 @@
 
 2. Continue visual QA on the preview deployment after the completed service-page polish rollout.
    - Check `http://service-pages-v2--cmf-surgery.netlify.app/`.
-   - Latest documented work before handoff 010: `6a87d7c remove quota page and polish service content`.
+   - Latest pushed and preview-verified work: `354f71b polish specialist pages and service details`.
    - Current 2026-06-11 closing pass includes:
      - `mouthguards` content/detail/gallery edits;
      - `exo` title/cards/hero image/sensitive-gallery edits;

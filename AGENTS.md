@@ -101,7 +101,7 @@ Merge into `main` only after the user approves the preview.
 
 Latest documented service-page v2 state:
 - 2026-06-10: `6a87d7c remove quota page and polish service content`
-- 2026-06-11 handoff 010 closes the specialist-page and service-detail pass; see `docs/handoffs/handoff_010.md`.
+- 2026-06-11: `354f71b polish specialist pages and service details`; see `docs/handoffs/handoff_010.md`.
 
 Netlify production URL: `https://cmf-surgery.netlify.app/`
 Netlify preview URL for service-page v2: `http://service-pages-v2--cmf-surgery.netlify.app/`

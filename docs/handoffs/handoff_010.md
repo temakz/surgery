@@ -85,7 +85,31 @@ This session continued on the `service-pages-v2` preview branch. Production `mai
 ## Closing Commit
 
 - Commit message: `polish specialist pages and service details`
+- Work commit: `354f71b polish specialist pages and service details`
 - Push target: `origin/service-pages-v2`
+- Push status: succeeded, `6a87d7c..354f71b service-pages-v2 -> service-pages-v2`.
+- Preview verification status: succeeded after push.
+
+## Preview Verification After Push
+
+Checked with direct HTTP requests after pushing `354f71b`:
+
+- `https://service-pages-v2--cmf-surgery.netlify.app/` returned `200`.
+- `https://service-pages-v2--cmf-surgery.netlify.app/trofimov.html` returned `200`.
+- `https://service-pages-v2--cmf-surgery.netlify.app/kravchenko.html` returned `200`.
+- `https://service-pages-v2--cmf-surgery.netlify.app/exo.html` returned `200`.
+- `https://service-pages-v2--cmf-surgery.netlify.app/mouthguards.html` returned `200`.
+- `https://service-pages-v2--cmf-surgery.netlify.app/nose_surgery.html` returned `200`.
+
+Confirmed live preview markers:
+
+- homepage OG title marker: `Center of Surgery – Центр реконструктивной хирургии.`
+- doctor dropdown photo marker: `alt="Трофимов Е. И."`
+- `kravchenko.html` specialist badge marker: `[ специалист ]`
+- `kravchenko.html` original lead marker: `Кравченко Дмитрий Валерьевич – Врач челюстно-лицевой хирург, кандидат медицинских наук.`
+- `trofimov.html` publication section marker: `Некоторые работы`
+- `exo.html` hero image marker: `assets/images/exo-hero.png`
+- `implantology.html` budget notice marker: `Возможности лечения по бюджету`
 
 ## Next Session Plan
 
