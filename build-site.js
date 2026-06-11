@@ -5,11 +5,14 @@ const root = __dirname;
 const originalRoot = path.join(root, "original");
 const sourceLogo = path.resolve(root, "..", "logo.png");
 const sourceMaxLogo = path.join(root, "max.svg");
+const exoHeroAssetName = "exo-hero.png";
+const sourceExoHeroImage = path.join(root, exoHeroAssetName);
 const scrapeRoot = path.resolve(root, "..", "parse", "scrape-output");
 const pagesRoot = path.join(scrapeRoot, "pages");
 const rawRoot = path.join(pagesRoot, "raw-html");
 const imageRoot = path.join(scrapeRoot, "assets", "images");
 const outRoots = [root, path.join(root, "site-dist")];
+const homeSocialTitle = "Center of Surgery – Центр реконструктивной хирургии.";
 
 const services = [
   ["exo", "Экзопротезирование лица — протезирование ушей, носа, пальцев"],
@@ -43,6 +46,238 @@ const sensitiveGalleryImagePatterns = [
   /08-0[3-4]/,
 ];
 const microsurgicalHeroSubtitle = "и лицевого скелета с трансплантацией мягких, костных и комбинированных тканей";
+const exoTitle = "Экзопротезирование лица";
+const exoLead = "Экзопротезирование лица – протезирование ушей, экзопротезирование-протезирования носа, пальцев.";
+const exoTreatmentIntro = "Экзопротезирование лица - лицевое протезирование, протезирование уха, ушной раковины, протезирование глаза, протезирование носа.";
+const exoTreatmentCards = [
+  { title: "протезирование глаза", text: "" },
+  { title: "протезирование ушей", text: "" },
+  { title: "протезы ушей", text: "" },
+  { title: "протез уха", text: "" },
+  { title: "протезы лица", text: "" },
+  { title: "протезирование лица", text: "" },
+  { title: "протезы носа", text: "" },
+  { title: "протезирование носа", text: "" },
+];
+
+const noseSurgerySectionSummary = "В нашем центре проводится лечение пациентов со следующими видами патологии";
+const noseSurgeryPathologyCards = [
+  { title: "Искривление-деформации перегородки носа", text: "ее хрящевого и костного отдела с восстановлением дыхания;" },
+  { title: "Искривление-деформации костного и хрящевого отдела носа", text: "с восстановлением дыхания;" },
+  { title: "Полная или частичная непроходимость воздухопроводящих наружных путей", text: "" },
+  { title: "Косметические дефекты носа", text: "" },
+  { title: "Дефект – отсутствие носа", text: "" },
+  { title: "Механическая аносмия", text: "потеря обоняния;" },
+  { title: "Постоперционная – вторичная деформация носа", text: "" },
+];
+const noseSurgeryTags = [
+  "ринопластика",
+  "исправление носовой перегородки",
+  "операция на носовой перегородке",
+  "восстановление носового дыхания",
+  "искривление носовой перегородки",
+  "искривление носа",
+];
+const noseSurgeryDetailParagraphs = [
+  "Нос – это не только орган дыхания и обоняния – наружный отдел дыхательных путей, но еще анатомическая – центральная ось лица и так же эстетический центр лица.",
+  "Все художники знают, что самое сложное в изображение лица это нос в любой из проекций лиц и именно он определяет основную часть эстетических пропорций лица и его черт.",
+  "Искривление-деформация носа, нарушение его симметрии приводит как к эстетическому дефекту лица так к нарушению дыхания, что особенно сказывается на дыхание ночью и появление ночного апноэ – храпа. Нарушение дыхания во время ночи – храп не только нарушает ваш сон. Появляется не высыпание и дневная усталость, но и может привести к нарушению функции головного мозга и сердца или усугубить хронические заболевания последних приводя иногда к печальным последствиям.",
+  "Так же носовое дыхание очень важно для спортсменов и людей занимающихся фитнесом, так как недостаток поступления воздуха относительно нагрузок резко снижает спортивные результаты тренировок и соревнований.",
+];
+const noseSurgeryMethodTitle = "Методики и технологии, используемые в нашем центре, перечень операций на нос";
+const noseSurgeryMethodItems = [
+  { title: "Ринопластика", text: "Пластика-реконструкция костного и хрящевого отдела носа открытая;" },
+  { title: "Ринопластика", text: "Пластика-реконструкция костного и хрящевого отдела носа закрытая эндоскопическая;" },
+  { title: "Ринопластика", text: "Пластика-реконструкция костного и хрящевого отдела носа закрытая эндоскопически ассистированная;" },
+  { title: "Назоантропластика", text: "восстановление дыхания носового, восстановление воздухопроводящих наружных путей;" },
+  { title: "Пластически операции на нос при косметических дефектах", text: "открытые;" },
+  { title: "Пластически операции на нос при косметических дефектах эндоскопические", text: "закрытые;" },
+  { title: "Лазерная и радиочастотная вапоризация внутренних структур носа", text: "" },
+  {
+    title: "Устранение гайморитов и осложнений",
+    text:
+      "одонтогенных гайморитов и осложнений после синус лифтинга и инородных тел гайморовых пазух, удаление инородных тел гайморовых пазух эндоскопическим способом;",
+  },
+  { title: "Вторичная ринопластика", text: "пластическая реконструктивная операция на нос с использованием аутотканевых материалов." },
+];
+
+const trofimovLead = "Доктор медицинских наук, профессор. Один из ведущих специалистов в области пластической, реконструктивной и эстетической хирургии и микрохирургии.";
+const trofimovAward = "Лауреат национальной премии в области эстетической медицины «Золотой ланцет» в номинации «Верность профессии» 2017 года.";
+const trofimovTimeline = [
+  { year: "1975", text: "Окончил Первый Московский медицинский институт им. И. М. Сеченова." },
+  { year: "1980", text: "Поступил на службу в РНЦХ им. акад. Б. В. Петровского младшим научным сотрудником отделения микрохирургии." },
+];
+const trofimovStats = [
+  ["216", "научных работ"],
+  ["19", "патентов"],
+  ["3", "монографии"],
+  ["8", "кандидатских диссертаций под руководством"],
+];
+const trofimovPracticeAreas = [
+  {
+    title: "Микрохирургическая аутотрансплантация тканей",
+    text: "Разработка вопросов лечения пациентов с последствиями тяжелых повреждений или врожденной патологией тканей любой локализации и обширности поражения.",
+  },
+  {
+    title: "Реплантация конечностей и их сегментов",
+    text: "Использование микрохирургической методики и техники в восстановительной хирургии.",
+  },
+  {
+    title: "Реконструктивная хирургия кисти и нервов",
+    text: "Работа с повреждениями кисти и периферических нервов конечностей.",
+  },
+  {
+    title: "Пластическая и эстетическая хирургия",
+    text: "Пластическая, реконструктивная и эстетическая хирургия как часть комплексного восстановления пациента.",
+  },
+];
+const trofimovResearchParagraphs = [
+  "Е. И. Трофимов – один из пионеров разработки метода микрохирургической аутотрансплантации тканей в нашей стране. Этому направлению посвящены многие научные и защищенные им диссертационные работы.",
+  "В сотрудничестве с коллективом им разработаны новые научно-практические направления и методики в лечении пациентов с хроническим остеомиелитом, ложными суставами и другими дефектами трубчатых костей.",
+  "Разработана методика устранения обширных дефектов передней стенки трахеи с использованием микрохирургического кожно-костно-хрящевого аутотрансплантата. Все методики запатентованы.",
+  "Е. И. Трофимов автор 216 научных работ, в том числе 3 монографии и 2 издания методических рекомендаций. Ряд работ опубликованы в зарубежной печати, получено 19 патентов на изобретения.",
+];
+const trofimovPublicationItems = [
+  {
+    title: "Микрохирургическая аутотрансплантация тканей у детей и подростков.",
+    source: "Вестник хирургии №9. 1985г.",
+  },
+  {
+    title: "Микрохирургическая аутопластика обширных дефектов трахеи.",
+    source: "Анналы пластической, реконструктивной и эстетической хирургии №2. 1998г.",
+  },
+  {
+    title: "Изучение возможности префабрикации сложно-составных микрохирургических реваскуляризируемых комплексов тканей на основе бодьшого сальника.",
+    source: "Сборник «ИТОГИ», Результаты исследований по программной тематике РНЦХ РАМН, Выпуск VIII. 2002г.",
+  },
+  {
+    title: "Систематизация свободных реваскуляризируемых аутотрансплантатов.",
+    source: "Анналы пластической, реконструктивной и эстетической хирургии. 2003г.",
+  },
+  {
+    title: "Лечение ложных суставов длинных трубчатых костей с применением свободных реваскуляризируемых надкостнично-кортикальных аутотрансплантатов.",
+    source: "Методические рекомендации МЗ РФ. 2003г.",
+  },
+  {
+    title: "Первая трансплантация реваскуляризированной трахеи больному с субтотальным рубцовым стенозом.",
+    source: "Грудная и сердечно-сосудистая хирургия. 2007г.",
+  },
+  {
+    title: "Реконструктивная микрохирургия трахеи.",
+    source: "Москва, «ГЭОТАР-МЕДИА», 130с. 2007г.",
+  },
+  {
+    title: "Изучение источников реваскуляризации микрохирургических аутотрансплантатов в зависимости от локализации дефектов.",
+    source: "Сборник «ИТОГИ», ГУ РНЦХ им. акад. Б.В.Петровского. 2008г.",
+  },
+  {
+    title: "Микрохирургическая аутотрансплантация тканей – направление восстановительной хирургии.",
+    source: "Анналы РНЦХ РАМН. 2008г.",
+  },
+  {
+    title: "Гигантоклеточная базалиома кожи с интракраниальным ростом.",
+    source: "Хирургия им. Н.И. Пирогова. 2015г.",
+  },
+  {
+    title: "Оценка состояния регионарного кровообращения в реплантированных сегментах конечностей.",
+    source: "Хирургия им. Н.И. Пирогова. 2015г.",
+  },
+  {
+    title: "Гигантская нейрофиброма мягких тканей.",
+    source: "Клиническая и экспериментальная хирургия. Журнал им.акад. Б.В.Петровского. 2016г.",
+  },
+  {
+    title: "Анатомо-структурные показатели костных аутотрансплантатов у пациентов с деформациями челюсти.",
+    source: "Анналы пластической, реконструктивной и эстетической хирургии. №1. 2017г.",
+  },
+];
+const trofimovRecognitionItems = [
+  {
+    title: "Профессиональное сообщество",
+    text: "Член Диссертационного совета по защите докторских диссертаций РНЦХ им. акад. Б. В. Петровского, член Российского общества пластических, реконструктивных и эстетических хирургов, действительный член общества хирургов Москвы и Московской области.",
+  },
+  {
+    title: "Наставничество",
+    text: "Под его руководством проходят обучение ординаторы и аспиранты РНЦХ, врачи-курсанты лечебных учреждений из различных регионов России и стран СНГ. Защищены 8 кандидатских диссертаций, подготовлены к защите еще две работы.",
+  },
+  {
+    title: "Премия «Призвание»",
+    text: "Присуждена Премия лучшим врачам России «Призвание» – «За проведение уникальной операции, спасшей жизнь человека» 2008г. МЗ и социального развития РФ.",
+  },
+  {
+    title: "Грамота МЗ РФ",
+    text: "В 2012 году награжден грамотой МЗ РФ.",
+  },
+];
+
+const kravchenkoLead = "Кравченко Дмитрий Валерьевич – Врач челюстно-лицевой хирург, кандидат медицинских наук.";
+const kravchenkoEducationItems = [
+  {
+    title: "• 1996-2002 Национальный медицинский университет, г. Алма-Ата",
+    details: [
+      "Диплом с отличием, специальность «лечебное дело»",
+      "Субординатура общая хирургия ЦГКБ г. Алма-Ата 1999-2002 г.",
+    ],
+  },
+  {
+    title: "• 2002-2004 Центрально-научно-исследовательский институт Стоматологии и челюстно-лицевой хирургии, центр черепно-челюстно-лицевой хирургии.",
+    details: ["Клиническая ординатура, врач челюстно-лицевой хирург."],
+  },
+  {
+    title: "• 2004-2007 Центрально-научно-исследовательский институт стоматологии, отделение реконструктивной и пластической хирурги",
+    details: ["Аспирантура, тема: Диагностика и малоинвазивные методы лечения больных с дисфункцией ВНЧС – функциональный анализ, планирование и моделирование лечения."],
+  },
+  { title: "• 2007 Выдан Патент на изобретение № 2007105831/14 (006336) – «способ устранения компрессионного синдрома ВНЧС и формирование суставной полости»", details: [] },
+  { title: "• 2008 Присуждена ученая степень кандидата медицинских наук.", details: [] },
+  { title: "• 2008 Руководитель клинического центра черепно-челюстно-лицевой хирургии и стоматологии «Verum-medi» г. Москва.", details: [] },
+  { title: "• 2009 Выдан Патент на изобретение № 2009122406/14(030950) – «способ увеличения альвеолярного отростка верхней челюсти»", details: [] },
+  { title: "• 2009-2017 Врач челюстно-лицевой хирург РНЦХ РАМН им. академика Б.В. Петровского", details: [] },
+  { title: "• Врач реконструктивный ,пластический хирург многопрофильной хирургической клиники «офтальмос»", details: [] },
+];
+const kravchenkoTrainingItems = [
+  "2004-2005 Обучение с выдачей сертификатов международного образца — Гнатология, функциональная диагностика и лечение проф. Вольфа- Дитера -Зеера и проф. Клаус- Марио — Авриль",
+  "2005 Конгресс международного общества челюстно-лицевых хирургов г. Вена Австрия.",
+  "2005 Конгресс международного общества остеоинтеграции г. Мюнхен Германия.",
+  "2006 Член международной ассоциации челюстно-лицевых хирургов IAOMS",
+  "2007 Сертификационный цикл обучения по хирургии ВНЧС отдела черепночелюстно- лицевой хирургии. Сорбонна, Франция",
+  "2008 Участие в конгрессе по черепночелюстно-лицевой хирургии европейской ассоциации черепно-челюстно-лицевой хирургии. Болония, Италия.",
+  "2009 Сертификационный цикл обучения по хирургии ВНЧС Медицинский университет г. Вена Австрия.+ частный курс по ортогнатической хирурги доктора Альбано Триака ,Цюрих ,Швейцария.",
+  "2012 Участие в международном конгрессе Европейского общества Черепно-челюстно-лицевых хирургов Хорватия – Дубровник (European Association for Cranio-Maxillo-Facial Surgery, EACMFS)",
+  "2012 повышение квалификации Университетская клиника Удины, Милана (Италия)",
+  "2014 повышение квалификации Университетская клиника Базеля (Швейцария)",
+  "Автор 12 Печатных работ и публикаций",
+];
+const kravchenkoScientificDirections = [
+  "• хирургия травм головы и шеи",
+  "• хирургия опухолевых процессов головы и шеи",
+  "• контурное, 3D, лабораторное планирование и моделирования операций в Черепно-челюстно- лицевой хирургии",
+  "• методы лечения пациентов с дисфункцией ВНЧС и болевым миофасциальным синдромом",
+  "• аппаратные методики лечения пациентов с дисфункцией ВНЧС",
+  "• эндоскопические вмешательства в ВНЧС",
+  "• дистракционный остеонеогенез мыщелкого отростка",
+  "• направленная векторная botex терапия жевательной мускулатуры",
+  "• ортогнатическая хирургия- хирургия челюстно-лицевых деформаций",
+  "• остеосинтез и устранение посттравматических деформаций лица",
+  "• аппаратные методики механотерапия ВНЧС",
+  "• лечение пациентов с контрактурами ВНЧС",
+  "• малоинвазивные вмешательства в ВНЧС",
+  "• методики декомпрессионной дистракции ВНЧС.",
+  "• эндопротезирование ВНЧС",
+  "• динамическая — кинематическая МРТ - аксиография ВНЧС, MPI МРТ ВНЧС.",
+  "• экто – экзопротезирование - лица- аддитивные технологии в хирургии головы и шеи.",
+];
+const kravchenkoSpecializationItems = [
+  "• Реконструктивная и пластическая хирургия головы и шеи",
+  "• Пластические и реконструктивные операции в области головы и шеи",
+  "• Пластика лица",
+];
+const kravchenkoResearchItems = [
+  "• секционные анатомические исследования в области технологий хирургии головы и шеи для адаптации и апробации устройств в хирургии головы и шей",
+  "• лекционные курсы врачам курсантам по технологиям хирургии головы и шеи",
+  "• патент на изобретения по декомпрессионному артроцентезу и артролаважу височно нижнечелюстного сустава.",
+  "• патент на изобретения способа вакуумного синуслифтинга",
+  "• разработка и внедрение в практику технологии управляемой компрессии в конструкциях по фиксации эпипрортезов головы и шеи для малоинвазивной и малотравматичной реабилитации пациентов с дефектами головы и шеи.",
+];
 
 const secondary = [
   ["trofimov", "Трофимов Евгений Иванович"],
@@ -419,6 +654,48 @@ const biteRestorationStepItems = [
   "Результаты операции по устранению сочетанной деформации челюстей верхнечелюстной промакрогнатии, с увеличением продольного роста верхней челюсти, и нижнечелюстной ретрогнатии с нарушением – отставанием продольного роста нижней челюсти, и увеличенным вертикальным ростом подбородочного отдела.",
   "Результаты операции по устранению верхнечелюстной микроретрогнатии и нижнечелюстной промакрогнатии, с применением трехмерного моделирования и проектирования оперативного лечения 3D CAD/CAM, с учетом тканевых факторов.",
   "Реконструкция верхней челюсти и носа с использованием аутотрансплантатов тканей (пациента).",
+];
+
+const mouthguardsTreatmentCards = [
+  { title: "Удержание мягких тканей губ и щёк на расстоянии от зубов", text: "Во избежание повреждений прикуса или ущемления зубами." },
+  { title: "Погашение энергии ударов и толчков", text: "" },
+  { title: "Защита зубов-антагонистов от окклюзионного контакта", text: "Во время несчастного случая." },
+  { title: "Снижение риска перелома челюсти", text: "Благодаря поглощению ударной силы." },
+  { title: "Защита от неврологических повреждений", text: "Благодаря просвету между верхней и нижней челюстями." },
+  { title: "Пружинящие свойства капы", text: "Предотвращают смещение суставных головок." },
+];
+
+const mouthguardsRequirements = [
+  "Капа должна принимать на себя энергию ударов и толчков, что достигается только при точной посадке с учётом анатомических особенностей спортсмена;",
+  "Материал, из которого изготовлена капа, должен быть эластичным;",
+  "Спортсмен должен иметь возможность при размещении капы в ротовой полости беспрепятственно принимать жидкость;",
+  "Даже при чрезмерной физической нагрузке не должен нарушаться кислородный обмен спортсмена;",
+  "Капа должна легко подвергаться дезинфекции, очистке, также не иметь вкуса и запаха;",
+  "Капа должна точно соответствовать альвеолярному отростку и зубному ряду, во избежание её выпадения при выраженной спортивной активности. Плохо подогнанная капа вынуждает спортсмена постоянно отвлекаться и поправлять её в полости рта;",
+  "С точки зрения спортсменов, самыми важными признаками качества капы являются: ретенция, комфорт и устойчивость, сохранение дикции и дыхания, а также защиты зубов, губ, дёсен.",
+];
+
+const mouthguardsTypes = [
+  {
+    title: "Профессиональная",
+    text:
+      "Рекомендуется для спортсменов, которые занимаются теми видами спорта, где предусмотрен полный контакт, а также видами спорта, где возможен контакт с различными спортивными снарядами (клюшки, шайбы, палки и т.д.). Виды спорта: восточные единоборства с полным контактом, бокс, кикбоксинг, хоккей на льду, хоккей на траве, регби, поло и другие. Характеристики профессиональной защитной спортивной капы – имеет три слоя: между двумя наружными слоями толщиной 2 и 4 мм находится суперпрочный слой толщиной 0,8 мм, который перекрывает наиболее уязвимые участки зубного ряда.",
+  },
+  {
+    title: "Полупрофессиональная",
+    text:
+      "Рекомендуется для спортсменов в тех же случаях, когда рекомендуется профессиональная капа. Является облегчённым вариантом профессиональной спортивной защитной капы. Виды спорта: все виды спорта, когда применяется профессиональная защитная спортивная капа, а также: баскетбол, американский футбол, скейтбординг, прыжки с трамплина и другие аналогичные виды спорта. Характеристики полупрофессиональной защитной спортивной капы – имеет два защитных слоя толщиной 2 и 4 мм. Между этими слоями проложена в трёх, наиболее уязвимых местах, специальная арматура.",
+  },
+  {
+    title: "Средняя",
+    text:
+      "Рекомендуется для широкого круга спортсменов, имеющих различный уровень подготовки. Эти капы можно рекомендовать как тренировочные конструкции без значительной контактной силовой нагрузки. Виды спорта: как тренировочная для всех ранее перечисленных видов спорта, а также для занятий следующими видами спорта: горный велосипед, роликовые коньки, мотокросс, некоторые виды борьбы. Характеристики средней защитной спортивной капы – сделана из двух слоёв толщиной 2 и 4 мм.",
+  },
+  {
+    title: "Лёгкая",
+    text:
+      "Рекомендуется для широкого круга спортсменов, имеющих различный уровень подготовки. А также для детей и подростков. В случаях, когда необходимо повысить уровень защиты при минимальных затратах. В случаях с детьми может нуждаться в замене по мере роста челюстей спортсмена. Виды спорта: во всех вышеперечисленных видах спорта, а также виды спорта, где есть тесный контакт между спортсменами. Защищает от случайной травмы.",
+  },
 ];
 
 const endoliftingHeroCardTitle = "Эндолифтинг лица, удаление комков Биша";
@@ -1212,6 +1489,66 @@ function renderBiteRestorationStepCopy() {
     </div>`;
 }
 
+function renderNoseSurgeryDetailCopy() {
+  return noseSurgeryDetailParagraphs.map((text) => `<p>${escapeHtml(text)}</p>`).join("\n");
+}
+
+function renderNoseSurgeryStepCopy() {
+  return `<div class="lg:col-span-7">
+      <div class="mb-5 inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm text-indigo2 text-[12px] uppercase tracking-[0.18em] font-semibold"><span class="w-2 h-2 rounded-full bg-indigo2"></span><span>Методики</span></div>
+      <h3 class="font-display text-[22px] sm:text-[26px] leading-snug font-bold mb-5 text-balance">${escapeHtml(noseSurgeryMethodTitle)}</h3>
+      <ol class="space-y-1">
+        ${noseSurgeryMethodItems
+          .map(
+            (item, i) => `<li class="step-line relative pl-16 py-4">
+          <span class="absolute left-0 top-4 w-10 h-10 rounded-full bg-white border border-ink/10 flex items-center justify-center font-display font-bold text-indigo2">${i + 1}</span>
+          <h4 class="font-display text-[19px] sm:text-xl leading-snug font-bold text-ink">${escapeHtml(item.title)}</h4>${item.text ? `\n          <p class="mt-2 text-[15px] sm:text-[16px] leading-relaxed text-ink/65 text-pretty">${escapeHtml(item.text)}</p>` : ""}
+        </li>`
+          )
+          .join("\n")}
+      </ol>
+    </div>`;
+}
+
+function renderMouthguardsDetailCopy() {
+  return `<div class="space-y-5">
+        <h3 class="font-display text-[24px] sm:text-[28px] leading-snug font-bold text-ink text-balance">Виды спортивных защитных кап</h3>
+        <div class="space-y-4">
+          ${mouthguardsTypes
+            .map(
+              (item) => `<article class="rounded-2xl bg-white border border-ink/10 px-5 py-4 sm:px-6 sm:py-5 shadow-sm">
+            <h4 class="font-display text-[20px] leading-snug font-bold text-ink">${escapeHtml(item.title)}</h4>
+            <p class="mt-2 text-[15px] sm:text-[16px] leading-relaxed text-ink/68 text-pretty">${escapeHtml(item.text)}</p>
+          </article>`
+            )
+            .join("\n")}
+        </div>
+      </div>`;
+}
+
+function renderMouthguardsStepCopy() {
+  return `<div class="lg:col-span-5">
+      <h3 class="font-display text-[22px] sm:text-[24px] leading-snug font-bold mb-5 text-balance">Основные требования к капе</h3>
+      <ol class="space-y-1">
+        ${mouthguardsRequirements
+          .map(
+            (item, i) => `<li class="step-line relative pl-16 py-4">
+          <span class="absolute left-0 top-4 w-10 h-10 rounded-full bg-white border border-ink/10 flex items-center justify-center font-display font-bold text-indigo2">${i + 1}</span>
+          <p class="text-[15px] sm:text-[16px] leading-relaxed text-ink/72 text-pretty">${escapeHtml(item)}</p>
+        </li>`
+          )
+          .join("\n")}
+      </ol>
+    </div>`;
+}
+
+function renderBudgetTreatmentNotice() {
+  return `<div class="mt-4 inline-flex max-w-full items-center gap-2.5 rounded-xl bg-white/85 border border-indigo2/20 px-3.5 py-2.5 text-[12px] sm:text-[13px] leading-snug text-ink shadow-sm shadow-indigo2/5">
+        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-indigo2 via-violet2 to-pink2 text-white font-display text-base font-bold">₽</span>
+        <span class="min-w-0"><span class="font-semibold text-ink">Возможности лечения по бюджету</span><span class="hidden sm:inline text-ink/55"> · варианты и этапность подбираются на консультации</span></span>
+      </div>`;
+}
+
 function renderEndoliftingDetailCopy() {
   return endoliftingDetailSections
     .map(
@@ -1282,6 +1619,7 @@ function galleryImageClass(image) {
 
 function isSensitiveGalleryImage(slug, image = {}) {
   const src = String(image.src || "").toLowerCase();
+  if (slug === "exo") return /_21-0[1-5]\.jpg/i.test(src);
   if (slug === "tmj") return /10-[3-9]/i.test(src);
   if (slug === "orthognathic_surgery") return /_01\.jpg/i.test(src);
   if (slug === "alveolar") return /_14-0[23]\.jpg/i.test(src);
@@ -1724,6 +2062,16 @@ function applyGlobalEnhancements(html) {
       /<a href="([^"]+)" class="flex items-center gap-3">\s*<div class="relative w-10 h-10">[\s\S]*?<div class="leading-\[1\.55\]">[\s\S]*?<\/div>\s*<\/a>/g,
       `<a href="$1" class="flex items-center gap-3" aria-label="Center of Surgery"><img src="logo.png" alt="Center of Surgery" class="h-12 w-auto"></a>`
     )
+    .replace(
+      /<a href="trofimov\.html" class="flex items-start gap-3 p-3 rounded-lg hover:bg-cream group\/i transition">\s*<div class="w-9 h-11 rounded-md bg-gradient-to-br from-indigo2 to-violet2 shrink-0"><\/div>/g,
+      `<a href="trofimov.html" class="flex items-start gap-3 p-3 rounded-lg hover:bg-cream group/i transition">
+              <img src="assets/images/tild6635-3665-4464-b939-353132636135_02-00.jpg" alt="Трофимов Е. И." class="w-9 h-11 rounded-md object-cover shrink-0 bg-cream">`
+    )
+    .replace(
+      /<a href="kravchenko\.html" class="flex items-start gap-3 p-3 rounded-lg hover:bg-cream group\/i transition">\s*<div class="w-9 h-11 rounded-md bg-gradient-to-br from-pink2 to-violet2 shrink-0"><\/div>/g,
+      `<a href="kravchenko.html" class="flex items-start gap-3 p-3 rounded-lg hover:bg-cream group/i transition">
+              <img src="assets/images/tild6433-6365-4363-b836-346539643963_doc2.jpg" alt="Кравченко Д. В." class="w-9 h-11 rounded-md object-cover shrink-0 bg-cream">`
+    )
     .replaceAll(
       `Центр пластической и <span class="italic font-normal">реконструктивной</span><br>
         хирургии.`,
@@ -1952,13 +2300,357 @@ function splitLongText(text) {
   return { paragraphs, bullets };
 }
 
+function renderTrofimovPage() {
+  const parts = templateParts();
+  const page = readJson("trofimov");
+  const images = usefulImages(page);
+  const hero = heroImage(page, images) || images[0];
+  const galleryImages = images.filter((image) => !hero || image.src !== hero.src);
+  const head = updateSeo(parts.head, page);
+  const ctaFooter = parts.ctaFooter;
+  const statsHtml = trofimovStats
+    .map(
+      ([value, label]) => `<li class="rounded-2xl bg-white/85 border border-ink/10 px-4 py-4 shadow-sm">
+        <div class="font-display text-[30px] sm:text-[34px] leading-none font-bold gradient-text">${escapeHtml(value)}</div>
+        <p class="mt-2 text-[13px] sm:text-[14px] leading-snug text-ink/60">${escapeHtml(label)}</p>
+      </li>`
+    )
+    .join("\n");
+  const practiceHtml = trofimovPracticeAreas
+    .map(
+      (item) => `<li class="rounded-2xl bg-cream border border-ink/5 p-5">
+        <h3 class="font-display text-[20px] leading-snug font-bold text-ink">${escapeHtml(item.title)}</h3>
+        <p class="mt-3 text-[15px] sm:text-[16px] leading-relaxed text-ink/66 text-pretty">${escapeHtml(item.text)}</p>
+      </li>`
+    )
+    .join("\n");
+  const timelineHtml = trofimovTimeline
+    .map(
+      (item) => `<li class="relative pl-20 py-4">
+        <span class="absolute left-0 top-4 flex h-12 w-14 items-center justify-center rounded-2xl gradient-bg font-display font-bold text-white shadow-lg shadow-indigo2/20">${escapeHtml(item.year)}</span>
+        <p class="text-[15px] sm:text-[16px] leading-relaxed text-ink/72 text-pretty">${escapeHtml(item.text)}</p>
+      </li>`
+    )
+    .join("\n");
+  const researchHtml = trofimovResearchParagraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("\n");
+  const publicationsHtml = trofimovPublicationItems
+    .map(
+      (item, i) => `<li class="rounded-2xl bg-white border border-ink/5 p-4 sm:p-5">
+        <div class="flex items-start gap-3 sm:gap-4">
+          <span class="shrink-0 flex h-9 w-9 items-center justify-center rounded-xl bg-cream border border-ink/5 font-display font-bold text-[13px] text-indigo2">${String(i + 1).padStart(2, "0")}</span>
+          <div>
+            <h3 class="font-display text-[17px] sm:text-[18px] lg:text-[19px] leading-snug font-bold text-ink text-pretty">${escapeHtml(item.title)}</h3>
+            <p class="mt-2 text-[14px] sm:text-[15px] leading-relaxed italic text-ink/60 text-pretty">${escapeHtml(item.source)}</p>
+          </div>
+        </div>
+      </li>`
+    )
+    .join("\n");
+  const recognitionHtml = trofimovRecognitionItems
+    .map(
+      (item, i) => `<li class="relative pl-14 py-4">
+        <span class="absolute left-0 top-4 flex h-9 w-9 items-center justify-center rounded-xl bg-white border border-ink/10 font-display font-bold text-indigo2">${i + 1}</span>
+        <h3 class="font-display text-[19px] font-bold text-ink">${escapeHtml(item.title)}</h3>
+        <p class="mt-2 text-[15px] sm:text-[16px] leading-relaxed text-ink/72 text-pretty">${escapeHtml(item.text)}</p>
+      </li>`
+    )
+    .join("\n");
+  const galleryHtml = galleryImages.length
+    ? `<section class="py-10 sm:py-12 lg:py-16 bg-white border-y border-ink/5">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+    <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm text-indigo2 text-[12px] uppercase tracking-[0.18em] font-semibold mb-4"><span class="w-2 h-2 rounded-full bg-indigo2"></span><span>Фото</span></div>
+    <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance mb-8">Специалист<br><span class="italic font-normal">и клиническая практика</span></h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      ${galleryImages
+        .map(
+          (image) => `<figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
+        ${renderGalleryImage(image, "w-full aspect-[4/3] object-cover", image.alt || "Трофимов Евгений Иванович", false)}
+      </figure>`
+        )
+        .join("\n")}
+    </div>
+  </div>
+</section>`
+    : "";
+
+  return `${head}
+${parts.nav}
+<!-- ============ BREADCRUMB ============ -->
+<nav aria-label="breadcrumb" class="max-w-[1400px] mx-auto px-5 lg:px-10 pt-6 text-[13px] text-ink/50">
+  <ol class="flex items-center gap-2 flex-wrap">
+    <li><a href="index.html" class="hover:text-indigo2">Главная</a></li>
+    <li>/</li>
+    <li><a href="index.html#doctors" class="hover:text-indigo2">Наши специалисты</a></li>
+    <li>/</li>
+    <li class="text-ink/80">Трофимов Евгений Иванович</li>
+  </ol>
+</nav>
+
+<!-- ============ DOCTOR HERO ============ -->
+<section class="relative pt-6 sm:pt-10 lg:pt-14 pb-10 sm:pb-14 overflow-hidden">
+  <div aria-hidden="true" class="absolute -top-20 right-0 w-[460px] h-[460px] rounded-full opacity-25 blur-3xl gradient-bg pointer-events-none"></div>
+  <div class="relative max-w-[1400px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+    <div class="lg:col-span-7">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-ink/10 mb-6">
+        <span class="text-[11px] font-mono text-pink2">[ специалист ]</span>
+        <span class="text-[12px] text-ink/60">реконструктивная хирургия</span>
+      </div>
+      <h1 class="font-display text-[30px] sm:text-[46px] md:text-[58px] lg:text-[76px] leading-[1.08] sm:leading-[1.02] tracking-tight font-bold text-balance">
+        Трофимов<br><span class="italic font-normal">Евгений Иванович</span>
+      </h1>
+      <p class="mt-5 max-w-3xl text-[17px] sm:text-[20px] leading-relaxed text-ink/72 text-pretty">${escapeHtml(trofimovLead)}</p>
+      <div class="mt-6 flex flex-wrap items-center gap-3">
+        <a href="#book" class="btn-primary px-7 py-4 rounded-full font-semibold text-[15px] inline-flex items-center gap-2 arrow-cta">Записаться на консультацию <span class="arrow">→</span></a>
+        <a href="tel:+79263329369" class="px-7 py-4 rounded-full font-semibold text-[15px] border border-ink/15 hover:border-ink/40 transition">+7 (926) 332-93-69</a>
+      </div>
+      <ul class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 max-w-3xl">
+        ${statsHtml}
+      </ul>
+    </div>
+    <aside class="lg:col-span-5">
+      <figure class="relative max-w-md lg:max-w-none mx-auto rounded-3xl overflow-hidden bg-gradient-to-br from-indigo2 via-violet2 to-pink2 shadow-2xl shadow-indigo2/10">
+        <div class="aspect-[4/5] bg-cream">
+          ${hero ? `<img src="${hero.src}" alt="${escapeHtml(hero.alt || "Трофимов Евгений Иванович")}" class="w-full h-full object-cover" fetchpriority="high" loading="eager">` : ""}
+        </div>
+        <figcaption class="absolute left-5 right-5 bottom-5 rounded-2xl bg-white/90 backdrop-blur border border-white/70 px-5 py-4 shadow-sm">
+          <div class="text-[11px] font-mono text-indigo2 uppercase tracking-widest">Center of Surgery</div>
+          <p class="mt-1 font-display text-xl font-bold leading-snug text-ink">Доктор медицинских наук, профессор</p>
+        </figcaption>
+      </figure>
+    </aside>
+  </div>
+</section>
+
+<section class="py-8 sm:py-10 lg:py-16 bg-white border-y border-ink/5">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12">
+    <div class="lg:col-span-5">
+      <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm text-indigo2 text-[12px] uppercase tracking-[0.18em] font-semibold mb-4"><span class="w-2 h-2 rounded-full bg-indigo2"></span><span>Биография</span></div>
+      <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance">
+        Образование<br><span class="italic font-normal">и начало работы</span>
+      </h2>
+      <p class="mt-6 rounded-3xl bg-cream border border-ink/5 p-5 text-[16px] sm:text-[17px] leading-relaxed text-ink/70 text-pretty">${escapeHtml(trofimovAward)}</p>
+      <ol class="mt-5 space-y-1">
+        ${timelineHtml}
+      </ol>
+    </div>
+    <div class="lg:col-span-7">
+      <div class="mb-5">
+        <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm text-pink2 text-[12px] uppercase tracking-[0.18em] font-semibold mb-4"><span class="w-2 h-2 rounded-full bg-pink2"></span><span>Профиль</span></div>
+        <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance">
+          Основные направления<br><span class="italic font-normal">научно-практической деятельности</span>
+        </h2>
+      </div>
+      <ul class="grid sm:grid-cols-2 gap-4">
+        ${practiceHtml}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="py-10 sm:py-12 lg:py-16">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12">
+    <div class="lg:col-span-7 rounded-3xl bg-cream border border-ink/5 p-6 sm:p-8 lg:p-10">
+      <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm text-pink2 text-[12px] uppercase tracking-[0.18em] font-semibold mb-5"><span class="w-2 h-2 rounded-full bg-pink2"></span><span>Научная работа</span></div>
+      <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance mb-6">Микрохирургия<br><span class="italic font-normal">и авторские методики</span></h2>
+      <div class="space-y-4 text-[16px] leading-relaxed text-ink/70 text-pretty">
+        ${researchHtml}
+      </div>
+    </div>
+    <div class="lg:col-span-5">
+      <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm text-indigo2 text-[12px] uppercase tracking-[0.18em] font-semibold mb-5"><span class="w-2 h-2 rounded-full bg-indigo2"></span><span>Резюме</span></div>
+      <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance mb-5">Профессиональное<br><span class="italic font-normal">признание</span></h2>
+      <ol class="space-y-1">
+        ${recognitionHtml}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="py-10 sm:py-12 lg:py-16 bg-cream border-y border-ink/5">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+    <div class="max-w-3xl mb-8">
+      <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm text-indigo2 text-[12px] uppercase tracking-[0.18em] font-semibold mb-4"><span class="w-2 h-2 rounded-full bg-indigo2"></span><span>Работы</span></div>
+      <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance">Некоторые работы<br><span class="italic font-normal">по основным направлениям</span></h2>
+    </div>
+    <ol class="grid lg:grid-cols-2 gap-3">
+      ${publicationsHtml}
+    </ol>
+  </div>
+</section>
+
+${galleryHtml}
+${ctaFooter}`;
+}
+
+function renderKravchenkoPage() {
+  const parts = templateParts();
+  const page = readJson("kravchenko");
+  const images = usefulImages(page);
+  const hero = heroImage(page, images) || images[0];
+  const galleryImages = images.filter((image) => !hero || image.src !== hero.src);
+  const head = updateSeo(parts.head, page);
+  const ctaFooter = parts.ctaFooter;
+  const educationHtml = kravchenkoEducationItems
+    .map((item) => {
+      const detailsHtml = item.details.length
+        ? `<div class="mt-3 space-y-2 text-[15px] sm:text-[16px] leading-relaxed text-ink/65 text-pretty">
+          ${item.details.map((detail) => `<p>${escapeHtml(detail)}</p>`).join("\n")}
+        </div>`
+        : "";
+      return `<li class="rounded-2xl bg-white border border-ink/5 p-5">
+        <h3 class="font-display text-[18px] sm:text-[20px] leading-snug font-bold text-ink text-pretty">${escapeHtml(item.title)}</h3>${detailsHtml ? `\n        ${detailsHtml}` : ""}
+      </li>`;
+    })
+    .join("\n");
+  const trainingHtml = kravchenkoTrainingItems
+    .map(
+      (item, i) => `<li class="relative pl-14 py-3">
+        <span class="absolute left-0 top-3 flex h-9 w-9 items-center justify-center rounded-xl bg-white border border-ink/10 font-display font-bold text-[13px] text-indigo2">${String(i + 1).padStart(2, "0")}</span>
+        <p class="text-[15px] sm:text-[16px] leading-relaxed text-ink/72 text-pretty">${escapeHtml(item)}</p>
+      </li>`
+    )
+    .join("\n");
+  const directionsHtml = kravchenkoScientificDirections
+    .map((item) => `<li class="rounded-2xl bg-white border border-ink/5 px-4 py-3 text-[15px] sm:text-[16px] leading-relaxed text-ink/72 text-pretty">${escapeHtml(item)}</li>`)
+    .join("\n");
+  const specializationHtml = kravchenkoSpecializationItems
+    .map((item) => `<li class="rounded-2xl bg-cream border border-ink/5 px-4 py-3 text-[15px] sm:text-[16px] leading-relaxed font-semibold text-ink text-pretty">${escapeHtml(item)}</li>`)
+    .join("\n");
+  const researchHtml = kravchenkoResearchItems
+    .map((item) => `<li class="rounded-2xl bg-white border border-ink/5 px-4 py-3 text-[15px] sm:text-[16px] leading-relaxed text-ink/72 text-pretty">${escapeHtml(item)}</li>`)
+    .join("\n");
+  const galleryHtml = galleryImages.length
+    ? `<section class="py-10 sm:py-12 lg:py-16 bg-white border-y border-ink/5">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+    <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm text-indigo2 text-[12px] uppercase tracking-[0.18em] font-semibold mb-4"><span class="w-2 h-2 rounded-full bg-indigo2"></span><span>Фото</span></div>
+    <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance mb-8">Специалист<br><span class="italic font-normal">и клиническая практика</span></h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      ${galleryImages
+        .map(
+          (image) => `<figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
+        <img src="${image.src}" alt="${escapeHtml(image.alt || page.seo.title)}" class="w-full aspect-[4/3] object-cover" loading="lazy">
+      </figure>`
+        )
+        .join("\n")}
+    </div>
+  </div>
+</section>`
+    : "";
+
+  return `${head}
+${parts.nav}
+<!-- ============ BREADCRUMB ============ -->
+<nav aria-label="breadcrumb" class="max-w-[1400px] mx-auto px-5 lg:px-10 pt-6 text-[13px] text-ink/50">
+  <ol class="flex items-center gap-2 flex-wrap">
+    <li><a href="index.html" class="hover:text-indigo2">Главная</a></li>
+    <li>/</li>
+    <li><a href="index.html#doctors" class="hover:text-indigo2">Наши специалисты</a></li>
+    <li>/</li>
+    <li class="text-ink/80">Кравченко Дмитрий Валерьевич</li>
+  </ol>
+</nav>
+
+<!-- ============ DOCTOR HERO ============ -->
+<section class="relative pt-6 sm:pt-10 lg:pt-14 pb-10 sm:pb-14 overflow-hidden">
+  <div aria-hidden="true" class="absolute -top-20 right-0 w-[460px] h-[460px] rounded-full opacity-25 blur-3xl gradient-bg pointer-events-none"></div>
+  <div class="relative max-w-[1400px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+    <div class="lg:col-span-7">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-ink/10 mb-6">
+        <span class="text-[11px] font-mono text-pink2">[ специалист ]</span>
+        <span class="text-[12px] text-ink/60">челюстно-лицевая хирургия</span>
+      </div>
+      <h1 class="font-display text-[30px] sm:text-[46px] md:text-[58px] lg:text-[76px] leading-[1.08] sm:leading-[1.02] tracking-tight font-bold text-balance">
+        Кравченко<br><span class="italic font-normal">Дмитрий Валерьевич</span>
+      </h1>
+      <p class="mt-5 max-w-3xl text-[17px] sm:text-[20px] leading-relaxed text-ink/72 text-pretty">${escapeHtml(kravchenkoLead)}</p>
+      <div class="mt-6 flex flex-wrap items-center gap-3">
+        <a href="#book" class="btn-primary px-7 py-4 rounded-full font-semibold text-[15px] inline-flex items-center gap-2 arrow-cta">Записаться на консультацию <span class="arrow">→</span></a>
+        <a href="tel:+79263329369" class="px-7 py-4 rounded-full font-semibold text-[15px] border border-ink/15 hover:border-ink/40 transition">+7 (926) 332-93-69</a>
+      </div>
+      <div class="mt-8 grid sm:grid-cols-2 gap-3 max-w-3xl">
+        <div class="rounded-2xl bg-white/85 border border-ink/10 px-4 py-4 shadow-sm text-[14px] sm:text-[15px] leading-relaxed text-ink/70">• 2008 Присуждена ученая степень кандидата медицинских наук.</div>
+        <div class="rounded-2xl bg-white/85 border border-ink/10 px-4 py-4 shadow-sm text-[14px] sm:text-[15px] leading-relaxed text-ink/70">Автор 12 Печатных работ и публикаций</div>
+      </div>
+    </div>
+    <aside class="lg:col-span-5">
+      <figure class="relative max-w-md lg:max-w-none mx-auto rounded-3xl overflow-hidden bg-gradient-to-br from-indigo2 via-violet2 to-pink2 shadow-2xl shadow-indigo2/10">
+        <div class="aspect-[4/5] bg-cream">
+          ${hero ? `<img src="${hero.src}" alt="${escapeHtml(page.seo.title)}" class="w-full h-full object-cover" fetchpriority="high" loading="eager">` : ""}
+        </div>
+        <figcaption class="absolute left-5 right-5 bottom-5 rounded-2xl bg-white/90 backdrop-blur border border-white/70 px-5 py-4 shadow-sm">
+          <div class="text-[11px] font-mono text-indigo2 uppercase tracking-widest">Center of Surgery</div>
+          <p class="mt-1 font-display text-xl font-bold leading-snug text-ink">Врач челюстно-лицевой хирург</p>
+        </figcaption>
+      </figure>
+    </aside>
+  </div>
+</section>
+
+<section class="py-8 sm:py-10 lg:py-16 bg-white border-y border-ink/5">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12">
+    <div class="lg:col-span-4">
+      <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm text-indigo2 text-[12px] uppercase tracking-[0.18em] font-semibold mb-4"><span class="w-2 h-2 rounded-full bg-indigo2"></span><span>Биография</span></div>
+      <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance">Образование<br><span class="italic font-normal">и практика</span></h2>
+    </div>
+    <div class="lg:col-span-8">
+      <ol class="grid gap-3">
+        ${educationHtml}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="py-10 sm:py-12 lg:py-16">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12">
+    <div class="lg:col-span-5 rounded-3xl bg-cream border border-ink/5 p-6 sm:p-8 lg:p-10">
+      <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm text-pink2 text-[12px] uppercase tracking-[0.18em] font-semibold mb-5"><span class="w-2 h-2 rounded-full bg-pink2"></span><span>Обучение</span></div>
+      <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance mb-6">ПОВЫШЕНИЕ<br><span class="italic font-normal">КВАЛИФИКАЦИИ</span></h2>
+      <ol class="space-y-1">
+        ${trainingHtml}
+      </ol>
+    </div>
+    <div class="lg:col-span-7">
+      <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm text-indigo2 text-[12px] uppercase tracking-[0.18em] font-semibold mb-5"><span class="w-2 h-2 rounded-full bg-indigo2"></span><span>Профиль</span></div>
+      <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance mb-6">Основное направление<br><span class="italic font-normal">научной и практической работы:</span></h2>
+      <ul class="grid sm:grid-cols-2 gap-3">
+        ${directionsHtml}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="py-10 sm:py-12 lg:py-16 bg-cream border-y border-ink/5">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12">
+    <div class="lg:col-span-5">
+      <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm text-indigo2 text-[12px] uppercase tracking-[0.18em] font-semibold mb-4"><span class="w-2 h-2 rounded-full bg-indigo2"></span><span>Специализация</span></div>
+      <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance mb-6">Специализация:</h2>
+      <ul class="grid gap-3">
+        ${specializationHtml}
+      </ul>
+    </div>
+    <div class="lg:col-span-7">
+      <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/80 border border-ink/10 shadow-sm text-pink2 text-[12px] uppercase tracking-[0.18em] font-semibold mb-4"><span class="w-2 h-2 rounded-full bg-pink2"></span><span>Разработки</span></div>
+      <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance mb-6">Научные исследования<br><span class="italic font-normal">и разработки:</span></h2>
+      <ul class="grid gap-3">
+        ${researchHtml}
+      </ul>
+    </div>
+  </div>
+</section>
+
+${galleryHtml}
+${ctaFooter}`;
+}
+
 function renderGenericPage(slug, number = "—") {
   const parts = templateParts();
   const page = readJson(slug);
   const atoms = extractAtoms(slug);
   const title = firstHeading(page, atoms);
   const displayTitle =
-    slug === "microsurgical"
+    slug === "exo"
+      ? exoTitle
+    : slug === "microsurgical"
       ? title.replace(/\s+и$/i, "")
     : slug === "ilizarov_method"
       ? ilizarovHeroTitle
@@ -1977,7 +2669,14 @@ function renderGenericPage(slug, number = "—") {
     .slice(0, 8);
   const isServicePolish = serviceSlugs.has(slug);
   const images = usefulImages(page);
-  const hero = heroImage(page, images);
+  let hero = heroImage(page, images);
+  if (slug === "exo" && fs.existsSync(sourceExoHeroImage)) {
+    hero = {
+      src: `assets/images/${exoHeroAssetName}`,
+      originalSrc: "",
+      alt: exoTitle,
+    };
+  }
   const galleryImages = images
     .filter((image) => !hero || image.src !== hero.src)
     .filter((image) => slug !== "nose_surgery" || !/procedures-nose/i.test(image.src))
@@ -1991,7 +2690,8 @@ function renderGenericPage(slug, number = "—") {
     .filter((image) => slug !== "face_surgery" || !/_15-01\.jpg/i.test(image.src))
     .filter((image) => slug !== "restoration" || !/_16-01\.jpg/i.test(image.src))
     .filter((image) => slug !== "surgical_dentistry")
-    .filter((image) => slug !== "bite_restoration" || !/_18-01\.jpg/i.test(image.src));
+    .filter((image) => slug !== "bite_restoration" || !/_18-01\.jpg/i.test(image.src))
+    .filter((image) => slug !== "mouthguards" || !/_19-01\.jpg/i.test(image.src));
   const textSections = collectTextSections(atoms);
   const usedText = new Set([normalizeContentKey(title)]);
   const seoLeadRaw = compactLead(page.seo?.description || "");
@@ -2005,6 +2705,7 @@ function renderGenericPage(slug, number = "—") {
   if (slug === "tmj") lead = lead.replace(/\s*Бесплатная консультация\s*$/i, "").trim();
   if (slug === "ilizarov_method") lead = ilizarovHeroLead;
   if (slug === "plastic_surgeries") lead = plasticSurgeriesLead;
+  if (slug === "exo") lead = exoLead;
   if (slug === "face_surgery") lead = "Эстетическая – пластическая хирургия лица";
   if (slug === "restoration") lead = restorationLead;
   if (slug === "bite_restoration") lead = biteRestorationTitle;
@@ -2047,6 +2748,7 @@ function renderGenericPage(slug, number = "—") {
     ];
   }
   if (slug === "face_surgery") tags = faceSurgeryTags;
+  if (slug === "nose_surgery") tags = noseSurgeryTags;
   if (slug === "restoration") tags = [...tags, ...restorationExtraTags].filter((item, i, arr) => arr.findIndex((value) => value.toLowerCase() === item.toLowerCase()) === i);
   if (slug === "tmj_treatment") remainingParagraphs = stripTmjTreatmentExtra(remainingParagraphs);
   if (slug === "alveolar") remainingParagraphs = [];
@@ -2054,7 +2756,11 @@ function renderGenericPage(slug, number = "—") {
   if (slug === "surgical_dentistry") remainingParagraphs = [];
   if (slug === "endolifting") remainingParagraphs = [];
   const treatmentCards =
-    slug === "tmj_treatment"
+    slug === "exo"
+      ? exoTreatmentCards
+      : slug === "nose_surgery"
+      ? noseSurgeryPathologyCards
+      : slug === "tmj_treatment"
       ? tmjTreatmentCards
       : slug === "tmj_dysfunction"
       ? tmjDysfunctionTreatmentCards
@@ -2074,6 +2780,8 @@ function renderGenericPage(slug, number = "—") {
       ? []
       : slug === "endolifting"
       ? endoliftingTreatmentCards
+      : slug === "mouthguards"
+      ? mouthguardsTreatmentCards
       : slug === "cleft"
         ? cleftTreatmentCards
       : slug === "microsurgical"
@@ -2094,6 +2802,11 @@ function renderGenericPage(slug, number = "—") {
       : slug === "endolifting"
       ? `    <div class="mb-5 rounded-2xl bg-gradient-to-br from-indigo2/5 via-violet2/5 to-pink2/5 border border-indigo2/10 px-5 py-4 sm:px-6 shadow-sm">
       <p class="text-[16px] sm:text-[17px] leading-relaxed text-ink/75">${escapeHtml(endoliftingTreatmentIntro)}</p>
+    </div>
+`
+      : slug === "exo"
+      ? `    <div class="mb-5 rounded-2xl bg-gradient-to-br from-indigo2/5 via-violet2/5 to-pink2/5 border border-indigo2/10 px-5 py-4 sm:px-6 shadow-sm">
+      <h3 class="font-display text-[20px] sm:text-[22px] leading-snug font-bold text-ink text-balance">${escapeHtml(exoTreatmentIntro)}</h3>
     </div>
 `
       : "";
@@ -2119,6 +2832,8 @@ function renderGenericPage(slug, number = "—") {
   if (slug === "cleft") sectionSummary = sectionSummary.replace(/:\s*$/, "");
   if (slug === "tmj_dysfunction") sectionSummary = "Виды патологии ВНЧС пациентов, которых мы лечим";
   if (slug === "plastic_surgeries") sectionSummary = plasticSurgeriesLead;
+  if (slug === "exo") sectionSummary = "";
+  if (slug === "nose_surgery") sectionSummary = noseSurgerySectionSummary;
   if (slug === "face_surgery") sectionSummary = "Эстетическая – пластическая хирургия лица";
   if (slug === "restoration") sectionSummary = restorationTitle;
   if (slug === "surgical_dentistry") sectionSummary = "Hi-tech! НОВЫЕ ТЕХНОЛОГИИ";
@@ -2145,9 +2860,18 @@ function renderGenericPage(slug, number = "—") {
     ? "py-8 sm:py-10 lg:py-16 bg-white border-y border-ink/5"
     : "py-12 sm:py-14 lg:py-24 bg-white border-y border-ink/5";
   const aboutHeaderAlignClass = slug === "implantology" ? "lg:items-start" : "lg:items-end";
-  const detailColumnClass = slug === "microsurgical" || slug === "face_surgery" || slug === "surgical_dentistry" || slug === "endolifting" ? "lg:col-span-10" : "lg:col-span-5";
+  const detailColumnClass =
+    slug === "microsurgical" || slug === "face_surgery" || slug === "surgical_dentistry" || slug === "endolifting"
+      ? "lg:col-span-10"
+      : slug === "exo"
+      ? "lg:col-span-10"
+      : slug === "mouthguards"
+      ? "lg:col-span-7"
+      : "lg:col-span-5";
   const heroCardTitle =
-    slug === "scars"
+    slug === "exo"
+      ? exoTitle
+    : slug === "scars"
       ? displayTitle
       : slug === "tmj_dysfunction"
       ? "Лечение пациентов с дисфункцией ВНЧС"
@@ -2253,6 +2977,12 @@ ${hasSensitiveGalleryImages ? renderSensitiveGalleryNotice() : ""}
       ? renderTmjPageStepCopy()
       : slug === "bite_restoration"
       ? renderBiteRestorationStepCopy()
+      : slug === "exo"
+      ? ""
+      : slug === "nose_surgery"
+      ? renderNoseSurgeryStepCopy()
+      : slug === "mouthguards"
+      ? renderMouthguardsStepCopy()
       : slug === "orthognathic_surgery"
       ? renderOrthognathicStepCopy()
       : slug === "alveolar"
@@ -2331,6 +3061,7 @@ ${heroSubtitleHtml}
         <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo2 via-violet2 to-pink2 text-white font-display text-lg font-bold">✓</span>
         <span class="min-w-0"><span class="font-semibold text-ink">Бесплатная консультация</span><span class="hidden sm:inline text-ink/55"> · первичный разбор обращения</span></span>
       </div>
+${serviceSlugs.has(slug) ? renderBudgetTreatmentNotice() : ""}
     </div>
     <aside class="lg:col-span-5">
       <div class="relative aspect-[16/10] max-w-2xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden bg-gradient-to-br from-indigo2 via-violet2 to-pink2 shadow-2xl shadow-indigo2/10">
@@ -2360,7 +3091,7 @@ ${tags.length ? `    <div class="${isServicePolish ? "mt-8 rounded-3xl bg-white 
       ${sectionLabel("С чем обращаются", "text-violet2", "bg-violet2", "mb-5")}
       <ul class="${isServicePolish ? "grid sm:grid-cols-2 lg:grid-cols-4 gap-3 text-[15px] text-ink/80" : "grid sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-3 text-[15px] text-ink/80"}">
         ${tags.map((tag) => isServicePolish
-          ? `<li class="min-h-[70px] rounded-2xl bg-cream/80 border border-ink/5 px-4 py-3 flex items-center justify-center gap-3 text-center"><span class="w-1.5 h-1.5 rounded-full bg-pink2 shrink-0"></span><span class="[text-box:trim-both_cap_alphabetic]">${escapeHtml(capitalizeFirst(tag))}</span></li>`
+          ? `<li class="min-h-[70px] rounded-2xl bg-cream/80 border border-ink/5 px-4 py-3 flex items-center justify-center gap-3 text-center"><span class="w-1.5 h-1.5 rounded-full bg-pink2 shrink-0"></span><span class="[text-box:trim-both_cap_alphabetic]">${escapeHtml(slug === "nose_surgery" ? tag : capitalizeFirst(tag))}</span></li>`
           : `<li class="flex items-center gap-2"><span class="text-pink2">•</span> ${escapeHtml(tag)}</li>`).join("\n")}
       </ul>
     </div>` : ""}
@@ -2371,12 +3102,12 @@ ${slug === "plastic_surgeries" ? "" : `<section class="${detailsSectionClass}">
   <div class="max-w-[1400px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12">
     <div class="${detailColumnClass}">
       ${sectionLabel("Подробности", "text-pink2", "bg-pink2")}
-      <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance">
+${slug === "mouthguards" ? "" : `      <h2 class="font-display text-[26px] sm:text-[30px] lg:text-[42px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance">
         <span class="gradient-text">Индивидуальный</span><br>
         <span class="italic font-normal">план лечения</span>
-      </h2>
+      </h2>`}
       <div class="text-ink/65 mt-6 leading-relaxed text-[16px] space-y-4">
-        ${slug === "tmj_treatment" ? renderTmjDetailCopy() : slug === "implantology" ? renderImplantologyDetailCopy() : slug === "alveolar" ? renderAlveolarDetailCopy() : slug === "face_surgery" ? renderFaceSurgeryDetailCopy() : slug === "restoration" ? renderRestorationDetailCopy() : slug === "surgical_dentistry" ? renderSurgicalDentistryDetailCopy() : slug === "bite_restoration" ? renderBiteRestorationDetailCopy() : slug === "endolifting" ? renderEndoliftingDetailCopy() : slug === "microsurgical" ? renderMicrosurgicalDetailCopy() : slug === "scars" ? renderScarsDetailCopy() : slug === "cleft" ? renderCleftDetailCopy() : slug === "tmj_dysfunction" ? renderTmjDysfunctionDetailCopy() : slug === "tmj" ? renderTmjPageDetailCopy() : renderParagraphs(visibleDetailCopy.length ? visibleDetailCopy : [detailFallback])}
+        ${slug === "tmj_treatment" ? renderTmjDetailCopy() : slug === "implantology" ? renderImplantologyDetailCopy() : slug === "alveolar" ? renderAlveolarDetailCopy() : slug === "nose_surgery" ? renderNoseSurgeryDetailCopy() : slug === "face_surgery" ? renderFaceSurgeryDetailCopy() : slug === "restoration" ? renderRestorationDetailCopy() : slug === "surgical_dentistry" ? renderSurgicalDentistryDetailCopy() : slug === "bite_restoration" ? renderBiteRestorationDetailCopy() : slug === "mouthguards" ? renderMouthguardsDetailCopy() : slug === "endolifting" ? renderEndoliftingDetailCopy() : slug === "microsurgical" ? renderMicrosurgicalDetailCopy() : slug === "scars" ? renderScarsDetailCopy() : slug === "cleft" ? renderCleftDetailCopy() : slug === "tmj_dysfunction" ? renderTmjDysfunctionDetailCopy() : slug === "tmj" ? renderTmjPageDetailCopy() : renderParagraphs(visibleDetailCopy.length ? visibleDetailCopy : [detailFallback])}
       </div>
     </div>
 ${detailStepsHtml}
@@ -2396,6 +3127,7 @@ function build() {
     .replace(/<!-- ============ DOCTORS ============ -->[\s\S]*?<!-- ============ TRUST ============ -->/, `${renderHomeDoctorsSection()}\n\n<!-- ============ TRUST ============ -->`)
     .replace(/<!-- ============ TRUST ============ -->[\s\S]*?<!-- ============ CTA \/ CONTACT ============ -->/, `${renderHomeTrustSection()}\n\n<!-- ============ CTA / CONTACT ============ -->`)
     .replace("Бесплатная консультация <span class=\"arrow\">→</span>", "Записаться на консультацию <span class=\"arrow\">→</span>")
+    .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${homeSocialTitle}">`)
     .replace(
       `      </div>\n\n      <dl class="mt-10 sm:mt-14 grid grid-cols-3 max-w-2xl divide-x divide-ink/10">`,
       `      </div>
@@ -2411,7 +3143,9 @@ function build() {
     files[`${slug}.html`] = renderGenericPage(slug, String(index + 1).padStart(2, "0"));
   }
   for (const [slug] of secondary) {
-    if (fs.existsSync(path.join(pagesRoot, `${slug}.json`))) files[`${slug}.html`] = renderGenericPage(slug);
+    if (fs.existsSync(path.join(pagesRoot, `${slug}.json`))) {
+      files[`${slug}.html`] = slug === "trofimov" ? renderTrofimovPage() : slug === "kravchenko" ? renderKravchenkoPage() : renderGenericPage(slug);
+    }
   }
 
   for (const outRoot of outRoots) {
@@ -2424,6 +3158,9 @@ function build() {
     }
     if (fs.existsSync(sourceMaxLogo)) {
       fs.copyFileSync(sourceMaxLogo, path.join(outRoot, "max.png"));
+    }
+    if (fs.existsSync(sourceExoHeroImage)) {
+      fs.copyFileSync(sourceExoHeroImage, path.join(outRoot, "assets", "images", exoHeroAssetName));
     }
 
     for (const [name, html] of Object.entries(files)) {

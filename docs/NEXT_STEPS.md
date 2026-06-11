@@ -15,9 +15,16 @@
 
 2. Continue visual QA on the preview deployment after the completed service-page polish rollout.
    - Check `http://service-pages-v2--cmf-surgery.netlify.app/`.
-   - Latest pushed service-page v2 commit before handoff 009: `0604eda polish service pages content pass`.
-   - Current 2026-06-10 closing pass includes page-specific edits for `face_surgery`, `restoration`, `surgical_dentistry`, `bite_restoration`, and `endolifting`, plus removal of the quota/VMP page and MAX social icon cleanup.
-   - Priority QA pages: homepage, `restoration`, `surgical_dentistry`, `bite_restoration`, `endolifting`, header/footer MAX icon, mobile menu numbering, lightbox, and selective sensitive-photo reveal banners.
+   - Latest documented work before handoff 010: `6a87d7c remove quota page and polish service content`.
+   - Current 2026-06-11 closing pass includes:
+     - `mouthguards` content/detail/gallery edits;
+     - `exo` title/cards/hero image/sensitive-gallery edits;
+     - `nose_surgery` content and methods edits;
+     - compact `Возможности лечения по бюджету` notices on all 20 service pages;
+     - dedicated specialist layouts for `trofimov` and `kravchenko`;
+     - doctor photos in the `Наши специалисты` header dropdown;
+     - homepage social preview title update.
+   - Priority QA pages: homepage, `mouthguards`, `exo`, `nose_surgery`, `trofimov`, `kravchenko`, header doctor dropdown photos, mobile menu numbering, lightbox, and selective sensitive-photo reveal banners.
    - `tmj_treatment` preview was confirmed updated after push: status `200`, compact YouTube thumbnail cards present, restored TMJ text present.
 
 3. Approve or continue service-page review.
@@ -28,8 +35,9 @@
    - Preserve the compact `sensitive-media` reveal banner for selected clinical/operative gallery images. It is controlled by curated image filename patterns in `build-site.js`; avoid hiding entire pages or broad image ranges unless the user explicitly asks.
 
 4. Next design/content scope after service-page approval.
-   - Specialists, technologies, recommendations, doctors and contact-like pages still need a separate layout/design pass.
-   - Current service-page cleanup was applied through `build-site.js`, so secondary generated pages also inherited the cleaner generic renderer until a dedicated layout replaces it.
+   - Specialists `trofimov` and `kravchenko` now have dedicated biography/resume layouts.
+   - Technologies, recommendations, doctors index-like sections, reviews, and contact-like pages may still need separate layout/design passes.
+   - Current service-page cleanup was applied through `build-site.js`, so secondary generated pages still inherit the cleaner generic renderer until a dedicated layout replaces them.
 
 5. Review service-page content completeness.
    - The active service list now has 20 pages after removing `free.html` / `Бесплатное лечение по квоте ВМП`.
@@ -39,6 +47,8 @@
    - `tmj_treatment` received extra manual restoration of lost long-form content and video thumbnail links during the 2026-06-05 session.
    - `implantology` and `microsurgical` received page-specific content/layout passes during the 2026-06-05 follow-up session.
    - `scars`, `cleft`, `tmj_dysfunction`, `tmj`, `orthognathic_surgery`, `ilizarov_method`, `plastic_surgeries`, `alveolar`, `face_surgery`, `restoration`, `surgical_dentistry`, `bite_restoration`, and `endolifting` received page-specific content/layout passes during the 2026-06-10 work; verify final wording and sensitive-image selection visually on preview.
+   - `mouthguards`, `exo`, and `nose_surgery` received additional user-directed content/layout passes during the 2026-06-11 work; verify final wording against the original/user screenshots where exact text matters.
+   - Specialist pages `trofimov` and `kravchenko` now use original source text from `cmf-surgery.ru` and should be visually checked as biography/resume pages, not service pages.
 
 ## Content And Design
 
@@ -51,6 +61,7 @@
 3. Confirm homepage service-card copy and order after the service list was reduced from 21 to 20 items.
 
 4. Confirm doctors section: names, titles, photos.
+   - Header dropdown doctor previews now use real photos instead of gradient placeholders.
 
 ## Build/Deploy
 

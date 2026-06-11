@@ -118,3 +118,30 @@ Confirmed:
 - restored TMJ text marker `Динамическая МРТ аксиография`;
 - compact YouTube thumbnail marker `i.ytimg.com/vi/_I0rorCC29s/hqdefault.jpg`;
 - fourth video marker `JAs0wK6AK4g`.
+
+## Current Preview Push Scope
+
+The 2026-06-11 handoff 010 session should be pushed to:
+
+```bat
+git push origin service-pages-v2
+```
+
+After the push, verify the Netlify preview branch at:
+
+```txt
+http://service-pages-v2--cmf-surgery.netlify.app/
+http://service-pages-v2--cmf-surgery.netlify.app/trofimov.html
+http://service-pages-v2--cmf-surgery.netlify.app/kravchenko.html
+http://service-pages-v2--cmf-surgery.netlify.app/exo.html
+http://service-pages-v2--cmf-surgery.netlify.app/mouthguards.html
+http://service-pages-v2--cmf-surgery.netlify.app/nose_surgery.html
+```
+
+Expected markers:
+- homepage social preview title uses `Center of Surgery – Центр реконструктивной хирургии.`;
+- specialist pages use biography/resume layouts, not the generic service renderer;
+- `kravchenko.html` contains the shared sticky header and no `undefined` marker;
+- doctor dropdown previews use real doctor photos;
+- `exo.html` uses `assets/images/exo-hero.png`;
+- all 20 service pages include the compact `Возможности лечения по бюджету` notice.
