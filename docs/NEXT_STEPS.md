@@ -15,7 +15,17 @@
 
 2. Continue visual QA on the preview deployment after the completed service-page polish rollout.
    - Check `http://service-pages-v2--cmf-surgery.netlify.app/`.
-   - Latest pushed and preview-verified work: `0125baa polish secondary pages and contact flow`; see `docs/handoffs/handoff_011.md`.
+   - Latest local closing pass: see `docs/handoffs/handoff_012.md`.
+   - Current 2026-06-18 follow-up closing pass includes:
+     - semantic image asset renaming through `build-site.js`;
+     - updated image ALT report files;
+     - new `anons.html` page and highlighted `Наши услуги` menu entry;
+     - user-provided `anons-hero.png` hero image;
+     - homepage removal of `ВМП квота · бесплатно`;
+     - contacts secondary reception location at УКБ №4 / ул. Доватора, 15;
+     - new plain text-only `privacy.html` page from the provided DOCX;
+     - footer privacy link changed from `#` to `privacy.html`.
+   - Previous pushed and preview-verified work: `0125baa polish secondary pages and contact flow`; see `docs/handoffs/handoff_011.md`.
    - Current 2026-06-18 closing pass includes:
      - dedicated recommendation pages for `analyzes` and `oral_hygiene` with print/PDF controls;
      - dedicated technology pages for `newtech_imp`, `newtech_ekzo`, and `newtech_tmj`;
@@ -30,7 +40,7 @@
      - dedicated specialist layouts for `trofimov` and `kravchenko`;
      - doctor photos in the `Наши специалисты` header dropdown;
      - homepage social preview title update.
-   - Priority QA pages: homepage, `contacts`, `reviews`, `onlinehelp`, `analyzes`, `oral_hygiene`, `newtech_imp`, `newtech_ekzo`, `newtech_tmj`, plus previous priority pages `mouthguards`, `exo`, `nose_surgery`, `trofimov`, `kravchenko`, header doctor dropdown photos, mobile menu numbering, lightbox, and selective sensitive-photo reveal banners.
+   - Priority QA pages: homepage, `anons`, `privacy`, `contacts`, `reviews`, `onlinehelp`, `analyzes`, `oral_hygiene`, `newtech_imp`, `newtech_ekzo`, `newtech_tmj`, plus previous priority pages `mouthguards`, `exo`, `nose_surgery`, `trofimov`, `kravchenko`, header doctor dropdown photos, mobile menu numbering, lightbox, and selective sensitive-photo reveal banners.
    - `tmj_treatment` preview was confirmed updated after push: status `200`, compact YouTube thumbnail cards present, restored TMJ text present.
 
 3. Approve or continue service-page review.
@@ -78,3 +88,13 @@
 4. For the current service-page v2 work, push to `service-pages-v2` first.
 5. Push or merge to `main` only after review approval.
 6. Confirm Netlify deploy succeeds after any push/merge that affects production.
+
+## SEO / Images
+
+1. Continue image ALT review from:
+   - `docs/image-alt-report.md`
+   - `docs/image-alt-report.csv`
+2. Current image renaming system is persistent in `build-site.js`.
+3. Follow-up items still visible in the report:
+   - decorative empty ALT values;
+   - duplicate non-empty ALT groups.

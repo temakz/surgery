@@ -8,10 +8,13 @@ const sourceSiteFavicon = path.join(root, "site-favicon.png");
 const sourceMaxLogo = path.join(root, "max.svg");
 const exoHeroAssetName = "exo-hero.png";
 const sourceExoHeroImage = path.join(root, exoHeroAssetName);
+const anonsHeroAssetName = "anons-hero.png";
+const sourceAnonsHeroImage = path.join(root, anonsHeroAssetName);
 const homeHeroAssetName = "home-hero-clinic.webp";
 const sourceHomeHeroImage = path.join(root, "assets", "images", homeHeroAssetName);
 const contactsClinicAssetName = "contacts-clinic.webp";
 const sourceContactsClinicImage = path.join(root, "assets", "images", contactsClinicAssetName);
+const sourcePrivacyPolicyText = path.join(root, "privacy-policy.txt");
 const scrapeRoot = path.resolve(root, "..", "parse", "scrape-output");
 const pagesRoot = path.join(scrapeRoot, "pages");
 const rawRoot = path.join(pagesRoot, "raw-html");
@@ -299,6 +302,30 @@ const secondary = [
 
 const recommendationSlugs = new Set(["analyzes", "oral_hygiene"]);
 const technologySlugs = new Set(["newtech_imp", "newtech_ekzo", "newtech_tmj"]);
+const anonsTitle = "!!! Анонс новых разработок !!!";
+const anonsLead = "Появилась технология полного лазерного сканированного прототипирования протезов по зеркальной копии с противоположной стороны.";
+const anonsHighlights = [
+  {
+    label: "01",
+    title: "Лазерное прототипирование",
+    text: "Полное сканированное прототипирование протезов по зеркальной копии противоположной стороны.",
+  },
+  {
+    label: "02",
+    title: "100% точность воспроизводства",
+    text: "Технология направлена на изготовление протезов без деформаций и несоответствий.",
+  },
+  {
+    label: "03",
+    title: "Полимерные матрицы",
+    text: "Новые матричные технологии из полимерных матриц для микропроцессоров с точностью до 6-7 мкм.",
+  },
+  {
+    label: "04",
+    title: "Искусственный интеллект",
+    text: "ИИ помогает воссоздавать потерянную часть лица, прототипировать и изготавливать экзо- и эндопротезы.",
+  },
+];
 const reviewItems = [
   {
     name: "Анатолий Астахов",
@@ -599,6 +626,7 @@ const technologyPageContent = {
 };
 
 const linkMap = new Map([
+  [anonsTitle, "anons.html"],
   ...services.map(([slug, label]) => [label, pageHref(slug)]),
   ...secondary.map(([slug, label]) => [label, pageHref(slug)]),
   ["Хирургия восстановления носового дыхания", "nasal_surgery.html"],
@@ -2065,23 +2093,26 @@ function renderSitemap(files) {
 }
 
 function renderDesktopServiceMenuLinks() {
-  return services
+  const anonsLink = `            <a href="anons.html" class="flex items-start gap-3 px-3 py-2 rounded-lg bg-gradient-to-r from-indigo2/10 via-violet2/10 to-pink2/10 hover:from-indigo2/15 hover:to-pink2/15 group/i transition">
+              <span class="text-[11px] font-mono text-pink2 mt-0.5 w-5 shrink-0">NEW</span>
+              <span class="text-[13px] font-bold text-indigo2 group-hover/i:text-pink2 leading-snug">${escapeHtml(anonsTitle)}</span>
+            </a>`;
+  return [anonsLink, ...services
     .map(
       ([slug, title], index) => `            <a href="${pageHref(slug)}" class="flex items-start gap-3 px-3 py-2 rounded-lg hover:bg-cream group/i transition">
               <span class="text-[11px] font-mono text-pink2/70 mt-0.5 w-5 shrink-0">${String(index + 1).padStart(2, "0")}</span>
               <span class="text-[13px] text-ink/80 group-hover/i:text-indigo2 leading-snug">${escapeHtml(title)}</span>
             </a>`
-    )
-    .join("\n");
+    )].join("\n");
 }
 
 function renderMobileServiceMenuLinks() {
-  return services
+  const anonsLink = `          <a href="anons.html" class="flex gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-indigo2/10 via-violet2/10 to-pink2/10 text-[13px] font-bold text-indigo2"><span class="text-pink2 font-mono w-8 shrink-0">NEW</span><span>${escapeHtml(anonsTitle)}</span></a>`;
+  return [anonsLink, ...services
     .map(
       ([slug, title], index) =>
         `          <a href="${pageHref(slug)}" class="flex gap-2 px-3 py-2 rounded-lg hover:bg-white text-[13px] text-ink/75"><span class="text-pink2/60 font-mono w-5 shrink-0">${String(index + 1).padStart(2, "0")}</span><span>${escapeHtml(title)}</span></a>`
-    )
-    .join("\n");
+    )].join("\n");
 }
 
 function lightboxAssets() {
@@ -2358,6 +2389,7 @@ function applyGlobalEnhancements(html) {
     )
     .replaceAll("Бесплатная консультация · ежедневно 9:00–21:00", "Бесплатная консультация")
     .replaceAll("Центр реконструктивной. Москва, Одинцово.", "Центр реконструктивной хирургии. Москва, Одинцово.")
+    .replace(/<a href="#" class="hover:text-white">Политика конфиденциальности<\/a>/g, `<a href="privacy.html" class="hover:text-white">Политика конфиденциальности</a>`)
     .replace(
       /(<div class="flex items-center gap-3 mt-5">\s*)(<a href="https:\/\/wa\.me\/79263329369" class="w-10 h-10 rounded-full bg-white\/5 border border-white\/10 flex items-center justify-center hover:bg-mint hover:text-ink transition" aria-label="WhatsApp">[\s\S]*?<\/a>)\s*(<a href="https:\/\/web\.max\.ru\/" class="w-10 h-10 rounded-full bg-white\/5 border border-white\/10 flex items-center justify-center hover:bg-pink2 transition" aria-label="MAX: \+7 926 332-93-69" title="MAX: \+7 926 332-93-69">[\s\S]*?<\/a>)/g,
       `$1$3\n          $2`
@@ -2440,6 +2472,125 @@ function applyGlobalEnhancements(html) {
     .replaceAll("Заявка отправлена! Свяжемся с вами в течение 15 минут.", "Заявка отправлена! Свяжемся с вами в течение рабочего дня.")
     .replaceAll("~ 15 мин", "1-2 часа")
     .replace("</body>", `${lightbox.markup}\n</body>`);
+}
+
+function fileNameFromImageSrc(src = "") {
+  const clean = String(src).split("?")[0].split("#")[0];
+  return clean.split("/").filter(Boolean).pop() || clean;
+}
+
+function imageSrcAttr(tag = "") {
+  const match = tag.match(/\bsrc\s*=\s*("([^"]*)"|'([^']*)'|([^\s>]+))/i);
+  return match ? match[2] || match[3] || match[4] || "" : "";
+}
+
+function imageAssetSource(fileName) {
+  if (fileName === exoHeroAssetName && fs.existsSync(sourceExoHeroImage)) return sourceExoHeroImage;
+  if (fileName === anonsHeroAssetName && fs.existsSync(sourceAnonsHeroImage)) return sourceAnonsHeroImage;
+  const parserAsset = path.join(imageRoot, fileName);
+  if (fs.existsSync(parserAsset)) return parserAsset;
+  const projectAsset = path.join(root, "assets", "images", fileName);
+  if (fs.existsSync(projectAsset)) return projectAsset;
+  return null;
+}
+
+function serviceCardAssetName(fileName) {
+  const card = homeServiceCards.find(([, , src]) => fileNameFromImageSrc(src) === fileName);
+  if (!card) return "";
+  return `service-card-${card[0]}${path.extname(fileName).toLowerCase()}`;
+}
+
+function specialImageAssetName(fileName) {
+  const serviceCardName = serviceCardAssetName(fileName);
+  if (serviceCardName) return serviceCardName;
+
+  const names = {
+    [exoHeroAssetName]: exoHeroAssetName,
+    [anonsHeroAssetName]: anonsHeroAssetName,
+    [homeHeroAssetName]: homeHeroAssetName,
+    [contactsClinicAssetName]: contactsClinicAssetName,
+    "tild6635-3665-4464-b939-353132636135_02-00.jpg": "doctor-trofimov-01.jpg",
+    "tild6433-6365-4363-b836-346539643963_doc2.jpg": "doctor-kravchenko-01.jpg",
+    "tild6234-3261-4666-b363-653862623830_doc1.jpg": "doctor-trofimov-02.jpg",
+    "tild6135-6432-4364-a139-663734393963_doc2.jpg": "doctor-kravchenko-02.jpg",
+    "tild6436-3163-4763-b134-643166623162_banner1.jpg": "home-trust-01.jpg",
+    "tild3633-3731-4664-b664-646663363265_banner2.jpg": "home-trust-02.jpg",
+    "tild6138-6439-4131-b561-333635353330_banner3.jpg": "home-trust-03.jpg",
+    "tild3366-3632-4335-a139-666566316436_banner4.jpg": "home-trust-04.jpg",
+  };
+  return names[fileName] || "";
+}
+
+function semanticImageAssetName(pageName, index, fileName) {
+  const slug = pageName.replace(/\.html$/i, "") || "page";
+  const ext = path.extname(fileName).toLowerCase() || ".jpg";
+  return `${slug}-${String(index).padStart(2, "0")}${ext}`;
+}
+
+function buildImageAssetManifest(files) {
+  const manifest = new Map();
+  const pageCounts = new Map();
+
+  for (const [pageName, html] of Object.entries(files)) {
+    const tags = html.match(/<img\b[^>]*>/gi) || [];
+    for (const tag of tags) {
+      const src = imageSrcAttr(tag);
+      if (!src.startsWith("assets/images/")) continue;
+
+      const oldFile = fileNameFromImageSrc(src);
+      const source = imageAssetSource(oldFile);
+      if (!source) continue;
+      if (manifest.has(oldFile)) continue;
+
+      const specialName = specialImageAssetName(oldFile);
+      const count = (pageCounts.get(pageName) || 0) + 1;
+      pageCounts.set(pageName, count);
+      const newFile = specialName || semanticImageAssetName(pageName, count, oldFile);
+      manifest.set(oldFile, { oldFile, newFile, source });
+    }
+  }
+
+  return manifest;
+}
+
+function rewriteImageAssetRefs(html, manifest) {
+  let updated = html;
+  for (const { oldFile, newFile } of manifest.values()) {
+    if (oldFile === newFile) continue;
+    updated = updated.replaceAll(`assets/images/${oldFile}`, `assets/images/${newFile}`);
+  }
+  return updated;
+}
+
+function copySemanticImageAssets(outRoot, manifest) {
+  const destRoot = path.join(outRoot, "assets", "images");
+  fs.mkdirSync(destRoot, { recursive: true });
+
+  for (const fileName of fs.readdirSync(destRoot)) {
+    if (/^tild/i.test(fileName)) {
+      fs.rmSync(path.join(destRoot, fileName), { force: true });
+    }
+  }
+
+  for (const { newFile, source } of manifest.values()) {
+    const dest = path.join(destRoot, newFile);
+    if (path.resolve(source) !== path.resolve(dest)) {
+      fs.copyFileSync(source, dest);
+    }
+  }
+}
+
+function removeHomeQuotaStat(html) {
+  return html
+    .replace("grid grid-cols-3 max-w-2xl divide-x divide-ink/10", "grid grid-cols-2 max-w-lg divide-x divide-ink/10")
+    .replace(
+      /\s*<div class="pl-3 sm:pl-4 lg:pl-6">\s*<dd class="font-display text-\[30px\] sm:text-5xl lg:text-7xl font-bold leading-none gradient-text">Р’РњРџ<\/dd>\s*<dt class="text-\[10px\] sm:text-\[11px\] lg:text-\[12px\] text-ink\/55 uppercase tracking-\[0\.14em\] sm:tracking-\[0\.18em\] font-semibold mt-2 sm:mt-3">РєРІРѕС‚Р° В· Р±РµСЃРїР»Р°С‚РЅРѕ<\/dt>\s*<\/div>/,
+      ""
+    )
+    .replace(
+      /\s*<div class="pl-3 sm:pl-4 lg:pl-6">\s*<dd class="font-display text-\[30px\] sm:text-5xl lg:text-7xl font-bold leading-none gradient-text">ВМП<\/dd>\s*<dt class="text-\[10px\] sm:text-\[11px\] lg:text-\[12px\] text-ink\/55 uppercase tracking-\[0\.14em\] sm:tracking-\[0\.18em\] font-semibold mt-2 sm:mt-3">квота · бесплатно<\/dt>\s*<\/div>/,
+      ""
+    );
 }
 
 const homeServiceCards = [
@@ -3734,18 +3885,192 @@ ${parts.nav}
 ${parts.footer}`;
 }
 
+function renderAnonsPage() {
+  const parts = templateParts();
+  const page = {
+    url: "https://cmf-surgery.netlify.app/anons.html",
+    seo: {
+      title: `${anonsTitle} | Center of Surgery`,
+      description: "Новые разработки Center of Surgery: лазерное сканированное прототипирование протезов, полимерные матрицы и технологии искусственного интеллекта для экзо- и эндопротезов.",
+      keywords: "лазерное прототипирование протезов, экзопротезирование, эндопротезирование, искусственный интеллект, Center of Surgery",
+      canonical: "https://cmf-surgery.netlify.app/anons.html",
+      og: {
+        "og:title": `${anonsTitle} | Center of Surgery`,
+        "og:description": "Анонс новых разработок в прототипировании экзо- и эндопротезов.",
+      },
+    },
+  };
+  const head = updateSeo(parts.head, page);
+  const techCardsHtml = anonsHighlights
+    .map(
+      (item) => `<article class="rounded-2xl bg-white border border-ink/10 p-5 sm:p-6 shadow-sm shadow-ink/5">
+        <div class="flex items-start justify-between gap-4">
+          <span class="font-mono text-[12px] text-pink2">${item.label}</span>
+          <span class="h-2 w-2 rounded-full bg-gradient-to-br from-indigo2 to-pink2 mt-1.5"></span>
+        </div>
+        <h2 class="mt-5 font-display text-[24px] sm:text-[28px] leading-tight font-bold text-ink">${escapeHtml(item.title)}</h2>
+        <p class="mt-3 text-[15px] sm:text-[16px] leading-relaxed text-ink/68">${escapeHtml(item.text)}</p>
+      </article>`
+    )
+    .join("\n");
+
+  return `${head}
+${parts.nav}
+<!-- ============ BREADCRUMB ============ -->
+<nav aria-label="breadcrumb" class="max-w-[1400px] mx-auto px-5 lg:px-10 pt-6 text-[13px] text-ink/50">
+  <ol class="flex items-center gap-2 flex-wrap">
+    <li><a href="index.html" class="hover:text-indigo2">Главная</a></li>
+    <li>/</li>
+    <li><a href="index.html#services" class="hover:text-indigo2">Наши услуги</a></li>
+    <li>/</li>
+    <li class="text-ink/80">${escapeHtml(anonsTitle)}</li>
+  </ol>
+</nav>
+
+<main>
+<section class="relative overflow-hidden pt-8 sm:pt-12 lg:pt-16 pb-12 sm:pb-16 bg-cream">
+  <div aria-hidden="true" class="absolute -top-24 right-0 w-[520px] h-[520px] rounded-full opacity-25 blur-3xl gradient-bg pointer-events-none"></div>
+  <div class="relative max-w-[1400px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+    <div class="lg:col-span-7">
+      <div class="inline-flex items-center gap-2 rounded-full border border-pink2/20 bg-white px-3.5 py-1.5 text-[12px] uppercase tracking-[0.16em] font-semibold text-pink2">
+        <span class="h-1.5 w-1.5 rounded-full bg-pink2"></span>
+        новые разработки
+      </div>
+      <h1 class="mt-6 font-display text-[34px] sm:text-[52px] lg:text-[72px] leading-[1.05] font-bold tracking-tight text-balance">
+        <span class="gradient-text">${escapeHtml(anonsTitle)}</span>
+      </h1>
+      <p class="mt-6 max-w-3xl text-[18px] sm:text-[22px] leading-relaxed text-ink/72">${escapeHtml(anonsLead)}</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <span class="rounded-full bg-white border border-ink/10 px-4 py-2 text-[14px] font-semibold text-ink">100% точность воспроизводства</span>
+        <span class="rounded-full bg-white border border-ink/10 px-4 py-2 text-[14px] font-semibold text-ink">6-7 мкм</span>
+        <span class="rounded-full bg-white border border-ink/10 px-4 py-2 text-[14px] font-semibold text-ink">AI-моделирование</span>
+      </div>
+    </div>
+    <aside class="lg:col-span-5">
+      <figure class="relative aspect-[4/5] max-w-sm sm:max-w-md mx-auto rounded-[28px] overflow-hidden bg-ink border border-white/20 shadow-2xl shadow-indigo2/10">
+        <img src="assets/images/${anonsHeroAssetName}" alt="Лазерное сканирование лица и прототипирование экзо- и эндопротезов в Center of Surgery" class="absolute inset-0 h-full w-full object-cover opacity-82" fetchpriority="high" loading="eager">
+        <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent"></div>
+        <figcaption class="absolute left-5 right-5 bottom-5 rounded-2xl bg-white px-5 py-4 shadow-xl shadow-ink/20">
+          <div class="text-[11px] uppercase tracking-[0.16em] font-semibold text-indigo2">prototype lab</div>
+          <div class="mt-1 font-display text-[20px] sm:text-[22px] leading-tight font-bold text-ink">Лазерное сканирование и цифровое моделирование</div>
+        </figcaption>
+      </figure>
+    </aside>
+  </div>
+</section>
+
+<section class="py-12 sm:py-16 lg:py-20 bg-white">
+  <div class="max-w-[1180px] mx-auto px-5 lg:px-10">
+    <div class="grid md:grid-cols-2 gap-4 sm:gap-5">
+      ${techCardsHtml}
+    </div>
+    <div class="mt-8 rounded-3xl bg-gradient-to-br from-indigo2 via-violet2 to-pink2 p-6 sm:p-8 lg:p-10 text-white overflow-hidden">
+      <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-center">
+        <div class="lg:col-span-4">
+          <div class="font-mono text-[12px] uppercase tracking-[0.18em] text-white/70">точность</div>
+          <div class="mt-3 font-display text-[56px] sm:text-[72px] leading-none font-bold">6-7</div>
+          <div class="font-display text-[30px] leading-none italic">мкм</div>
+        </div>
+        <div class="lg:col-span-8">
+          <h2 class="font-display text-[28px] sm:text-[38px] leading-tight font-bold text-balance">Точность до диаметра эритроцита</h2>
+          <p class="mt-4 text-[17px] sm:text-[19px] leading-relaxed text-white/82">Новые матричные технологии из полимерных матриц для микропроцессоров позволяют работать с высокой детализацией прототипа.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-12 sm:py-16 lg:py-20 bg-cream border-y border-ink/5">
+  <div class="max-w-[1180px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+    <div class="lg:col-span-5">
+      <div class="inline-flex items-center rounded-full bg-white border border-ink/10 px-3 py-1.5 text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">AI reconstruction</div>
+      <h2 class="mt-5 font-display text-[30px] sm:text-[42px] lg:text-[54px] leading-tight font-bold text-ink text-balance">Воссоздание потерянной части лица</h2>
+    </div>
+    <div class="lg:col-span-7 rounded-3xl bg-white border border-ink/10 p-6 sm:p-8 shadow-sm shadow-ink/5">
+      <p class="text-[18px] sm:text-[21px] leading-relaxed text-ink/76">С помощью искусственного интеллекта возможно воссоздание потерянной части лица, ее прототипирование и изготовление экзо- и эндопротезов по данной технологии.</p>
+      <div class="mt-6 grid sm:grid-cols-3 gap-3">
+        <div class="rounded-2xl bg-cream border border-ink/5 p-4">
+          <div class="text-[11px] font-mono text-pink2">01</div>
+          <div class="mt-2 font-bold text-ink">Воссоздание формы</div>
+        </div>
+        <div class="rounded-2xl bg-cream border border-ink/5 p-4">
+          <div class="text-[11px] font-mono text-pink2">02</div>
+          <div class="mt-2 font-bold text-ink">Прототипирование</div>
+        </div>
+        <div class="rounded-2xl bg-cream border border-ink/5 p-4">
+          <div class="text-[11px] font-mono text-pink2">03</div>
+          <div class="mt-2 font-bold text-ink">Изготовление протеза</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+${parts.ctaFooter}`;
+}
+
+function renderPrivacyPage() {
+  const parts = templateParts();
+  const page = {
+    url: "https://cmf-surgery.netlify.app/privacy.html",
+    seo: {
+      title: "Политика конфиденциальности | Center of Surgery",
+      description: "Политика в отношении обработки персональных данных и конфиденциальности сайта cmf-surgery.ru.",
+      keywords: "политика конфиденциальности, персональные данные, обработка персональных данных, cmf-surgery.ru",
+      canonical: "https://cmf-surgery.netlify.app/privacy.html",
+      og: {
+        "og:title": "Политика конфиденциальности | Center of Surgery",
+        "og:description": "Политика в отношении обработки персональных данных и конфиденциальности сайта cmf-surgery.ru.",
+      },
+    },
+  };
+  const head = updateSeo(parts.head, page);
+  const paragraphs = fs.readFileSync(sourcePrivacyPolicyText, "utf8")
+    .split(/\n\s*\n/)
+    .map((text) => text.trim())
+    .filter(Boolean);
+  const body = paragraphs
+    .map((text, index) => {
+      if (index === 0) {
+        return `<h1 class="font-display text-[30px] sm:text-[42px] leading-tight font-bold text-ink">${escapeHtml(text)}</h1>`;
+      }
+      if (/^\d+\.\s/.test(text)) {
+        return `<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">${escapeHtml(text)}</h2>`;
+      }
+      return `<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">${escapeHtml(text)}</p>`;
+    })
+    .join("\n");
+
+  return `${head}
+<body class="bg-white text-ink antialiased">
+<main class="mx-auto max-w-[900px] px-5 sm:px-8 py-10 sm:py-14">
+  <article>
+${body}
+  </article>
+</main>
+</body>
+</html>`;
+}
+
 function renderContactsPage() {
   const parts = templateParts();
   const page = readJson("contacts");
   const head = updateSeo(parts.head, page);
   const contactsAddress = "г. Одинцово, Московской обл., Красногорское ш., д. 17 (Территория Клинической Больницы №123)";
   const contactsAddressQuery = encodeURIComponent(contactsAddress);
+  const secondaryReceptionAddress = "УКБ №4 (Университетская клиническая больница №4) многопрофильная клиника Первого МГМУ им. И.М. Сеченова\nг. Москва, ул. Доватора, 15, метро Спортивная";
+  const secondaryReceptionQuery = encodeURIComponent(secondaryReceptionAddress);
   const mapSrc = `https://yandex.ru/map-widget/v1/?mode=search&text=${contactsAddressQuery}&z=16`;
   const contactRows = [
     {
       label: "Адрес",
       value: contactsAddress,
       href: `https://yandex.ru/maps/?mode=search&text=${contactsAddressQuery}`,
+    },
+    {
+      label: "Возможен прием в",
+      value: secondaryReceptionAddress,
+      href: `https://yandex.ru/maps/?mode=search&text=${secondaryReceptionQuery}`,
     },
     {
       label: "E-mail",
@@ -3762,7 +4087,7 @@ function renderContactsPage() {
     .map(
       (row) => `<a href="${row.href}" class="group block rounded-lg border border-ink/10 bg-white p-5 shadow-sm shadow-ink/5 transition hover:-translate-y-0.5 hover:border-indigo2/30">
           <div class="text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">${row.label}</div>
-          <div class="mt-3 text-[18px] sm:text-[20px] leading-relaxed font-semibold text-ink group-hover:text-indigo2">${escapeHtml(row.value)}</div>
+          <div class="mt-3 whitespace-pre-line text-[18px] sm:text-[20px] leading-relaxed font-semibold text-ink group-hover:text-indigo2">${escapeHtml(row.value)}</div>
         </a>`
     )
     .join("\n");
@@ -4288,7 +4613,7 @@ ${ctaFooter}`;
 
 function build() {
   const files = {};
-  files["index.html"] = updateKnownLinks(fs.readFileSync(path.join(originalRoot, "index.html"), "utf8"))
+  files["index.html"] = removeHomeQuotaStat(updateKnownLinks(fs.readFileSync(path.join(originalRoot, "index.html"), "utf8")))
     .replace(/<!-- ============ SERVICES ============ -->[\s\S]*?<!-- ============ DOCTORS ============ -->/, `${renderHomeServicesSection()}\n\n<!-- ============ DOCTORS ============ -->`)
     .replace(/<!-- ============ DOCTORS ============ -->[\s\S]*?<!-- ============ TRUST ============ -->/, `${renderHomeDoctorsSection()}\n\n<!-- ============ TRUST ============ -->`)
     .replace(/<!-- ============ TRUST ============ -->[\s\S]*?<!-- ============ CTA \/ CONTACT ============ -->/, `${renderHomeTrustSection()}\n\n<!-- ============ CTA / CONTACT ============ -->`)
@@ -4308,6 +4633,8 @@ function build() {
 
       <dl class="mt-10 sm:mt-14 grid grid-cols-3 max-w-2xl divide-x divide-ink/10">`
     );
+  files["anons.html"] = renderAnonsPage();
+  files["privacy.html"] = renderPrivacyPage();
 
   for (const [index, [slug]] of services.entries()) {
     files[`${slug}.html`] = renderGenericPage(slug, String(index + 1).padStart(2, "0"));
@@ -4332,10 +4659,15 @@ function build() {
     }
   }
 
+  const enhancedFiles = Object.fromEntries(
+    Object.entries(files).map(([name, html]) => [name, applyGlobalEnhancements(html)])
+  );
+  const imageManifest = buildImageAssetManifest(enhancedFiles);
+
   for (const outRoot of outRoots) {
     fs.mkdirSync(outRoot, { recursive: true });
     fs.cpSync(path.join(originalRoot, "uploads"), path.join(outRoot, "uploads"), { recursive: true });
-    fs.cpSync(imageRoot, path.join(outRoot, "assets", "images"), { recursive: true });
+    copySemanticImageAssets(outRoot, imageManifest);
     if (fs.existsSync(sourceLogo)) {
       fs.copyFileSync(sourceLogo, path.join(outRoot, "logo.png"));
     }
@@ -4363,8 +4695,8 @@ function build() {
       }
     }
 
-    for (const [name, html] of Object.entries(files)) {
-      fs.writeFileSync(path.join(outRoot, name), applyGlobalEnhancements(html), "utf8");
+    for (const [name, html] of Object.entries(enhancedFiles)) {
+      fs.writeFileSync(path.join(outRoot, name), rewriteImageAssetRefs(html, imageManifest), "utf8");
     }
 
     fs.copyFileSync(path.join(scrapeRoot, "robots.txt"), path.join(outRoot, "robots.txt"));

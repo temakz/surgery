@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Политика конфиденциальности | Center of Surgery</title>
+<meta name="description" content="Политика в отношении обработки персональных данных и конфиденциальности сайта cmf-surgery.ru.">
+<meta name="keywords" content="политика конфиденциальности, персональные данные, обработка персональных данных, cmf-surgery.ru">
+<link rel="canonical" href="https://cmf-surgery.netlify.app/privacy.html">
+<meta property="og:title" content="Политика конфиденциальности | Center of Surgery">
+<meta property="og:description" content="Политика в отношении обработки персональных данных и конфиденциальности сайта cmf-surgery.ru.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        ink: '#0E0B1F',
+        cream: '#FAF7F2',
+        indigo2: '#4338CA',
+        violet2: '#7C3AED',
+        pink2: '#EC4899',
+        pinklight: '#F9A8D4',
+        mint: '#5EE3C1',
+      },
+      fontFamily: {
+        sans: ['Manrope','system-ui','sans-serif'],
+        display: ['"Playfair Display"','Georgia','serif'],
+      }
+    }
+  }
+}
+</script>
+<style>
+  html{scroll-behavior:smooth}
+  body{font-family:'Manrope',sans-serif;background:#FAF7F2;color:#0E0B1F}
+  .font-display{font-family:'Playfair Display',Georgia,serif}
+  .gradient-text{background:linear-gradient(95deg,#4338CA 0%,#7C3AED 45%,#EC4899 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .gradient-bg{background:linear-gradient(135deg,#4338CA 0%,#7C3AED 50%,#EC4899 100%)}
+  .btn-primary{background:linear-gradient(95deg,#4338CA 0%,#7C3AED 50%,#EC4899 100%);color:#fff;box-shadow:0 14px 30px -12px rgba(67,56,202,.45)}
+  .btn-primary:hover{filter:brightness(1.08)}
+  .card-hover{transition:transform .25s ease,box-shadow .25s ease}
+  .card-hover:hover{transform:translateY(-3px);box-shadow:0 20px 40px -20px rgba(67,56,202,.18)}
+  .arrow-cta:hover .arrow{transform:translateX(5px)}
+  .arrow{transition:transform .25s ease}
+  .grain{background-image:radial-gradient(rgba(14,11,31,.05) 1px,transparent 1px);background-size:3px 3px}
+  ::selection{background:#EC4899;color:#fff}
+  .nav-item .dropdown{opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .2s ease,transform .2s ease,visibility .2s}
+  .nav-item:hover .dropdown,.nav-item:focus-within .dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+  .nav-item button svg{transition:transform .2s ease}
+  .nav-item:hover button svg{transform:rotate(180deg)}
+
+  .step-line::before{content:"";position:absolute;left:1.25rem;top:3.5rem;bottom:-0.5rem;width:2px;background:linear-gradient(to bottom,#4338CA,#EC4899);opacity:.2}
+  .step-line:last-child::before{display:none}
+  .ring-dot{box-shadow:0 0 0 4px rgba(94,227,193,.25)}
+</style>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="logo.png">
+<style>
+#imageLightbox {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  max-width: min(96vw, 1400px);
+  overflow: visible;
+}
+#imageLightbox::backdrop {
+  background: rgba(12, 12, 24, 0.82);
+  backdrop-filter: blur(4px);
+}
+#imageLightbox img {
+  display: block;
+  max-width: min(96vw, 1400px);
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
+}
+img[data-lightbox-image] {
+  cursor: zoom-in;
+}
+.sensitive-media {
+  position: relative;
+  overflow: hidden;
+  container-type: inline-size;
+  background: #f8f5ef;
+}
+.sensitive-media > img {
+  display: block;
+  transition: filter 240ms ease, transform 240ms ease, opacity 240ms ease;
+}
+.sensitive-media[data-sensitive-media="locked"] > img {
+  filter: blur(18px) saturate(0.68) contrast(0.9);
+  transform: scale(1.03);
+  opacity: 0.2;
+}
+.sensitive-media[data-sensitive-media="locked"] img[data-lightbox-image] {
+  cursor: default;
+}
+.sensitive-media__cover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  text-align: center;
+  color: #151222;
+  background:
+    radial-gradient(circle at 34% 22%, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.72) 38%, transparent 68%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(248, 245, 239, 0.96));
+  border: 0;
+  cursor: pointer;
+  transition: opacity 180ms ease, filter 180ms ease;
+}
+.sensitive-media__cover:hover {
+  filter: brightness(1.01);
+}
+.sensitive-media__panel {
+  display: inline-flex;
+  width: min(76%, 360px);
+  max-height: calc(100% - 24px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+}
+.sensitive-media__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(218, 67, 169, 0.28);
+  background: rgba(255, 255, 255, 0.52);
+  padding: 6px 11px;
+  font-size: 9px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #9c55d9;
+  box-shadow: inset 0 0 0 1px rgba(84, 73, 205, 0.08);
+}
+.sensitive-media__badge svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+.sensitive-media__title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
+  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+.sensitive-media__text {
+  max-width: 280px;
+  font-size: 12px;
+  line-height: 1.35;
+  color: rgba(21, 18, 34, 0.46);
+}
+.sensitive-media__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #5044e6 0%, #d9419b 100%);
+  color: #fff;
+  padding: 9px 20px;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 700;
+  box-shadow: 0 14px 26px rgba(84, 73, 205, 0.22);
+}
+.sensitive-media__action svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+@container (max-width: 340px) {
+  .sensitive-media__cover {
+    padding: 12px;
+  }
+  .sensitive-media__panel {
+    width: min(82%, 300px);
+    gap: 7px;
+  }
+  .sensitive-media__badge {
+    padding: 5px 9px;
+    font-size: 8px;
+  }
+  .sensitive-media__badge svg {
+    width: 13px;
+    height: 13px;
+  }
+  .sensitive-media__title {
+    font-size: 21px;
+  }
+  .sensitive-media__text {
+    font-size: 11px;
+  }
+  .sensitive-media__action {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+}
+.sensitive-media[data-sensitive-media="revealed"] .sensitive-media__cover {
+  opacity: 0;
+  pointer-events: none;
+}
+</style>
+</head>
+<body class="bg-white text-ink antialiased">
+<main class="mx-auto max-w-[900px] px-5 sm:px-8 py-10 sm:py-14">
+  <article>
+<h1 class="font-display text-[30px] sm:text-[42px] leading-tight font-bold text-ink">Политика в отношении обработки персональных данных и конфиденциальности сайта cmf-surgery.ru</h1>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">Настоящая Политика в отношении обработки персональных данных и конфиденциальности сайта cmf-surgery.ru определяет порядок обработки и защиты персональных данных пользователей сайта cmf-surgery.ru, а также лиц, направляющих обращения, заявки, сообщения, фотографии, документы и иную информацию через формы сайта, электронную почту, телефон, мессенджеры и иные каналы связи, указанные на сайте.</p>
+<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">1. Общие положения</h2>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">1.1. Оператором персональных данных в рамках настоящей Политики является сайт cmf-surgery.ru.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">1.2. Настоящая Политика разработана в соответствии с Федеральным законом Российской Федерации от 27.07.2006 № 152-ФЗ «О персональных данных», Федеральным законом от 21.11.2011 № 323-ФЗ «Об основах охраны здоровья граждан в Российской Федерации», а также иными применимыми нормативными актами Российской Федерации.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">1.3. Политика применяется ко всей информации, которую сайт cmf-surgery.ru может получить о пользователе при использовании сайта, заполнении форм обратной связи, записи на консультацию, обращении по телефону, электронной почте, через мессенджеры, а также при направлении пользователем фотографий, комментариев, вопросов, медицинских документов или иных материалов.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">1.4. Использование сайта, заполнение форм, направление обращения или продолжение коммуникации означает согласие пользователя с условиями настоящей Политики, если иное прямо не предусмотрено законодательством Российской Федерации.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">1.5. Пользователь не обязан предоставлять персональные данные, однако без предоставления необходимых данных сайт cmf-surgery.ru может быть не в состоянии обработать заявку, связаться с пользователем, записать его на консультацию или ответить на обращение.</p>
+<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">2. Термины и определения</h2>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">2.1. Персональные данные — любая информация, относящаяся прямо или косвенно к определённому или определяемому физическому лицу.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">2.2. Оператор — сайт cmf-surgery.ru, организующий обработку персональных данных пользователей в целях, указанных в настоящей Политике.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">2.3. Пользователь — любое лицо, посещающее сайт cmf-surgery.ru, заполняющее формы сайта, направляющее заявку, обращение, сообщение, фотографии или иные материалы.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">2.4. Обработка персональных данных — любое действие или совокупность действий с персональными данными, включая сбор, запись, систематизацию, накопление, хранение, уточнение, использование, передачу, обезличивание, блокирование, удаление и уничтожение.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">2.5. Специальные категории персональных данных — персональные данные, касающиеся, в том числе, состояния здоровья пользователя.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">2.6. Врачебная тайна — сведения о факте обращения гражданина за медицинской помощью, состоянии его здоровья, диагнозе и иные сведения, полученные при медицинском обследовании и лечении.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">2.7. Сайт — интернет-сайт, расположенный по адресу cmf-surgery.ru, включая все его страницы, формы, разделы и функциональные элементы.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">2.8. Cookies — небольшие фрагменты данных, которые могут сохраняться на устройстве пользователя и использоваться для корректной работы сайта, аналитики, улучшения пользовательского опыта и обеспечения безопасности.</p>
+<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">3. Категории обрабатываемых персональных данных</h2>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">3.1. Сайт cmf-surgery.ru может обрабатывать следующие персональные данные пользователей:</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">фамилия, имя, отчество;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">номер телефона;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">адрес электронной почты;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">содержание комментария, вопроса или обращения;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">сведения, указанные пользователем при записи на консультацию;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">фотографии, изображения, медицинские документы и иные материалы, добровольно направленные пользователем;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">сведения о состоянии здоровья, жалобах, предполагаемом лечении, ранее проведённых медицинских вмешательствах, если пользователь самостоятельно сообщает такие сведения;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">данные аккаунта или идентификатора пользователя в мессенджерах при обращении через такие каналы;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">технические данные: IP-адрес, сведения о браузере, устройстве, операционной системе, времени посещения сайта, действиях на сайте, cookie-файлы и иные технические сведения.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">3.2. Сайт cmf-surgery.ru не запрашивает через сайт паспортные данные, данные банковских карт, сведения о судимости, политических взглядах, религиозных убеждениях, интимной жизни, расовой или национальной принадлежности, если такие сведения не требуются в конкретном случае по закону или не предоставлены пользователем по собственной инициативе.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">3.3. Пользователь обязуется не направлять через формы сайта и мессенджеры избыточные персональные данные, не относящиеся к цели обращения.</p>
+<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">4. Цели обработки персональных данных</h2>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">4.1. Сайт cmf-surgery.ru обрабатывает персональные данные пользователей в следующих целях:</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">обработка заявок, обращений и запросов пользователей;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">обратная связь с пользователем;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">запись пользователя на консультацию;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">предварительное уточнение вопроса пользователя перед консультацией;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">предоставление информации об услугах, специалистах, порядке записи и подготовки к консультации;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">коммуникация по телефону, электронной почте, через мессенджеры и иные каналы связи;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">направление ответа на обращение пользователя;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">организация консультации, медицинского приёма или иного взаимодействия с пользователем;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">выполнение требований законодательства Российской Федерации;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">защита прав и законных интересов сайта, пользователей и третьих лиц;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">обеспечение корректной работы сайта, его безопасности, аналитики и улучшения качества сервиса.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">4.2. Если пользователь добровольно направляет фотографии, описание проблемы, медицинские документы или сведения о состоянии здоровья, такие данные обрабатываются исключительно в целях рассмотрения обращения, предварительной коммуникации, записи на консультацию, подготовки к консультации или оказания медицинских услуг в рамках применимого законодательства.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">4.3. Сайт cmf-surgery.ru не использует персональные данные пользователей для целей, несовместимых с целями их сбора.</p>
+<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">5. Правовые основания обработки персональных данных</h2>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">5.1. Сайт cmf-surgery.ru обрабатывает персональные данные пользователей на следующих правовых основаниях:</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">согласие пользователя на обработку персональных данных;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">необходимость обработки данных для рассмотрения обращения пользователя;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">необходимость обработки данных для заключения или исполнения договора с пользователем;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">необходимость выполнения обязанностей, предусмотренных законодательством Российской Федерации;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">осуществление прав и законных интересов сайта при условии, что при этом не нарушаются права и свободы пользователя;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">иные основания, предусмотренные законодательством Российской Федерации.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">5.2. Обработка специальных категорий персональных данных, включая сведения о состоянии здоровья, осуществляется только в случаях и порядке, предусмотренных законодательством Российской Федерации, в том числе при наличии согласия пользователя, при оказании медицинских услуг, при необходимости защиты жизни и здоровья пользователя, а также в иных случаях, предусмотренных законом.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">5.3. Сведения, составляющие врачебную тайну, не подлежат разглашению третьим лицам, кроме случаев, когда пользователь дал согласие на такое разглашение, либо когда такое раскрытие допускается или требуется в соответствии с законодательством Российской Федерации.</p>
+<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">6. Принципы обработки персональных данных</h2>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">6.1. Обработка персональных данных осуществляется на законной и справедливой основе.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">6.2. Обработка ограничивается достижением конкретных, заранее определённых и законных целей.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">6.3. Не допускается обработка персональных данных, несовместимая с целями их сбора.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">6.4. Содержание и объём обрабатываемых персональных данных соответствуют заявленным целям обработки.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">6.5. Сайт cmf-surgery.ru не обрабатывает персональные данные, избыточные по отношению к целям обработки.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">6.6. Принимаются разумные меры для обеспечения точности, достаточности и актуальности персональных данных.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">6.7. Персональные данные хранятся не дольше, чем этого требуют цели обработки, если иной срок хранения не установлен законодательством Российской Федерации, договором или согласием пользователя.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">6.8. По достижении целей обработки или при утрате необходимости в их достижении персональные данные подлежат удалению, уничтожению или обезличиванию, если иное не предусмотрено законом.</p>
+<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">7. Порядок обработки и хранения персональных данных</h2>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">7.1. Персональные данные обрабатываются как с использованием средств автоматизации, так и без использования таких средств.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">7.2. Обработка может включать сбор, запись, систематизацию, накопление, хранение, уточнение, использование, передачу, обезличивание, блокирование, удаление и уничтожение персональных данных.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">7.3. Персональные данные могут храниться в электронных системах, почтовых сервисах, системах обработки заявок, мессенджерах, CRM-системах, журналах обращений, а также на иных носителях, используемых для достижения целей обработки.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">7.4. Доступ к персональным данным предоставляется только уполномоченным лицам, которым такой доступ необходим для обработки обращения пользователя, записи на консультацию или обеспечения работы сайта.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">7.5. Сайт cmf-surgery.ru принимает необходимые организационные, правовые и технические меры для защиты персональных данных от неправомерного или случайного доступа, уничтожения, изменения, блокирования, копирования, предоставления, распространения и иных неправомерных действий.</p>
+<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">8. Передача персональных данных третьим лицам</h2>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">8.1. Сайт cmf-surgery.ru не раскрывает персональные данные пользователей третьим лицам без согласия пользователя, за исключением случаев, предусмотренных законодательством Российской Федерации.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">8.2. Обработка персональных данных может быть поручена третьим лицам при условии соблюдения такими лицами конфиденциальности и требований законодательства о персональных данных.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">8.3. К таким лицам могут относиться:</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">хостинг-провайдеры;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">поставщики технической поддержки сайта;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">сервисы электронной почты;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">сервисы телефонии и связи;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">мессенджеры;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">CRM-системы и системы обработки заявок;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">специалисты и медицинские работники, участвующие в рассмотрении обращения или оказании услуги;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">иные лица, если передача необходима для достижения целей обработки или исполнения требований закона.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">8.4. При переходе пользователя по внешним ссылкам, размещённым на сайте, включая ссылки на мессенджеры, социальные сети, видеохостинги и иные сторонние ресурсы, обработка данных может осуществляться соответствующими сторонними сервисами по их собственным правилам. Сайт cmf-surgery.ru не несёт ответственности за политику обработки данных таких сторонних ресурсов.</p>
+<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">9. Cookies и технические данные</h2>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">9.1. Сайт может использовать cookies и аналогичные технологии для корректной работы сайта, сохранения пользовательских настроек, анализа посещаемости, улучшения структуры сайта и повышения качества сервиса.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">9.2. Пользователь может ограничить или отключить использование cookies в настройках своего браузера. При этом отдельные функции сайта могут работать некорректно.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">9.3. Технические данные, собираемые при посещении сайта, могут включать IP-адрес, тип браузера, сведения об устройстве, дату и время посещения, адреса посещённых страниц и иные технические параметры.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">9.4. Такие данные используются преимущественно в обезличенном виде для обеспечения безопасности, диагностики ошибок, аналитики и улучшения работы сайта.</p>
+<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">10. Трансграничная передача персональных данных</h2>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">10.1. В случае использования пользователем сторонних сервисов, мессенджеров, социальных сетей или иных платформ, данные могут передаваться через инфраструктуру соответствующих сервисов, в том числе находящуюся за пределами Российской Федерации.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">10.2. Трансграничная передача персональных данных осуществляется только при наличии правовых оснований и с соблюдением требований законодательства Российской Федерации.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">10.3. Пользователь самостоятельно принимает решение об использовании сторонних мессенджеров и сервисов связи для направления сообщений, фотографий, документов и иной информации.</p>
+<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">11. Права пользователя</h2>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">11.1. Пользователь имеет право:</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">получать информацию, касающуюся обработки его персональных данных;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">требовать уточнения, блокирования или уничтожения персональных данных, если они являются неполными, устаревшими, неточными, незаконно полученными или не являются необходимыми для заявленной цели обработки;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">отозвать согласие на обработку персональных данных;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">требовать прекращения обработки персональных данных в случаях, предусмотренных законом;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">обжаловать действия или бездействие, связанные с обработкой персональных данных, в уполномоченный орган по защите прав субъектов персональных данных или в судебном порядке;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">защищать свои права и законные интересы иными способами, предусмотренными законодательством Российской Федерации.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">11.2. Для реализации своих прав пользователь может направить обращение через контактные данные, указанные на сайте cmf-surgery.ru.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">11.3. В обращении рекомендуется указать ФИО, контактные данные, суть требования, а также сведения, позволяющие идентифицировать обращение пользователя.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">11.4. Отзыв согласия на обработку персональных данных не влияет на законность обработки, осуществлявшейся до момента получения такого отзыва.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">11.5. После получения отзыва согласия обработка персональных данных пользователя прекращается, если отсутствуют иные правовые основания для продолжения обработки.</p>
+<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">12. Обработка персональных данных несовершеннолетних</h2>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">12.1. Сайт не предназначен для самостоятельного направления заявок несовершеннолетними без участия законных представителей.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">12.2. Если обращение касается несовершеннолетнего пациента, персональные данные несовершеннолетнего должны предоставляться его законным представителем либо с соблюдением требований законодательства Российской Федерации.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">12.3. Может быть запрошено подтверждение полномочий законного представителя в случаях, когда это необходимо для соблюдения требований законодательства и защиты прав пациента.</p>
+<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">13. Конфиденциальность и врачебная тайна</h2>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">13.1. Сайт cmf-surgery.ru принимает меры по сохранению конфиденциальности сведений, полученных от пользователя.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">13.2. Сведения о факте обращения за медицинской помощью, состоянии здоровья, диагнозе, жалобах, медицинских документах, фотографиях и иная информация, полученная в связи с медицинским обращением, могут относиться к врачебной тайне.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">13.3. Разглашение сведений, составляющих врачебную тайну, допускается только с согласия пользователя или его законного представителя, либо в случаях, прямо предусмотренных законодательством Российской Федерации.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">13.4. Пользователь понимает, что направление медицинских сведений, фотографий и документов через открытые каналы связи, включая мессенджеры и электронную почту, может иметь технические риски, связанные с особенностями работы таких сервисов. Пользователь самостоятельно принимает решение о направлении таких материалов через выбранный канал связи.</p>
+<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">14. Безопасность персональных данных</h2>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">14.1. Сайт cmf-surgery.ru принимает необходимые и достаточные меры для защиты персональных данных пользователей.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">14.2. К таким мерам могут относиться:</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">ограничение доступа к персональным данным;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">использование паролей и иных средств разграничения доступа;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">защита электронных систем и каналов связи;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">резервное копирование данных при необходимости;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">контроль доступа к информационным системам;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">ознакомление лиц, имеющих доступ к персональным данным, с требованиями конфиденциальности;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">принятие мер по предотвращению несанкционированного доступа к персональным данным;</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">удаление или обезличивание данных после достижения целей обработки, если дальнейшее хранение не требуется по закону.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">14.3. Сайт cmf-surgery.ru не гарантирует абсолютную защищённость данных при их передаче через открытые каналы связи, однако принимает разумные меры для снижения рисков несанкционированного доступа.</p>
+<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">15. Сроки хранения персональных данных</h2>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">15.1. Персональные данные пользователей хранятся в течение срока, необходимого для достижения целей обработки.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">15.2. Данные, связанные с обращениями, заявками и коммуникацией, могут храниться в течение срока, необходимого для обработки обращения, подтверждения факта коммуникации, защиты прав и законных интересов сайта, а также выполнения требований законодательства Российской Федерации.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">15.3. По достижении целей обработки или при отзыве согласия пользователя персональные данные удаляются, уничтожаются или обезличиваются, если отсутствуют иные правовые основания для их дальнейшего хранения.</p>
+<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">16. Изменение Политики</h2>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">16.1. Сайт cmf-surgery.ru вправе изменять настоящую Политику.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">16.2. Новая редакция Политики вступает в силу с момента её публикации на сайте cmf-surgery.ru, если иное не указано в новой редакции.</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">16.3. Пользователю рекомендуется периодически проверять актуальную редакцию Политики.</p>
+<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">17. Контакты</h2>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">По вопросам обработки персональных данных, отзыва согласия, уточнения или удаления данных пользователь может обратиться через контактные данные, указанные на сайте:</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">cmf-surgery.ru</p>
+<h2 class="mt-10 text-[21px] sm:text-[24px] leading-snug font-bold text-ink">18. Дополнительный текст для форм сайта</h2>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">Под формами обратной связи, записи на консультацию и заказа звонка рекомендуется разместить следующий текст:</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">«Нажимая кнопку, я даю согласие сайту cmf-surgery.ru на обработку моих персональных данных в соответствии с Политикой в отношении обработки персональных данных и конфиденциальности сайта cmf-surgery.ru.»</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">Если форма позволяет отправлять медицинские сведения, комментарии, фото или документы, рекомендуется использовать более полный вариант:</p>
+<p class="mt-4 text-[16px] sm:text-[17px] leading-7 text-ink/78">«Нажимая кнопку, я даю согласие сайту cmf-surgery.ru на обработку моих персональных данных, включая сведения, которые я добровольно указываю в обращении, комментарии, фотографиях или приложенных материалах, в целях обработки обращения, обратной связи и записи на консультацию. Я ознакомлен(а) с Политикой в отношении обработки персональных данных и конфиденциальности сайта cmf-surgery.ru.»</p>
+  </article>
+</main>
+<dialog id="imageLightbox" closedby="any" aria-label="Просмотр изображения">
+  <button type="button" data-lightbox-close aria-label="Закрыть" class="absolute -top-4 -right-4 w-11 h-11 rounded-full bg-white text-ink shadow-xl border border-ink/10 flex items-center justify-center text-2xl leading-none hover:bg-cream transition">×</button>
+  <img alt="">
+</dialog>
+<script>
+(() => {
+  const dialog = document.getElementById("imageLightbox");
+  if (!dialog || typeof dialog.showModal !== "function") return;
+
+  const image = dialog.querySelector("img");
+  const closeButton = dialog.querySelector("[data-lightbox-close]");
+  const revealSensitive = (frame) => {
+    if (!frame) return;
+    frame.dataset.sensitiveMedia = "revealed";
+  };
+  const isExcluded = (img) => {
+    const src = img.getAttribute("src") || "";
+    return img.closest("#imageLightbox, a, button") || /(^|\/)(logo|favicon)\.png$/i.test(src);
+  };
+
+  document.querySelectorAll("img").forEach((img) => {
+    if (!isExcluded(img)) img.dataset.lightboxImage = "";
+  });
+
+  document.addEventListener("click", (event) => {
+    const revealAllButton = event.target.closest("[data-sensitive-media-reveal-all]");
+    if (revealAllButton) {
+      event.preventDefault();
+      const scope = revealAllButton.closest("section") || document;
+      scope.querySelectorAll('[data-sensitive-media="locked"]').forEach(revealSensitive);
+      return;
+    }
+
+    const revealButton = event.target.closest("[data-sensitive-media-reveal]");
+    if (revealButton) {
+      event.preventDefault();
+      revealSensitive(revealButton.closest("[data-sensitive-media]"));
+      return;
+    }
+
+    const target = event.target.closest("img[data-lightbox-image]");
+    if (!target) return;
+
+    const sensitiveFrame = target.closest("[data-sensitive-media]");
+    if (sensitiveFrame?.dataset.sensitiveMedia === "locked") {
+      event.preventDefault();
+      revealSensitive(sensitiveFrame);
+      return;
+    }
+
+    event.preventDefault();
+    image.src = target.currentSrc || target.src;
+    image.alt = target.alt || "Изображение";
+    if (!dialog.open) dialog.showModal();
+  });
+
+  closeButton?.addEventListener("click", () => dialog.close());
+  dialog.addEventListener("close", () => image.removeAttribute("src"));
+
+  if (!("closedBy" in HTMLDialogElement.prototype)) {
+    dialog.addEventListener("click", (event) => {
+      if (event.target !== dialog) return;
+      const rect = dialog.getBoundingClientRect();
+      const insideDialog =
+        rect.top <= event.clientY &&
+        event.clientY <= rect.top + rect.height &&
+        rect.left <= event.clientX &&
+        event.clientX <= rect.left + rect.width;
+      if (!insideDialog) dialog.close();
+    });
+  }
+})();
+</script>
+</body>
+</html>
