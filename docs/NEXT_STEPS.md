@@ -15,8 +15,8 @@
 
 2. Continue visual QA on the preview deployment after the completed service-page polish rollout.
    - Check `http://service-pages-v2--cmf-surgery.netlify.app/`.
-   - Latest pushed and preview-verified work before this close: `354f71b polish specialist pages and service details`.
-   - Current 2026-06-18 closing pass is documented in `docs/handoffs/handoff_011.md` and includes:
+   - Latest pushed and preview-verified work: `0125baa polish secondary pages and contact flow`; see `docs/handoffs/handoff_011.md`.
+   - Current 2026-06-18 closing pass includes:
      - dedicated recommendation pages for `analyzes` and `oral_hygiene` with print/PDF controls;
      - dedicated technology pages for `newtech_imp`, `newtech_ekzo`, and `newtech_tmj`;
      - rebuilt `reviews`, `onlinehelp`, and `contacts` pages;

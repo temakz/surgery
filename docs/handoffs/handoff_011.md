@@ -102,9 +102,32 @@ This session continued on the `service-pages-v2` preview branch. Production `mai
 ## Closing Commit
 
 - Commit message: `polish secondary pages and contact flow`
+- Work commit: `0125baa polish secondary pages and contact flow`
 - Push target: `origin/service-pages-v2`
-- Push status: pending at handoff creation.
-- Preview verification status: pending after push.
+- Push status: succeeded, `d2ec7a0..0125baa service-pages-v2 -> service-pages-v2`.
+- Preview verification status: succeeded after push.
+
+## Preview Verification After Push
+
+Checked with Node `fetch` after pushing `0125baa`:
+
+- `https://service-pages-v2--cmf-surgery.netlify.app/` returned `200`.
+- `https://service-pages-v2--cmf-surgery.netlify.app/contacts.html` returned `200`.
+- `https://service-pages-v2--cmf-surgery.netlify.app/reviews.html` returned `200`.
+- `https://service-pages-v2--cmf-surgery.netlify.app/analyzes.html` returned `200`.
+- `https://service-pages-v2--cmf-surgery.netlify.app/oral_hygiene.html` returned `200`.
+- `https://service-pages-v2--cmf-surgery.netlify.app/onlinehelp.html` returned `200`.
+
+Confirmed live preview markers:
+
+- homepage hero image marker: `home-hero-clinic.webp`
+- homepage MAX gradient marker: `from-sky-400 via-cyan-400 to-teal-300`
+- contacts Yandex map marker: `map-widget/v1/?mode=search`
+- contacts address marker: `Красногорское ш.`
+- reviews heading marker: `Истории и отзывы пациентов`
+- `analyzes.html` print marker: `Печать / PDF`
+- `oral_hygiene.html` print marker: `Печать / PDF`
+- `onlinehelp.html` MAX marker: `MAX`
 
 ## Next Session Plan
 
