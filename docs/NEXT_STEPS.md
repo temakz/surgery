@@ -15,8 +15,14 @@
 
 2. Continue visual QA on the preview deployment after the completed service-page polish rollout.
    - Check `http://service-pages-v2--cmf-surgery.netlify.app/`.
-   - Latest pushed and preview-verified work: `354f71b polish specialist pages and service details`.
-   - Current 2026-06-11 closing pass includes:
+   - Latest pushed and preview-verified work before this close: `354f71b polish specialist pages and service details`.
+   - Current 2026-06-18 closing pass is documented in `docs/handoffs/handoff_011.md` and includes:
+     - dedicated recommendation pages for `analyzes` and `oral_hygiene` with print/PDF controls;
+     - dedicated technology pages for `newtech_imp`, `newtech_ekzo`, and `newtech_tmj`;
+     - rebuilt `reviews`, `onlinehelp`, and `contacts` pages;
+     - live contact address/Yandex map update;
+     - homepage hero clinic photo, new favicon, footer text update, and MAX button/social updates.
+   - Previous 2026-06-11 closing pass includes:
      - `mouthguards` content/detail/gallery edits;
      - `exo` title/cards/hero image/sensitive-gallery edits;
      - `nose_surgery` content and methods edits;
@@ -24,7 +30,7 @@
      - dedicated specialist layouts for `trofimov` and `kravchenko`;
      - doctor photos in the `Наши специалисты` header dropdown;
      - homepage social preview title update.
-   - Priority QA pages: homepage, `mouthguards`, `exo`, `nose_surgery`, `trofimov`, `kravchenko`, header doctor dropdown photos, mobile menu numbering, lightbox, and selective sensitive-photo reveal banners.
+   - Priority QA pages: homepage, `contacts`, `reviews`, `onlinehelp`, `analyzes`, `oral_hygiene`, `newtech_imp`, `newtech_ekzo`, `newtech_tmj`, plus previous priority pages `mouthguards`, `exo`, `nose_surgery`, `trofimov`, `kravchenko`, header doctor dropdown photos, mobile menu numbering, lightbox, and selective sensitive-photo reveal banners.
    - `tmj_treatment` preview was confirmed updated after push: status `200`, compact YouTube thumbnail cards present, restored TMJ text present.
 
 3. Approve or continue service-page review.
@@ -36,7 +42,8 @@
 
 4. Next design/content scope after service-page approval.
    - Specialists `trofimov` and `kravchenko` now have dedicated biography/resume layouts.
-   - Technologies, recommendations, doctors index-like sections, reviews, and contact-like pages may still need separate layout/design passes.
+   - Technologies, recommendations, reviews, online consultation, and contacts now have dedicated layout/design passes.
+   - Doctors index-like sections may still need separate layout/design passes.
    - Current service-page cleanup was applied through `build-site.js`, so secondary generated pages still inherit the cleaner generic renderer until a dedicated layout replaces them.
 
 5. Review service-page content completeness.
