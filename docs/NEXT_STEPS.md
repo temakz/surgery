@@ -15,7 +15,7 @@
 
 2. Continue visual QA on the preview deployment after the completed service-page polish rollout.
    - Check `http://service-pages-v2--cmf-surgery.netlify.app/`.
-   - Latest local closing pass: see `docs/handoffs/handoff_012.md`.
+   - Latest pushed work: `54c2cd1 add semantic assets and policy pages`; see `docs/handoffs/handoff_012.md`.
    - Current 2026-06-18 follow-up closing pass includes:
      - semantic image asset renaming through `build-site.js`;
      - updated image ALT report files;

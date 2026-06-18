@@ -90,6 +90,29 @@ This session continued on the `service-pages-v2` preview branch. Production `mai
   - privacy page has `footerCount: 0`, `formCount: 0`, no mobile overflow, and no console errors.
 - `.cursorindexingignore` and `.specstory/` remained untracked and must not be committed.
 
+## Closing Commit
+
+- Work commit message: `add semantic assets and policy pages`
+- Work commit: `54c2cd1 add semantic assets and policy pages`
+- Push target: `origin/service-pages-v2`
+- Push status: succeeded, `3e8b623..54c2cd1 service-pages-v2 -> service-pages-v2`.
+
+## Preview Verification After Push
+
+Checked with Node `fetch` after pushing `54c2cd1`:
+
+- `https://service-pages-v2--cmf-surgery.netlify.app/` returned `200`.
+- `https://service-pages-v2--cmf-surgery.netlify.app/anons.html` returned `200`.
+- `https://service-pages-v2--cmf-surgery.netlify.app/privacy.html` returned `200`.
+- `https://service-pages-v2--cmf-surgery.netlify.app/contacts.html` returned `200`.
+
+Confirmed live preview markers:
+
+- root links: `/anons`, `/privacy`
+- announcement markers: `anons-hero.png`, `prototype lab`
+- privacy markers: `cmf-surgery.ru`; no `<footer`; no `<form>`
+- contacts markers: `map-widget/v1/?mode=search`, `УКБ №4`, `Доватора`, `Спортивная`
+
 ## Notes For Next Session
 
 1. Continue on `service-pages-v2`.
