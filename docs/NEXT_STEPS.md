@@ -13,9 +13,20 @@
    - Netlify is connected: `https://cmf-surgery.netlify.app/`
    - Netlify publishes prebuilt `site-dist` with empty build command.
 
-2. Continue visual QA on the preview deployment after the completed service-page polish rollout.
+2. Continue visual QA on the preview deployment after the completed SEO/PageSpeed rollout.
    - Check `http://service-pages-v2--cmf-surgery.netlify.app/`.
-   - Latest pushed work: `54c2cd1 add semantic assets and policy pages`; see `docs/handoffs/handoff_012.md`.
+   - Latest local closing pass: SEO preservation and homepage PageSpeed image/font optimization; see `docs/handoffs/handoff_013.md`.
+   - Latest pushed work before this session: `b93ca9c docs: record semantic assets handoff`.
+   - Current 2026-06-19 closing pass includes:
+     - production-domain canonical, Open Graph, Twitter card, JSON-LD, and sitemap normalization for `https://cmf-surgery.ru`;
+     - generated `404.html` and removed VMP/free-treatment redirects to 404;
+     - duplicate-H1 risk fix for recommendation print pages;
+     - homepage service-card WebP thumbnails with `srcset` / `sizes`;
+     - lazy/async image loading for below-fold homepage, gallery, YouTube, and dropdown images;
+     - homepage hero preload;
+     - async Google Fonts loading;
+     - Tailwind CDN remains intentionally deferred to the next session.
+   - Latest semantic assets and policy work: `54c2cd1 add semantic assets and policy pages`; see `docs/handoffs/handoff_012.md`.
    - Current 2026-06-18 follow-up closing pass includes:
      - semantic image asset renaming through `build-site.js`;
      - updated image ALT report files;
@@ -95,6 +106,21 @@
    - `docs/image-alt-report.md`
    - `docs/image-alt-report.csv`
 2. Current image renaming system is persistent in `build-site.js`.
-3. Follow-up items still visible in the report:
+3. Current SEO/PageSpeed system is persistent in `build-site.js`.
+   - SEO tags and sitemap should keep `https://cmf-surgery.ru` for the migration target.
+   - Homepage service cards should keep using generated WebP thumbnails.
+   - Removed `free` / `free.html` should keep returning 404 unless the user changes strategy.
+4. Follow-up items still visible in the report:
    - decorative empty ALT values;
    - duplicate non-empty ALT groups.
+
+## Performance / CSS
+
+1. Next session priority: remove `https://cdn.tailwindcss.com`.
+   - Preferred direction: generate and commit a static CSS file while preserving the current visual design.
+   - Verify homepage, mobile menu, service pages, `anons`, `privacy`, `contacts`, and form/lightbox behavior after the CSS change.
+   - Keep Netlify build command empty; if a CSS build step is needed, run it locally and commit the generated output.
+2. After removing Tailwind CDN, rerun PageSpeed on the preview and compare:
+   - mobile FCP/LCP;
+   - desktop render-blocking requests;
+   - visual parity.

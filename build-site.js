@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const root = __dirname;
+const productionBaseUrl = "https://cmf-surgery.ru";
 const originalRoot = path.join(root, "original");
 const sourceLogo = path.resolve(root, "..", "logo.png");
 const sourceSiteFavicon = path.join(root, "site-favicon.png");
@@ -21,6 +22,7 @@ const rawRoot = path.join(pagesRoot, "raw-html");
 const imageRoot = path.join(scrapeRoot, "assets", "images");
 const outRoots = [root, path.join(root, "site-dist")];
 const homeSocialTitle = "Center of Surgery – Центр реконструктивной хирургии.";
+const googleFontsHref = "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap";
 
 const services = [
   ["exo", "Экзопротезирование лица — протезирование ушей, носа, пальцев"],
@@ -1929,7 +1931,7 @@ function renderTmjVideoSection(sectionLabel, videos = tmjTreatmentVideos) {
           (video) => `<article class="rounded-2xl bg-cream border border-ink/5 overflow-hidden shadow-sm">
         <h3 class="min-h-[88px] px-4 pt-4 pb-3 text-[13px] sm:text-[14px] leading-snug font-semibold text-indigo2">ВИДЕО: ${escapeHtml(video.title)}</h3>
         <a href="https://www.youtube.com/watch?v=${encodeURIComponent(video.id)}" target="_blank" rel="noopener" class="group relative block aspect-video bg-ink overflow-hidden" aria-label="Смотреть видео на YouTube: ${escapeHtml(video.title)}">
-          <img src="https://i.ytimg.com/vi/${encodeURIComponent(video.id)}/hqdefault.jpg" alt="${escapeHtml(video.title)}" class="absolute inset-0 w-full h-full object-cover transition duration-300 group-hover:scale-[1.03]" loading="lazy">
+          <img src="https://i.ytimg.com/vi/${encodeURIComponent(video.id)}/hqdefault.jpg" alt="${escapeHtml(video.title)}" class="absolute inset-0 w-full h-full object-cover transition duration-300 group-hover:scale-[1.03]" loading="lazy" decoding="async">
           <span class="absolute inset-0 bg-ink/20 group-hover:bg-ink/10 transition"></span>
           <span class="absolute left-1/2 top-1/2 w-14 h-10 -translate-x-1/2 -translate-y-1/2 rounded-xl bg-[#ff0000] text-white shadow-lg flex items-center justify-center transition duration-300 group-hover:scale-105">
             <span class="ml-1 w-0 h-0 border-y-[9px] border-y-transparent border-l-[15px] border-l-white"></span>
@@ -1981,7 +1983,7 @@ function renderSensitiveGalleryNotice() {
 }
 
 function renderGalleryImage(image, className, alt, sensitive = false, wrapperClass = "") {
-  const img = `<img src="${image.src}" alt="${escapeHtml(alt)}" class="${className}" loading="lazy">`;
+  const img = `<img src="${image.src}" alt="${escapeHtml(alt)}" class="${className}" loading="lazy" decoding="async">`;
   if (!sensitive) return img;
   return `<div class="sensitive-media${wrapperClass ? ` ${wrapperClass}` : ""}" data-sensitive-media="locked">
           ${img}
@@ -2057,6 +2059,96 @@ function updateKnownLinks(html) {
     .replace(/<a href="#contact"([^>]*>\s*РљРѕРЅС‚Р°РєС‚С‹\s*<\/a>)/g, `<a href="contacts.html"$1`);
 }
 
+function productionUrl(value = "/") {
+  try {
+    const url = new URL(String(value || "/"), productionBaseUrl);
+    return `${productionBaseUrl}${url.pathname}${url.search}${url.hash}`;
+  } catch {
+    return productionBaseUrl;
+  }
+}
+
+function productionAssetUrl(value = "") {
+  const raw = String(value || "").trim();
+  if (!raw) return `${productionBaseUrl}/logo.png`;
+  if (/^https?:\/\//i.test(raw)) {
+    return raw.replace(/^https:\/\/cmf-surgery\.netlify\.app/i, productionBaseUrl);
+  }
+  return `${productionBaseUrl}/${raw.replace(/^\/+/, "")}`;
+}
+
+function setHeadTag(html, pattern, tag) {
+  if (pattern.test(html)) return html.replace(pattern, tag);
+  return html.replace("</head>", `${tag}\n</head>`);
+}
+
+function renderStructuredData({ title, description, canonical, image, page }) {
+  const pageName = title.replace(/\s*\|\s*.*$/, "");
+  const graph = [
+    {
+      "@type": ["Organization", "MedicalBusiness"],
+      "@id": `${productionBaseUrl}/#organization`,
+      name: "Center of Surgery",
+      url: productionBaseUrl,
+      logo: `${productionBaseUrl}/logo.png`,
+      image,
+      telephone: "+7 926 332-93-69",
+      email: "surgery79@mail.ru",
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "RU",
+        addressLocality: "Одинцово",
+        streetAddress: "Красногорское ш., д. 17",
+      },
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${canonical}#webpage`,
+      url: canonical,
+      name: title,
+      description,
+      isPartOf: {
+        "@id": `${productionBaseUrl}/#website`,
+      },
+      publisher: {
+        "@id": `${productionBaseUrl}/#organization`,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Главная",
+          item: `${productionBaseUrl}/`,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: pageName,
+          item: canonical,
+        },
+      ],
+    },
+  ];
+
+  if (page?.slug === "trofimov" || page?.slug === "kravchenko") {
+    graph.push({
+      "@type": "Person",
+      "@id": `${canonical}#person`,
+      name: pageName,
+      url: canonical,
+      image,
+      worksFor: {
+        "@id": `${productionBaseUrl}/#organization`,
+      },
+    });
+  }
+
+  return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`;
+}
+
 function updateSeo(html, page, titleOverride = "") {
   const seo = page.seo || {};
   const title = (titleOverride || seo.title || "Center of Surgery").replaceAll("—", "–");
@@ -2068,6 +2160,34 @@ function updateSeo(html, page, titleOverride = "") {
     .replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${escapeHtml(seo.canonical || page.url || "")}">`)
     .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${escapeHtml(ogTitle)}">`)
     .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${escapeHtml(seo.og?.["og:description"] || seo.description || "")}">`);
+}
+
+function updateSeo(html, page, titleOverride = "") {
+  const seo = page.seo || {};
+  const title = (titleOverride || seo.title || "Center of Surgery").replaceAll("—", "–").replaceAll("вЂ”", "вЂ“");
+  const ogTitle = (titleOverride || seo.og?.["og:title"] || seo.title || "").replaceAll("—", "–").replaceAll("вЂ”", "вЂ“");
+  const description = seo.description || "";
+  const canonical = productionUrl(seo.canonical || page.url || "/");
+  const ogDescription = seo.og?.["og:description"] || description;
+  const ogUrl = productionUrl(seo.og?.["og:url"] || canonical);
+  const ogImage = productionAssetUrl(seo.og?.["og:image"] || "logo.png");
+  let out = html
+    .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(title)}</title>`)
+    .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${escapeHtml(description)}">`)
+    .replace(/<meta name="keywords" content="[^"]*">/, `<meta name="keywords" content="${escapeHtml(seo.keywords || "")}">`);
+
+  out = setHeadTag(out, /<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${escapeHtml(canonical)}">`);
+  out = setHeadTag(out, /<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${escapeHtml(ogTitle)}">`);
+  out = setHeadTag(out, /<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${escapeHtml(ogDescription)}">`);
+  out = setHeadTag(out, /<meta property="og:type" content="[^"]*">/, `<meta property="og:type" content="website">`);
+  out = setHeadTag(out, /<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${escapeHtml(ogUrl)}">`);
+  out = setHeadTag(out, /<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${escapeHtml(ogImage)}">`);
+  out = setHeadTag(out, /<meta name="twitter:card" content="[^"]*">/, `<meta name="twitter:card" content="summary_large_image">`);
+  out = setHeadTag(out, /<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${escapeHtml(ogTitle)}">`);
+  out = setHeadTag(out, /<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${escapeHtml(ogDescription)}">`);
+  out = setHeadTag(out, /<meta name="twitter:image" content="[^"]*">/, `<meta name="twitter:image" content="${escapeHtml(ogImage)}">`);
+  out = out.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>\n?/g, "");
+  return out.replace("</head>", `${renderStructuredData({ title, description, canonical, image: ogImage, page })}\n</head>`);
 }
 
 function socialIcon(name, sizeClass = "w-4 h-4") {
@@ -2085,10 +2205,9 @@ function socialIcon(name, sizeClass = "w-4 h-4") {
 }
 
 function renderSitemap(files) {
-  const baseUrl = "https://cmf-surgery.netlify.app";
   const urls = Object.keys(files).map((name) => (name === "index.html" ? "/" : `/${name}`));
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
-    .map((url) => `  <url><loc>${baseUrl}${url}</loc></url>`)
+    .map((url) => `  <url><loc>${productionBaseUrl}${url}</loc></url>`)
     .join("\n")}\n</urlset>\n`;
 }
 
@@ -2359,9 +2478,55 @@ img[data-lightbox-image] {
   };
 }
 
+function headContent(html, pattern) {
+  const match = html.match(pattern);
+  return match ? match[1] : "";
+}
+
+function optimizeGoogleFonts(html) {
+  const blockingFonts = `<link rel="preload" as="style" href="${googleFontsHref}">
+<link href="${googleFontsHref}" rel="stylesheet">`;
+  const asyncFonts = `<link rel="preload" as="style" href="${googleFontsHref}" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="${googleFontsHref}" rel="stylesheet"></noscript>`;
+  return html.replace(blockingFonts, asyncFonts);
+}
+
+function ensureSeoCompleteness(html) {
+  const title = headContent(html, /<title>([\s\S]*?)<\/title>/i) || "Center of Surgery";
+  const description = headContent(html, /<meta name="description" content="([^"]*)"/i);
+  const canonical = productionUrl(headContent(html, /<link rel="canonical" href="([^"]+)"/i) || "/");
+  const ogTitle = headContent(html, /<meta property="og:title" content="([^"]*)"/i) || title;
+  const ogDescription = headContent(html, /<meta property="og:description" content="([^"]*)"/i) || description;
+  const ogUrl = productionUrl(headContent(html, /<meta property="og:url" content="([^"]+)"/i) || canonical);
+  const defaultImage = html.includes(homeHeroAssetName) ? `assets/images/${homeHeroAssetName}` : "logo.png";
+  const ogImage = productionAssetUrl(headContent(html, /<meta property="og:image" content="([^"]+)"/i) || defaultImage);
+  let out = html;
+
+  out = setHeadTag(out, /<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${escapeHtml(canonical)}">`);
+  out = setHeadTag(out, /<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${escapeHtml(ogTitle)}">`);
+  out = setHeadTag(out, /<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${escapeHtml(ogDescription)}">`);
+  out = setHeadTag(out, /<meta property="og:type" content="[^"]*">/, `<meta property="og:type" content="website">`);
+  out = setHeadTag(out, /<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${escapeHtml(ogUrl)}">`);
+  out = setHeadTag(out, /<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${escapeHtml(ogImage)}">`);
+  out = setHeadTag(out, /<meta name="twitter:card" content="[^"]*">/, `<meta name="twitter:card" content="summary_large_image">`);
+  out = setHeadTag(out, /<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${escapeHtml(ogTitle)}">`);
+  out = setHeadTag(out, /<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${escapeHtml(ogDescription)}">`);
+  out = setHeadTag(out, /<meta name="twitter:image" content="[^"]*">/, `<meta name="twitter:image" content="${escapeHtml(ogImage)}">`);
+  if (!/application\/ld\+json/i.test(out)) {
+    out = out.replace("</head>", `${renderStructuredData({ title, description, canonical, image: ogImage, page: {} })}\n</head>`);
+  }
+  if (html.includes(homeHeroAssetName) && !/rel="preload"[^>]+home-hero-clinic\.webp/i.test(out)) {
+    out = out.replace(
+      "</head>",
+      `<link rel="preload" as="image" href="assets/images/${homeHeroAssetName}" type="image/webp" fetchpriority="high">\n</head>`
+    );
+  }
+  return out;
+}
+
 function applyGlobalEnhancements(html) {
   const lightbox = lightboxAssets();
-  return html
+  return optimizeGoogleFonts(ensureSeoCompleteness(html))
     .replace(/<title>([\s\S]*?)<\/title>/, (_, title) => `<title>${title.replaceAll("—", "–")}</title>`)
     .replace("</head>", `<link rel="icon" type="image/png" href="favicon.png">\n<link rel="apple-touch-icon" href="logo.png">\n${lightbox.style}\n</head>`)
     .replace(
@@ -2425,12 +2590,12 @@ function applyGlobalEnhancements(html) {
     .replace(
       /<a href="trofimov\.html" class="flex items-start gap-3 p-3 rounded-lg hover:bg-cream group\/i transition">\s*<div class="w-9 h-11 rounded-md bg-gradient-to-br from-indigo2 to-violet2 shrink-0"><\/div>/g,
       `<a href="trofimov.html" class="flex items-start gap-3 p-3 rounded-lg hover:bg-cream group/i transition">
-              <img src="assets/images/tild6635-3665-4464-b939-353132636135_02-00.jpg" alt="Трофимов Е. И." class="w-9 h-11 rounded-md object-cover shrink-0 bg-cream">`
+              <img src="assets/images/tild6635-3665-4464-b939-353132636135_02-00.jpg" alt="Трофимов Е. И." class="w-9 h-11 rounded-md object-cover shrink-0 bg-cream" width="36" height="44" loading="lazy" decoding="async" fetchpriority="low">`
     )
     .replace(
       /<a href="kravchenko\.html" class="flex items-start gap-3 p-3 rounded-lg hover:bg-cream group\/i transition">\s*<div class="w-9 h-11 rounded-md bg-gradient-to-br from-pink2 to-violet2 shrink-0"><\/div>/g,
       `<a href="kravchenko.html" class="flex items-start gap-3 p-3 rounded-lg hover:bg-cream group/i transition">
-              <img src="assets/images/tild6433-6365-4363-b836-346539643963_doc2.jpg" alt="Кравченко Д. В." class="w-9 h-11 rounded-md object-cover shrink-0 bg-cream">`
+              <img src="assets/images/tild6433-6365-4363-b836-346539643963_doc2.jpg" alt="Кравченко Д. В." class="w-9 h-11 rounded-md object-cover shrink-0 bg-cream" width="36" height="44" loading="lazy" decoding="async" fetchpriority="low">`
     )
     .replaceAll(
       `Центр пластической и <span class="italic font-normal">реконструктивной</span><br>
@@ -2484,6 +2649,19 @@ function imageSrcAttr(tag = "") {
   return match ? match[2] || match[3] || match[4] || "" : "";
 }
 
+function imageSrcsetAttrs(tag = "") {
+  const match = tag.match(/\bsrcset\s*=\s*("([^"]*)"|'([^']*)')/i);
+  if (!match) return [];
+  return (match[2] || match[3] || "")
+    .split(",")
+    .map((item) => item.trim().split(/\s+/)[0])
+    .filter(Boolean);
+}
+
+function imageAssetRefs(tag = "") {
+  return [imageSrcAttr(tag), ...imageSrcsetAttrs(tag)].filter((src) => src.startsWith("assets/images/"));
+}
+
 function imageAssetSource(fileName) {
   if (fileName === exoHeroAssetName && fs.existsSync(sourceExoHeroImage)) return sourceExoHeroImage;
   if (fileName === anonsHeroAssetName && fs.existsSync(sourceAnonsHeroImage)) return sourceAnonsHeroImage;
@@ -2500,9 +2678,14 @@ function serviceCardAssetName(fileName) {
   return `service-card-${card[0]}${path.extname(fileName).toLowerCase()}`;
 }
 
+function serviceCardThumbAsset(slug, width) {
+  return `assets/images/service-card-${slug}-${width}.webp`;
+}
+
 function specialImageAssetName(fileName) {
   const serviceCardName = serviceCardAssetName(fileName);
   if (serviceCardName) return serviceCardName;
+  if (/^service-card-[\w-]+-(160|320)\.webp$/i.test(fileName)) return fileName;
 
   const names = {
     [exoHeroAssetName]: exoHeroAssetName,
@@ -2532,21 +2715,20 @@ function buildImageAssetManifest(files) {
   const pageCounts = new Map();
 
   for (const [pageName, html] of Object.entries(files)) {
-    const tags = html.match(/<img\b[^>]*>/gi) || [];
+    const tags = html.match(/<(?:img|source)\b[^>]*>/gi) || [];
     for (const tag of tags) {
-      const src = imageSrcAttr(tag);
-      if (!src.startsWith("assets/images/")) continue;
+      for (const src of imageAssetRefs(tag)) {
+        const oldFile = fileNameFromImageSrc(src);
+        const source = imageAssetSource(oldFile);
+        if (!source) continue;
+        if (manifest.has(oldFile)) continue;
 
-      const oldFile = fileNameFromImageSrc(src);
-      const source = imageAssetSource(oldFile);
-      if (!source) continue;
-      if (manifest.has(oldFile)) continue;
-
-      const specialName = specialImageAssetName(oldFile);
-      const count = (pageCounts.get(pageName) || 0) + 1;
-      pageCounts.set(pageName, count);
-      const newFile = specialName || semanticImageAssetName(pageName, count, oldFile);
-      manifest.set(oldFile, { oldFile, newFile, source });
+        const specialName = specialImageAssetName(oldFile);
+        const count = (pageCounts.get(pageName) || 0) + 1;
+        pageCounts.set(pageName, count);
+        const newFile = specialName || semanticImageAssetName(pageName, count, oldFile);
+        manifest.set(oldFile, { oldFile, newFile, source });
+      }
     }
   }
 
@@ -2619,7 +2801,7 @@ const homeServiceCards = [
 function renderHomeHeroMedia() {
   return `<aside class="lg:col-span-5">
       <figure class="relative aspect-[4/5] max-w-sm sm:max-w-md mx-auto rounded-[24px] sm:rounded-[28px] overflow-hidden bg-cream border border-ink/10 shadow-2xl shadow-indigo2/10">
-        <img src="assets/images/${homeHeroAssetName}" alt="Стационар Center of Surgery в Одинцово" class="absolute inset-0 w-full h-full object-cover" width="600" height="800" fetchpriority="high" loading="eager">
+        <img src="assets/images/${homeHeroAssetName}" alt="Стационар Center of Surgery в Одинцово" class="absolute inset-0 w-full h-full object-cover" width="600" height="800" fetchpriority="high" loading="eager" decoding="async">
         <div class="absolute inset-0 bg-gradient-to-t from-ink/55 via-ink/0 to-transparent"></div>
         <div class="absolute top-5 left-5 bg-white/95 backdrop-blur rounded-xl px-3.5 py-2.5">
           <div class="text-[10px] text-ink/50 uppercase tracking-wider font-semibold">с 2004 года</div>
@@ -2668,12 +2850,13 @@ function renderHomeServicesSection() {
 
     <ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
       ${homeServiceCards
-        .map(
-          ([slug, title, image], index) => `<li>
+        .map(([slug, title, image], index) => {
+          const imageAlt = escapeHtml(title.replace(/<br>/g, " "));
+          return `<li>
         <a href="${pageHref(slug)}" class="${cardClass(index)}">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="${image}" alt="${escapeHtml(title.replace(/<br>/g, " "))}" class="w-full h-full object-cover">
+              <img src="${serviceCardThumbAsset(slug, 160)}" srcset="${serviceCardThumbAsset(slug, 160)} 160w, ${serviceCardThumbAsset(slug, 320)} 320w" sizes="72px" alt="${imageAlt}" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono ${numberClass(index)}">${String(index + 1).padStart(2, "0")}</span>
@@ -2684,8 +2867,8 @@ function renderHomeServicesSection() {
           </div>
           ${index === 0 ? '<span class="absolute bottom-5 right-5 w-7 h-7 rounded-full bg-white/10 text-sm flex items-center justify-center">→</span>' : ""}
         </a>
-      </li>`
-        )
+      </li>`;
+        })
         .join("\n")}
     </ul>
   </div>
@@ -2707,7 +2890,7 @@ function renderHomeDoctorsSection() {
     <div class="grid md:grid-cols-2 gap-6">
       <article class="card-hover rounded-3xl bg-cream p-5 sm:p-7 border border-ink/5 flex flex-col sm:flex-row gap-5 sm:gap-6">
         <div class="w-full h-48 sm:w-40 sm:h-48 rounded-2xl bg-gradient-to-br from-indigo2 via-violet2 to-pink2 shrink-0 relative overflow-hidden">
-          <img src="assets/images/tild6234-3261-4666-b363-653862623830_doc1.jpg" alt="Трофимов Евгений Иванович" class="w-full h-full object-cover">
+          <img src="assets/images/tild6234-3261-4666-b363-653862623830_doc1.jpg" alt="Трофимов Евгений Иванович" class="w-full h-full object-cover" width="160" height="192" loading="lazy" decoding="async">
         </div>
         <div>
           <div class="text-[12px] text-indigo2 uppercase tracking-wider font-semibold">Ведущий сотрудник</div>
@@ -2721,7 +2904,7 @@ function renderHomeDoctorsSection() {
 
       <article class="card-hover rounded-3xl bg-cream p-5 sm:p-7 border border-ink/5 flex flex-col sm:flex-row gap-5 sm:gap-6">
         <div class="w-full h-48 sm:w-40 sm:h-48 rounded-2xl bg-gradient-to-br from-pink2 via-violet2 to-indigo2 shrink-0 relative overflow-hidden">
-          <img src="assets/images/tild6135-6432-4364-a139-663734393963_doc2.jpg" alt="Кравченко Дмитрий Валерьевич" class="w-full h-full object-cover">
+          <img src="assets/images/tild6135-6432-4364-a139-663734393963_doc2.jpg" alt="Кравченко Дмитрий Валерьевич" class="w-full h-full object-cover" width="160" height="192" loading="lazy" decoding="async">
         </div>
         <div>
           <div class="text-[12px] text-pink2 uppercase tracking-wider font-semibold">Челюстно-лицевой хирург</div>
@@ -2761,7 +2944,7 @@ function renderHomeTrustSection() {
         .map(
           ([num, title, text, image]) => `<div class="rounded-2xl bg-white border border-ink/5 p-6 card-hover">
         <div class="w-full aspect-[4/3] rounded-2xl bg-cream overflow-hidden mb-5">
-          <img src="${image}" alt="${escapeHtml(title)}" class="w-full h-full object-cover">
+          <img src="${image}" alt="${escapeHtml(title)}" class="w-full h-full object-cover" width="640" height="480" loading="lazy" decoding="async">
         </div>
         <div class="font-display text-5xl font-bold gradient-text">${num}</div>
         <h3 class="font-bold text-[15px] mt-5 uppercase tracking-wider">${title}</h3>
@@ -3029,7 +3212,7 @@ function renderKravchenkoPage() {
       ${galleryImages
         .map(
           (image) => `<figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5">
-        <img src="${image.src}" alt="${escapeHtml(image.alt || page.seo.title)}" class="w-full aspect-[4/3] object-cover" loading="lazy">
+        <img src="${image.src}" alt="${escapeHtml(image.alt || page.seo.title)}" class="w-full aspect-[4/3] object-cover" loading="lazy" decoding="async">
       </figure>`
         )
         .join("\n")}
@@ -3274,11 +3457,13 @@ function recommendationPrintStyles(slug) {
   h1,
   h2,
   h3,
+  .print-title-heading,
   p {
     color: #111 !important;
     break-after: avoid;
   }
-  h1 {
+  h1,
+  .print-title-heading {
     margin: 0 0 4mm !important;
     font-size: ${slug === "analyzes" ? "16pt" : "15pt"} !important;
     line-height: 1.08 !important;
@@ -3414,7 +3599,7 @@ ${parts.nav}
       ${renderRecommendationPrintButton()}
     </div>
     <div class="print-title">
-      <h1>${escapeHtml(title)}</h1>
+      <div class="print-title-heading">${escapeHtml(title)}</div>
       <p>Center of Surgery · памятка для печати</p>
     </div>
     ${heroHtml}
@@ -3888,15 +4073,17 @@ ${parts.footer}`;
 function renderAnonsPage() {
   const parts = templateParts();
   const page = {
-    url: "https://cmf-surgery.netlify.app/anons.html",
+    url: `${productionBaseUrl}/anons.html`,
     seo: {
       title: `${anonsTitle} | Center of Surgery`,
       description: "Новые разработки Center of Surgery: лазерное сканированное прототипирование протезов, полимерные матрицы и технологии искусственного интеллекта для экзо- и эндопротезов.",
       keywords: "лазерное прототипирование протезов, экзопротезирование, эндопротезирование, искусственный интеллект, Center of Surgery",
-      canonical: "https://cmf-surgery.netlify.app/anons.html",
+      canonical: `${productionBaseUrl}/anons.html`,
       og: {
         "og:title": `${anonsTitle} | Center of Surgery`,
         "og:description": "Анонс новых разработок в прототипировании экзо- и эндопротезов.",
+        "og:image": `assets/images/${anonsHeroAssetName}`,
+        "og:url": `${productionBaseUrl}/anons.html`,
       },
     },
   };
@@ -4012,15 +4199,17 @@ ${parts.ctaFooter}`;
 function renderPrivacyPage() {
   const parts = templateParts();
   const page = {
-    url: "https://cmf-surgery.netlify.app/privacy.html",
+    url: `${productionBaseUrl}/privacy.html`,
     seo: {
       title: "Политика конфиденциальности | Center of Surgery",
       description: "Политика в отношении обработки персональных данных и конфиденциальности сайта cmf-surgery.ru.",
       keywords: "политика конфиденциальности, персональные данные, обработка персональных данных, cmf-surgery.ru",
-      canonical: "https://cmf-surgery.netlify.app/privacy.html",
+      canonical: `${productionBaseUrl}/privacy.html`,
       og: {
         "og:title": "Политика конфиденциальности | Center of Surgery",
         "og:description": "Политика в отношении обработки персональных данных и конфиденциальности сайта cmf-surgery.ru.",
+        "og:image": "logo.png",
+        "og:url": `${productionBaseUrl}/privacy.html`,
       },
     },
   };
@@ -4611,6 +4800,44 @@ ${imageGrid}
 ${ctaFooter}`;
 }
 
+function renderNotFoundPage() {
+  const parts = templateParts();
+  const page = {
+    url: `${productionBaseUrl}/404.html`,
+    seo: {
+      title: "Страница не найдена | Center of Surgery",
+      description: "Страница не найдена или была удалена с сайта Center of Surgery.",
+      keywords: "",
+      canonical: `${productionBaseUrl}/404.html`,
+      og: {
+        "og:title": "Страница не найдена | Center of Surgery",
+        "og:description": "Страница не найдена или была удалена с сайта Center of Surgery.",
+        "og:image": "logo.png",
+        "og:url": `${productionBaseUrl}/404.html`,
+      },
+    },
+  };
+  const head = updateSeo(parts.head, page).replace("</head>", `<meta name="robots" content="noindex, follow">\n</head>`);
+  return `${head}
+${parts.nav}
+<main>
+<section class="py-16 sm:py-24 bg-cream">
+  <div class="max-w-[900px] mx-auto px-5 lg:px-10">
+    <div class="rounded-lg bg-white border border-ink/10 p-7 sm:p-10 shadow-sm shadow-ink/5">
+      <div class="text-[12px] uppercase tracking-[0.18em] font-semibold text-indigo2">404</div>
+      <h1 class="mt-4 font-display text-[34px] sm:text-[52px] leading-tight font-bold text-ink">Страница не найдена</h1>
+      <p class="mt-5 text-[16px] sm:text-[18px] leading-relaxed text-ink/70">Раздел мог быть удален или перенесен. Перейдите на главную страницу или выберите актуальное направление в меню.</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <a href="index.html" class="btn-primary rounded-full px-6 py-3 text-[14px] font-semibold">На главную</a>
+        <a href="contacts.html" class="inline-flex items-center rounded-full border border-ink/15 bg-white px-6 py-3 text-[14px] font-semibold text-ink hover:border-indigo2/35 hover:text-indigo2 transition">Контакты</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+${parts.footer}`;
+}
+
 function build() {
   const files = {};
   files["index.html"] = removeHomeQuotaStat(updateKnownLinks(fs.readFileSync(path.join(originalRoot, "index.html"), "utf8")))
@@ -4662,7 +4889,8 @@ function build() {
   const enhancedFiles = Object.fromEntries(
     Object.entries(files).map(([name, html]) => [name, applyGlobalEnhancements(html)])
   );
-  const imageManifest = buildImageAssetManifest(enhancedFiles);
+  const notFoundHtml = applyGlobalEnhancements(renderNotFoundPage());
+  const imageManifest = buildImageAssetManifest({ ...enhancedFiles, "404.html": notFoundHtml });
 
   for (const outRoot of outRoots) {
     fs.mkdirSync(outRoot, { recursive: true });
@@ -4698,12 +4926,13 @@ function build() {
     for (const [name, html] of Object.entries(enhancedFiles)) {
       fs.writeFileSync(path.join(outRoot, name), rewriteImageAssetRefs(html, imageManifest), "utf8");
     }
+    fs.writeFileSync(path.join(outRoot, "404.html"), rewriteImageAssetRefs(notFoundHtml, imageManifest), "utf8");
 
     fs.copyFileSync(path.join(scrapeRoot, "robots.txt"), path.join(outRoot, "robots.txt"));
     fs.writeFileSync(path.join(outRoot, "sitemap.xml"), renderSitemap(files), "utf8");
     fs.writeFileSync(
       path.join(outRoot, "_redirects"),
-      ["/home / 301", ...Object.keys(files).filter((name) => name !== "index.html").map((name) => `/${name.replace(/\.html$/, "")} /${name} 200`), "/* /index.html 200", ""].join("\n"),
+      ["/home / 301", "/free /404.html 404", "/free.html /404.html 404", ...Object.keys(files).filter((name) => name !== "index.html").map((name) => `/${name.replace(/\.html$/, "")} /${name} 200`), "/* /index.html 200", ""].join("\n"),
       "utf8"
     );
   }

@@ -13,8 +13,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet"></noscript>
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -58,6 +58,14 @@ tailwind.config = {
 
   .ring-dot{box-shadow:0 0 0 4px rgba(94,227,193,.25)}
 </style>
+<meta property="og:url" content="https://cmf-surgery.ru/">
+<meta property="og:image" content="https://cmf-surgery.ru/assets/images/home-hero-clinic.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Center of Surgery – Центр реконструктивной хирургии.">
+<meta name="twitter:description" content="Центр реконструктивной хирургии. Москва, Одинцово.">
+<meta name="twitter:image" content="https://cmf-surgery.ru/assets/images/home-hero-clinic.webp">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["Organization","MedicalBusiness"],"@id":"https://cmf-surgery.ru/#organization","name":"Center of Surgery","url":"https://cmf-surgery.ru","logo":"https://cmf-surgery.ru/logo.png","image":"https://cmf-surgery.ru/assets/images/home-hero-clinic.webp","telephone":"+7 926 332-93-69","email":"surgery79@mail.ru","address":{"@type":"PostalAddress","addressCountry":"RU","addressLocality":"Одинцово","streetAddress":"Красногорское ш., д. 17"}},{"@type":"WebPage","@id":"https://cmf-surgery.ru/#webpage","url":"https://cmf-surgery.ru/","name":"Center of Surgery — Центр реконструктивной, пластической хирургии головы и шеи | Москва, Одинцово","description":"Центр реконструктивной, пластической хирургии головы и шеи. Челюстно-лицевая хирургия, экзопротезирование, ринопластика, имплантология. Бесплатная консультация. ☎ +7 (926) 332-93-69. Одинцово, Красногорское ш., д. 17.","isPartOf":{"@id":"https://cmf-surgery.ru/#website"},"publisher":{"@id":"https://cmf-surgery.ru/#organization"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://cmf-surgery.ru/"},{"@type":"ListItem","position":2,"name":"Center of Surgery — Центр реконструктивной, пластической хирургии головы и шеи","item":"https://cmf-surgery.ru/"}]}]}</script>
+<link rel="preload" as="image" href="assets/images/home-hero-clinic.webp" type="image/webp" fetchpriority="high">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="logo.png">
 <style>
@@ -361,14 +369,14 @@ img[data-lightbox-image] {
         <div class="dropdown absolute top-full left-1/2 -translate-x-1/2 pt-2">
           <div class="w-[280px] bg-white rounded-2xl shadow-2xl shadow-indigo2/10 border border-ink/5 p-3">
             <a href="trofimov.html" class="flex items-start gap-3 p-3 rounded-lg hover:bg-cream group/i transition">
-              <img src="assets/images/doctor-trofimov-01.jpg" alt="Трофимов Е. И." class="w-9 h-11 rounded-md object-cover shrink-0 bg-cream">
+              <img src="assets/images/doctor-trofimov-01.jpg" alt="Трофимов Е. И." class="w-9 h-11 rounded-md object-cover shrink-0 bg-cream" width="36" height="44" loading="lazy" decoding="async" fetchpriority="low">
               <div>
                 <div class="text-[13px] font-semibold text-ink group-hover/i:text-indigo2">Трофимов Е. И.</div>
                 <div class="text-[11px] text-ink/55 mt-0.5">Д. м. н., профессор</div>
               </div>
             </a>
             <a href="kravchenko.html" class="flex items-start gap-3 p-3 rounded-lg hover:bg-cream group/i transition">
-              <img src="assets/images/doctor-kravchenko-01.jpg" alt="Кравченко Д. В." class="w-9 h-11 rounded-md object-cover shrink-0 bg-cream">
+              <img src="assets/images/doctor-kravchenko-01.jpg" alt="Кравченко Д. В." class="w-9 h-11 rounded-md object-cover shrink-0 bg-cream" width="36" height="44" loading="lazy" decoding="async" fetchpriority="low">
               <div>
                 <div class="text-[13px] font-semibold text-ink group-hover/i:text-pink2">Кравченко Д. В.</div>
                 <div class="text-[11px] text-ink/55 mt-0.5">К. м. н., челюстно-лицевой хирург</div>
@@ -538,7 +546,7 @@ img[data-lightbox-image] {
 
     <aside class="lg:col-span-5">
       <figure class="relative aspect-[4/5] max-w-sm sm:max-w-md mx-auto rounded-[24px] sm:rounded-[28px] overflow-hidden bg-cream border border-ink/10 shadow-2xl shadow-indigo2/10">
-        <img src="assets/images/home-hero-clinic.webp" alt="Стационар Center of Surgery в Одинцово" class="absolute inset-0 w-full h-full object-cover" width="600" height="800" fetchpriority="high" loading="eager">
+        <img src="assets/images/home-hero-clinic.webp" alt="Стационар Center of Surgery в Одинцово" class="absolute inset-0 w-full h-full object-cover" width="600" height="800" fetchpriority="high" loading="eager" decoding="async">
         <div class="absolute inset-0 bg-gradient-to-t from-ink/55 via-ink/0 to-transparent"></div>
         <div class="absolute top-5 left-5 bg-white/95 backdrop-blur rounded-xl px-3.5 py-2.5">
           <div class="text-[10px] text-ink/50 uppercase tracking-wider font-semibold">с 2004 года</div>
@@ -596,7 +604,7 @@ img[data-lightbox-image] {
         <a href="exo.html" class="card-hover relative block bg-ink text-white rounded-xl p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-exo.png" alt="Экзопротезирование лица протезирование ушей, носа, пальцев" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-exo-160.webp" srcset="assets/images/service-card-exo-160.webp 160w, assets/images/service-card-exo-320.webp 320w" sizes="72px" alt="Экзопротезирование лица протезирование ушей, носа, пальцев" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-mint">01</span>
@@ -612,7 +620,7 @@ img[data-lightbox-image] {
         <a href="nose_surgery.html" class="card-hover block bg-white rounded-xl border border-ink/5 p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-nose_surgery.png" alt="Операции на нос" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-nose_surgery-160.webp" srcset="assets/images/service-card-nose_surgery-160.webp 160w, assets/images/service-card-nose_surgery-320.webp 320w" sizes="72px" alt="Операции на нос" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-violet2">02</span>
@@ -628,7 +636,7 @@ img[data-lightbox-image] {
         <a href="tmj_treatment.html" class="card-hover block bg-white rounded-xl border border-ink/5 p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-tmj_treatment.png" alt="Артрогнатология (Лечение ВНЧС)" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-tmj_treatment-160.webp" srcset="assets/images/service-card-tmj_treatment-160.webp 160w, assets/images/service-card-tmj_treatment-320.webp 320w" sizes="72px" alt="Артрогнатология (Лечение ВНЧС)" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-pink2">03</span>
@@ -644,7 +652,7 @@ img[data-lightbox-image] {
         <a href="implantology.html" class="card-hover block bg-white rounded-xl border border-ink/5 p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-implantology.png" alt="Имплантология" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-implantology-160.webp" srcset="assets/images/service-card-implantology-160.webp 160w, assets/images/service-card-implantology-320.webp 320w" sizes="72px" alt="Имплантология" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-indigo2">04</span>
@@ -660,7 +668,7 @@ img[data-lightbox-image] {
         <a href="nasal_surgery.html" class="card-hover block bg-white rounded-xl border border-ink/5 p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-nasal_surgery.png" alt="Хирургия восстановления носового дыхания" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-nasal_surgery-160.webp" srcset="assets/images/service-card-nasal_surgery-160.webp 160w, assets/images/service-card-nasal_surgery-320.webp 320w" sizes="72px" alt="Хирургия восстановления носового дыхания" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-violet2">05</span>
@@ -676,7 +684,7 @@ img[data-lightbox-image] {
         <a href="microsurgical.html" class="card-hover block bg-white rounded-xl border border-ink/5 p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-microsurgical.png" alt="Микрохирургическая реконструкция отсутствующих частей лица" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-microsurgical-160.webp" srcset="assets/images/service-card-microsurgical-160.webp 160w, assets/images/service-card-microsurgical-320.webp 320w" sizes="72px" alt="Микрохирургическая реконструкция отсутствующих частей лица" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-pink2">06</span>
@@ -692,7 +700,7 @@ img[data-lightbox-image] {
         <a href="scars.html" class="card-hover block bg-white rounded-xl border border-ink/5 p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-scars.png" alt="Лечение пациентов с рубцами" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-scars-160.webp" srcset="assets/images/service-card-scars-160.webp 160w, assets/images/service-card-scars-320.webp 320w" sizes="72px" alt="Лечение пациентов с рубцами" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-indigo2">07</span>
@@ -708,7 +716,7 @@ img[data-lightbox-image] {
         <a href="cleft.html" class="card-hover block bg-white rounded-xl border border-ink/5 p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-cleft.png" alt="Лечение пациентов с расщелинами губы, неба, лица" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-cleft-160.webp" srcset="assets/images/service-card-cleft-160.webp 160w, assets/images/service-card-cleft-320.webp 320w" sizes="72px" alt="Лечение пациентов с расщелинами губы, неба, лица" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-violet2">08</span>
@@ -724,7 +732,7 @@ img[data-lightbox-image] {
         <a href="tmj_dysfunction.html" class="card-hover block bg-white rounded-xl border border-ink/5 p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-tmj_dysfunction.png" alt="Лечение пациентов с дисфункцией ВНЧС" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-tmj_dysfunction-160.webp" srcset="assets/images/service-card-tmj_dysfunction-160.webp 160w, assets/images/service-card-tmj_dysfunction-320.webp 320w" sizes="72px" alt="Лечение пациентов с дисфункцией ВНЧС" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-pink2">09</span>
@@ -740,7 +748,7 @@ img[data-lightbox-image] {
         <a href="tmj.html" class="card-hover block bg-white rounded-xl border border-ink/5 p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-tmj.png" alt="Лечение ВНЧС" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-tmj-160.webp" srcset="assets/images/service-card-tmj-160.webp 160w, assets/images/service-card-tmj-320.webp 320w" sizes="72px" alt="Лечение ВНЧС" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-indigo2">10</span>
@@ -756,7 +764,7 @@ img[data-lightbox-image] {
         <a href="orthognathic_surgery.html" class="card-hover block bg-gradient-to-br from-pink2/10 to-violet2/10 rounded-xl p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-orthognathic_surgery.png" alt="Ортодонтическая амбулаторная хирургия" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-orthognathic_surgery-160.webp" srcset="assets/images/service-card-orthognathic_surgery-160.webp 160w, assets/images/service-card-orthognathic_surgery-320.webp 320w" sizes="72px" alt="Ортодонтическая амбулаторная хирургия" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-violet2">11</span>
@@ -772,7 +780,7 @@ img[data-lightbox-image] {
         <a href="ilizarov_method.html" class="card-hover block bg-white rounded-xl border border-ink/5 p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-ilizarov_method.png" alt="Использование систем челюстных дистракторов по методу Илизарова" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-ilizarov_method-160.webp" srcset="assets/images/service-card-ilizarov_method-160.webp 160w, assets/images/service-card-ilizarov_method-320.webp 320w" sizes="72px" alt="Использование систем челюстных дистракторов по методу Илизарова" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-pink2">12</span>
@@ -788,7 +796,7 @@ img[data-lightbox-image] {
         <a href="plastic_surgeries.html" class="card-hover block bg-white rounded-xl border border-ink/5 p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-plastic_surgeries.png" alt="Пластические операции: живот, грудь, ягодицы, икры, руки, ноги" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-plastic_surgeries-160.webp" srcset="assets/images/service-card-plastic_surgeries-160.webp 160w, assets/images/service-card-plastic_surgeries-320.webp 320w" sizes="72px" alt="Пластические операции: живот, грудь, ягодицы, икры, руки, ноги" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-indigo2">13</span>
@@ -804,7 +812,7 @@ img[data-lightbox-image] {
         <a href="alveolar.html" class="card-hover block bg-white rounded-xl border border-ink/5 p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-alveolar.png" alt="Восстановительные операции альвеолярного отростка верхней и нижней челюсти" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-alveolar-160.webp" srcset="assets/images/service-card-alveolar-160.webp 160w, assets/images/service-card-alveolar-320.webp 320w" sizes="72px" alt="Восстановительные операции альвеолярного отростка верхней и нижней челюсти" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-violet2">14</span>
@@ -820,7 +828,7 @@ img[data-lightbox-image] {
         <a href="face_surgery.html" class="card-hover block bg-white rounded-xl border border-ink/5 p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-face_surgery.png" alt="Эстетическая - пластическая хирургия лица" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-face_surgery-160.webp" srcset="assets/images/service-card-face_surgery-160.webp 160w, assets/images/service-card-face_surgery-320.webp 320w" sizes="72px" alt="Эстетическая - пластическая хирургия лица" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-pink2">15</span>
@@ -836,7 +844,7 @@ img[data-lightbox-image] {
         <a href="restoration.html" class="card-hover block bg-white rounded-xl border border-ink/5 p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-restoration.png" alt="Восстановление мягких тканей лица и костей лицевого скелета" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-restoration-160.webp" srcset="assets/images/service-card-restoration-160.webp 160w, assets/images/service-card-restoration-320.webp 320w" sizes="72px" alt="Восстановление мягких тканей лица и костей лицевого скелета" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-indigo2">16</span>
@@ -852,7 +860,7 @@ img[data-lightbox-image] {
         <a href="surgical_dentistry.html" class="card-hover block bg-white rounded-xl border border-ink/5 p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-surgical_dentistry.png" alt="Хирургическая стоматология" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-surgical_dentistry-160.webp" srcset="assets/images/service-card-surgical_dentistry-160.webp 160w, assets/images/service-card-surgical_dentistry-320.webp 320w" sizes="72px" alt="Хирургическая стоматология" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-violet2">17</span>
@@ -868,7 +876,7 @@ img[data-lightbox-image] {
         <a href="bite_restoration.html" class="card-hover block bg-white rounded-xl border border-ink/5 p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-bite_restoration.png" alt="Восстановления прикуса и устранение челюстно лицевых деформаций" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-bite_restoration-160.webp" srcset="assets/images/service-card-bite_restoration-160.webp 160w, assets/images/service-card-bite_restoration-320.webp 320w" sizes="72px" alt="Восстановления прикуса и устранение челюстно лицевых деформаций" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-pink2">18</span>
@@ -884,7 +892,7 @@ img[data-lightbox-image] {
         <a href="mouthguards.html" class="card-hover block bg-white rounded-xl border border-ink/5 p-5 h-full">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-mouthguards.png" alt="Спортивные защитные индивидуальные капы" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-mouthguards-160.webp" srcset="assets/images/service-card-mouthguards-160.webp 160w, assets/images/service-card-mouthguards-320.webp 320w" sizes="72px" alt="Спортивные защитные индивидуальные капы" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-indigo2">19</span>
@@ -900,7 +908,7 @@ img[data-lightbox-image] {
         <a href="endolifting.html" class="card-hover relative block bg-gradient-to-br from-pink2 to-violet2 text-white rounded-xl p-5 h-full overflow-hidden">
           <div class="flex items-start gap-4">
             <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
-              <img src="assets/images/service-card-endolifting.png" alt="Эндолифтинг лица, удаление комков Биша" class="w-full h-full object-cover">
+              <img src="assets/images/service-card-endolifting-160.webp" srcset="assets/images/service-card-endolifting-160.webp 160w, assets/images/service-card-endolifting-320.webp 320w" sizes="72px" alt="Эндолифтинг лица, удаление комков Биша" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async" fetchpriority="low">
             </span>
             <span class="min-w-0 flex-1">
               <span class="text-[12px] font-mono text-white/80">20</span>
@@ -930,7 +938,7 @@ img[data-lightbox-image] {
     <div class="grid md:grid-cols-2 gap-6">
       <article class="card-hover rounded-3xl bg-cream p-5 sm:p-7 border border-ink/5 flex flex-col sm:flex-row gap-5 sm:gap-6">
         <div class="w-full h-48 sm:w-40 sm:h-48 rounded-2xl bg-gradient-to-br from-indigo2 via-violet2 to-pink2 shrink-0 relative overflow-hidden">
-          <img src="assets/images/doctor-trofimov-02.jpg" alt="Трофимов Евгений Иванович" class="w-full h-full object-cover">
+          <img src="assets/images/doctor-trofimov-02.jpg" alt="Трофимов Евгений Иванович" class="w-full h-full object-cover" width="160" height="192" loading="lazy" decoding="async">
         </div>
         <div>
           <div class="text-[12px] text-indigo2 uppercase tracking-wider font-semibold">Ведущий сотрудник</div>
@@ -944,7 +952,7 @@ img[data-lightbox-image] {
 
       <article class="card-hover rounded-3xl bg-cream p-5 sm:p-7 border border-ink/5 flex flex-col sm:flex-row gap-5 sm:gap-6">
         <div class="w-full h-48 sm:w-40 sm:h-48 rounded-2xl bg-gradient-to-br from-pink2 via-violet2 to-indigo2 shrink-0 relative overflow-hidden">
-          <img src="assets/images/doctor-kravchenko-02.jpg" alt="Кравченко Дмитрий Валерьевич" class="w-full h-full object-cover">
+          <img src="assets/images/doctor-kravchenko-02.jpg" alt="Кравченко Дмитрий Валерьевич" class="w-full h-full object-cover" width="160" height="192" loading="lazy" decoding="async">
         </div>
         <div>
           <div class="text-[12px] text-pink2 uppercase tracking-wider font-semibold">Челюстно-лицевой хирург</div>
@@ -973,7 +981,7 @@ img[data-lightbox-image] {
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <div class="rounded-2xl bg-white border border-ink/5 p-6 card-hover">
         <div class="w-full aspect-[4/3] rounded-2xl bg-cream overflow-hidden mb-5">
-          <img src="assets/images/home-trust-01.jpg" alt="Авторитетность" class="w-full h-full object-cover">
+          <img src="assets/images/home-trust-01.jpg" alt="Авторитетность" class="w-full h-full object-cover" width="640" height="480" loading="lazy" decoding="async">
         </div>
         <div class="font-display text-5xl font-bold gradient-text">01</div>
         <h3 class="font-bold text-[15px] mt-5 uppercase tracking-wider">Авторитетность</h3>
@@ -981,7 +989,7 @@ img[data-lightbox-image] {
       </div>
 <div class="rounded-2xl bg-white border border-ink/5 p-6 card-hover">
         <div class="w-full aspect-[4/3] rounded-2xl bg-cream overflow-hidden mb-5">
-          <img src="assets/images/home-trust-02.jpg" alt="Опыт" class="w-full h-full object-cover">
+          <img src="assets/images/home-trust-02.jpg" alt="Опыт" class="w-full h-full object-cover" width="640" height="480" loading="lazy" decoding="async">
         </div>
         <div class="font-display text-5xl font-bold gradient-text">02</div>
         <h3 class="font-bold text-[15px] mt-5 uppercase tracking-wider">Опыт</h3>
@@ -989,7 +997,7 @@ img[data-lightbox-image] {
       </div>
 <div class="rounded-2xl bg-white border border-ink/5 p-6 card-hover">
         <div class="w-full aspect-[4/3] rounded-2xl bg-cream overflow-hidden mb-5">
-          <img src="assets/images/home-trust-03.jpg" alt="Многопрофильность" class="w-full h-full object-cover">
+          <img src="assets/images/home-trust-03.jpg" alt="Многопрофильность" class="w-full h-full object-cover" width="640" height="480" loading="lazy" decoding="async">
         </div>
         <div class="font-display text-5xl font-bold gradient-text">03</div>
         <h3 class="font-bold text-[15px] mt-5 uppercase tracking-wider">Многопрофильность</h3>
@@ -997,7 +1005,7 @@ img[data-lightbox-image] {
       </div>
 <div class="rounded-2xl bg-white border border-ink/5 p-6 card-hover">
         <div class="w-full aspect-[4/3] rounded-2xl bg-cream overflow-hidden mb-5">
-          <img src="assets/images/home-trust-04.jpg" alt="База" class="w-full h-full object-cover">
+          <img src="assets/images/home-trust-04.jpg" alt="База" class="w-full h-full object-cover" width="640" height="480" loading="lazy" decoding="async">
         </div>
         <div class="font-display text-5xl font-bold gradient-text">04</div>
         <h3 class="font-bold text-[15px] mt-5 uppercase tracking-wider">База</h3>
