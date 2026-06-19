@@ -74,9 +74,9 @@ This session continued on the `service-pages-v2` preview branch. Production `mai
 ## Closing Commit
 
 - Work commit message: `improve seo and pagespeed assets`
-- Work commit: created locally before push; final hash is recorded in the session close message.
+- Work commit: `e897780 improve seo and pagespeed assets`
 - Push target: `origin/service-pages-v2`
-- Push status: pending at handoff write time.
+- Push status: succeeded, `b93ca9c..e897780 service-pages-v2 -> service-pages-v2`.
 
 ## Notes For Next Session
 
