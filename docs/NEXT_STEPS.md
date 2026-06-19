@@ -15,7 +15,7 @@
 
 2. Continue visual QA on the preview deployment after the completed SEO/PageSpeed rollout.
    - Check `http://service-pages-v2--cmf-surgery.netlify.app/`.
-   - Latest local closing pass: SEO preservation and homepage PageSpeed image/font optimization; see `docs/handoffs/handoff_013.md`.
+   - Latest local closing pass: static Tailwind CSS migration and local visual smoke; see `docs/handoffs/handoff_014.md`.
    - Latest pushed work before this session: `b93ca9c docs: record semantic assets handoff`.
    - Current 2026-06-19 closing pass includes:
      - production-domain canonical, Open Graph, Twitter card, JSON-LD, and sitemap normalization for `https://cmf-surgery.ru`;
@@ -24,8 +24,13 @@
      - homepage service-card WebP thumbnails with `srcset` / `sizes`;
      - lazy/async image loading for below-fold homepage, gallery, YouTube, and dropdown images;
      - homepage hero preload;
-     - async Google Fonts loading;
-     - Tailwind CDN remains intentionally deferred to the next session.
+     - async Google Fonts loading.
+   - Current 2026-06-19 follow-up closing pass includes:
+     - removed `https://cdn.tailwindcss.com` and inline `tailwind.config` from generated root and `site-dist` HTML;
+     - added local generated Tailwind output at `assets/css/site.css` and `site-dist/assets/css/site.css`;
+     - added `tailwind.config.js` and `assets/css/site.tailwind.css` for local CSS regeneration;
+     - updated `build-site.js` to replace the CDN/config block with the local stylesheet and copy CSS into `site-dist`;
+     - verified homepage, priority service pages, `anons`, `privacy`, `contacts`, forms, mobile menu, and lightbox locally.
    - Latest semantic assets and policy work: `54c2cd1 add semantic assets and policy pages`; see `docs/handoffs/handoff_012.md`.
    - Current 2026-06-18 follow-up closing pass includes:
      - semantic image asset renaming through `build-site.js`;
@@ -116,11 +121,19 @@
 
 ## Performance / CSS
 
-1. Next session priority: remove `https://cdn.tailwindcss.com`.
-   - Preferred direction: generate and commit a static CSS file while preserving the current visual design.
-   - Verify homepage, mobile menu, service pages, `anons`, `privacy`, `contacts`, and form/lightbox behavior after the CSS change.
-   - Keep Netlify build command empty; if a CSS build step is needed, run it locally and commit the generated output.
-2. After removing Tailwind CDN, rerun PageSpeed on the preview and compare:
+1. Tailwind CDN removal is implemented locally.
+   - Generated HTML now links `assets/css/site.css`.
+   - Root and `site-dist` both have `tailwindCdn=0` and `tailwindConfig=0`.
+   - CSS source/build files:
+     - `tailwind.config.js`
+     - `assets/css/site.tailwind.css`
+     - `assets/css/site.css`
+     - `site-dist/assets/css/site.css`
+   - Local rebuild remains `node build-site.js`; Netlify build command must stay empty because `site-dist` is prebuilt.
+   - To regenerate CSS after future class changes, run locally:
+     `npx.cmd -y tailwindcss@3.4.17 -c tailwind.config.js -i assets/css/site.tailwind.css -o assets/css/site.css --minify`
+     then `node build-site.js`.
+2. After pushing the Tailwind CDN removal to preview, rerun PageSpeed and compare:
    - mobile FCP/LCP;
    - desktop render-blocking requests;
    - visual parity.

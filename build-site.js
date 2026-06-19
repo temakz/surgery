@@ -16,6 +16,8 @@ const sourceHomeHeroImage = path.join(root, "assets", "images", homeHeroAssetNam
 const contactsClinicAssetName = "contacts-clinic.webp";
 const sourceContactsClinicImage = path.join(root, "assets", "images", contactsClinicAssetName);
 const sourcePrivacyPolicyText = path.join(root, "privacy-policy.txt");
+const siteCssAssetName = "site.css";
+const sourceSiteCss = path.join(root, "assets", "css", siteCssAssetName);
 const scrapeRoot = path.resolve(root, "..", "parse", "scrape-output");
 const pagesRoot = path.join(scrapeRoot, "pages");
 const rawRoot = path.join(pagesRoot, "raw-html");
@@ -2491,6 +2493,15 @@ function optimizeGoogleFonts(html) {
   return html.replace(blockingFonts, asyncFonts);
 }
 
+function useStaticCss(html) {
+  return html
+    .replace(/\n?<script src="https:\/\/cdn\.tailwindcss\.com"><\/script>\s*<script>\s*tailwind\.config = \{[\s\S]*?\n\}\s*<\/script>/, "")
+    .replace(
+      /\n?<style>\s*html\{scroll-behavior:smooth\}[\s\S]*?\.ring-dot\{box-shadow:0 0 0 4px rgba\(94,227,193,\.25\)\}\s*<\/style>/,
+      `\n<link rel="stylesheet" href="assets/css/${siteCssAssetName}">`
+    );
+}
+
 function ensureSeoCompleteness(html) {
   const title = headContent(html, /<title>([\s\S]*?)<\/title>/i) || "Center of Surgery";
   const description = headContent(html, /<meta name="description" content="([^"]*)"/i);
@@ -2526,7 +2537,7 @@ function ensureSeoCompleteness(html) {
 
 function applyGlobalEnhancements(html) {
   const lightbox = lightboxAssets();
-  return optimizeGoogleFonts(ensureSeoCompleteness(html))
+  return useStaticCss(optimizeGoogleFonts(ensureSeoCompleteness(html)))
     .replace(/<title>([\s\S]*?)<\/title>/, (_, title) => `<title>${title.replaceAll("—", "–")}</title>`)
     .replace("</head>", `<link rel="icon" type="image/png" href="favicon.png">\n<link rel="apple-touch-icon" href="logo.png">\n${lightbox.style}\n</head>`)
     .replace(
@@ -2759,6 +2770,14 @@ function copySemanticImageAssets(outRoot, manifest) {
     if (path.resolve(source) !== path.resolve(dest)) {
       fs.copyFileSync(source, dest);
     }
+  }
+}
+
+function copySiteCssAsset(outRoot) {
+  const dest = path.join(outRoot, "assets", "css", siteCssAssetName);
+  fs.mkdirSync(path.dirname(dest), { recursive: true });
+  if (fs.existsSync(sourceSiteCss) && path.resolve(sourceSiteCss) !== path.resolve(dest)) {
+    fs.copyFileSync(sourceSiteCss, dest);
   }
 }
 
@@ -4896,6 +4915,7 @@ function build() {
     fs.mkdirSync(outRoot, { recursive: true });
     fs.cpSync(path.join(originalRoot, "uploads"), path.join(outRoot, "uploads"), { recursive: true });
     copySemanticImageAssets(outRoot, imageManifest);
+    copySiteCssAsset(outRoot);
     if (fs.existsSync(sourceLogo)) {
       fs.copyFileSync(sourceLogo, path.join(outRoot, "logo.png"));
     }

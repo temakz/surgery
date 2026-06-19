@@ -14,51 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        ink: '#0E0B1F',
-        cream: '#FAF7F2',
-        indigo2: '#4338CA',
-        violet2: '#7C3AED',
-        pink2: '#EC4899',
-        pinklight: '#F9A8D4',
-        mint: '#5EE3C1',
-      },
-      fontFamily: {
-        sans: ['Manrope','system-ui','sans-serif'],
-        display: ['"Playfair Display"','Georgia','serif'],
-      }
-    }
-  }
-}
-</script>
-<style>
-  html{scroll-behavior:smooth}
-  body{font-family:'Manrope',sans-serif;background:#FAF7F2;color:#0E0B1F}
-  .font-display{font-family:'Playfair Display',Georgia,serif}
-  .gradient-text{background:linear-gradient(95deg,#4338CA 0%,#7C3AED 45%,#EC4899 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-  .gradient-bg{background:linear-gradient(135deg,#4338CA 0%,#7C3AED 50%,#EC4899 100%)}
-  .btn-primary{background:linear-gradient(95deg,#4338CA 0%,#7C3AED 50%,#EC4899 100%);color:#fff;box-shadow:0 14px 30px -12px rgba(67,56,202,.45)}
-  .btn-primary:hover{filter:brightness(1.08)}
-  .card-hover{transition:transform .25s ease,box-shadow .25s ease}
-  .card-hover:hover{transform:translateY(-3px);box-shadow:0 20px 40px -20px rgba(67,56,202,.18)}
-  .arrow-cta:hover .arrow{transform:translateX(5px)}
-  .arrow{transition:transform .25s ease}
-  .grain{background-image:radial-gradient(rgba(14,11,31,.05) 1px,transparent 1px);background-size:3px 3px}
-  ::selection{background:#EC4899;color:#fff}
-  .nav-item .dropdown{opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .2s ease,transform .2s ease,visibility .2s}
-  .nav-item:hover .dropdown,.nav-item:focus-within .dropdown{opacity:1;visibility:visible;transform:translateY(0)}
-  .nav-item button svg{transition:transform .2s ease}
-  .nav-item:hover button svg{transform:rotate(180deg)}
-
-  .step-line::before{content:"";position:absolute;left:1.25rem;top:3.5rem;bottom:-0.5rem;width:2px;background:linear-gradient(to bottom,#4338CA,#EC4899);opacity:.2}
-  .step-line:last-child::before{display:none}
-  .ring-dot{box-shadow:0 0 0 4px rgba(94,227,193,.25)}
-</style>
+<link rel="stylesheet" href="assets/css/site.css">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cmf-surgery.ru/cleft">
 <meta property="og:image" content="https://static.tildacdn.com/tild3735-3934-4536-b637-643963323664/08-01.jpg">
