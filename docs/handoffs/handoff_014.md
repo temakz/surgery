@@ -6,7 +6,7 @@ Date: 2026-06-19
 
 This session continued on the `service-pages-v2` preview branch. Production `main` was not touched.
 
-This session is being closed with a commit and push to `origin/service-pages-v2` after local verification.
+This session was closed with a commit and push to `origin/service-pages-v2` after local verification.
 
 ## Current Branches
 
@@ -91,7 +91,33 @@ Confirmed:
 
 - The in-app browser blocks direct `file://` navigation, so localhost was used for browser smoke.
 - `.cursorindexingignore` and `.specstory/` remain untracked and must not be committed.
-- Netlify preview verification should be performed after the closing push finishes.
+- Netlify preview verification was performed after the closing push.
+
+## Closing Commit
+
+- Work commit message: `remove tailwind cdn`
+- Work commit: `e2629c2 remove tailwind cdn`
+- Push target: `origin/service-pages-v2`
+- Push status: succeeded, `0a1c19c..e2629c2 service-pages-v2 -> service-pages-v2`.
+
+## Preview Verification
+
+After pushing `e2629c2`, the preview was checked directly:
+
+```txt
+https://service-pages-v2--cmf-surgery.netlify.app/
+https://service-pages-v2--cmf-surgery.netlify.app/contacts.html
+https://service-pages-v2--cmf-surgery.netlify.app/assets/css/site.css
+```
+
+Confirmed:
+
+- homepage status `200`;
+- `contacts.html` status `200`;
+- `assets/css/site.css` status `200`, content type `text/css; charset=UTF-8`;
+- homepage and contacts HTML contain `assets/css/site.css`;
+- homepage and contacts HTML do not contain `cdn.tailwindcss.com`;
+- homepage and contacts HTML do not contain `tailwind.config`.
 
 ## Next Steps
 

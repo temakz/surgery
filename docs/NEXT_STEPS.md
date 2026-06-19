@@ -16,7 +16,7 @@
 2. Continue visual QA on the preview deployment after the completed SEO/PageSpeed rollout.
    - Check `http://service-pages-v2--cmf-surgery.netlify.app/`.
    - Latest local closing pass: static Tailwind CSS migration and local visual smoke; see `docs/handoffs/handoff_014.md`.
-   - Latest pushed work before this session: `b93ca9c docs: record semantic assets handoff`.
+   - Latest pushed work: `e2629c2 remove tailwind cdn`.
    - Current 2026-06-19 closing pass includes:
      - production-domain canonical, Open Graph, Twitter card, JSON-LD, and sitemap normalization for `https://cmf-surgery.ru`;
      - generated `404.html` and removed VMP/free-treatment redirects to 404;
@@ -133,7 +133,12 @@
    - To regenerate CSS after future class changes, run locally:
      `npx.cmd -y tailwindcss@3.4.17 -c tailwind.config.js -i assets/css/site.tailwind.css -o assets/css/site.css --minify`
      then `node build-site.js`.
-2. After pushing the Tailwind CDN removal to preview, rerun PageSpeed and compare:
+2. Tailwind CDN removal preview smoke passed after push.
+   - `https://service-pages-v2--cmf-surgery.netlify.app/` returned `200`.
+   - `https://service-pages-v2--cmf-surgery.netlify.app/contacts.html` returned `200`.
+   - `https://service-pages-v2--cmf-surgery.netlify.app/assets/css/site.css` returned `200` with `text/css`.
+   - Preview homepage and contacts markers: `assets/css/site.css` present, `cdn.tailwindcss.com=0`, `tailwind.config=0`.
+3. Rerun PageSpeed on the preview and compare:
    - mobile FCP/LCP;
    - desktop render-blocking requests;
    - visual parity.
