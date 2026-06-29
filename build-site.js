@@ -2546,7 +2546,7 @@ function applyGlobalEnhancements(html) {
     )
     .replace(
       /<a href="https:\/\/www\.instagram\.com\/dmitriikravchenko992" class="hover:text-pinklight">Instagram<\/a>/g,
-      `<a href="https://web.max.ru/" class="inline-flex items-center gap-1.5 hover:text-pinklight" aria-label="MAX: +7 926 332-93-69" title="MAX: +7 926 332-93-69">${socialIcon("max")}<span>MAX</span></a>`
+      `<a href="tel:+79263329369" class="inline-flex items-center gap-1.5 hover:text-pinklight" aria-label="MAX: +7 926 332-93-69" title="MAX: +7 926 332-93-69">${socialIcon("max")}<span>MAX</span></a>`
     )
     .replace(
       /<a href="mailto:surgery79@mail\.ru" class="hidden md:inline hover:text-pinklight">surgery79@mail\.ru<\/a>/g,
@@ -2561,18 +2561,18 @@ function applyGlobalEnhancements(html) {
     .replaceAll("143009, г. Одинцово, Северная ул. 14А", "г. Одинцово, Московской обл., Красногорское ш., д. 17")
     .replace(
       /<a href="https:\/\/www\.instagram\.com\/dmitriikravchenko992" class="w-10 h-10 rounded-full bg-white\/5 border border-white\/10 flex items-center justify-center hover:bg-pink2 transition" aria-label="Instagram">[\s\S]*?<\/a>/g,
-      `<a href="https://web.max.ru/" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-pink2 transition" aria-label="MAX: +7 926 332-93-69" title="MAX: +7 926 332-93-69">${socialIcon("max")}</a>`
+      `<a href="tel:+79263329369" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-pink2 transition" aria-label="MAX: +7 926 332-93-69" title="MAX: +7 926 332-93-69">${socialIcon("max")}</a>`
     )
     .replaceAll("Бесплатная консультация · ежедневно 9:00–21:00", "Бесплатная консультация")
     .replaceAll("Центр реконструктивной. Москва, Одинцово.", "Центр реконструктивной хирургии. Москва, Одинцово.")
     .replace(/<a href="#" class="hover:text-white">Политика конфиденциальности<\/a>/g, `<a href="privacy.html" class="hover:text-white">Политика конфиденциальности</a>`)
     .replace(
-      /(<div class="flex items-center gap-3 mt-5">\s*)(<a href="https:\/\/wa\.me\/79263329369" class="w-10 h-10 rounded-full bg-white\/5 border border-white\/10 flex items-center justify-center hover:bg-mint hover:text-ink transition" aria-label="WhatsApp">[\s\S]*?<\/a>)\s*(<a href="https:\/\/web\.max\.ru\/" class="w-10 h-10 rounded-full bg-white\/5 border border-white\/10 flex items-center justify-center hover:bg-pink2 transition" aria-label="MAX: \+7 926 332-93-69" title="MAX: \+7 926 332-93-69">[\s\S]*?<\/a>)/g,
+      /(<div class="flex items-center gap-3 mt-5">\s*)(<a href="https:\/\/wa\.me\/79263329369" class="w-10 h-10 rounded-full bg-white\/5 border border-white\/10 flex items-center justify-center hover:bg-mint hover:text-ink transition" aria-label="WhatsApp">[\s\S]*?<\/a>)\s*(<a href="tel:\+79263329369" class="w-10 h-10 rounded-full bg-white\/5 border border-white\/10 flex items-center justify-center hover:bg-pink2 transition" aria-label="MAX: \+7 926 332-93-69" title="MAX: \+7 926 332-93-69">[\s\S]*?<\/a>)/g,
       `$1$3\n          $2`
     )
     .replace(
       /(<div class="mt-8 flex gap-2">\s*)(<a href="https:\/\/wa\.me\/79263329369" class="px-4 py-2\.5 rounded-full bg-mint text-ink font-semibold text-\[13px\] hover:brightness-95">WhatsApp<\/a>)/g,
-      `$1<a href="https://web.max.ru/" class="px-4 py-2.5 rounded-full bg-gradient-to-r from-sky-400 via-cyan-400 to-teal-300 text-white font-semibold text-[13px] shadow-sm shadow-cyan-400/25 ring-1 ring-white/20 hover:brightness-110 transition">МАКС</a>\n        $2`
+      `$1<a href="tel:+79263329369" class="px-4 py-2.5 rounded-full bg-gradient-to-r from-sky-400 via-cyan-400 to-teal-300 text-white font-semibold text-[13px] shadow-sm shadow-cyan-400/25 ring-1 ring-white/20 hover:brightness-110 transition">МАКС</a>\n        $2`
     )
     .replace(
       /(<div class="text-\[11px\] text-ink\/40 font-mono">)21 услуга(<\/div>)/g,
@@ -3957,7 +3957,7 @@ function renderOnlineHelpPage() {
   const contactItems = [
     {
       label: "в MAX:",
-      href: "https://web.max.ru/",
+      href: "tel:+79263329369",
       value: "+7 926 332 93 69",
       icon: "max",
     },
@@ -4266,7 +4266,7 @@ function renderContactsPage() {
   const head = updateSeo(parts.head, page);
   const contactsAddress = "г. Одинцово, Московской обл., Красногорское ш., д. 17 (Территория Клинической Больницы №123)";
   const contactsAddressQuery = encodeURIComponent(contactsAddress);
-  const secondaryReceptionAddress = "УКБ №4 (Университетская клиническая больница №4) многопрофильная клиника Первого МГМУ им. И.М. Сеченова\nг. Москва, ул. Доватора, 15, метро Спортивная";
+  const secondaryReceptionAddress = "1МГМУ им. И. М. Сеченова, метро «Спортивная», улица Доватора, 15, стр. 1";
   const secondaryReceptionQuery = encodeURIComponent(secondaryReceptionAddress);
   const mapSrc = `https://yandex.ru/map-widget/v1/?mode=search&text=${contactsAddressQuery}&z=16`;
   const contactRows = [
