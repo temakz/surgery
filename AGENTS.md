@@ -6,7 +6,7 @@ Static website rebuild for `cmf-surgery.ru` in `C:\Code6\dima2`.
 
 Stack:
 - HTML5
-- Tailwind CSS via CDN/runtime classes in static HTML
+- Tailwind CSS via local generated static CSS
 - Vanilla JS
 - Static output prepared for Netlify Drop
 
@@ -20,13 +20,15 @@ Generated outputs:
 Live deployment:
 - `https://cmf-surgery.netlify.app/`
 - Netlify publishes the prebuilt `site-dist` folder.
-- Netlify build command must be empty or `echo "No build"`.
+- Netlify build command must stay empty. Use `echo "No build"` only if Netlify UI refuses an empty command and the user approves that fallback.
 
-Current preview deployment:
-- Branch: `service-pages-v2`
-- Preview URL: `http://service-pages-v2--cmf-surgery.netlify.app/`
-- Use this preview for the current service-page v2 review cycle.
-- Do not merge or push these changes to production `main` until the user approves.
+Current deployment state:
+- Production branch: `main`
+- Final service-page v2 branch: `service-pages-v2`
+- Both `main` and `service-pages-v2` are synced at `e517528 add import and commercial offer pages`.
+- Production URL: `https://cmf-surgery.netlify.app/`
+- Preview URL, retained for comparison: `http://service-pages-v2--cmf-surgery.netlify.app/`
+- The service-page v2 review cycle was approved and fast-forward merged into production `main` on 2026-07-14.
 
 Source data:
 - Task/reference file: `C:\Code6\parse\TZ-build-static-cmf-surgery.md`
@@ -88,22 +90,24 @@ At the end of a working session:
 4. Commit with a clear message.
 5. Push to GitHub.
 6. Confirm Netlify deployed the relevant branch:
-   - `service-pages-v2` preview during the current review cycle;
-   - `main` production only after explicit approval.
+   - `main` production after explicit approval;
+   - `service-pages-v2` only if a future preview cycle explicitly reuses that branch.
 
 Repository: `https://github.com/temakz/surgery.git`
 Branch: `main`
 First push completed by the user on 2026-05-23.
 
-Current review branch: `service-pages-v2`.
-Continue service-page v2 work on this branch and push to `origin/service-pages-v2`.
-Merge into `main` only after the user approves the preview.
+Current production branch: `main`.
+The `service-pages-v2` review branch is closed and currently matches `main` at `e517528`.
+For new work, confirm the target branch with the user before changing or pushing.
 
 Latest documented service-page v2 state:
 - 2026-06-10: `6a87d7c remove quota page and polish service content`
 - 2026-06-11: `354f71b polish specialist pages and service details`; see `docs/handoffs/handoff_010.md`.
 - 2026-06-18: `0125baa polish secondary pages and contact flow`; see `docs/handoffs/handoff_011.md`.
 - 2026-06-18: `54c2cd1 add semantic assets and policy pages`; see `docs/handoffs/handoff_012.md`.
+- 2026-06-19: `e2629c2 remove tailwind cdn`; see `docs/handoffs/handoff_014.md`.
+- 2026-07-14: `e517528 add import and commercial offer pages`; fast-forward merged to `main`; see `docs/handoffs/handoff_015.md`.
 
 Netlify production URL: `https://cmf-surgery.netlify.app/`
 Netlify preview URL for service-page v2: `http://service-pages-v2--cmf-surgery.netlify.app/`

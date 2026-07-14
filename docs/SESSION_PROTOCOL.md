@@ -16,9 +16,13 @@
    - generator: `build-site.js`;
    - output: root HTML and `site-dist`;
    - source content: parser output in `C:\Code6\parse\scrape-output`.
-6. For the current service-page v2 cycle, confirm the branch is `service-pages-v2`.
-   - Preview URL: `http://service-pages-v2--cmf-surgery.netlify.app/`
-   - Production `main` should remain unchanged until user approval.
+6. Confirm the branch and deployment target before editing.
+   - Production branch: `main`
+   - Closed service-page v2 branch: `service-pages-v2`
+   - As of 2026-07-14, both branches are synced at `e517528`.
+   - Preview URL retained for comparison: `http://service-pages-v2--cmf-surgery.netlify.app/`
+   - Production URL: `https://cmf-surgery.netlify.app/`
+   - For new work, ask whether to use `main` or a new preview branch.
 
 ## Working Ritual
 
@@ -48,13 +52,14 @@
    - and so on.
 
 4. Update `docs/NEXT_STEPS.md`.
-5. Commit and push to GitHub.
-   - For in-review service-page v2 work, push `service-pages-v2`.
-   - Push/merge `main` only after user approval.
+5. Commit and push to GitHub only when the user asks.
+   - Production work pushes to `main` after explicit approval.
+   - Preview work should use a named preview branch agreed with the user.
+   - The old `service-pages-v2` branch is already merged into `main`.
 6. Confirm the relevant Netlify deployment.
    - Production URL: `https://cmf-surgery.netlify.app/`
    - Service-page v2 preview URL: `http://service-pages-v2--cmf-surgery.netlify.app/`
-   - Netlify build command must be empty or `echo "No build"`.
+   - Netlify build command must stay empty; use `echo "No build"` only as an approved fallback if Netlify UI refuses an empty command.
    - Publish directory must be `site-dist`.
 7. In the final message, state:
    - what changed;

@@ -2,21 +2,33 @@
 
 ## Highest Priority
 
-1. Current preview branch workflow.
+1. Current production state after service-page v2 approval.
    - GitHub is connected: `https://github.com/temakz/surgery.git`
    - Production branch: `main`
-   - Service-page v2 preview branch: `service-pages-v2`
-   - Service-page v2 preview URL: `http://service-pages-v2--cmf-surgery.netlify.app/`
-   - Do not push this work directly to `main` until the local preview is approved.
-   - After approval, merge `service-pages-v2` into `main`.
+   - Service-page v2 branch: `service-pages-v2`
+   - Current production commit: `e517528 add import and commercial offer pages`
+   - Current preview branch commit: `e517528 add import and commercial offer pages`
+   - `service-pages-v2` was approved and fast-forward merged into `main` on 2026-07-14.
+   - Production URL: `https://cmf-surgery.netlify.app/`
+   - Preview URL, retained for comparison: `http://service-pages-v2--cmf-surgery.netlify.app/`
    - First push completed by the user on 2026-05-23.
    - Netlify is connected: `https://cmf-surgery.netlify.app/`
    - Netlify publishes prebuilt `site-dist` with empty build command.
+   - Do not run `node build-site.js` in Netlify UI.
 
-2. Continue visual QA on the preview deployment after the completed SEO/PageSpeed rollout.
-   - Check `http://service-pages-v2--cmf-surgery.netlify.app/`.
-   - Latest local closing pass: static Tailwind CSS migration and local visual smoke; see `docs/handoffs/handoff_014.md`.
-   - Latest pushed work: `e2629c2 remove tailwind cdn`.
+2. Continue production QA after the completed merge.
+   - Check `https://cmf-surgery.netlify.app/`.
+   - Latest closing pass: service-page v2 production merge; see `docs/handoffs/handoff_015.md`.
+   - Latest pushed work on both `main` and `service-pages-v2`: `e517528 add import and commercial offer pages`.
+   - Production HTTP checks passed on 2026-07-14:
+     - `/` returned `200`;
+     - `/contacts.html` returned `200`;
+     - `/importozameshchenie.html` returned `200`;
+     - `/commercial_offer.html` returned `200`;
+     - `/assets/css/site.css` returned `200` with `text/css`.
+   - Production marker checks passed for the MAX contact card/link, Sechenov/Dovatora address, import replacement page, and commercial offer page.
+   - Latest local Tailwind CSS migration and local visual smoke: see `docs/handoffs/handoff_014.md`.
+   - Tailwind CDN removal commit: `e2629c2 remove tailwind cdn`.
    - Current 2026-06-19 closing pass includes:
      - production-domain canonical, Open Graph, Twitter card, JSON-LD, and sitemap normalization for `https://cmf-surgery.ru`;
      - generated `404.html` and removed VMP/free-treatment redirects to 404;
@@ -59,14 +71,20 @@
    - Priority QA pages: homepage, `anons`, `privacy`, `contacts`, `reviews`, `onlinehelp`, `analyzes`, `oral_hygiene`, `newtech_imp`, `newtech_ekzo`, `newtech_tmj`, plus previous priority pages `mouthguards`, `exo`, `nose_surgery`, `trofimov`, `kravchenko`, header doctor dropdown photos, mobile menu numbering, lightbox, and selective sensitive-photo reveal banners.
    - `tmj_treatment` preview was confirmed updated after push: status `200`, compact YouTube thumbnail cards present, restored TMJ text present.
 
-3. Approve or continue service-page review.
+3. Service-page review is closed.
    - The approved `nose_surgery` sample polish has now been generalized through `build-site.js`.
-   - Root HTML and `site-dist` were rebuilt and pushed to `origin/service-pages-v2`.
-   - Do not merge to `main` until the user explicitly approves the preview.
-   - Persistent rule for the rest of the review: customize upcoming service pages by reusing the already approved `nose_surgery`, `tmj_treatment`, `implantology`, and `microsurgical` patterns first. Add only small new details when those patterns do not fit.
+   - Root HTML and `site-dist` were rebuilt and pushed.
+   - `service-pages-v2` was merged into `main` after explicit user approval.
+   - `main` and `service-pages-v2` currently point to the same commit, `e517528`.
+   - Persistent rule for future service-page work: customize upcoming service pages by reusing the already approved `nose_surgery`, `tmj_treatment`, `implantology`, and `microsurgical` patterns first. Add only small new details when those patterns do not fit.
    - Preserve the compact `sensitive-media` reveal banner for selected clinical/operative gallery images. It is controlled by curated image filename patterns in `build-site.js`; avoid hiding entire pages or broad image ranges unless the user explicitly asks.
+   - For future changes, confirm whether to work directly on `main` or create a new preview branch.
 
 4. Next design/content scope after service-page approval.
+   - New pages added in the closing production merge:
+     - `importozameshchenie.html`
+     - `commercial_offer.html`
+   - Both are linked from homepage/service navigation and included in generated root output and `site-dist`.
    - Specialists `trofimov` and `kravchenko` now have dedicated biography/resume layouts.
    - Technologies, recommendations, reviews, online consultation, and contacts now have dedicated layout/design passes.
    - Doctors index-like sections may still need separate layout/design passes.
@@ -82,6 +100,7 @@
    - `scars`, `cleft`, `tmj_dysfunction`, `tmj`, `orthognathic_surgery`, `ilizarov_method`, `plastic_surgeries`, `alveolar`, `face_surgery`, `restoration`, `surgical_dentistry`, `bite_restoration`, and `endolifting` received page-specific content/layout passes during the 2026-06-10 work; verify final wording and sensitive-image selection visually on preview.
    - `mouthguards`, `exo`, and `nose_surgery` received additional user-directed content/layout passes during the 2026-06-11 work; verify final wording against the original/user screenshots where exact text matters.
    - Specialist pages `trofimov` and `kravchenko` now use original source text from `cmf-surgery.ru` and should be visually checked as biography/resume pages, not service pages.
+   - Follow-up still open from the contacts request: the user mentioned legal-entity details from "screenshot 2", but only one screenshot was available in the thread. Add the full legal-entity info to `contacts` if the missing screenshot/details are provided.
 
 ## Content And Design
 
@@ -101,9 +120,12 @@
 1. Confirm Netlify Drop package is `C:\Code6\dima2\site-dist`.
 2. Check `_redirects` routes.
 3. Check `robots.txt` and `sitemap.xml`.
-4. For the current service-page v2 work, push to `service-pages-v2` first.
-5. Push or merge to `main` only after review approval.
+4. The service-page v2 approval merge is complete: `main` and `service-pages-v2` are both at `e517528`.
+5. For future work, confirm the target branch before editing:
+   - use `main` for approved production fixes;
+   - use a new preview branch for larger review cycles.
 6. Confirm Netlify deploy succeeds after any push/merge that affects production.
+7. Netlify production HTTP checks passed after the 2026-07-14 merge; see `docs/handoffs/handoff_015.md`.
 
 ## SEO / Images
 
@@ -138,7 +160,7 @@
    - `https://service-pages-v2--cmf-surgery.netlify.app/contacts.html` returned `200`.
    - `https://service-pages-v2--cmf-surgery.netlify.app/assets/css/site.css` returned `200` with `text/css`.
    - Preview homepage and contacts markers: `assets/css/site.css` present, `cdn.tailwindcss.com=0`, `tailwind.config=0`.
-3. Rerun PageSpeed on the preview and compare:
+3. Rerun PageSpeed on production and compare:
    - mobile FCP/LCP;
    - desktop render-blocking requests;
    - visual parity.
