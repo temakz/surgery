@@ -3,6 +3,8 @@ const path = require("path");
 
 const root = __dirname;
 const productionBaseUrl = "https://cmf-surgery.ru";
+const maxContactUrl = "https://max.ru/u/f9LHodD0cOJh51SP1UkJxUNPyeqQGm0ykygUntpKXWPLpfQ8boe1CqoUHuA";
+const secondaryReceptionAddress = "1МГМУ им. И. М. Сеченова, метро «Спортивная», улица Доватора, 15, стр. 1";
 const originalRoot = path.join(root, "original");
 const sourceLogo = path.resolve(root, "..", "logo.png");
 const sourceSiteFavicon = path.join(root, "site-favicon.png");
@@ -16,6 +18,30 @@ const sourceHomeHeroImage = path.join(root, "assets", "images", homeHeroAssetNam
 const contactsClinicAssetName = "contacts-clinic.webp";
 const sourceContactsClinicImage = path.join(root, "assets", "images", contactsClinicAssetName);
 const sourcePrivacyPolicyText = path.join(root, "privacy-policy.txt");
+const sourceImportImagesDir = path.join(root, "uploads", "01");
+const importImageAssetNames = ["import.webp", "import_01.webp", "import_03.webp", "import_04.webp", "import_05.webp"];
+const sourceCommercialOfferText = path.join(root, "commercial-offer.txt");
+const sourceCommercialImagesDir = path.join(root, "uploads", "02");
+const commercialImageAssetNames = [
+  "comm_00.webp",
+  "comm_01.webp",
+  "comm_02.webp",
+  "comm_03.webp",
+  "comm_04.webp",
+  "comm_05.webp",
+  "comm_06.webp",
+  "comm_07.webp",
+  "comm_08.webp",
+  "comm_09.webp",
+  "comm_10.webp",
+  "comm_11.webp",
+  "comm_12.webp",
+  "comm_13.webp",
+  "comm_14.webp",
+  "comm_15.webp",
+  "comm_16.webp",
+  "comm_17.webp",
+];
 const siteCssAssetName = "site.css";
 const sourceSiteCss = path.join(root, "assets", "css", siteCssAssetName);
 const scrapeRoot = path.resolve(root, "..", "parse", "scrape-output");
@@ -306,6 +332,88 @@ const secondary = [
 
 const recommendationSlugs = new Set(["analyzes", "oral_hygiene"]);
 const technologySlugs = new Set(["newtech_imp", "newtech_ekzo", "newtech_tmj"]);
+const commercialOfferTitle = "Коммерческое предложение";
+const commercialOfferImageMeta = [
+  { src: "comm_00.webp", width: 1448, height: 740, alt: "Коммерческое предложение Center of Surgery" },
+  { src: "comm_01.webp", width: 358, height: 141, alt: "Материалы коммерческого предложения Center of Surgery" },
+  { src: "comm_02.webp", width: 720, height: 1318, alt: "3D визуализация и моделирование мягких тканей" },
+  { src: "comm_03.webp", width: 550, height: 350, alt: "Пример визуализации мягких тканей" },
+  { src: "comm_04.webp", width: 713, height: 607, alt: "Картографирование мягкотканных структур" },
+  { src: "comm_05.webp", width: 720, height: 518, alt: "3D навигация мягких тканей лица" },
+  { src: "comm_06.webp", width: 555, height: 655, alt: "Проектирование мягких тканей лица" },
+  { src: "comm_07.webp", width: 1500, height: 768, alt: "3D формат исследования мягких тканей" },
+  { src: "comm_08.webp", width: 1667, height: 371, alt: "Пространственная визуализация мягких тканей" },
+  { src: "comm_09.webp", width: 2518, height: 1063, alt: "Картографирование анатомических структур" },
+  { src: "comm_10.webp", width: 2059, height: 1226, alt: "Контурное 3D планирование лица" },
+  { src: "comm_11.webp", width: 2287, height: 892, alt: "Объемное планирование мягких тканей" },
+  { src: "comm_12.webp", width: 2269, height: 866, alt: "Сопоставление 3D реформатов" },
+  { src: "comm_13.webp", width: 805, height: 1657, alt: "Сферы применения 3D технологий" },
+  { src: "comm_14.webp", width: 825, height: 808, alt: "Навигация и картографирование мягких тканей" },
+  { src: "comm_15.webp", width: 906, height: 351, alt: "Анализ мягких тканей лица" },
+  { src: "comm_16.webp", width: 1521, height: 874, alt: "3D визуализация в хирургии" },
+  { src: "comm_17.webp", width: 1529, height: 782, alt: "Материалы по коммерческому предложению" },
+];
+const importozameshchenieTitle = "Импортозамещение";
+const importozameshchenieLead = "Импортозамещение по всему спектру продукции компаний KLS Martin (Германия) и Zimmer Biomet (США): персонализированные хирургические изделия из медицинского полилактида, резорбируемые конструкции с разной степенью и скоростью резорбции.";
+const importozameshchenieIntro = "Персонализированное изготовление медицинских конструкций из резорбируемого материала медицинского полилактида.";
+const importProducts = [
+  {
+    title: "Пластины",
+    text: "Пластины любой формы, конфигурации и размеров.",
+  },
+  {
+    title: "Сетки",
+    text: "Сетки любой формы, конфигурации и толщины, с разными сроками деградации материала от 0,5 до 3,5 лет.",
+  },
+  {
+    title: "Фиксация",
+    text: "Фиксационные винты и фиксационные анкерные имплантаты.",
+  },
+  {
+    title: "Каркасы",
+    text: "Каркасы любой формы, размеров и толщины с разными сроками деградации материала от 0,5 года до 3,5 лет.",
+  },
+  {
+    title: "Мембраны",
+    text: "Мембраны любой проектируемой формы и размеров для направленной костной регенерации с разными сроками деградации материала от 0,5 года до 3,5 лет.",
+  },
+  {
+    title: "Ленты и нити",
+    text: "Резорбируемые системы лент и нитей с анкерными элементами для проведения лифтинга мягких тканей лица и шеи, армирования любых размеров, форм и сроков деградации материала от 3,5 до 7 лет.",
+  },
+];
+const importReconstructionItems = [
+  "Биокаркасы для технологии тканеорганогенеза костных и хрящевых структур с заранее заданными размерными и форменными характеристиками.",
+  "Для реконструкции и пересадки костей лицевого скелета, трубчатых костей конечностей и костных структур позвоночного столба.",
+  "Для хрящей носа и хрящей ушной раковины.",
+  "Технология витализации, реваскуляризации и формирования осевого и диффузного кровоснабжения для свободных и реваскуляризированных трансплантатов.",
+  "Возможно дополнительное армирование медицинским гидроксиапатитом и медицинским титаном.",
+];
+const importDesignItems = [
+  "Изготавливаемые с помощью персонализированного моделирования и проектирования по данным КТ, МРТ и лазерного сканирования лица, а также проектирования будущего результата операции.",
+  "По вашему желанию, видению медицинского специалиста, его чертежам и моделям.",
+];
+const importProtocolSteps = [
+  "По данным МСКТ/КТ пациента.",
+  "Проведение МСКТ/КТ пациента.",
+  "Копирование данных DICOM-файлов в папку, перевод в архив RAR и отправка данных на электронную почту компании.",
+  "Предварительное моделирование и проектирование изделия.",
+  "Расчет ориентировочной стоимости.",
+  "Изготовление пластикового, воскового или пластидного прототипа.",
+  "Утверждение модели, при необходимости печать модели тканей или части тела пациента, например черепа.",
+  "Изготовление изделия, отправка курьером или почтой, оплата оставшихся 50%.",
+];
+const importMaterialNotes = [
+  "Нити и сетки RADIES.",
+  "Также возможно проведение дополнительного армирования гидроксиапатитом медицинским и титаном медицинским.",
+  "Также есть возможность изготовления медицинских конструкций из PEEK медицинского полимера и медицинского титана.",
+];
+const importGalleryImages = [
+  { src: "import_01.webp", width: 1400, height: 1095, alt: "Персонализированное проектирование медицинской конструкции" },
+  { src: "import_03.webp", width: 600, height: 417, alt: "Модель резорбируемой хирургической конструкции" },
+  { src: "import_04.webp", width: 1000, height: 884, alt: "Прототипирование индивидуального медицинского изделия" },
+  { src: "import_05.webp", width: 600, height: 654, alt: "Полимерная медицинская конструкция для реконструкции" },
+];
 const anonsTitle = "!!! Анонс новых разработок !!!";
 const anonsLead = "Появилась технология полного лазерного сканированного прототипирования протезов по зеркальной копии с противоположной стороны.";
 const anonsHighlights = [
@@ -630,6 +738,8 @@ const technologyPageContent = {
 };
 
 const linkMap = new Map([
+  [commercialOfferTitle, "commercial_offer.html"],
+  [importozameshchenieTitle, "importozameshchenie.html"],
   [anonsTitle, "anons.html"],
   ...services.map(([slug, label]) => [label, pageHref(slug)]),
   ...secondary.map(([slug, label]) => [label, pageHref(slug)]),
@@ -2214,11 +2324,19 @@ function renderSitemap(files) {
 }
 
 function renderDesktopServiceMenuLinks() {
+  const commercialOfferLink = `            <a href="commercial_offer.html" class="flex items-start gap-3 px-3 py-2 rounded-lg bg-white hover:bg-cream group/i transition">
+              <span class="h-2 w-2 rounded-full bg-gradient-to-br from-pink2 to-indigo2 mt-1.5 shrink-0"></span>
+              <span class="text-[13px] font-bold text-ink group-hover/i:text-indigo2 leading-snug">${escapeHtml(commercialOfferTitle)}</span>
+            </a>`;
+  const importLink = `            <a href="importozameshchenie.html" class="flex items-start gap-3 px-3 py-2 rounded-lg bg-white hover:bg-cream group/i transition">
+              <span class="h-2 w-2 rounded-full bg-gradient-to-br from-indigo2 to-pink2 mt-1.5 shrink-0"></span>
+              <span class="text-[13px] font-bold text-ink group-hover/i:text-indigo2 leading-snug">${escapeHtml(importozameshchenieTitle)}</span>
+            </a>`;
   const anonsLink = `            <a href="anons.html" class="flex items-start gap-3 px-3 py-2 rounded-lg bg-gradient-to-r from-indigo2/10 via-violet2/10 to-pink2/10 hover:from-indigo2/15 hover:to-pink2/15 group/i transition">
               <span class="text-[11px] font-mono text-pink2 mt-0.5 w-5 shrink-0">NEW</span>
               <span class="text-[13px] font-bold text-indigo2 group-hover/i:text-pink2 leading-snug">${escapeHtml(anonsTitle)}</span>
             </a>`;
-  return [anonsLink, ...services
+  return [commercialOfferLink, importLink, anonsLink, ...services
     .map(
       ([slug, title], index) => `            <a href="${pageHref(slug)}" class="flex items-start gap-3 px-3 py-2 rounded-lg hover:bg-cream group/i transition">
               <span class="text-[11px] font-mono text-pink2/70 mt-0.5 w-5 shrink-0">${String(index + 1).padStart(2, "0")}</span>
@@ -2228,8 +2346,10 @@ function renderDesktopServiceMenuLinks() {
 }
 
 function renderMobileServiceMenuLinks() {
+  const commercialOfferLink = `          <a href="commercial_offer.html" class="flex gap-2 px-3 py-2 rounded-lg bg-white text-[13px] font-bold text-ink"><span class="mt-1.5 h-2 w-2 rounded-full bg-gradient-to-br from-pink2 to-indigo2 shrink-0"></span><span>${escapeHtml(commercialOfferTitle)}</span></a>`;
+  const importLink = `          <a href="importozameshchenie.html" class="flex gap-2 px-3 py-2 rounded-lg bg-white text-[13px] font-bold text-ink"><span class="mt-1.5 h-2 w-2 rounded-full bg-gradient-to-br from-indigo2 to-pink2 shrink-0"></span><span>${escapeHtml(importozameshchenieTitle)}</span></a>`;
   const anonsLink = `          <a href="anons.html" class="flex gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-indigo2/10 via-violet2/10 to-pink2/10 text-[13px] font-bold text-indigo2"><span class="text-pink2 font-mono w-8 shrink-0">NEW</span><span>${escapeHtml(anonsTitle)}</span></a>`;
-  return [anonsLink, ...services
+  return [commercialOfferLink, importLink, anonsLink, ...services
     .map(
       ([slug, title], index) =>
         `          <a href="${pageHref(slug)}" class="flex gap-2 px-3 py-2 rounded-lg hover:bg-white text-[13px] text-ink/75"><span class="text-pink2/60 font-mono w-5 shrink-0">${String(index + 1).padStart(2, "0")}</span><span>${escapeHtml(title)}</span></a>`
@@ -2546,7 +2666,7 @@ function applyGlobalEnhancements(html) {
     )
     .replace(
       /<a href="https:\/\/www\.instagram\.com\/dmitriikravchenko992" class="hover:text-pinklight">Instagram<\/a>/g,
-      `<a href="tel:+79263329369" class="inline-flex items-center gap-1.5 hover:text-pinklight" aria-label="MAX: +7 926 332-93-69" title="MAX: +7 926 332-93-69">${socialIcon("max")}<span>MAX</span></a>`
+      `<a href="${maxContactUrl}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 hover:text-pinklight" aria-label="MAX" title="MAX">${socialIcon("max")}<span>MAX</span></a>`
     )
     .replace(
       /<a href="mailto:surgery79@mail\.ru" class="hidden md:inline hover:text-pinklight">surgery79@mail\.ru<\/a>/g,
@@ -2560,19 +2680,23 @@ function applyGlobalEnhancements(html) {
     .replaceAll("Москва · Одинцово · Северная ул. 14А", "Одинцово · Красногорское ш., д. 17")
     .replaceAll("143009, г. Одинцово, Северная ул. 14А", "г. Одинцово, Московской обл., Красногорское ш., д. 17")
     .replace(
+      /(<li><a href="mailto:surgery79@mail\.ru" class="hover:text-pinklight">surgery79@mail\.ru<\/a><\/li>)/g,
+      `$1\n          <li><span class="block text-white/40 text-[12px] uppercase tracking-wider mb-1">Возможен прием в</span>${escapeHtml(secondaryReceptionAddress)}</li>\n          <li><a href="${maxContactUrl}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 hover:text-pinklight" aria-label="МАКС">${socialIcon("max", "w-5 h-5")}<span>МАКС</span></a></li>`
+    )
+    .replace(
       /<a href="https:\/\/www\.instagram\.com\/dmitriikravchenko992" class="w-10 h-10 rounded-full bg-white\/5 border border-white\/10 flex items-center justify-center hover:bg-pink2 transition" aria-label="Instagram">[\s\S]*?<\/a>/g,
-      `<a href="tel:+79263329369" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-pink2 transition" aria-label="MAX: +7 926 332-93-69" title="MAX: +7 926 332-93-69">${socialIcon("max")}</a>`
+      `<a href="${maxContactUrl}" target="_blank" rel="noopener" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-pink2 transition" aria-label="MAX" title="MAX">${socialIcon("max")}</a>`
     )
     .replaceAll("Бесплатная консультация · ежедневно 9:00–21:00", "Бесплатная консультация")
     .replaceAll("Центр реконструктивной. Москва, Одинцово.", "Центр реконструктивной хирургии. Москва, Одинцово.")
     .replace(/<a href="#" class="hover:text-white">Политика конфиденциальности<\/a>/g, `<a href="privacy.html" class="hover:text-white">Политика конфиденциальности</a>`)
     .replace(
-      /(<div class="flex items-center gap-3 mt-5">\s*)(<a href="https:\/\/wa\.me\/79263329369" class="w-10 h-10 rounded-full bg-white\/5 border border-white\/10 flex items-center justify-center hover:bg-mint hover:text-ink transition" aria-label="WhatsApp">[\s\S]*?<\/a>)\s*(<a href="tel:\+79263329369" class="w-10 h-10 rounded-full bg-white\/5 border border-white\/10 flex items-center justify-center hover:bg-pink2 transition" aria-label="MAX: \+7 926 332-93-69" title="MAX: \+7 926 332-93-69">[\s\S]*?<\/a>)/g,
+      /(<div class="flex items-center gap-3 mt-5">\s*)(<a href="https:\/\/wa\.me\/79263329369" class="w-10 h-10 rounded-full bg-white\/5 border border-white\/10 flex items-center justify-center hover:bg-mint hover:text-ink transition" aria-label="WhatsApp">[\s\S]*?<\/a>)\s*(<a href="https:\/\/max\.ru\/u\/[^"]+" target="_blank" rel="noopener" class="w-10 h-10 rounded-full bg-white\/5 border border-white\/10 flex items-center justify-center hover:bg-pink2 transition" aria-label="MAX" title="MAX">[\s\S]*?<\/a>)/g,
       `$1$3\n          $2`
     )
     .replace(
       /(<div class="mt-8 flex gap-2">\s*)(<a href="https:\/\/wa\.me\/79263329369" class="px-4 py-2\.5 rounded-full bg-mint text-ink font-semibold text-\[13px\] hover:brightness-95">WhatsApp<\/a>)/g,
-      `$1<a href="tel:+79263329369" class="px-4 py-2.5 rounded-full bg-gradient-to-r from-sky-400 via-cyan-400 to-teal-300 text-white font-semibold text-[13px] shadow-sm shadow-cyan-400/25 ring-1 ring-white/20 hover:brightness-110 transition">МАКС</a>\n        $2`
+      `$1<a href="${maxContactUrl}" target="_blank" rel="noopener" class="px-4 py-2.5 rounded-full bg-gradient-to-r from-sky-400 via-cyan-400 to-teal-300 text-white font-semibold text-[13px] shadow-sm shadow-cyan-400/25 ring-1 ring-white/20 hover:brightness-110 transition">МАКС</a>\n        $2`
     )
     .replace(
       /(<div class="text-\[11px\] text-ink\/40 font-mono">)21 услуга(<\/div>)/g,
@@ -2676,6 +2800,14 @@ function imageAssetRefs(tag = "") {
 function imageAssetSource(fileName) {
   if (fileName === exoHeroAssetName && fs.existsSync(sourceExoHeroImage)) return sourceExoHeroImage;
   if (fileName === anonsHeroAssetName && fs.existsSync(sourceAnonsHeroImage)) return sourceAnonsHeroImage;
+  if (importImageAssetNames.includes(fileName)) {
+    const importImage = path.join(sourceImportImagesDir, fileName);
+    if (fs.existsSync(importImage)) return importImage;
+  }
+  if (commercialImageAssetNames.includes(fileName)) {
+    const commercialImage = path.join(sourceCommercialImagesDir, fileName);
+    if (fs.existsSync(commercialImage)) return commercialImage;
+  }
   const parserAsset = path.join(imageRoot, fileName);
   if (fs.existsSync(parserAsset)) return parserAsset;
   const projectAsset = path.join(root, "assets", "images", fileName);
@@ -2701,6 +2833,8 @@ function specialImageAssetName(fileName) {
   const names = {
     [exoHeroAssetName]: exoHeroAssetName,
     [anonsHeroAssetName]: anonsHeroAssetName,
+    ...Object.fromEntries(importImageAssetNames.map((name) => [name, name])),
+    ...Object.fromEntries(commercialImageAssetNames.map((name) => [name, name])),
     [homeHeroAssetName]: homeHeroAssetName,
     [contactsClinicAssetName]: contactsClinicAssetName,
     "tild6635-3665-4464-b939-353132636135_02-00.jpg": "doctor-trofimov-01.jpg",
@@ -2850,6 +2984,36 @@ function renderHomeServicesSection() {
     if (index === lastIndex) return "text-white/80";
     return ["text-indigo2", "text-violet2", "text-pink2"][index % 3];
   };
+  const importHomeCard = `<li>
+        <a href="importozameshchenie.html" class="card-hover relative block bg-white rounded-xl border border-indigo2/10 p-5 h-full overflow-hidden">
+          <div class="flex items-start gap-4">
+            <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-cream">
+              <img src="assets/images/import.webp" alt="${escapeHtml(importozameshchenieTitle)}" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async">
+            </span>
+            <span class="min-w-0 flex-1">
+              <span class="inline-flex rounded-full bg-indigo2/10 px-2.5 py-1 text-[10px] uppercase tracking-wider font-semibold text-indigo2">новое направление</span>
+              <h3 class="font-display text-[20px] font-bold mt-3 leading-snug text-ink">${escapeHtml(importozameshchenieTitle)}</h3>
+              <span class="mt-3 block text-[14px] leading-relaxed text-ink/58">Персонализированные резорбируемые хирургические изделия.</span>
+            </span>
+          </div>
+          <span class="absolute bottom-5 right-5 w-7 h-7 rounded-full bg-indigo2/10 text-indigo2 text-sm flex items-center justify-center">→</span>
+        </a>
+      </li>`;
+  const commercialOfferHomeCard = `<li>
+        <a href="commercial_offer.html" class="card-hover relative block bg-ink text-white rounded-xl p-5 h-full overflow-hidden">
+          <div class="flex items-start gap-4">
+            <span class="w-[72px] h-[72px] rounded-full overflow-hidden shrink-0 bg-white/90">
+              <img src="assets/images/import.webp" alt="${escapeHtml(commercialOfferTitle)}" class="w-full h-full object-cover" width="72" height="72" loading="lazy" decoding="async">
+            </span>
+            <span class="min-w-0 flex-1">
+              <span class="inline-flex rounded-full bg-white/10 px-2.5 py-1 text-[10px] uppercase tracking-wider font-semibold text-mint">предложение</span>
+              <h3 class="font-display text-[20px] font-bold mt-3 leading-snug">${escapeHtml(commercialOfferTitle)}</h3>
+              <span class="mt-3 block text-[14px] leading-relaxed text-white/68">3D визуализация и проектирование мягких тканей.</span>
+            </span>
+          </div>
+          <span class="absolute bottom-5 right-5 w-7 h-7 rounded-full bg-white/10 text-sm flex items-center justify-center">→</span>
+        </a>
+      </li>`;
 
   return `<!-- ============ SERVICES ============ -->
 <section id="services" class="py-14 sm:py-16 lg:py-28">
@@ -2868,6 +3032,8 @@ function renderHomeServicesSection() {
     </div>
 
     <ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      ${commercialOfferHomeCard}
+      ${importHomeCard}
       ${homeServiceCards
         .map(([slug, title, image], index) => {
           const imageAlt = escapeHtml(title.replace(/<br>/g, " "));
@@ -3957,7 +4123,7 @@ function renderOnlineHelpPage() {
   const contactItems = [
     {
       label: "в MAX:",
-      href: "tel:+79263329369",
+      href: maxContactUrl,
       value: "+7 926 332 93 69",
       icon: "max",
     },
@@ -4087,6 +4253,353 @@ ${parts.nav}
 </section>
 </main>
 ${parts.footer}`;
+}
+
+function renderImportozameshcheniePage() {
+  const parts = templateParts();
+  const page = {
+    url: `${productionBaseUrl}/importozameshchenie.html`,
+    seo: {
+      title: `${importozameshchenieTitle} | Center of Surgery`,
+      description: "Персонализированное изготовление резорбируемых хирургических конструкций из медицинского полилактида, PEEK-полимера и медицинского титана.",
+      keywords: "импортозамещение, резорбируемые пластины, медицинский полилактид, персонализированные имплантаты, KLS Martin, Zimmer Biomet, Center of Surgery",
+      canonical: `${productionBaseUrl}/importozameshchenie.html`,
+      og: {
+        "og:title": `${importozameshchenieTitle} | Center of Surgery`,
+        "og:description": "Персонализированные хирургические изделия из медицинского полилактида и других медицинских материалов.",
+        "og:image": "assets/images/import.webp",
+        "og:url": `${productionBaseUrl}/importozameshchenie.html`,
+      },
+    },
+  };
+  const head = updateSeo(parts.head, page);
+  const productsHtml = importProducts
+    .map(
+      (item, index) => `<article class="rounded-lg bg-white border border-ink/10 p-5 sm:p-6 shadow-sm shadow-ink/5">
+        <div class="text-[12px] font-mono text-pink2">${String(index + 1).padStart(2, "0")}</div>
+        <h3 class="mt-4 font-display text-[24px] sm:text-[28px] leading-tight font-bold text-ink">${escapeHtml(item.title)}</h3>
+        <p class="mt-3 text-[15px] sm:text-[16px] leading-relaxed text-ink/68">${escapeHtml(item.text)}</p>
+      </article>`
+    )
+    .join("\n");
+  const reconstructionHtml = importReconstructionItems
+    .map((item) => `<li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-pink2 shrink-0"></span><span>${escapeHtml(item)}</span></li>`)
+    .join("\n");
+  const designHtml = importDesignItems
+    .map((item) => `<li class="flex gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-indigo2 shrink-0"></span><span>${escapeHtml(item)}</span></li>`)
+    .join("\n");
+  const protocolHtml = importProtocolSteps
+    .map(
+      (item, index) => `<li class="grid sm:grid-cols-[72px_1fr] gap-3 sm:gap-5 border-b border-ink/10 pb-5 last:border-b-0 last:pb-0">
+        <span class="font-mono text-[12px] text-indigo2">${String(index + 1).padStart(2, "0")}</span>
+        <span class="text-[16px] sm:text-[18px] leading-relaxed text-ink/72">${escapeHtml(item)}</span>
+      </li>`
+    )
+    .join("\n");
+  const galleryHtml = importGalleryImages
+    .map(
+      (image) => `<figure class="rounded-lg bg-white border border-ink/10 p-3 shadow-sm shadow-ink/5">
+        <img src="assets/images/${image.src}" alt="${escapeHtml(image.alt)}" class="aspect-[4/3] w-full rounded-md bg-cream object-contain" width="${image.width}" height="${image.height}" loading="lazy" decoding="async">
+      </figure>`
+    )
+    .join("\n");
+  const materialNotesHtml = importMaterialNotes
+    .map((item) => `<li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-indigo2 shrink-0"></span><span>${escapeHtml(item)}</span></li>`)
+    .join("\n");
+
+  return `${head}
+${parts.nav}
+<!-- ============ BREADCRUMB ============ -->
+<nav aria-label="breadcrumb" class="max-w-[1400px] mx-auto px-5 lg:px-10 pt-6 text-[13px] text-ink/50">
+  <ol class="flex items-center gap-2 flex-wrap">
+    <li><a href="index.html" class="hover:text-indigo2">Главная</a></li>
+    <li>/</li>
+    <li><a href="index.html#services" class="hover:text-indigo2">Наши услуги</a></li>
+    <li>/</li>
+    <li class="text-ink/80">${escapeHtml(importozameshchenieTitle)}</li>
+  </ol>
+</nav>
+
+<main class="overflow-x-hidden">
+<section class="py-10 sm:py-14 lg:py-20 bg-cream">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+    <div class="lg:col-span-7 min-w-0">
+      <div class="inline-flex items-center rounded-full border border-ink/10 bg-white px-3 py-1.5 text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">персонализированные изделия</div>
+      <h1 class="mt-6 max-w-[22rem] sm:max-w-4xl font-display text-[34px] sm:text-[54px] lg:text-[76px] leading-[1.02] font-bold tracking-tight break-normal">${escapeHtml(importozameshchenieTitle)}</h1>
+      <p class="mt-6 max-w-[22rem] sm:max-w-3xl text-[18px] sm:text-[21px] leading-relaxed text-ink/72 [overflow-wrap:anywhere]">${escapeHtml(importozameshchenieLead)}</p>
+      <p class="mt-4 max-w-[22rem] sm:max-w-3xl text-[16px] sm:text-[18px] leading-relaxed font-semibold text-ink/78">${escapeHtml(importozameshchenieIntro)}</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <span class="rounded-full bg-white border border-ink/10 px-4 py-2 text-[14px] font-semibold text-ink">полилактид</span>
+        <span class="rounded-full bg-white border border-ink/10 px-4 py-2 text-[14px] font-semibold text-ink">0,5-3,5 года резорбции</span>
+        <span class="rounded-full bg-white border border-ink/10 px-4 py-2 text-[14px] font-semibold text-ink">КТ, МРТ, лазерное сканирование</span>
+      </div>
+    </div>
+    <aside class="lg:col-span-5 min-w-0">
+      <figure class="w-full max-w-[22rem] sm:max-w-full sm:mx-auto rounded-[24px] overflow-hidden bg-ink border border-white/20 shadow-2xl shadow-indigo2/10">
+        <img src="assets/images/import.webp" alt="Импортозамещение хирургических изделий Center of Surgery" class="w-full h-auto object-cover" width="940" height="521" fetchpriority="high" loading="eager" decoding="async">
+      </figure>
+    </aside>
+  </div>
+</section>
+
+<section class="py-12 sm:py-16 lg:py-20 bg-white">
+  <div class="max-w-[1180px] mx-auto px-5 lg:px-10">
+    <div class="max-w-3xl">
+      <div class="text-[13px] uppercase tracking-[0.2em] text-pink2 font-semibold">что изготавливаем</div>
+      <h2 class="mt-4 max-w-[22rem] sm:max-w-3xl font-display text-[24px] sm:text-[44px] leading-tight font-bold text-ink [overflow-wrap:anywhere]">Персонализированные медицинские конструкции</h2>
+      <p class="mt-4 max-w-2xl text-[16px] sm:text-[18px] leading-relaxed text-ink/68">Полный спектр изделий проектируется индивидуально под задачу пациента и хирурга.</p>
+    </div>
+    <div class="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+      ${productsHtml}
+    </div>
+  </div>
+</section>
+
+<section class="py-12 sm:py-16 lg:py-20 bg-cream border-y border-ink/5">
+  <div class="max-w-[1180px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+    <div class="lg:col-span-5">
+      <div class="text-[13px] uppercase tracking-[0.2em] text-indigo2 font-semibold">реконструкция</div>
+      <h2 class="mt-4 font-display text-[24px] sm:text-[44px] leading-tight font-bold text-ink [overflow-wrap:anywhere]">Биокаркасы и регенеративные решения</h2>
+      <p class="mt-5 text-[16px] sm:text-[18px] leading-relaxed text-ink/68">Изделия проектируются по данным КТ, МРТ, лазерного сканирования лица, а также по видению медицинского специалиста, его чертежам и моделям будущего результата операции.</p>
+    </div>
+    <div class="lg:col-span-7 rounded-lg bg-white border border-ink/10 p-5 sm:p-7 shadow-sm shadow-ink/5">
+      <ul class="space-y-4 text-[16px] sm:text-[18px] leading-relaxed text-ink/72">
+        ${reconstructionHtml}
+      </ul>
+      <div class="mt-7 rounded-lg bg-cream border border-ink/10 p-5">
+        <h3 class="font-display text-[24px] leading-tight font-bold text-ink">Моделирование и проектирование</h3>
+        <ul class="mt-4 space-y-3 text-[15px] sm:text-[16px] leading-relaxed text-ink/70">
+          ${designHtml}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-12 sm:py-16 lg:py-20 bg-white">
+  <div class="max-w-[1180px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12">
+    <div class="lg:col-span-4">
+      <div class="text-[13px] uppercase tracking-[0.2em] text-pink2 font-semibold">протокол</div>
+      <h2 class="mt-4 font-display text-[24px] sm:text-[44px] leading-tight font-bold text-ink [overflow-wrap:anywhere]">От данных пациента до готового изделия</h2>
+    </div>
+    <div class="lg:col-span-8">
+      <ol class="space-y-5">
+        ${protocolHtml}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="py-12 sm:py-16 lg:py-20 bg-cream border-y border-ink/5">
+  <div class="max-w-[1180px] mx-auto px-5 lg:px-10">
+    <div class="grid md:grid-cols-3 gap-4 sm:gap-5">
+      <article class="rounded-lg bg-ink p-6 sm:p-7 text-white md:col-span-2">
+        <div class="text-[12px] uppercase tracking-[0.18em] text-mint font-semibold">условия</div>
+        <h2 class="mt-4 font-display text-[30px] sm:text-[40px] leading-tight font-bold">Стоимость индивидуальная</h2>
+        <p class="mt-4 text-[17px] sm:text-[19px] leading-relaxed text-white/78">Из расчета от 5000 р за грамм конструкции. Возможны медицинские конструкции из PEEK-полимера и медицинского титана.</p>
+      </article>
+      <article class="rounded-lg bg-white border border-ink/10 p-6 sm:p-7 shadow-sm shadow-ink/5">
+        <div class="text-[12px] uppercase tracking-[0.18em] text-indigo2 font-semibold">материалы</div>
+        <ul class="mt-4 space-y-3 text-[16px] sm:text-[18px] leading-relaxed text-ink/72">
+          ${materialNotesHtml}
+        </ul>
+      </article>
+    </div>
+    <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      ${galleryHtml}
+    </div>
+  </div>
+</section>
+
+<section class="py-12 sm:py-16 lg:py-20 bg-white">
+  <div class="max-w-[1180px] mx-auto px-5 lg:px-10">
+    <div class="rounded-lg border border-indigo2/15 bg-gradient-to-br from-indigo2/10 via-white to-pink2/10 p-6 sm:p-8 lg:p-10">
+      <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-center">
+        <div class="lg:col-span-8">
+          <h2 class="font-display text-[30px] sm:text-[42px] leading-tight font-bold text-ink">Техническое и консультативное сопровождение на всех этапах</h2>
+          <p class="mt-4 text-[17px] sm:text-[19px] leading-relaxed text-ink/72">Собственная клиническая база с многопрофильным хирургическим стационаром для амбулаторных и стационарных операций с полилактидом и другими изделиями.</p>
+        </div>
+        <div class="lg:col-span-4 rounded-lg bg-white border border-ink/10 p-5 shadow-sm shadow-ink/5">
+          <div class="text-[12px] uppercase tracking-[0.16em] font-semibold text-pink2">контактное лицо</div>
+          <div class="mt-3 font-display text-[24px] leading-tight font-bold text-ink">Кравченко Дмитрий Валерьевич</div>
+          <a href="tel:+79263329369" class="mt-5 inline-flex rounded-full bg-ink px-5 py-3 text-[14px] font-semibold text-white hover:bg-indigo2 transition">+7 (926) 332-93-69</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+${parts.ctaFooter}`;
+}
+
+function renderCommercialOfferPage() {
+  const parts = templateParts();
+  const commercialOfferText = fs.readFileSync(sourceCommercialOfferText, "utf8");
+  const page = {
+    url: `${productionBaseUrl}/commercial_offer.html`,
+    seo: {
+      title: `${commercialOfferTitle} | Center of Surgery`,
+      description: "Коммерческое предложение Center of Surgery по 3D визуализации, навигации, картографированию и моделированию мягких тканей лица и шеи.",
+      keywords: "коммерческое предложение, 3D визуализация, мягкие ткани лица, картографирование, навигация, Center of Surgery",
+      canonical: `${productionBaseUrl}/commercial_offer.html`,
+      og: {
+        "og:title": `${commercialOfferTitle} | Center of Surgery`,
+        "og:description": "3D визуализация, навигация, картографирование и моделирование мягких тканей лица и шеи.",
+        "og:image": "assets/images/comm_00.webp",
+        "og:url": `${productionBaseUrl}/commercial_offer.html`,
+      },
+    },
+  };
+  const head = updateSeo(parts.head, page);
+  const commercialOfferDisplayText = commercialOfferText
+    .replace(/\r?\nзаинтересованным лицам\s*(\r?\n)/, "$1")
+    .replace(/[ \t]+$/gm, "");
+  const commercialOfferConditionsStart = commercialOfferDisplayText.indexOf("        Стоимость работ");
+  const commercialOfferSectionStarts = [
+    {
+      eyebrow: "предложение",
+      title: "Коммерческое предложение",
+      accent: "text-indigo2",
+      dot: "bg-indigo2",
+      surface: "bg-white",
+      titleClass: "text-ink",
+      bodyClass: "text-ink/76",
+      start: 0,
+    },
+    {
+      eyebrow: "технологии",
+      title: "Разработано и внедрено",
+      accent: "text-pink2",
+      dot: "bg-pink2",
+      surface: "bg-cream",
+      titleClass: "text-ink",
+      bodyClass: "text-ink/76",
+      start: commercialOfferDisplayText.indexOf("На данный момент"),
+    },
+    {
+      eyebrow: "применение",
+      title: "Спектр и сферы",
+      accent: "text-violet2",
+      dot: "bg-violet2",
+      surface: "bg-white",
+      titleClass: "text-ink",
+      bodyClass: "text-ink/76",
+      start: commercialOfferDisplayText.indexOf("                                                          Спектр и сферы применения разработанных"),
+    },
+  ];
+  if (commercialOfferConditionsStart < 0 || commercialOfferSectionStarts.some((section) => section.start < 0)) {
+    throw new Error("Commercial offer text markers were not found.");
+  }
+  const commercialOfferConditionsText = commercialOfferDisplayText.slice(commercialOfferConditionsStart).replace(/^\s+(Стоимость работ)/, "$1");
+  const commercialOfferSectionsHtml = commercialOfferSectionStarts
+    .map((section, index, sections) => {
+      const nextSection = sections[index + 1];
+      const nextStart = nextSection ? nextSection.start : commercialOfferConditionsStart;
+      const chunk = commercialOfferDisplayText.slice(section.start, nextStart);
+      const borderClass = section.surface === "bg-ink" ? "border-ink" : "border-ink/10";
+      const shadowClass = section.surface === "bg-ink" ? "shadow-indigo2/10" : "shadow-ink/5";
+      return `<article class="rounded-lg ${section.surface} border ${borderClass} p-5 sm:p-7 lg:p-8 shadow-sm ${shadowClass}">
+        <div class="grid lg:grid-cols-[240px_minmax(0,1fr)] gap-5 lg:gap-8">
+          <header class="min-w-0">
+            <div class="flex items-center gap-3 text-[12px] uppercase tracking-[0.18em] font-semibold ${section.accent}">
+              <span class="h-2 w-2 rounded-full ${section.dot}"></span>
+              <span>${escapeHtml(section.eyebrow)}</span>
+            </div>
+            <h2 class="mt-4 font-display text-[25px] sm:text-[34px] leading-tight font-bold ${section.titleClass}">${section.titleHtml || escapeHtml(section.title)}</h2>
+          </header>
+          <div data-commercial-chunk="${index}" class="min-w-0 whitespace-pre-line break-words text-[15px] sm:text-[17px] leading-relaxed ${section.bodyClass}">${escapeHtml(chunk)}</div>
+        </div>
+      </article>`;
+    })
+    .join("\n");
+  const galleryHtml = commercialOfferImageMeta
+    .slice(1)
+    .map((image) => {
+      const isSensitive = ["comm_06.webp", "comm_07.webp"].includes(image.src);
+      return `<figure class="card-hover overflow-hidden rounded-2xl bg-white border border-ink/5 shadow-sm">
+        ${renderGalleryImage(
+          { src: `assets/images/${image.src}` },
+          "w-full aspect-[4/3] object-contain bg-white p-2",
+          image.alt,
+          isSensitive
+        )}
+      </figure>`;
+    })
+    .join("\n");
+  const conditionsHtml = `<section class="py-12 sm:py-16 lg:py-20 bg-white">
+  <div class="max-w-[1180px] mx-auto px-5 lg:px-10">
+    <article class="rounded-lg bg-ink border border-ink p-5 sm:p-7 lg:p-8 shadow-sm shadow-indigo2/10">
+      <div class="grid lg:grid-cols-[240px_minmax(0,1fr)] gap-5 lg:gap-8">
+        <header class="min-w-0">
+          <div class="flex items-center gap-3 text-[12px] uppercase tracking-[0.18em] font-semibold text-mint">
+            <span class="h-2 w-2 rounded-full bg-mint"></span>
+            <span>финальный блок</span>
+          </div>
+          <h2 class="mt-4 font-display text-[30px] sm:text-[42px] leading-tight font-bold text-white">Условия</h2>
+        </header>
+        <div data-commercial-chunk="3" class="min-w-0 whitespace-pre-wrap break-words text-[15px] sm:text-[18px] leading-relaxed text-white" style="color: rgba(255, 255, 255, 0.88);">${escapeHtml(commercialOfferConditionsText)}</div>
+      </div>
+    </article>
+  </div>
+</section>`;
+
+  return `${head}
+${parts.nav}
+<!-- ============ BREADCRUMB ============ -->
+<nav aria-label="breadcrumb" class="max-w-[1400px] mx-auto px-5 lg:px-10 pt-6 text-[13px] text-ink/50">
+  <ol class="flex items-center gap-2 flex-wrap">
+    <li><a href="index.html" class="hover:text-indigo2">Главная</a></li>
+    <li>/</li>
+    <li><a href="index.html#services" class="hover:text-indigo2">Наши услуги</a></li>
+    <li>/</li>
+    <li class="text-ink/80">${escapeHtml(commercialOfferTitle)}</li>
+  </ol>
+</nav>
+
+<main class="overflow-x-hidden">
+<section class="py-10 sm:py-14 lg:py-20 bg-cream">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+    <div class="lg:col-span-6 min-w-0">
+      <div class="inline-flex items-center rounded-full border border-ink/10 bg-white px-3 py-1.5 text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">3D визуализация</div>
+      <h1 class="mt-6 max-w-[22rem] sm:max-w-4xl font-display text-[34px] sm:text-[54px] lg:text-[72px] leading-[1.02] font-bold tracking-tight">${escapeHtml(commercialOfferTitle)}</h1>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <span class="rounded-full bg-white border border-ink/10 px-4 py-2 text-[14px] font-semibold text-ink">3D навигация</span>
+        <span class="rounded-full bg-white border border-ink/10 px-4 py-2 text-[14px] font-semibold text-ink">мягкие ткани</span>
+        <span class="rounded-full bg-white border border-ink/10 px-4 py-2 text-[14px] font-semibold text-ink">проектирование</span>
+      </div>
+    </div>
+    <aside class="lg:col-span-6 min-w-0">
+      <figure class="w-full rounded-[24px] overflow-hidden bg-ink border border-white/20 shadow-2xl shadow-indigo2/10">
+        <img src="assets/images/comm_00.webp" alt="Коммерческое предложение Center of Surgery" class="w-full h-auto object-cover" width="1448" height="740" fetchpriority="high" loading="eager" decoding="async">
+      </figure>
+    </aside>
+  </div>
+</section>
+
+<section class="py-12 sm:py-16 lg:py-20 bg-white">
+  <div class="max-w-[1180px] mx-auto px-5 lg:px-10">
+    <div class="space-y-5 sm:space-y-6">
+      ${commercialOfferSectionsHtml}
+    </div>
+  </div>
+</section>
+
+<section class="py-12 sm:py-16 lg:py-20 bg-cream border-y border-ink/5">
+  <div class="max-w-[1180px] mx-auto px-5 lg:px-10">
+    <div class="mb-8">
+      <div class="text-[13px] uppercase tracking-[0.2em] text-pink2 font-semibold">материалы</div>
+      <h2 class="mt-4 font-display text-[30px] sm:text-[44px] leading-tight font-bold text-ink">Иллюстрации к предложению</h2>
+    </div>
+    ${renderSensitiveGalleryNotice()}
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+      ${galleryHtml}
+    </div>
+  </div>
+</section>
+
+${conditionsHtml}
+</main>
+${parts.ctaFooter}`;
 }
 
 function renderAnonsPage() {
@@ -4266,7 +4779,6 @@ function renderContactsPage() {
   const head = updateSeo(parts.head, page);
   const contactsAddress = "г. Одинцово, Московской обл., Красногорское ш., д. 17 (Территория Клинической Больницы №123)";
   const contactsAddressQuery = encodeURIComponent(contactsAddress);
-  const secondaryReceptionAddress = "1МГМУ им. И. М. Сеченова, метро «Спортивная», улица Доватора, 15, стр. 1";
   const secondaryReceptionQuery = encodeURIComponent(secondaryReceptionAddress);
   const mapSrc = `https://yandex.ru/map-widget/v1/?mode=search&text=${contactsAddressQuery}&z=16`;
   const contactRows = [
@@ -4290,12 +4802,26 @@ function renderContactsPage() {
       value: "+7 (926) 332-93-69",
       href: "tel:+79263329369",
     },
+    {
+      label: "MAX",
+      value: "Самая оперативная связь через мессенджер MAX",
+      href: maxContactUrl,
+      icon: "max",
+      external: true,
+    },
   ];
   const contactRowsHtml = contactRows
     .map(
-      (row) => `<a href="${row.href}" class="group block rounded-lg border border-ink/10 bg-white p-5 shadow-sm shadow-ink/5 transition hover:-translate-y-0.5 hover:border-indigo2/30">
+      (row) => `<a href="${row.href}"${row.external ? ' target="_blank" rel="noopener"' : ""} class="group block rounded-lg border border-ink/10 bg-white p-5 shadow-sm shadow-ink/5 transition hover:-translate-y-0.5 hover:border-indigo2/30">
           <div class="text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">${row.label}</div>
-          <div class="mt-3 whitespace-pre-line text-[18px] sm:text-[20px] leading-relaxed font-semibold text-ink group-hover:text-indigo2">${escapeHtml(row.value)}</div>
+          ${
+            row.icon === "max"
+              ? `<div class="mt-3 flex items-center gap-4">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky-400 via-cyan-400 to-teal-300 text-white shadow-sm shadow-cyan-400/20">${socialIcon("max", "w-6 h-6")}</span>
+            <span class="text-[18px] sm:text-[20px] leading-relaxed font-semibold text-ink group-hover:text-indigo2">${escapeHtml(row.value)}</span>
+          </div>`
+              : `<div class="mt-3 whitespace-pre-line text-[18px] sm:text-[20px] leading-relaxed font-semibold text-ink group-hover:text-indigo2">${escapeHtml(row.value)}</div>`
+          }
         </a>`
     )
     .join("\n");
@@ -4879,6 +5405,8 @@ function build() {
 
       <dl class="mt-10 sm:mt-14 grid grid-cols-3 max-w-2xl divide-x divide-ink/10">`
     );
+  files["commercial_offer.html"] = renderCommercialOfferPage();
+  files["importozameshchenie.html"] = renderImportozameshcheniePage();
   files["anons.html"] = renderAnonsPage();
   files["privacy.html"] = renderPrivacyPage();
 

@@ -1,6 +1,8 @@
 /home / 301
 /free /404.html 404
 /free.html /404.html 404
+/commercial_offer /commercial_offer.html 200
+/importozameshchenie /importozameshchenie.html 200
 /anons /anons.html 200
 /privacy /privacy.html 200
 /exo /exo.html 200
