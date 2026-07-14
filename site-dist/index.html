@@ -1064,16 +1064,16 @@ img[data-lightbox-image] {
         <div class="mt-5 grid sm:grid-cols-2 gap-3">
           <label class="block">
             <span class="text-[11px] text-white/40 uppercase tracking-wider font-semibold">Имя</span>
-            <input type="text" required class="w-full mt-1 bg-white/5 rounded-lg border border-white/10 focus:border-pinklight outline-none px-3 py-2.5 text-[14px]" placeholder="Ваше имя">
+            <input type="text" name="name" required class="w-full mt-1 bg-white/5 rounded-lg border border-white/10 focus:border-pinklight outline-none px-3 py-2.5 text-[14px]" placeholder="Ваше имя">
           </label>
           <label class="block">
             <span class="text-[11px] text-white/40 uppercase tracking-wider font-semibold">Телефон <span class="text-pinklight">*</span></span>
-            <input type="tel" required class="w-full mt-1 bg-white/5 rounded-lg border border-white/10 focus:border-pinklight outline-none px-3 py-2.5 text-[14px]" placeholder="+7 ___ ___ __ __">
+            <input type="tel" name="phone" required class="w-full mt-1 bg-white/5 rounded-lg border border-white/10 focus:border-pinklight outline-none px-3 py-2.5 text-[14px]" placeholder="+7 ___ ___ __ __">
           </label>
         </div>
         <label class="block mt-3">
           <span class="text-[11px] text-white/40 uppercase tracking-wider font-semibold">Интересующая услуга</span>
-          <select class="w-full mt-1 bg-white/5 rounded-lg border border-white/10 focus:border-pinklight outline-none px-3 py-2.5 text-[14px] appearance-none">
+          <select name="service" class="w-full mt-1 bg-white/5 rounded-lg border border-white/10 focus:border-pinklight outline-none px-3 py-2.5 text-[14px] appearance-none">
             <option class="bg-ink">Не выбрано — врач подскажет</option>
             <option class="bg-ink">Экзопротезирование лица</option>
             <option class="bg-ink">Операция на нос</option>
@@ -1088,12 +1088,12 @@ img[data-lightbox-image] {
         </label>
         <label class="block mt-3">
           <span class="text-[11px] text-white/40 uppercase tracking-wider font-semibold">Комментарий</span>
-          <textarea rows="2" class="w-full mt-1 bg-white/5 rounded-lg border border-white/10 focus:border-pinklight outline-none px-3 py-2.5 text-[14px] resize-none" placeholder="Кратко опишите цель обращения"></textarea>
+          <textarea name="comment" rows="2" class="w-full mt-1 bg-white/5 rounded-lg border border-white/10 focus:border-pinklight outline-none px-3 py-2.5 text-[14px] resize-none" placeholder="Кратко опишите цель обращения"></textarea>
         </label>
 
         <label class="flex items-start gap-2 mt-4 cursor-pointer">
-          <input type="checkbox" checked class="mt-0.5 accent-pink2">
-          <span class="text-[11px] text-white/50 leading-relaxed">Согласен с обработкой персональных данных</span>
+          <input type="checkbox" name="privacy_consent" value="accepted" required class="mt-0.5 accent-pink2">
+          <span class="text-[11px] text-white/50 leading-relaxed">Я согласен с <a href="privacy.html" class="hover:text-pinklight underline underline-offset-2">обработкой персональных данных</a></span>
         </label>
 
         <button type="submit" class="mt-4 w-full btn-primary py-3 rounded-full font-semibold text-[14px] flex items-center justify-center gap-2 arrow-cta">

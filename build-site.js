@@ -4005,6 +4005,10 @@ ${procedureOptions}
             <label for="review-photo" class="mb-2 block text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">Добавить фото</label>
             <input id="review-photo" name="photo" type="file" accept="image/*" class="block w-full text-[14px] text-ink/60 file:mr-4 file:rounded-full file:border-0 file:bg-white file:px-4 file:py-2.5 file:text-[13px] file:font-semibold file:text-ink hover:file:text-indigo2">
           </div>
+          <label class="flex items-start gap-2 text-[13px] leading-relaxed text-ink/70">
+            <input type="checkbox" name="privacy_consent" value="accepted" required class="mt-1 accent-pink2">
+            <span>Я согласен с <a href="privacy.html" class="font-semibold text-indigo2 underline underline-offset-2 hover:text-pink2">обработкой персональных данных</a></span>
+          </label>
           <button type="submit" class="btn-primary w-full justify-center rounded-full px-6 py-4 text-[15px] font-semibold">Отправить</button>
         </div>
       </form>`;
@@ -4137,6 +4141,10 @@ function renderOnlineHelpForm() {
             <label for="online-comment" class="mb-2 block text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">Комментарий</label>
             <textarea id="online-comment" name="comment" rows="5" class="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-[16px] leading-relaxed text-ink outline-none transition focus:border-indigo2/45 focus:ring-4 focus:ring-indigo2/10" placeholder="Опишите вкратце цель вашего обращения"></textarea>
           </div>
+          <label class="flex items-start gap-2 text-[13px] leading-relaxed text-ink/70">
+            <input type="checkbox" name="privacy_consent" value="accepted" required class="mt-1 accent-pink2">
+            <span>Я согласен с <a href="privacy.html" class="font-semibold text-indigo2 underline underline-offset-2 hover:text-pink2">обработкой персональных данных</a></span>
+          </label>
           <button type="submit" class="btn-primary w-full justify-center rounded-full px-6 py-4 text-[15px] font-semibold">Записаться</button>
         </div>
       </form>`;

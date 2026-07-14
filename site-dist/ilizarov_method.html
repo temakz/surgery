@@ -639,22 +639,25 @@ img[data-lightbox-image] {
         <div class="mt-6 space-y-4">
           <label class="block">
             <span class="text-[12px] text-white/40 uppercase tracking-wider">Имя</span>
-            <input type="text" required class="w-full mt-1 bg-transparent border-b border-white/15 focus:border-pinklight outline-none py-3" placeholder="Ваше имя">
+            <input type="text" name="name" required class="w-full mt-1 bg-transparent border-b border-white/15 focus:border-pinklight outline-none py-3" placeholder="Ваше имя">
           </label>
           <label class="block">
             <span class="text-[12px] text-white/40 uppercase tracking-wider">Номер телефона</span>
-            <input type="tel" required class="w-full mt-1 bg-transparent border-b border-white/15 focus:border-pinklight outline-none py-3" placeholder="+7 xxx xxx xx xx">
+            <input type="tel" name="phone" required class="w-full mt-1 bg-transparent border-b border-white/15 focus:border-pinklight outline-none py-3" placeholder="+7 xxx xxx xx xx">
           </label>
           <label class="block">
             <span class="text-[12px] text-white/40 uppercase tracking-wider">Комментарий</span>
-            <textarea rows="3" class="w-full mt-1 bg-transparent border-b border-white/15 focus:border-pinklight outline-none py-3 resize-none" placeholder="Опишите вкратце цель вашего обращения"></textarea>
+            <textarea name="comment" rows="3" class="w-full mt-1 bg-transparent border-b border-white/15 focus:border-pinklight outline-none py-3 resize-none" placeholder="Опишите вкратце цель вашего обращения"></textarea>
           </label>
         </div>
+        <label class="flex items-start gap-2 mt-5 cursor-pointer">
+          <input type="checkbox" name="privacy_consent" value="accepted" required class="mt-0.5 accent-pink2">
+          <span class="text-[11px] text-white/50 leading-relaxed">Я согласен с <a href="privacy.html" class="hover:text-pinklight underline underline-offset-2">обработкой персональных данных</a></span>
+        </label>
         <button type="submit" class="mt-7 w-full btn-primary py-4 rounded-full font-semibold flex items-center justify-center gap-2 arrow-cta">
           Записаться <span class="arrow">→</span>
         </button>
         <p id="exoSuccess" class="hidden mt-4 text-[13px] text-mint">✓ Заявка отправлена! Свяжемся с вами в течение рабочего дня.</p>
-        <p class="text-[11px] text-white/40 mt-4">Отправляя форму, вы соглашаетесь с политикой обработки персональных данных</p>
       </form>
     </div>
   </div>
