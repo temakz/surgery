@@ -12,10 +12,11 @@ GitHub:
 Current production state:
 - `service-pages-v2` was the review branch for the service-page v2 redesign/content cleanup.
 - The preview was approved and fast-forward merged into `main` on 2026-07-14.
-- `main` and `service-pages-v2` currently point to `e517528 add import and commercial offer pages`.
+- Production site release baseline is `e517528 add import and commercial offer pages`.
+- Documentation-only closeout commits may sit on top of that release; keep `main` and `service-pages-v2` synced after closeout.
 - Preview URL retained for comparison: `http://service-pages-v2--cmf-surgery.netlify.app/`
 - Production is published from the prebuilt `site-dist` folder in `main`.
-- Latest confirmed production commit as of 2026-07-14: `e517528 add import and commercial offer pages`.
+- Latest confirmed production site release as of 2026-07-14: `e517528 add import and commercial offer pages`.
 
 Netlify:
 - Publish directory: `site-dist`

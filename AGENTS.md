@@ -25,7 +25,8 @@ Live deployment:
 Current deployment state:
 - Production branch: `main`
 - Final service-page v2 branch: `service-pages-v2`
-- Both `main` and `service-pages-v2` are synced at `e517528 add import and commercial offer pages`.
+- Production site release baseline: `e517528 add import and commercial offer pages`.
+- After documentation-only closeout commits, keep `main` and `service-pages-v2` synced to the same latest commit.
 - Production URL: `https://cmf-surgery.netlify.app/`
 - Preview URL, retained for comparison: `http://service-pages-v2--cmf-surgery.netlify.app/`
 - The service-page v2 review cycle was approved and fast-forward merged into production `main` on 2026-07-14.
@@ -98,7 +99,7 @@ Branch: `main`
 First push completed by the user on 2026-05-23.
 
 Current production branch: `main`.
-The `service-pages-v2` review branch is closed and currently matches `main` at `e517528`.
+The `service-pages-v2` review branch is closed; keep it matched with `main` unless a future preview cycle explicitly reuses it.
 For new work, confirm the target branch with the user before changing or pushing.
 
 Latest documented service-page v2 state:

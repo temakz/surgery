@@ -6,8 +6,8 @@
    - GitHub is connected: `https://github.com/temakz/surgery.git`
    - Production branch: `main`
    - Service-page v2 branch: `service-pages-v2`
-   - Current production commit: `e517528 add import and commercial offer pages`
-   - Current preview branch commit: `e517528 add import and commercial offer pages`
+   - Production site release baseline: `e517528 add import and commercial offer pages`
+   - Documentation-only closeout commits may sit on top of that release.
    - `service-pages-v2` was approved and fast-forward merged into `main` on 2026-07-14.
    - Production URL: `https://cmf-surgery.netlify.app/`
    - Preview URL, retained for comparison: `http://service-pages-v2--cmf-surgery.netlify.app/`
@@ -19,7 +19,7 @@
 2. Continue production QA after the completed merge.
    - Check `https://cmf-surgery.netlify.app/`.
    - Latest closing pass: service-page v2 production merge; see `docs/handoffs/handoff_015.md`.
-   - Latest pushed work on both `main` and `service-pages-v2`: `e517528 add import and commercial offer pages`.
+   - Latest site release pushed to both `main` and `service-pages-v2`: `e517528 add import and commercial offer pages`.
    - Production HTTP checks passed on 2026-07-14:
      - `/` returned `200`;
      - `/contacts.html` returned `200`;
@@ -75,7 +75,7 @@
    - The approved `nose_surgery` sample polish has now been generalized through `build-site.js`.
    - Root HTML and `site-dist` were rebuilt and pushed.
    - `service-pages-v2` was merged into `main` after explicit user approval.
-   - `main` and `service-pages-v2` currently point to the same commit, `e517528`.
+   - `main` and `service-pages-v2` should remain synced after the documentation closeout.
    - Persistent rule for future service-page work: customize upcoming service pages by reusing the already approved `nose_surgery`, `tmj_treatment`, `implantology`, and `microsurgical` patterns first. Add only small new details when those patterns do not fit.
    - Preserve the compact `sensitive-media` reveal banner for selected clinical/operative gallery images. It is controlled by curated image filename patterns in `build-site.js`; avoid hiding entire pages or broad image ranges unless the user explicitly asks.
    - For future changes, confirm whether to work directly on `main` or create a new preview branch.
@@ -120,7 +120,7 @@
 1. Confirm Netlify Drop package is `C:\Code6\dima2\site-dist`.
 2. Check `_redirects` routes.
 3. Check `robots.txt` and `sitemap.xml`.
-4. The service-page v2 approval merge is complete: `main` and `service-pages-v2` are both at `e517528`.
+4. The service-page v2 approval merge is complete; site release baseline is `e517528`.
 5. For future work, confirm the target branch before editing:
    - use `main` for approved production fixes;
    - use a new preview branch for larger review cycles.

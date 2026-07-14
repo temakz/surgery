@@ -12,14 +12,15 @@ The approved final commit is:
 e517528 add import and commercial offer pages
 ```
 
-`main` and `service-pages-v2` are now synced at the same commit.
+`main` and `service-pages-v2` were synced at the production site release commit before the documentation-only closeout commit.
 
 ## Current Branches
 
 - Production branch: `main`
 - Final preview/review branch: `service-pages-v2`
-- `main`: `e5175281d11327b8f309f8d02efd75d3a423b483`
-- `service-pages-v2`: `e5175281d11327b8f309f8d02efd75d3a423b483`
+- Production site release baseline: `e5175281d11327b8f309f8d02efd75d3a423b483`
+- Documentation-only closeout commits may sit on top of that baseline.
+- Keep `main` and `service-pages-v2` synced after closeout unless a future preview cycle explicitly diverges them.
 - Production URL: `https://cmf-surgery.netlify.app/`
 - Preview URL retained for comparison: `http://service-pages-v2--cmf-surgery.netlify.app/`
 - Migration target / SEO domain in generated metadata: `https://cmf-surgery.ru`
@@ -167,4 +168,4 @@ Confirmed on production:
 - Service-page v2 cycle: closed.
 - Production merge: complete.
 - Production smoke: passed.
-- Next session should treat `e517528` as the baseline.
+- Next session should treat `e517528` as the production site release baseline; any later documentation-only commit does not change the generated site baseline.

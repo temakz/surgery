@@ -19,7 +19,8 @@
 6. Confirm the branch and deployment target before editing.
    - Production branch: `main`
    - Closed service-page v2 branch: `service-pages-v2`
-   - As of 2026-07-14, both branches are synced at `e517528`.
+   - Production site release baseline: `e517528`.
+   - Documentation-only closeout commits may sit on top of that release; keep `main` and `service-pages-v2` synced unless a new preview cycle is created.
    - Preview URL retained for comparison: `http://service-pages-v2--cmf-surgery.netlify.app/`
    - Production URL: `https://cmf-surgery.netlify.app/`
    - For new work, ask whether to use `main` or a new preview branch.
