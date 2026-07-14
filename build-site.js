@@ -4,6 +4,14 @@ const path = require("path");
 const root = __dirname;
 const productionBaseUrl = "https://cmf-surgery.ru";
 const maxContactUrl = "https://max.ru/u/f9LHodD0cOJh51SP1UkJxUNPyeqQGm0ykygUntpKXWPLpfQ8boe1CqoUHuA";
+const contactPhoneText = "+7 (926) 332-93-69";
+const contactPhonePlain = "79263329369";
+const contactTelHref = `tel:+${contactPhonePlain}`;
+const contactWhatsAppUrl = `https://wa.me/${contactPhonePlain}`;
+const primaryAddress = "г. Одинцово, Московская область, Красногорское ш., д. 17";
+const primaryAddressHtml = "г. Одинцово, Московская область,<br>Красногорское ш., д. 17";
+const primaryAddressWithLandmark = `${primaryAddress} (Территория Клинической Больницы №123)`;
+const primaryAddressWithLandmarkHtml = `${primaryAddressHtml}<br>(Территория Клинической Больницы №123)`;
 const secondaryReceptionAddress = "1МГМУ им. И. М. Сеченова, метро «Спортивная», улица Доватора, 15, стр. 1";
 const originalRoot = path.join(root, "original");
 const sourceLogo = path.resolve(root, "..", "logo.png");
@@ -2194,6 +2202,23 @@ function setHeadTag(html, pattern, tag) {
   return html.replace("</head>", `${tag}\n</head>`);
 }
 
+function normalizeContactDetails(value = "") {
+  return String(value || "")
+    .replace(/tel:\+?7?9099574107/gi, contactTelHref)
+    .replace(/https?:\/\/wa\.me\/\+?7?9099574107/gi, contactWhatsAppUrl)
+    .replace(/https?:\/\/wa\.me\/\+?79099574107/gi, contactWhatsAppUrl)
+    .replace(/\+?\s*7\s*\(?\s*909\s*\)?\s*957[-\s]?41[-\s]?07/g, contactPhoneText)
+    .replace(/\+?\s*7\s*\(?\s*909\s*\)?\s*957[-\s]?4107/g, contactPhoneText)
+    .replace(/79099574107/g, contactPhonePlain)
+    .replace(/\+7\s+926\s+332[-\s]?93[-\s]?69/g, contactPhoneText)
+    .replace(/143009,\s*Московская обл\.,\s*г\.\s*Одинцово,<br>\s*Северная улица,\s*14А/gi, primaryAddressHtml)
+    .replace(/143009,\s*г\.\s*Одинцово,\s*Московской обл\.,\s*Северная улица\s*14А/gi, primaryAddress)
+    .replace(/143009,\s*(?:Московская обл\.,\s*)?г\.\s*Одинцово,?\s*(?:Московской обл\.,\s*)?(?:Северная улица|Северная ул\.|ул\.\s*Северная),?\s*14А/gi, primaryAddress)
+    .replace(/г\.\s*Одинцово,\s*Московской обл\.,<br>\s*Красногорское ш\.,\s*д\.\s*17<br>\s*\(Территория Клинической Больницы №123\)/g, primaryAddressWithLandmarkHtml)
+    .replace(/г\.\s*Одинцово,\s*Московской обл\.,\s*Красногорское ш\.,\s*д\.\s*17\s*\(Территория Клинической Больницы №123\)/g, primaryAddressWithLandmark)
+    .replace(/г\.\s*Одинцово,\s*Московской обл\.,\s*Красногорское ш\.,\s*д\.\s*17/g, primaryAddress);
+}
+
 function renderStructuredData({ title, description, canonical, image, page }) {
   const pageName = title.replace(/\s*\|\s*.*$/, "");
   const graph = [
@@ -2204,11 +2229,12 @@ function renderStructuredData({ title, description, canonical, image, page }) {
       url: productionBaseUrl,
       logo: `${productionBaseUrl}/logo.png`,
       image,
-      telephone: "+7 926 332-93-69",
+      telephone: contactPhoneText,
       email: "surgery79@mail.ru",
       address: {
         "@type": "PostalAddress",
         addressCountry: "RU",
+        addressRegion: "Московская область",
         addressLocality: "Одинцово",
         streetAddress: "Красногорское ш., д. 17",
       },
@@ -2278,9 +2304,9 @@ function updateSeo(html, page, titleOverride = "") {
   const seo = page.seo || {};
   const title = (titleOverride || seo.title || "Center of Surgery").replaceAll("—", "–").replaceAll("вЂ”", "вЂ“");
   const ogTitle = (titleOverride || seo.og?.["og:title"] || seo.title || "").replaceAll("—", "–").replaceAll("вЂ”", "вЂ“");
-  const description = seo.description || "";
+  const description = normalizeContactDetails(seo.description || "");
   const canonical = productionUrl(seo.canonical || page.url || "/");
-  const ogDescription = seo.og?.["og:description"] || description;
+  const ogDescription = normalizeContactDetails(seo.og?.["og:description"] || description);
   const ogUrl = productionUrl(seo.og?.["og:url"] || canonical);
   const ogImage = productionAssetUrl(seo.og?.["og:image"] || "logo.png");
   let out = html
@@ -2657,12 +2683,12 @@ function ensureSeoCompleteness(html) {
 
 function applyGlobalEnhancements(html) {
   const lightbox = lightboxAssets();
-  return useStaticCss(optimizeGoogleFonts(ensureSeoCompleteness(html)))
+  return normalizeContactDetails(useStaticCss(optimizeGoogleFonts(ensureSeoCompleteness(html)))
     .replace(/<title>([\s\S]*?)<\/title>/, (_, title) => `<title>${title.replaceAll("—", "–")}</title>`)
     .replace("</head>", `<link rel="icon" type="image/png" href="favicon.png">\n<link rel="apple-touch-icon" href="logo.png">\n${lightbox.style}\n</head>`)
     .replace(
       /<a href="https:\/\/wa\.me\/79263329369" class="hover:text-pinklight">WhatsApp<\/a>/g,
-      `<a href="https://wa.me/79263329369" class="inline-flex items-center gap-1.5 hover:text-pinklight" aria-label="WhatsApp">${socialIcon("whatsapp")}<span>WhatsApp</span></a>`
+      `<a href="${contactWhatsAppUrl}" class="inline-flex items-center gap-1.5 hover:text-pinklight" aria-label="WhatsApp">${socialIcon("whatsapp")}<span>WhatsApp</span></a>`
     )
     .replace(
       /<a href="https:\/\/www\.instagram\.com\/dmitriikravchenko992" class="hover:text-pinklight">Instagram<\/a>/g,
@@ -2771,7 +2797,7 @@ function applyGlobalEnhancements(html) {
     .replaceAll("Мы свяжемся в течение 15 минут в рабочее время.", "Мы свяжемся в течение рабочего дня.")
     .replaceAll("Заявка отправлена! Свяжемся с вами в течение 15 минут.", "Заявка отправлена! Свяжемся с вами в течение рабочего дня.")
     .replaceAll("~ 15 мин", "1-2 часа")
-    .replace("</body>", `${lightbox.markup}\n</body>`);
+    .replace("</body>", `${lightbox.markup}\n</body>`));
 }
 
 function fileNameFromImageSrc(src = "") {
@@ -3270,7 +3296,7 @@ ${parts.nav}
       <p class="mt-5 max-w-3xl text-[17px] sm:text-[20px] leading-relaxed text-ink/72 text-pretty">${escapeHtml(trofimovLead)}</p>
       <div class="mt-6 flex flex-wrap items-center gap-3">
         <a href="#book" class="btn-primary px-7 py-4 rounded-full font-semibold text-[15px] inline-flex items-center gap-2 arrow-cta">Записаться на консультацию <span class="arrow">→</span></a>
-        <a href="tel:+79263329369" class="px-7 py-4 rounded-full font-semibold text-[15px] border border-ink/15 hover:border-ink/40 transition">+7 (926) 332-93-69</a>
+        <a href="${contactTelHref}" class="px-7 py-4 rounded-full font-semibold text-[15px] border border-ink/15 hover:border-ink/40 transition">${contactPhoneText}</a>
       </div>
       <ul class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 max-w-3xl">
         ${statsHtml}
@@ -3434,7 +3460,7 @@ ${parts.nav}
       <p class="mt-5 max-w-3xl text-[17px] sm:text-[20px] leading-relaxed text-ink/72 text-pretty">${escapeHtml(kravchenkoLead)}</p>
       <div class="mt-6 flex flex-wrap items-center gap-3">
         <a href="#book" class="btn-primary px-7 py-4 rounded-full font-semibold text-[15px] inline-flex items-center gap-2 arrow-cta">Записаться на консультацию <span class="arrow">→</span></a>
-        <a href="tel:+79263329369" class="px-7 py-4 rounded-full font-semibold text-[15px] border border-ink/15 hover:border-ink/40 transition">+7 (926) 332-93-69</a>
+        <a href="${contactTelHref}" class="px-7 py-4 rounded-full font-semibold text-[15px] border border-ink/15 hover:border-ink/40 transition">${contactPhoneText}</a>
       </div>
       <div class="mt-8 grid sm:grid-cols-2 gap-3 max-w-3xl">
         <div class="rounded-2xl bg-white/85 border border-ink/10 px-4 py-4 shadow-sm text-[14px] sm:text-[15px] leading-relaxed text-ink/70">• 2008 Присуждена ученая степень кандидата медицинских наук.</div>
@@ -4124,13 +4150,13 @@ function renderOnlineHelpPage() {
     {
       label: "в MAX:",
       href: maxContactUrl,
-      value: "+7 926 332 93 69",
+      value: contactPhoneText,
       icon: "max",
     },
     {
       label: "на WhatsApp:",
-      href: "https://wa.me/79263329369",
-      value: "+7 926 332 93 69",
+      href: contactWhatsAppUrl,
+      value: contactPhoneText,
       icon: "whatsapp",
     },
     {
@@ -4422,7 +4448,7 @@ ${parts.nav}
         <div class="lg:col-span-4 rounded-lg bg-white border border-ink/10 p-5 shadow-sm shadow-ink/5">
           <div class="text-[12px] uppercase tracking-[0.16em] font-semibold text-pink2">контактное лицо</div>
           <div class="mt-3 font-display text-[24px] leading-tight font-bold text-ink">Кравченко Дмитрий Валерьевич</div>
-          <a href="tel:+79263329369" class="mt-5 inline-flex rounded-full bg-ink px-5 py-3 text-[14px] font-semibold text-white hover:bg-indigo2 transition">+7 (926) 332-93-69</a>
+          <a href="${contactTelHref}" class="mt-5 inline-flex rounded-full bg-ink px-5 py-3 text-[14px] font-semibold text-white hover:bg-indigo2 transition">${contactPhoneText}</a>
         </div>
       </div>
     </div>
@@ -4777,14 +4803,15 @@ function renderContactsPage() {
   const parts = templateParts();
   const page = readJson("contacts");
   const head = updateSeo(parts.head, page);
-  const contactsAddress = "г. Одинцово, Московской обл., Красногорское ш., д. 17 (Территория Клинической Больницы №123)";
+  const contactsAddress = primaryAddress;
+  const visibleContactsAddress = primaryAddressWithLandmark;
   const contactsAddressQuery = encodeURIComponent(contactsAddress);
   const secondaryReceptionQuery = encodeURIComponent(secondaryReceptionAddress);
   const mapSrc = `https://yandex.ru/map-widget/v1/?mode=search&text=${contactsAddressQuery}&z=16`;
   const contactRows = [
     {
       label: "Адрес",
-      value: contactsAddress,
+      value: visibleContactsAddress,
       href: `https://yandex.ru/maps/?mode=search&text=${contactsAddressQuery}`,
     },
     {
@@ -4799,8 +4826,8 @@ function renderContactsPage() {
     },
     {
       label: "Телефон",
-      value: "+7 (926) 332-93-69",
-      href: "tel:+79263329369",
+      value: contactPhoneText,
+      href: contactTelHref,
     },
     {
       label: "MAX",
@@ -5280,7 +5307,7 @@ ${heroSubtitleHtml}
       <p class="mt-6 max-w-2xl text-[15px] sm:text-[17px] leading-relaxed text-ink/75">${escapeHtml(lead)}</p>
       <div class="mt-8 flex flex-wrap items-center gap-3">
         <a href="#book" class="btn-primary px-7 py-4 rounded-full font-semibold text-[15px] inline-flex items-center gap-2 arrow-cta">Записаться на консультацию <span class="arrow">→</span></a>
-        <a href="tel:+79263329369" class="px-7 py-4 rounded-full font-semibold text-[15px] border border-ink/15 hover:border-ink/40 transition">+7 (926) 332-93-69</a>
+        <a href="${contactTelHref}" class="px-7 py-4 rounded-full font-semibold text-[15px] border border-ink/15 hover:border-ink/40 transition">${contactPhoneText}</a>
       </div>
       <div class="mt-4 inline-flex max-w-full items-center gap-3 rounded-2xl bg-white/85 border border-pink2/20 px-4 py-3 text-[14px] sm:text-[15px] leading-snug text-ink shadow-sm shadow-pink2/5">
         <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo2 via-violet2 to-pink2 text-white font-display text-lg font-bold">✓</span>
