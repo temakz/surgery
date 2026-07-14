@@ -359,7 +359,7 @@ img[data-lightbox-image] {
   };
 
   document.querySelectorAll("img").forEach((img) => {
-    if (!isExcluded(img)) img.dataset.lightboxImage = "";
+    if (!isExcluded(img)) { const alt = (img.getAttribute("alt") || "").trim(); img.dataset.lightboxImage = ""; img.tabIndex = 0; img.setAttribute("role", "button"); img.setAttribute("aria-label", alt ? "Открыть изображение: " + alt : "Открыть изображение"); }
   });
 
   document.addEventListener("click", (event) => {
@@ -392,6 +392,20 @@ img[data-lightbox-image] {
     image.src = target.currentSrc || target.src;
     image.alt = target.alt || "Изображение";
     if (!dialog.open) dialog.showModal();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const target = event.target.closest?.("img[data-lightbox-image]");
+    if (!target) return;
+    if (event.key === "Enter") { event.preventDefault(); target.click(); }
+    if (event.key === " " || event.key === "Spacebar") event.preventDefault();
+  });
+
+  document.addEventListener("keyup", (event) => {
+    const target = event.target.closest?.("img[data-lightbox-image]");
+    if (!target || (event.key !== " " && event.key !== "Spacebar")) return;
+    event.preventDefault();
+    target.click();
   });
 
   closeButton?.addEventListener("click", () => dialog.close());

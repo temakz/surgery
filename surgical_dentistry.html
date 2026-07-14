@@ -386,7 +386,7 @@ img[data-lightbox-image] {
 
     <div class="flex items-center gap-2">
       <a href="index.html#contact" class="hidden sm:inline btn-primary px-4 lg:px-5 py-2.5 rounded-full text-[13px] lg:text-[14px] font-semibold">Записаться</a>
-      <button id="mobBtn" aria-label="Меню" class="xl:hidden w-10 h-10 rounded-lg border border-ink/10 flex items-center justify-center hover:bg-white">
+      <button id="mobBtn" aria-label="Меню" aria-expanded="false" aria-controls="mobPanel" class="xl:hidden w-10 h-10 rounded-lg border border-ink/10 flex items-center justify-center hover:bg-white">
         <svg id="mobIcon" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
     </div>
@@ -720,7 +720,7 @@ img[data-lightbox-image] {
 <script>
   (function(){
     var b=document.getElementById('mobBtn'),p=document.getElementById('mobPanel');
-    if(b&&p){b.addEventListener('click',function(){p.classList.toggle('hidden')});}
+    if(b&&p){var q=window.matchMedia('(min-width: 1280px)');function c(){p.classList.add('hidden');b.setAttribute('aria-expanded','false')}b.addEventListener('click',function(){var h=p.classList.contains('hidden');p.classList.toggle('hidden');b.setAttribute('aria-expanded',h?'true':'false')});p.addEventListener('click',function(e){if(e.target.closest('a'))c()});function r(e){if(e.matches)c()}if(q.addEventListener){q.addEventListener('change',r)}else{q.addListener(r)}r(q)}
   })();
 </script>
 <dialog id="imageLightbox" closedby="any" aria-label="Просмотр изображения">
@@ -744,7 +744,7 @@ img[data-lightbox-image] {
   };
 
   document.querySelectorAll("img").forEach((img) => {
-    if (!isExcluded(img)) img.dataset.lightboxImage = "";
+    if (!isExcluded(img)) { const alt = (img.getAttribute("alt") || "").trim(); img.dataset.lightboxImage = ""; img.tabIndex = 0; img.setAttribute("role", "button"); img.setAttribute("aria-label", alt ? "Открыть изображение: " + alt : "Открыть изображение"); }
   });
 
   document.addEventListener("click", (event) => {
@@ -777,6 +777,20 @@ img[data-lightbox-image] {
     image.src = target.currentSrc || target.src;
     image.alt = target.alt || "Изображение";
     if (!dialog.open) dialog.showModal();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const target = event.target.closest?.("img[data-lightbox-image]");
+    if (!target) return;
+    if (event.key === "Enter") { event.preventDefault(); target.click(); }
+    if (event.key === " " || event.key === "Spacebar") event.preventDefault();
+  });
+
+  document.addEventListener("keyup", (event) => {
+    const target = event.target.closest?.("img[data-lightbox-image]");
+    if (!target || (event.key !== " " && event.key !== "Spacebar")) return;
+    event.preventDefault();
+    target.click();
   });
 
   closeButton?.addEventListener("click", () => dialog.close());
