@@ -2202,6 +2202,84 @@ function setHeadTag(html, pattern, tag) {
   return html.replace("</head>", `${tag}\n</head>`);
 }
 
+const searchVerificationTags = `<meta name="google-site-verification" content="1FVTD8dzswtrQZr37p2sJE_CP7IsMRm0xExpJ280M8E">
+<meta name="yandex-verification" content="ccf920bce5334322">`;
+
+const yandexMetrikaHead = `<!-- Yandex.Metrika counter -->
+<script>
+(function(m,e,t,r,i,k,a){
+  m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+  m[i].l=1*new Date();
+  k=e.createElement(t);
+  a=e.getElementsByTagName(t)[0];
+  k.async=1;
+  k.src=r;
+  a.parentNode.insertBefore(k,a);
+})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
+
+ym(72010240,"init",{
+  clickmap:true,
+  trackLinks:true,
+  accurateTrackBounce:true,
+  webvisor:true
+});
+</script>
+<!-- /Yandex.Metrika counter -->`;
+
+const yandexMetrikaNoScript = `<noscript>
+  <div>
+    <img src="https://mc.yandex.ru/watch/72010240" style="position:absolute; left:-9999px;" alt="">
+  </div>
+</noscript>`;
+
+const googleTagManagerHead = `<!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){
+  w[l]=w[l]||[];
+  w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+  var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),
+      dl=l!='dataLayer'?'&l='+l:'';
+  j.async=true;
+  j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+  f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K7LGHNZ');
+</script>
+<!-- End Google Tag Manager -->`;
+
+const googleTagManagerNoScript = `<!-- Google Tag Manager (noscript) -->
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K7LGHNZ"
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->`;
+
+function removeLegacyTracking(html) {
+  return html
+    .replace(/\n?<meta name="google-site-verification" content="[^"]*"\s*\/?>/gi, "")
+    .replace(/\n?<meta name="yandex-verification" content="[^"]*"\s*\/?>/gi, "")
+    .replace(/\n?<!-- Yandex\.Metrika counter -->[\s\S]*?<!-- \/Yandex\.Metrika counter -->/gi, "")
+    .replace(/\n?<script\b[^>]*>[\s\S]*?mc\.yandex\.ru\/metrika\/tag\.js[\s\S]*?<\/script>/gi, "")
+    .replace(/\n?<noscript>\s*<div>\s*<img src="https:\/\/mc\.yandex\.ru\/watch\/72010240"[\s\S]*?<\/div>\s*<\/noscript>/gi, "")
+    .replace(/\n?<!-- Google Tag Manager -->[\s\S]*?<!-- End Google Tag Manager -->/gi, "")
+    .replace(/\n?<script\b[^>]*>[\s\S]*?googletagmanager\.com\/gtm\.js\?id=[\s\S]*?GTM-K7LGHNZ[\s\S]*?<\/script>/gi, "")
+    .replace(/\n?<!-- Google Tag Manager \(noscript\) -->[\s\S]*?<!-- End Google Tag Manager \(noscript\) -->/gi, "")
+    .replace(/\n?<noscript>\s*<iframe src="https:\/\/www\.googletagmanager\.com\/ns\.html\?id=GTM-K7LGHNZ"[\s\S]*?<\/iframe>\s*<\/noscript>/gi, "")
+    .replace(/\n?<script\b[^>]*\bsrc="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=UA-189103323-1"[^>]*><\/script>/gi, "")
+    .replace(/\n?<script\b[^>]*>[\s\S]*?gtag\(\s*['"]config['"]\s*,\s*['"]UA-189103323-1['"][\s\S]*?<\/script>/gi, "")
+    .replace(/\n?<script\b[^>]*>[\s\S]*?tilda-stat-1\.0\.min\.js[\s\S]*?<\/script>/gi, "");
+}
+
+function applyTrackingIntegrations(html) {
+  const headBlocks = `${searchVerificationTags}\n${yandexMetrikaHead}\n${googleTagManagerHead}`;
+  const bodyBlocks = `${yandexMetrikaNoScript}\n${googleTagManagerNoScript}`;
+  return removeLegacyTracking(html)
+    .replace("</head>", `${headBlocks}\n</head>`)
+    .replace(/(<body\b[^>]*>\s*)/i, `$1${bodyBlocks}\n`);
+}
+
 function normalizeContactDetails(value = "") {
   return String(value || "")
     .replace(/tel:\+?7?9099574107/gi, contactTelHref)
@@ -2697,7 +2775,7 @@ function ensureSeoCompleteness(html) {
 
 function applyGlobalEnhancements(html) {
   const lightbox = lightboxAssets();
-  return normalizeContactDetails(useStaticCss(optimizeGoogleFonts(ensureSeoCompleteness(html)))
+  const enhanced = normalizeContactDetails(useStaticCss(optimizeGoogleFonts(ensureSeoCompleteness(html)))
     .replace(/<title>([\s\S]*?)<\/title>/, (_, title) => `<title>${title.replaceAll("—", "–")}</title>`)
     .replace("</head>", `<link rel="icon" type="image/png" href="favicon.png">\n<link rel="apple-touch-icon" href="logo.png">\n${lightbox.style}\n</head>`)
     .replace(
@@ -2812,6 +2890,7 @@ function applyGlobalEnhancements(html) {
     .replaceAll("Заявка отправлена! Свяжемся с вами в течение 15 минут.", "Заявка отправлена! Свяжемся с вами в течение рабочего дня.")
     .replaceAll("~ 15 мин", "1-2 часа")
     .replace("</body>", `${lightbox.markup}\n</body>`));
+  return applyTrackingIntegrations(enhanced);
 }
 
 function fileNameFromImageSrc(src = "") {
