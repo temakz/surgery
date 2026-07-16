@@ -30,6 +30,7 @@ const sourceImportImagesDir = path.join(root, "uploads", "01");
 const importImageAssetNames = ["import.webp", "import_01.webp", "import_03.webp", "import_04.webp", "import_05.webp"];
 const sourceCommercialOfferText = path.join(root, "commercial-offer.txt");
 const sourceCommercialImagesDir = path.join(root, "uploads", "02");
+const sourceHtaccess = path.join(root, ".htaccess");
 const commercialImageAssetNames = [
   "comm_00.webp",
   "comm_01.webp",
@@ -5605,6 +5606,9 @@ function build() {
     fs.writeFileSync(path.join(outRoot, "404.html"), rewriteImageAssetRefs(notFoundHtml, imageManifest), "utf8");
 
     fs.copyFileSync(path.join(scrapeRoot, "robots.txt"), path.join(outRoot, "robots.txt"));
+    if (fs.existsSync(sourceHtaccess) && path.resolve(outRoot) !== root) {
+      fs.copyFileSync(sourceHtaccess, path.join(outRoot, ".htaccess"));
+    }
     fs.writeFileSync(path.join(outRoot, "sitemap.xml"), renderSitemap(files), "utf8");
     fs.writeFileSync(
       path.join(outRoot, "_redirects"),
