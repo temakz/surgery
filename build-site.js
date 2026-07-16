@@ -4362,23 +4362,6 @@ ${parts.nav}
   </div>
 </section>
 
-<section class="py-10 sm:py-12 bg-cream border-y border-ink/5">
-  <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
-    <div class="rounded-lg bg-white border border-ink/10 p-5 sm:p-7 shadow-sm">
-      <h2 class="font-display text-[26px] sm:text-[34px] leading-tight font-bold text-ink">Рекомендуемые центры для проведения рентгенологического обследования челюстей и зубов</h2>
-      <div class="mt-5 flex flex-col sm:flex-row gap-3">
-        <a href="https://www.picasso-diagnostic.ru" target="_blank" rel="noopener" class="inline-flex items-center justify-between gap-4 rounded-lg border border-ink/10 bg-cream px-5 py-4 text-[15px] sm:text-[16px] font-bold text-indigo2 hover:border-indigo2/30 transition">
-          <span>ПИКАССО</span>
-          <span class="text-ink/45 font-normal">picasso-diagnostic.ru</span>
-        </a>
-        <a href="https://www.3d-lab.ru/" target="_blank" rel="noopener" class="inline-flex items-center justify-between gap-4 rounded-lg border border-ink/10 bg-cream px-5 py-4 text-[15px] sm:text-[16px] font-bold text-indigo2 hover:border-indigo2/30 transition">
-          <span>3D-Lab</span>
-          <span class="text-ink/45 font-normal">3d-lab.ru</span>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
 </main>
 ${parts.footer}`;
 }
