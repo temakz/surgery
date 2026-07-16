@@ -908,19 +908,19 @@ const tmjArthroplastyItems = [
 
 const tmjTreatmentVideos = [
   {
-    id: "_I0rorCC29s",
+    src: "/video/tmj/tmj-arthroscopy-pathology.mp4",
     title: "Артроскопия внчс патология виден сппечный процесс в верхнем этаже ВНЧС",
   },
   {
-    id: "4R6QFMyCJe8",
+    src: "/video/tmj/tmj-arthroscopy-normal.mp4",
     title: "Артроскопия внчс - норма",
   },
   {
-    id: "3Mn4pa5f0Cs",
+    src: "/video/tmj/tmj-masticatory-system-pathology.mp4",
     title: "Принцип работы жевательного аппарата и этапы развития патологии жевательного аппарата ВНЧС",
   },
   {
-    id: "JAs0wK6AK4g",
+    src: "/video/tmj/tmj-splint-therapy.mp4",
     title: "Принцип лечения пациентов с функциональными нарушениями жевательного аппарата, ВНЧС. Сплинт терапия.",
   },
 ];
@@ -2051,14 +2051,11 @@ function renderTmjVideoSection(sectionLabel, videos = tmjTreatmentVideos) {
         .map(
           (video) => `<article class="rounded-2xl bg-cream border border-ink/5 overflow-hidden shadow-sm">
         <h3 class="min-h-[88px] px-4 pt-4 pb-3 text-[13px] sm:text-[14px] leading-snug font-semibold text-indigo2">ВИДЕО: ${escapeHtml(video.title)}</h3>
-        <a href="https://www.youtube.com/watch?v=${encodeURIComponent(video.id)}" target="_blank" rel="noopener" class="group relative block aspect-video bg-ink overflow-hidden" aria-label="Смотреть видео на YouTube: ${escapeHtml(video.title)}">
-          <img src="https://i.ytimg.com/vi/${encodeURIComponent(video.id)}/hqdefault.jpg" alt="${escapeHtml(video.title)}" class="absolute inset-0 w-full h-full object-cover transition duration-300 group-hover:scale-[1.03]" loading="lazy" decoding="async">
-          <span class="absolute inset-0 bg-ink/20 group-hover:bg-ink/10 transition"></span>
-          <span class="absolute left-1/2 top-1/2 w-14 h-10 -translate-x-1/2 -translate-y-1/2 rounded-xl bg-[#ff0000] text-white shadow-lg flex items-center justify-center transition duration-300 group-hover:scale-105">
-            <span class="ml-1 w-0 h-0 border-y-[9px] border-y-transparent border-l-[15px] border-l-white"></span>
-          </span>
-          <span class="absolute right-3 bottom-3 rounded-full bg-ink/80 px-3 py-1.5 text-[12px] font-semibold text-white backdrop-blur">Смотреть на YouTube</span>
-        </a>
+        <div class="aspect-video bg-ink overflow-hidden">
+          <video controls playsinline preload="metadata" class="h-full w-full object-cover" aria-label="${escapeHtml(video.title)}">
+            <source src="${escapeHtml(video.src)}" type="video/mp4">
+          </video>
+        </div>
       </article>`
         )
         .join("\n")}
