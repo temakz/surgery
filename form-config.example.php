@@ -5,9 +5,9 @@ defined('FORM_HANDLER') || exit;
 return [
   'smtp' => [
     'enabled' => false,
-    'host' => '',
+    'host' => 'smtp.timeweb.ru',
     'port' => 465,
-    'username' => '',
+    'username' => 'forms@cmf-surgery.ru',
     'password' => '',
     'encryption' => 'ssl',
     'from_email' => 'forms@cmf-surgery.ru',

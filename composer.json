@@ -1,0 +1,8 @@
+{
+    "name": "temakz/surgery-site",
+    "description": "Static surgery site backend form dependencies.",
+    "license": "proprietary",
+    "require": {
+        "phpmailer/phpmailer": "^7.0"
+    }
+}

@@ -31,6 +31,9 @@ const importImageAssetNames = ["import.webp", "import_01.webp", "import_03.webp"
 const sourceCommercialOfferText = path.join(root, "commercial-offer.txt");
 const sourceCommercialImagesDir = path.join(root, "uploads", "02");
 const sourceHtaccess = path.join(root, ".htaccess");
+const sourceSendForm = path.join(root, "send-form.php");
+const sourceVendorDir = path.join(root, "vendor");
+const sourceRateLimitHtaccess = path.join(root, "storage", "form-rate-limit", ".htaccess");
 const commercialImageAssetNames = [
   "comm_00.webp",
   "comm_01.webp",
@@ -3089,6 +3092,23 @@ function copySiteCssAsset(outRoot) {
   }
 }
 
+function copyBackendRuntime(outRoot) {
+  if (path.resolve(outRoot) === root) return;
+  if (fs.existsSync(sourceSendForm)) {
+    fs.copyFileSync(sourceSendForm, path.join(outRoot, "send-form.php"));
+  }
+  if (fs.existsSync(sourceVendorDir)) {
+    const vendorDest = path.join(outRoot, "vendor");
+    fs.rmSync(vendorDest, { recursive: true, force: true });
+    fs.cpSync(sourceVendorDir, vendorDest, { recursive: true });
+  }
+  if (fs.existsSync(sourceRateLimitHtaccess)) {
+    const rateLimitDest = path.join(outRoot, "storage", "form-rate-limit");
+    fs.mkdirSync(rateLimitDest, { recursive: true });
+    fs.copyFileSync(sourceRateLimitHtaccess, path.join(rateLimitDest, ".htaccess"));
+  }
+}
+
 function removeHomeQuotaStat(html) {
   return html
     .replace("grid grid-cols-3 max-w-2xl divide-x divide-ink/10", "grid grid-cols-2 max-w-lg divide-x divide-ink/10")
@@ -5661,6 +5681,7 @@ function build() {
     if (fs.existsSync(sourceHtaccess) && path.resolve(outRoot) !== root) {
       fs.copyFileSync(sourceHtaccess, path.join(outRoot, ".htaccess"));
     }
+    copyBackendRuntime(outRoot);
     fs.writeFileSync(path.join(outRoot, "sitemap.xml"), renderSitemap(files), "utf8");
     fs.writeFileSync(
       path.join(outRoot, "_redirects"),
