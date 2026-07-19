@@ -548,10 +548,10 @@ ym(72010240,"init",{
         <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo2 via-violet2 to-pink2 text-white font-display text-[28px] font-bold">1</div>
         <h2 class="font-display text-[28px] sm:text-[38px] leading-tight font-bold text-ink">Запишитесь на консультацию</h2>
       </div>
-      <form name="online-consultation" method="POST" action="/onlinehelp.html" data-netlify="true" netlify-honeypot="bot-field" class="rounded-lg bg-white border border-ink/10 p-5 sm:p-6 shadow-sm shadow-ink/5">
-        <input type="hidden" name="form-name" value="online-consultation">
-        <p class="hidden">
-          <label>Не заполняйте это поле <input name="bot-field"></label>
+      <form name="online-consultation" method="POST" action="/send-form.php" class="rounded-lg bg-white border border-ink/10 p-5 sm:p-6 shadow-sm shadow-ink/5">
+        <input type="hidden" name="form_type" value="online">
+        <p class="hidden" aria-hidden="true">
+          <label>РќРµ Р·Р°РїРѕР»РЅСЏР№С‚Рµ СЌС‚Рѕ РїРѕР»Рµ <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
         </p>
         <div class="border-b border-ink/10 pb-4">
           <h2 class="font-display text-[28px] sm:text-[34px] leading-tight font-bold text-ink">Записаться на консультацию</h2>
@@ -567,7 +567,7 @@ ym(72010240,"init",{
           </div>
           <div>
             <label for="online-comment" class="mb-2 block text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">Комментарий</label>
-            <textarea id="online-comment" name="comment" rows="5" class="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-[16px] leading-relaxed text-ink outline-none transition focus:border-indigo2/45 focus:ring-4 focus:ring-indigo2/10" placeholder="Опишите вкратце цель вашего обращения"></textarea>
+            <textarea id="online-comment" name="comment" rows="5" required class="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-[16px] leading-relaxed text-ink outline-none transition focus:border-indigo2/45 focus:ring-4 focus:ring-indigo2/10" placeholder="Опишите вкратце цель вашего обращения"></textarea>
           </div>
           <label class="flex items-start gap-2 text-[13px] leading-relaxed text-ink/70">
             <input type="checkbox" name="privacy_consent" value="accepted" required class="mt-1 accent-pink2">
@@ -685,17 +685,6 @@ ym(72010240,"init",{
     </div>
   </div>
 </footer>
-
-<script>
-  var f = document.getElementById('exoForm');
-  if(f){
-    f.addEventListener('submit', function(e){
-      e.preventDefault();
-      document.getElementById('exoSuccess').classList.remove('hidden');
-      setTimeout(function(){ f.reset(); }, 100);
-    });
-  }
-</script>
 
 <script>
   (function(){

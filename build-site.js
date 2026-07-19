@@ -821,6 +821,50 @@ function normalizeConsultationClaims(html = "") {
     .replaceAll("Записаться на бесплатную консультацию", "Записаться на консультацию");
 }
 
+function phpFormHiddenFields(formType, indent = "        ") {
+  return `<input type="hidden" name="form_type" value="${formType}">
+${indent}<p class="hidden" aria-hidden="true">
+${indent}  <label>РќРµ Р·Р°РїРѕР»РЅСЏР№С‚Рµ СЌС‚Рѕ РїРѕР»Рµ <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+${indent}</p>`;
+}
+
+function preparePhpForms(html = "") {
+  return String(html)
+    .replace(
+      /<form id="bookForm" class="([^"]+)">/,
+      `<form id="bookForm" method="POST" action="/send-form.php" class="$1">
+        ${phpFormHiddenFields("book")}`
+    )
+    .replace(
+      /<select name="service" class="([^"]+)">\s*<option class="bg-ink">/,
+      `<select name="service" required class="$1">
+            <option value="" disabled selected class="bg-ink">`
+    )
+    .replace(
+      /<textarea name="comment" rows="2" class="([^"]+)" placeholder="([^"]+)"><\/textarea>/,
+      `<textarea name="comment" rows="2" required class="$1" placeholder="$2"></textarea>`
+    )
+    .replace(
+      /<form id="exoForm" class="([^"]+)">/,
+      `<form id="exoForm" method="POST" action="/send-form.php" class="$1">
+        ${phpFormHiddenFields("exo")}`
+    )
+    .replace(
+      /<textarea name="comment" rows="3" class="([^"]+)" placeholder="([^"]+)"><\/textarea>/g,
+      `<textarea name="comment" rows="3" required class="$1" placeholder="$2"></textarea>`
+    )
+    .replace(
+      /<script>\s*function bind\(formId, msgId\)\{[\s\S]*?bind\('bookForm','bookSuccess'\);\s*<\/script>\s*/g,
+      ""
+    )
+    .replace(
+      /<script>\s*var f = document\.getElementById\('exoForm'\);[\s\S]*?<\/script>\s*/g,
+      ""
+    )
+    .replace(/\n\s*<p id="bookSuccess"[\s\S]*?<\/p>/g, "")
+    .replace(/\n\s*<p id="exoSuccess"[\s\S]*?<\/p>/g, "");
+}
+
 const tmjTreatmentCards = [
   {
     title: "Сплинт терапия",
@@ -2786,7 +2830,7 @@ function ensureSeoCompleteness(html) {
 
 function applyGlobalEnhancements(html) {
   const lightbox = lightboxAssets();
-  const enhanced = normalizeConsultationClaims(normalizeContactDetails(useStaticCss(optimizeGoogleFonts(ensureSeoCompleteness(html)))
+  const enhanced = preparePhpForms(normalizeConsultationClaims(normalizeContactDetails(useStaticCss(optimizeGoogleFonts(ensureSeoCompleteness(html))))
     .replace(/<title>([\s\S]*?)<\/title>/, (_, title) => `<title>${title.replaceAll("—", "–")}</title>`)
     .replace("</head>", `<link rel="icon" type="image/png" href="favicon.png">\n<link rel="apple-touch-icon" href="logo.png">\n${lightbox.style}\n</head>`)
     .replace(
@@ -4061,11 +4105,8 @@ function renderReviewForm() {
   const procedureOptions = services
     .map(([, label]) => `<option value="${escapeHtml(label)}">${escapeHtml(label)}</option>`)
     .join("\n");
-  return `<form name="review-feedback" method="POST" action="/reviews.html" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" class="rounded-lg bg-white border border-ink/10 p-5 sm:p-6 shadow-sm shadow-ink/5">
-        <input type="hidden" name="form-name" value="review-feedback">
-        <p class="hidden">
-          <label>Не заполняйте это поле <input name="bot-field"></label>
-        </p>
+  return `<form name="review-feedback" method="POST" action="/send-form.php" enctype="multipart/form-data" class="rounded-lg bg-white border border-ink/10 p-5 sm:p-6 shadow-sm shadow-ink/5">
+        ${phpFormHiddenFields("review")}
         <div class="border-b border-ink/10 pb-4">
           <h2 class="font-display text-[28px] sm:text-[34px] leading-tight font-bold text-ink">Оставить отзыв или историю</h2>
         </div>
@@ -4077,18 +4118,18 @@ function renderReviewForm() {
           <div class="grid sm:grid-cols-2 gap-4">
             <div>
               <label for="review-phone" class="mb-2 block text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">Телефон</label>
-              <input id="review-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" class="review-form-field h-12 w-full rounded-lg border border-ink/15 bg-white px-4 text-[16px] text-ink outline-none transition" placeholder="+7">
+              <input id="review-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required class="review-form-field h-12 w-full rounded-lg border border-ink/15 bg-white px-4 text-[16px] text-ink outline-none transition" placeholder="+7">
             </div>
             <div>
               <label for="review-email" class="mb-2 block text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">E-mail</label>
-              <input id="review-email" name="email" type="email" autocomplete="email" class="review-form-field h-12 w-full rounded-lg border border-ink/15 bg-white px-4 text-[16px] text-ink outline-none transition" placeholder="mail@example.com">
+              <input id="review-email" name="email" type="email" autocomplete="email" required class="review-form-field h-12 w-full rounded-lg border border-ink/15 bg-white px-4 text-[16px] text-ink outline-none transition" placeholder="mail@example.com">
             </div>
           </div>
           <div>
             <label for="review-procedure" class="mb-2 block text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">Процедура / операция</label>
             <div class="review-form-field relative rounded-lg border border-ink/15 bg-white transition">
-              <select id="review-procedure" name="procedure" class="h-12 w-full appearance-none rounded-lg bg-transparent px-4 pr-11 text-[16px] text-ink outline-none">
-                <option value="">Выберите из списка</option>
+              <select id="review-procedure" name="procedure" required class="h-12 w-full appearance-none rounded-lg bg-transparent px-4 pr-11 text-[16px] text-ink outline-none">
+                <option value="" disabled selected>Выберите из списка</option>
 ${procedureOptions}
                 <option value="Другое">Другое</option>
               </select>
@@ -4097,9 +4138,9 @@ ${procedureOptions}
               </span>
             </div>
           </div>
-          <div>
+          <div id="review-procedure-other-wrap" hidden>
             <label for="review-procedure-other" class="mb-2 block text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">Другое</label>
-            <input id="review-procedure-other" name="procedure_other" type="text" class="review-form-field h-12 w-full rounded-lg border border-ink/15 bg-white px-4 text-[16px] text-ink outline-none transition" placeholder="Можно указать свою процедуру">
+            <input id="review-procedure-other" name="procedure_other" type="text" disabled class="review-form-field h-12 w-full rounded-lg border border-ink/15 bg-white px-4 text-[16px] text-ink outline-none transition" placeholder="Можно указать свою процедуру">
           </div>
           <div>
             <label for="review-message" class="mb-2 block text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">Сообщение</label>
@@ -4107,7 +4148,7 @@ ${procedureOptions}
           </div>
           <div class="rounded-lg bg-cream border border-ink/5 p-4">
             <label for="review-photo" class="mb-2 block text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">Добавить фото</label>
-            <input id="review-photo" name="photo" type="file" accept="image/*" class="block w-full text-[14px] text-ink/60 file:mr-4 file:rounded-full file:border-0 file:bg-white file:px-4 file:py-2.5 file:text-[13px] file:font-semibold file:text-ink hover:file:text-indigo2">
+            <input id="review-photo" name="photo" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" required class="block w-full text-[14px] text-ink/60 file:mr-4 file:rounded-full file:border-0 file:bg-white file:px-4 file:py-2.5 file:text-[13px] file:font-semibold file:text-ink hover:file:text-indigo2">
           </div>
           <label class="flex items-start gap-2 text-[13px] leading-relaxed text-ink/70">
             <input type="checkbox" name="privacy_consent" value="accepted" required class="mt-1 accent-pink2">
@@ -4116,6 +4157,26 @@ ${procedureOptions}
           <button type="submit" class="btn-primary w-full justify-center rounded-full px-6 py-4 text-[15px] font-semibold">Отправить</button>
         </div>
       </form>`;
+}
+
+function reviewProcedureOtherScript() {
+  return `<script>
+  (function(){
+    var select = document.getElementById('review-procedure');
+    var wrap = document.getElementById('review-procedure-other-wrap');
+    var other = document.getElementById('review-procedure-other');
+    if(!select || !wrap || !other) return;
+    function sync(){
+      var isOther = select.value === 'Другое';
+      wrap.hidden = !isOther;
+      other.disabled = !isOther;
+      other.required = isOther;
+      if(!isOther) other.value = '';
+    }
+    select.addEventListener('change', sync);
+    sync();
+  })();
+</script>`;
 }
 
 function renderReviewCard(review, index, type = "Отзыв пациента") {
@@ -4191,6 +4252,7 @@ ${parts.nav}
     </aside>
   </div>
 </section>
+${reviewProcedureOtherScript()}
 
 <section class="py-12 sm:py-14 lg:py-20 bg-white">
   <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
@@ -4224,11 +4286,8 @@ ${parts.footer}`;
 }
 
 function renderOnlineHelpForm() {
-  return `<form name="online-consultation" method="POST" action="/onlinehelp.html" data-netlify="true" netlify-honeypot="bot-field" class="rounded-lg bg-white border border-ink/10 p-5 sm:p-6 shadow-sm shadow-ink/5">
-        <input type="hidden" name="form-name" value="online-consultation">
-        <p class="hidden">
-          <label>Не заполняйте это поле <input name="bot-field"></label>
-        </p>
+  return `<form name="online-consultation" method="POST" action="/send-form.php" class="rounded-lg bg-white border border-ink/10 p-5 sm:p-6 shadow-sm shadow-ink/5">
+        ${phpFormHiddenFields("online")}
         <div class="border-b border-ink/10 pb-4">
           <h2 class="font-display text-[28px] sm:text-[34px] leading-tight font-bold text-ink">Записаться на бесплатную консультацию</h2>
         </div>
@@ -4243,7 +4302,7 @@ function renderOnlineHelpForm() {
           </div>
           <div>
             <label for="online-comment" class="mb-2 block text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">Комментарий</label>
-            <textarea id="online-comment" name="comment" rows="5" class="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-[16px] leading-relaxed text-ink outline-none transition focus:border-indigo2/45 focus:ring-4 focus:ring-indigo2/10" placeholder="Опишите вкратце цель вашего обращения"></textarea>
+            <textarea id="online-comment" name="comment" rows="5" required class="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-[16px] leading-relaxed text-ink outline-none transition focus:border-indigo2/45 focus:ring-4 focus:ring-indigo2/10" placeholder="Опишите вкратце цель вашего обращения"></textarea>
           </div>
           <label class="flex items-start gap-2 text-[13px] leading-relaxed text-ink/70">
             <input type="checkbox" name="privacy_consent" value="accepted" required class="mt-1 accent-pink2">

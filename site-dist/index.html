@@ -1105,7 +1105,11 @@ ym(72010240,"init",{
     </div>
 
     <div class="lg:col-span-7">
-      <form id="bookForm" class="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-6 lg:p-7 h-full flex flex-col">
+      <form id="bookForm" method="POST" action="/send-form.php" class="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-6 lg:p-7 h-full flex flex-col">
+        <input type="hidden" name="form_type" value="book">
+        <p class="hidden" aria-hidden="true">
+          <label>РќРµ Р·Р°РїРѕР»РЅСЏР№С‚Рµ СЌС‚Рѕ РїРѕР»Рµ <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        </p>
         <div class="flex items-baseline justify-between gap-4">
           <h3 class="font-display text-xl font-bold">Заявка на консультацию</h3>
           <span class="text-[11px] text-mint font-mono uppercase tracking-wider">1-2 часа</span>
@@ -1122,8 +1126,8 @@ ym(72010240,"init",{
         </div>
         <label class="block mt-3">
           <span class="text-[11px] text-white/40 uppercase tracking-wider font-semibold">Интересующая услуга</span>
-          <select name="service" class="w-full mt-1 bg-white/5 rounded-lg border border-white/10 focus:border-pinklight outline-none px-3 py-2.5 text-[14px] appearance-none">
-            <option class="bg-ink">Не выбрано — врач подскажет</option>
+          <select name="service" required class="w-full mt-1 bg-white/5 rounded-lg border border-white/10 focus:border-pinklight outline-none px-3 py-2.5 text-[14px] appearance-none">
+            <option value="" disabled selected class="bg-ink">Не выбрано — врач подскажет</option>
             <option class="bg-ink">Экзопротезирование лица</option>
             <option class="bg-ink">Операция на нос</option>
             <option class="bg-ink">Имплантология</option>
@@ -1137,7 +1141,7 @@ ym(72010240,"init",{
         </label>
         <label class="block mt-3">
           <span class="text-[11px] text-white/40 uppercase tracking-wider font-semibold">Комментарий</span>
-          <textarea name="comment" rows="2" class="w-full mt-1 bg-white/5 rounded-lg border border-white/10 focus:border-pinklight outline-none px-3 py-2.5 text-[14px] resize-none" placeholder="Кратко опишите цель обращения"></textarea>
+          <textarea name="comment" rows="2" required class="w-full mt-1 bg-white/5 rounded-lg border border-white/10 focus:border-pinklight outline-none px-3 py-2.5 text-[14px] resize-none" placeholder="Кратко опишите цель обращения"></textarea>
         </label>
 
         <label class="flex items-start gap-2 mt-4 cursor-pointer">
@@ -1148,7 +1152,6 @@ ym(72010240,"init",{
         <button type="submit" class="mt-4 w-full btn-primary py-3 rounded-full font-semibold text-[14px] flex items-center justify-center gap-2 arrow-cta">
           Отправить заявку <span class="arrow">→</span>
         </button>
-        <p id="bookSuccess" class="hidden mt-3 text-[12px] text-mint text-center">✓ Заявка отправлена! Свяжемся в ближайшее время.</p>
       </form>
     </div>
   </div>
@@ -1204,18 +1207,6 @@ ym(72010240,"init",{
     </div>
   </div>
 </footer>
-
-<script>
-  function bind(formId, msgId){
-    var f = document.getElementById(formId); if(!f) return;
-    f.addEventListener('submit', function(e){
-      e.preventDefault();
-      document.getElementById(msgId).classList.remove('hidden');
-      setTimeout(function(){ f.reset(); }, 100);
-    });
-  }
-  bind('bookForm','bookSuccess');
-</script>
 
 <script>
   (function(){

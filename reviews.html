@@ -558,10 +558,10 @@ ym(72010240,"init",{
       </div>
     </div>
     <aside class="lg:col-span-5">
-      <form name="review-feedback" method="POST" action="/reviews.html" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" class="rounded-lg bg-white border border-ink/10 p-5 sm:p-6 shadow-sm shadow-ink/5">
-        <input type="hidden" name="form-name" value="review-feedback">
-        <p class="hidden">
-          <label>Не заполняйте это поле <input name="bot-field"></label>
+      <form name="review-feedback" method="POST" action="/send-form.php" enctype="multipart/form-data" class="rounded-lg bg-white border border-ink/10 p-5 sm:p-6 shadow-sm shadow-ink/5">
+        <input type="hidden" name="form_type" value="review">
+        <p class="hidden" aria-hidden="true">
+          <label>РќРµ Р·Р°РїРѕР»РЅСЏР№С‚Рµ СЌС‚Рѕ РїРѕР»Рµ <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
         </p>
         <div class="border-b border-ink/10 pb-4">
           <h2 class="font-display text-[28px] sm:text-[34px] leading-tight font-bold text-ink">Оставить отзыв или историю</h2>
@@ -574,18 +574,18 @@ ym(72010240,"init",{
           <div class="grid sm:grid-cols-2 gap-4">
             <div>
               <label for="review-phone" class="mb-2 block text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">Телефон</label>
-              <input id="review-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" class="review-form-field h-12 w-full rounded-lg border border-ink/15 bg-white px-4 text-[16px] text-ink outline-none transition" placeholder="+7">
+              <input id="review-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required class="review-form-field h-12 w-full rounded-lg border border-ink/15 bg-white px-4 text-[16px] text-ink outline-none transition" placeholder="+7">
             </div>
             <div>
               <label for="review-email" class="mb-2 block text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">E-mail</label>
-              <input id="review-email" name="email" type="email" autocomplete="email" class="review-form-field h-12 w-full rounded-lg border border-ink/15 bg-white px-4 text-[16px] text-ink outline-none transition" placeholder="mail@example.com">
+              <input id="review-email" name="email" type="email" autocomplete="email" required class="review-form-field h-12 w-full rounded-lg border border-ink/15 bg-white px-4 text-[16px] text-ink outline-none transition" placeholder="mail@example.com">
             </div>
           </div>
           <div>
             <label for="review-procedure" class="mb-2 block text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">Процедура / операция</label>
             <div class="review-form-field relative rounded-lg border border-ink/15 bg-white transition">
-              <select id="review-procedure" name="procedure" class="h-12 w-full appearance-none rounded-lg bg-transparent px-4 pr-11 text-[16px] text-ink outline-none">
-                <option value="">Выберите из списка</option>
+              <select id="review-procedure" name="procedure" required class="h-12 w-full appearance-none rounded-lg bg-transparent px-4 pr-11 text-[16px] text-ink outline-none">
+                <option value="" disabled selected>Выберите из списка</option>
 <option value="Экзопротезирование лица — протезирование ушей, носа, пальцев">Экзопротезирование лица — протезирование ушей, носа, пальцев</option>
 <option value="Операция на нос">Операция на нос</option>
 <option value="Артрогнатология (лечение ВНЧС)">Артрогнатология (лечение ВНЧС)</option>
@@ -613,9 +613,9 @@ ym(72010240,"init",{
               </span>
             </div>
           </div>
-          <div>
+          <div id="review-procedure-other-wrap" hidden>
             <label for="review-procedure-other" class="mb-2 block text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">Другое</label>
-            <input id="review-procedure-other" name="procedure_other" type="text" class="review-form-field h-12 w-full rounded-lg border border-ink/15 bg-white px-4 text-[16px] text-ink outline-none transition" placeholder="Можно указать свою процедуру">
+            <input id="review-procedure-other" name="procedure_other" type="text" disabled class="review-form-field h-12 w-full rounded-lg border border-ink/15 bg-white px-4 text-[16px] text-ink outline-none transition" placeholder="Можно указать свою процедуру">
           </div>
           <div>
             <label for="review-message" class="mb-2 block text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">Сообщение</label>
@@ -623,7 +623,7 @@ ym(72010240,"init",{
           </div>
           <div class="rounded-lg bg-cream border border-ink/5 p-4">
             <label for="review-photo" class="mb-2 block text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">Добавить фото</label>
-            <input id="review-photo" name="photo" type="file" accept="image/*" class="block w-full text-[14px] text-ink/60 file:mr-4 file:rounded-full file:border-0 file:bg-white file:px-4 file:py-2.5 file:text-[13px] file:font-semibold file:text-ink hover:file:text-indigo2">
+            <input id="review-photo" name="photo" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" required class="block w-full text-[14px] text-ink/60 file:mr-4 file:rounded-full file:border-0 file:bg-white file:px-4 file:py-2.5 file:text-[13px] file:font-semibold file:text-ink hover:file:text-indigo2">
           </div>
           <label class="flex items-start gap-2 text-[13px] leading-relaxed text-ink/70">
             <input type="checkbox" name="privacy_consent" value="accepted" required class="mt-1 accent-pink2">
@@ -635,6 +635,23 @@ ym(72010240,"init",{
     </aside>
   </div>
 </section>
+<script>
+  (function(){
+    var select = document.getElementById('review-procedure');
+    var wrap = document.getElementById('review-procedure-other-wrap');
+    var other = document.getElementById('review-procedure-other');
+    if(!select || !wrap || !other) return;
+    function sync(){
+      var isOther = select.value === 'Другое';
+      wrap.hidden = !isOther;
+      other.disabled = !isOther;
+      other.required = isOther;
+      if(!isOther) other.value = '';
+    }
+    select.addEventListener('change', sync);
+    sync();
+  })();
+</script>
 
 <section class="py-12 sm:py-14 lg:py-20 bg-white">
   <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
@@ -1001,17 +1018,6 @@ ym(72010240,"init",{
     </div>
   </div>
 </footer>
-
-<script>
-  var f = document.getElementById('exoForm');
-  if(f){
-    f.addEventListener('submit', function(e){
-      e.preventDefault();
-      document.getElementById('exoSuccess').classList.remove('hidden');
-      setTimeout(function(){ f.reset(); }, 100);
-    });
-  }
-</script>
 
 <script>
   (function(){

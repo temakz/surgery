@@ -1034,17 +1034,6 @@ ym(72010240,"init",{
 </footer>
 
 <script>
-  var f = document.getElementById('exoForm');
-  if(f){
-    f.addEventListener('submit', function(e){
-      e.preventDefault();
-      document.getElementById('exoSuccess').classList.remove('hidden');
-      setTimeout(function(){ f.reset(); }, 100);
-    });
-  }
-</script>
-
-<script>
   (function(){
     var b=document.getElementById('mobBtn'),p=document.getElementById('mobPanel');
     if(b&&p){var q=window.matchMedia('(min-width: 1280px)');function c(){p.classList.add('hidden');b.setAttribute('aria-expanded','false')}b.addEventListener('click',function(){var h=p.classList.contains('hidden');p.classList.toggle('hidden');b.setAttribute('aria-expanded',h?'true':'false')});p.addEventListener('click',function(e){if(e.target.closest('a'))c()});function r(e){if(e.matches)c()}if(q.addEventListener){q.addEventListener('change',r)}else{q.addListener(r)}r(q)}
