@@ -808,6 +808,19 @@ function cleanHeroLead(value = "") {
     .trim();
 }
 
+function normalizeConsultationClaims(html = "") {
+  return String(html)
+    .replaceAll("✔ Бесплатная консультация", "✔ Консультация")
+    .replaceAll("Бесплатная консультация · первичный разбор обращения", "Консультация · первичный разбор обращения")
+    .replaceAll('<span class="font-semibold text-ink">Бесплатная консультация</span><span class="hidden sm:inline text-ink/55"> · первичный разбор обращения</span>', '<span class="font-semibold text-ink">Консультация</span><span class="hidden sm:inline text-ink/55"> · первичный разбор обращения</span>')
+    .replaceAll('<span class="truncate">Бесплатная консультация</span>', '<span class="truncate">Записаться на консультацию</span>')
+    .replaceAll('<h3 class="font-display text-2xl font-bold">Бесплатная консультация</h3>', '<h3 class="font-display text-2xl font-bold">Консультация</h3>')
+    .replaceAll("Первая консультация бесплатная.<br>Перезвоним в течение рабочего дня.", "Оставьте заявку на консультацию.<br>Перезвоним в течение рабочего дня.")
+    .replaceAll("Бесплатная консультация.", "Консультация.")
+    .replaceAll("Запишитесь на бесплатную консультацию", "Запишитесь на консультацию")
+    .replaceAll("Записаться на бесплатную консультацию", "Записаться на консультацию");
+}
+
 const tmjTreatmentCards = [
   {
     title: "Сплинт терапия",
@@ -2773,7 +2786,7 @@ function ensureSeoCompleteness(html) {
 
 function applyGlobalEnhancements(html) {
   const lightbox = lightboxAssets();
-  const enhanced = normalizeContactDetails(useStaticCss(optimizeGoogleFonts(ensureSeoCompleteness(html)))
+  const enhanced = normalizeConsultationClaims(normalizeContactDetails(useStaticCss(optimizeGoogleFonts(ensureSeoCompleteness(html)))
     .replace(/<title>([\s\S]*?)<\/title>/, (_, title) => `<title>${title.replaceAll("—", "–")}</title>`)
     .replace("</head>", `<link rel="icon" type="image/png" href="favicon.png">\n<link rel="apple-touch-icon" href="logo.png">\n${lightbox.style}\n</head>`)
     .replace(
@@ -2887,7 +2900,7 @@ function applyGlobalEnhancements(html) {
     .replaceAll("Мы свяжемся в течение 15 минут в рабочее время.", "Мы свяжемся в течение рабочего дня.")
     .replaceAll("Заявка отправлена! Свяжемся с вами в течение 15 минут.", "Заявка отправлена! Свяжемся с вами в течение рабочего дня.")
     .replaceAll("~ 15 мин", "1-2 часа")
-    .replace("</body>", `${lightbox.markup}\n</body>`));
+    .replace("</body>", `${lightbox.markup}\n</body>`)));
   return applyTrackingIntegrations(enhanced);
 }
 
