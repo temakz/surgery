@@ -8,7 +8,9 @@ Stack:
 - HTML5
 - Tailwind CSS via local generated static CSS
 - Vanilla JS
-- Static output prepared for Netlify Drop
+- Static output prepared in `site-dist`
+- PHP form backend for Timeweb hosting
+- Composer dependency: PHPMailer
 
 Primary generator:
 - `C:\Code6\dima2\build-site.js`
@@ -16,6 +18,10 @@ Primary generator:
 Generated outputs:
 - Root HTML files in `C:\Code6\dima2`
 - Deploy mirror in `C:\Code6\dima2\site-dist`
+- Deploy mirror also receives `.htaccess`, `send-form.php`, `vendor/`,
+  `storage/form-rate-limit/.htaccess`, and `private/.htaccess` when present.
+- `form-config.php` is private server config and must not be committed or copied
+  into `site-dist`.
 
 Live deployment:
 - `https://cmf-surgery.netlify.app/`
@@ -23,9 +29,14 @@ Live deployment:
 - Netlify build command must stay empty. Use `echo "No build"` only if Netlify UI refuses an empty command and the user approves that fallback.
 
 Current deployment state:
+- Active migration branch: `timeweb-migration`
+- Latest pushed migration commit: `486bd2400d6560a4649b1f5654c484b5b2a63186`
+  (`chore: secure smtp configuration`)
+- Migration target: Timeweb / Apache with clean URLs backed by `.htaccess`.
 - Production branch: `main`
 - Final service-page v2 branch: `service-pages-v2`
-- Production site release baseline: `e517528 add import and commercial offer pages`.
+- Last synced production/static baseline before Timeweb work:
+  `f3b3ff0 feat: restore analytics and site verification`
 - After documentation-only closeout commits, keep `main` and `service-pages-v2` synced to the same latest commit.
 - Production URL: `https://cmf-surgery.netlify.app/`
 - Preview URL, retained for comparison: `http://service-pages-v2--cmf-surgery.netlify.app/`
@@ -62,6 +73,37 @@ Source data:
 
 ## Current Behaviors To Preserve
 
+- Contact details are normalized globally:
+  - phone text: `+7 (926) 332-93-69`
+  - phone link: `tel:+79263329369`
+  - WhatsApp: `https://wa.me/79263329369`
+  - main address: `г. Одинцово, Московская область, Красногорское ш., д. 17`
+  - visible contact blocks may additionally keep
+    `(Территория Клинической Больницы №123)`.
+  - Sechenov address remains only as an additional possible reception location.
+- Analytics and verification are restored centrally:
+  - Google verification meta
+  - Yandex verification meta
+  - Yandex Metrika `72010240`
+  - GTM `GTM-K7LGHNZ`
+  - Do not restore old UA analytics or Tilda scripts.
+- Apache routing is stored in root `.htaccess` and copied into `site-dist`.
+  It enables clean URLs without changing canonical/sitemap/internal links.
+- Four forms post to `/send-form.php`:
+  - `bookForm` -> `form_type=book`
+  - `exoForm` -> `form_type=exo`
+  - `review-feedback` -> `form_type=review`
+  - `online-consultation` -> `form_type=online`
+- Forms use required `privacy_consent=accepted` and hidden honeypot `website`.
+- Frontend forms currently do not intercept `submit`; successful or failed PHP
+  responses are shown as JSON after normal browser POST navigation. AJAX/inline
+  UX is still a future task.
+- PHPMailer delivery is implemented in `send-form.php`; SMTP credentials must
+  come only from `private/form-config.php`.
+- `private/.htaccess` denies public access to private server config.
+- Local MP4 players replaced YouTube cards only on `tmj_treatment` and
+  `tmj_dysfunction`; do not add MP4 files to Git unless explicitly requested.
+- Do not reintroduce visible "free consultation" claims.
 - Homepage service cards use the older/original card style, with parser images inside each card.
 - Header social links use inline SVG icons for WhatsApp, Instagram, and email.
 - Homepage doctors and trust cards use parser images.
@@ -95,7 +137,8 @@ At the end of a working session:
    - `service-pages-v2` only if a future preview cycle explicitly reuses that branch.
 
 Repository: `https://github.com/temakz/surgery.git`
-Branch: `main`
+Production branch: `main`
+Current migration branch: `timeweb-migration`
 First push completed by the user on 2026-05-23.
 
 Current production branch: `main`.
@@ -103,6 +146,9 @@ The `service-pages-v2` review branch is closed; keep it matched with `main` unle
 For new work, confirm the target branch with the user before changing or pushing.
 
 Latest documented service-page v2 state:
+- 2026-07-23: Timeweb migration branch latest pushed commit
+  `486bd24 chore: secure smtp configuration`; see
+  `docs/handoffs/handoff_016.md`.
 - 2026-06-10: `6a87d7c remove quota page and polish service content`
 - 2026-06-11: `354f71b polish specialist pages and service details`; see `docs/handoffs/handoff_010.md`.
 - 2026-06-18: `0125baa polish secondary pages and contact flow`; see `docs/handoffs/handoff_011.md`.

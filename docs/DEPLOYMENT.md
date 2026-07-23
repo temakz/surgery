@@ -1,5 +1,59 @@
 # Deployment
 
+## Current Timeweb Migration
+
+Active branch:
+- `timeweb-migration`
+
+Latest pushed migration commit:
+- `486bd2400d6560a4649b1f5654c484b5b2a63186 chore: secure smtp configuration`
+
+Target hosting for this branch:
+- Timeweb / Apache.
+
+The migration branch is no longer a Netlify-only static package. It keeps the
+same generated HTML flow, but also includes Apache/PHP deployment files:
+- root `.htaccess`;
+- `send-form.php`;
+- `storage/form-rate-limit/.htaccess`;
+- `private/.htaccess`;
+- Composer metadata in `composer.json` / `composer.lock`;
+- PHPMailer installed physically in `vendor/`, but `vendor/` and
+  `site-dist/vendor/` are ignored by Git.
+
+`build-site.js` is responsible for keeping `site-dist` deploy-ready. It copies:
+- `.htaccess`;
+- `send-form.php`;
+- `vendor/` when present locally;
+- `storage/form-rate-limit/.htaccess`;
+- `private/.htaccess`.
+
+It must not copy:
+- `form-config.php`;
+- `form-config.example.php`;
+- `composer.json`;
+- `composer.lock`.
+
+Private server config:
+- real SMTP credentials belong in `private/form-config.php`;
+- this file is intentionally ignored by Git;
+- `send-form.php` loads config from `__DIR__ . '/private/form-config.php'`;
+- `private/.htaccess` denies direct public access;
+- `form-config.example.php` is only a template and has no real password.
+
+Apache routing:
+- root `.htaccess` and `site-dist/.htaccess` define clean-URL handling;
+- no HTTPS redirect is included;
+- URL scheme, canonical, sitemap, robots, and internal links were not changed
+  for this step.
+
+Current known end-of-session worktree note:
+- `site-dist/send-form.php` and `site-dist/private/` may appear as local
+  generated deployment artifacts after the final private-config build step.
+- `.cursorindexingignore`, `.specstory/`, and `site-dist/site.zip` are local
+  untracked files and must remain uncommitted unless the user explicitly says
+  otherwise.
+
 ## Production
 
 Live URL:
@@ -12,11 +66,15 @@ GitHub:
 Current production state:
 - `service-pages-v2` was the review branch for the service-page v2 redesign/content cleanup.
 - The preview was approved and fast-forward merged into `main` on 2026-07-14.
-- Production site release baseline is `e517528 add import and commercial offer pages`.
-- Documentation-only closeout commits may sit on top of that release; keep `main` and `service-pages-v2` synced after closeout.
+- Historical service-page v2 production release baseline was
+  `e517528 add import and commercial offer pages`.
+- Last synced static-site commit on `main` and `service-pages-v2` before
+  Timeweb migration work: `f3b3ff0 feat: restore analytics and site verification`.
+- Timeweb migration work continues on `timeweb-migration`.
 - Preview URL retained for comparison: `http://service-pages-v2--cmf-surgery.netlify.app/`
 - Production is published from the prebuilt `site-dist` folder in `main`.
-- Latest confirmed production site release as of 2026-07-14: `e517528 add import and commercial offer pages`.
+- Latest documented Netlify HTTP smoke remains the 2026-07-14 check for
+  `e517528`; rerun production smoke if newer `main` changes need confirmation.
 
 Netlify:
 - Publish directory: `site-dist`

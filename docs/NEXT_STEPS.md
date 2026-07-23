@@ -1,13 +1,77 @@
 # Next Steps
 
+## Current Timeweb Migration State
+
+Branch:
+- `timeweb-migration`
+
+Latest pushed commit:
+- `486bd2400d6560a4649b1f5654c484b5b2a63186 chore: secure smtp configuration`
+
+Recent migration chain:
+- `5438a2a chore: persist apache routing config`
+- `ce5c59b content: remove diagnostic center recommendations`
+- `960646b feat: replace youtube cards with local video players`
+- `7b7e655 content: remove free consultation claims`
+- `5ec8e81 refactor: prepare forms for php handler`
+- `79a6f24 feat: add secure php form handler`
+- `b92607e feat: add smtp mail delivery`
+- `486bd24 chore: secure smtp configuration`
+
+What is done:
+- Apache `.htaccess` exists in the project root and is copied into `site-dist`.
+- Clean-URL Apache rewrite rules are prepared without changing canonical,
+  sitemap, robots, or internal links.
+- The diagnostic-center recommendation block was removed from `onlinehelp`.
+- YouTube cards on `tmj_treatment` and `tmj_dysfunction` were replaced with
+  local HTML5 MP4 players. MP4 files are not tracked in Git.
+- Visible "free consultation" claims were removed or normalized.
+- Four forms now post to `/send-form.php` with `form_type` values:
+  `book`, `exo`, `review`, `online`.
+- Netlify form attributes were removed from the four forms.
+- Required privacy consent and honeypot fields are present.
+- `send-form.php` validates input, rate-limits, suppresses duplicates, validates
+  review uploads, and returns JSON.
+- PHPMailer SMTP delivery is implemented, using only private config values.
+- SMTP config path is now `private/form-config.php`.
+- `private/.htaccess` denies public access to private config.
+
+Important current behavior:
+- The forms currently submit with normal browser POST navigation.
+- There is no frontend submit interception/AJAX handler.
+- On success or failure, the user sees the JSON response from `/send-form.php`.
+- A future task should add inline frontend success/error UI after real hosting
+  behavior is confirmed.
+
+Before the next deploy/test on Timeweb:
+- create real `private/form-config.php` on the server manually from
+  `form-config.example.php`;
+- do not commit real SMTP credentials;
+- ensure `vendor/` exists physically in the uploaded package even though it is
+  ignored by Git;
+- check that `site-dist/private/form-config.php` is absent unless manually
+  provisioned on the server outside Git;
+- check that `site-dist/private/.htaccess` exists;
+- check that `site-dist/send-form.php` matches the intended root handler.
+
+Open follow-ups:
+- Decide whether to add AJAX/inline frontend handling for all four forms.
+- Confirm final Timeweb upload workflow: upload committed files plus ignored
+  `vendor/`, and provision `private/form-config.php` separately.
+- Re-test real SMTP delivery on Timeweb after the private config is installed.
+- Remove or ignore any temporary server diagnostic files; none should be
+  committed.
+
 ## Highest Priority
 
 1. Current production state after service-page v2 approval.
    - GitHub is connected: `https://github.com/temakz/surgery.git`
    - Production branch: `main`
    - Service-page v2 branch: `service-pages-v2`
-   - Production site release baseline: `e517528 add import and commercial offer pages`
-   - Documentation-only closeout commits may sit on top of that release.
+   - Historical service-page v2 release baseline: `e517528 add import and commercial offer pages`
+   - Last synced static-site commit before Timeweb migration:
+     `f3b3ff0 feat: restore analytics and site verification`
+   - Active migration branch: `timeweb-migration`
    - `service-pages-v2` was approved and fast-forward merged into `main` on 2026-07-14.
    - Production URL: `https://cmf-surgery.netlify.app/`
    - Preview URL, retained for comparison: `http://service-pages-v2--cmf-surgery.netlify.app/`
@@ -18,8 +82,10 @@
 
 2. Continue production QA after the completed merge.
    - Check `https://cmf-surgery.netlify.app/`.
-   - Latest closing pass: service-page v2 production merge; see `docs/handoffs/handoff_015.md`.
-   - Latest site release pushed to both `main` and `service-pages-v2`: `e517528 add import and commercial offer pages`.
+   - Latest Timeweb migration handoff: see `docs/handoffs/handoff_016.md`.
+   - Latest service-page v2 production merge handoff: see `docs/handoffs/handoff_015.md`.
+   - Latest static-site commit pushed to both `main` and `service-pages-v2` before Timeweb migration:
+     `f3b3ff0 feat: restore analytics and site verification`.
    - Production HTTP checks passed on 2026-07-14:
      - `/` returned `200`;
      - `/contacts.html` returned `200`;
@@ -120,7 +186,8 @@
 1. Confirm Netlify Drop package is `C:\Code6\dima2\site-dist`.
 2. Check `_redirects` routes.
 3. Check `robots.txt` and `sitemap.xml`.
-4. The service-page v2 approval merge is complete; site release baseline is `e517528`.
+4. The service-page v2 approval merge is complete; historical site release baseline is `e517528`.
+   Current synced static-site baseline before Timeweb migration is `f3b3ff0`.
 5. For future work, confirm the target branch before editing:
    - use `main` for approved production fixes;
    - use a new preview branch for larger review cycles.
