@@ -35,9 +35,9 @@ function reject(int $status, string $code, string $message): void
 
 function load_form_config(): array
 {
-  $localConfig = __DIR__ . '/form-config.php';
+  $localConfig = __DIR__ . '/private/form-config.php';
   if (!is_file($localConfig)) {
-    reject(503, 'config_missing', 'Отправка формы временно недоступна.');
+    reject(500, 'config_error', 'Временная ошибка настройки формы.');
   }
 
   $config = require $localConfig;

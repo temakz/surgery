@@ -34,6 +34,7 @@ const sourceHtaccess = path.join(root, ".htaccess");
 const sourceSendForm = path.join(root, "send-form.php");
 const sourceVendorDir = path.join(root, "vendor");
 const sourceRateLimitHtaccess = path.join(root, "storage", "form-rate-limit", ".htaccess");
+const sourcePrivateHtaccess = path.join(root, "private", ".htaccess");
 const commercialImageAssetNames = [
   "comm_00.webp",
   "comm_01.webp",
@@ -3106,6 +3107,11 @@ function copyBackendRuntime(outRoot) {
     const rateLimitDest = path.join(outRoot, "storage", "form-rate-limit");
     fs.mkdirSync(rateLimitDest, { recursive: true });
     fs.copyFileSync(sourceRateLimitHtaccess, path.join(rateLimitDest, ".htaccess"));
+  }
+  if (fs.existsSync(sourcePrivateHtaccess)) {
+    const privateDest = path.join(outRoot, "private");
+    fs.mkdirSync(privateDest, { recursive: true });
+    fs.copyFileSync(sourcePrivateHtaccess, path.join(privateDest, ".htaccess"));
   }
 }
 
