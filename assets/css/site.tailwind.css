@@ -87,4 +87,46 @@
   .ring-dot {
     box-shadow: 0 0 0 4px rgba(94, 227, 193, 0.25);
   }
+
+  .form-submit-status {
+    margin-top: 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(14, 11, 31, 0.1);
+    padding: 0.85rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .form-submit-status[hidden] {
+    display: none;
+  }
+
+  .form-submit-status:focus-visible {
+    outline: 3px solid rgba(84, 73, 205, 0.35);
+    outline-offset: 3px;
+  }
+
+  .form-submit-status--pending {
+    background: #eef2ff;
+    border-color: rgba(84, 73, 205, 0.18);
+    color: #312e81;
+  }
+
+  .form-submit-status--success {
+    background: #ecfdf5;
+    border-color: rgba(5, 150, 105, 0.22);
+    color: #065f46;
+  }
+
+  .form-submit-status--error {
+    background: #fef2f2;
+    border-color: rgba(220, 38, 38, 0.22);
+    color: #991b1b;
+  }
+
+  .form-submit-is-sending [type="submit"],
+  .form-submit-button--busy {
+    cursor: progress;
+    opacity: 0.82;
+  }
 }

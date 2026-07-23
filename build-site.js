@@ -57,6 +57,8 @@ const commercialImageAssetNames = [
 ];
 const siteCssAssetName = "site.css";
 const sourceSiteCss = path.join(root, "assets", "css", siteCssAssetName);
+const formSubmitAssetName = "form-submit.js";
+const sourceFormSubmitJs = path.join(root, "assets", formSubmitAssetName);
 const scrapeRoot = path.resolve(root, "..", "parse", "scrape-output");
 const pagesRoot = path.join(scrapeRoot, "pages");
 const rawRoot = path.join(pagesRoot, "raw-html");
@@ -2799,6 +2801,12 @@ function useStaticCss(html) {
     );
 }
 
+function useFormSubmitScript(html = "") {
+  const out = String(html);
+  if (!/action=["']\/send-form\.php["']/.test(out) || out.includes(`assets/${formSubmitAssetName}`)) return out;
+  return out.replace("</body>", `<script src="assets/${formSubmitAssetName}"></script>\n</body>`);
+}
+
 function ensureSeoCompleteness(html) {
   const title = headContent(html, /<title>([\s\S]*?)<\/title>/i) || "Center of Surgery";
   const description = headContent(html, /<meta name="description" content="([^"]*)"/i);
@@ -2949,7 +2957,7 @@ function applyGlobalEnhancements(html) {
     .replaceAll("Заявка отправлена! Свяжемся с вами в течение 15 минут.", "Заявка отправлена! Свяжемся с вами в течение рабочего дня.")
     .replaceAll("~ 15 мин", "1-2 часа")
     .replace("</body>", `${lightbox.markup}\n</body>`)));
-  return applyTrackingIntegrations(enhanced);
+  return useFormSubmitScript(applyTrackingIntegrations(enhanced));
 }
 
 function fileNameFromImageSrc(src = "") {
@@ -3090,6 +3098,14 @@ function copySiteCssAsset(outRoot) {
   fs.mkdirSync(path.dirname(dest), { recursive: true });
   if (fs.existsSync(sourceSiteCss) && path.resolve(sourceSiteCss) !== path.resolve(dest)) {
     fs.copyFileSync(sourceSiteCss, dest);
+  }
+}
+
+function copyFormSubmitAsset(outRoot) {
+  const dest = path.join(outRoot, "assets", formSubmitAssetName);
+  fs.mkdirSync(path.dirname(dest), { recursive: true });
+  if (fs.existsSync(sourceFormSubmitJs) && path.resolve(sourceFormSubmitJs) !== path.resolve(dest)) {
+    fs.copyFileSync(sourceFormSubmitJs, dest);
   }
 }
 
@@ -4278,8 +4294,6 @@ ${parts.nav}
     </aside>
   </div>
 </section>
-${reviewProcedureOtherScript()}
-
 <section class="py-12 sm:py-14 lg:py-20 bg-white">
   <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
     <div class="mb-8 sm:mb-10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
@@ -5651,6 +5665,7 @@ function build() {
     fs.cpSync(path.join(originalRoot, "uploads"), path.join(outRoot, "uploads"), { recursive: true });
     copySemanticImageAssets(outRoot, imageManifest);
     copySiteCssAsset(outRoot);
+    copyFormSubmitAsset(outRoot);
     if (fs.existsSync(sourceLogo)) {
       fs.copyFileSync(sourceLogo, path.join(outRoot, "logo.png"));
     }

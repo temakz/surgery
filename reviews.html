@@ -635,24 +635,6 @@ ym(72010240,"init",{
     </aside>
   </div>
 </section>
-<script>
-  (function(){
-    var select = document.getElementById('review-procedure');
-    var wrap = document.getElementById('review-procedure-other-wrap');
-    var other = document.getElementById('review-procedure-other');
-    if(!select || !wrap || !other) return;
-    function sync(){
-      var isOther = select.value === 'Другое';
-      wrap.hidden = !isOther;
-      other.disabled = !isOther;
-      other.required = isOther;
-      if(!isOther) other.value = '';
-    }
-    select.addEventListener('change', sync);
-    sync();
-  })();
-</script>
-
 <section class="py-12 sm:py-14 lg:py-20 bg-white">
   <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
     <div class="mb-8 sm:mb-10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
@@ -1112,5 +1094,6 @@ ym(72010240,"init",{
   }
 })();
 </script>
+<script src="assets/form-submit.js"></script>
 </body>
 </html>
