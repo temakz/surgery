@@ -2488,6 +2488,10 @@ function renderSitemap(files) {
     .join("\n")}\n</urlset>\n`;
 }
 
+function renderRobotsTxt() {
+  return `User-agent: *\nAllow: /\n\nSitemap: ${productionBaseUrl}/sitemap.xml\n`;
+}
+
 function renderDesktopServiceMenuLinks() {
   const commercialOfferLink = `            <a href="commercial_offer.html" class="flex items-start gap-3 px-3 py-2 rounded-lg bg-white hover:bg-cream group/i transition">
               <span class="h-2 w-2 rounded-full bg-gradient-to-br from-pink2 to-indigo2 mt-1.5 shrink-0"></span>
@@ -5698,7 +5702,7 @@ function build() {
     }
     fs.writeFileSync(path.join(outRoot, "404.html"), rewriteImageAssetRefs(notFoundHtml, imageManifest), "utf8");
 
-    fs.copyFileSync(path.join(scrapeRoot, "robots.txt"), path.join(outRoot, "robots.txt"));
+    fs.writeFileSync(path.join(outRoot, "robots.txt"), renderRobotsTxt(), "utf8");
     if (fs.existsSync(sourceHtaccess) && path.resolve(outRoot) !== root) {
       fs.copyFileSync(sourceHtaccess, path.join(outRoot, ".htaccess"));
     }

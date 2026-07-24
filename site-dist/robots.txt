@@ -1,19 +1,4 @@
-User-Agent: *
-Disallow: /page15584466.html
-Disallow: /page16381925.html
-Disallow: /h1
-Disallow: /page16887677.html
-Disallow: /tilda/form*
-Disallow: /tilda/rec*
-Disallow: /tilda/click*
-Disallow: /tilda/scroll*
-Disallow: /tilda/popup*
-Disallow: /tilda/cart*
-Disallow: /tilda/product*
-Disallow: /tilda/event*
-Disallow: /*_escaped_fragment_*
-Disallow:
-
+User-agent: *
+Allow: /
 
 Sitemap: https://cmf-surgery.ru/sitemap.xml
-Host: https://cmf-surgery.ru
