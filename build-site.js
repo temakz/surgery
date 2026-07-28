@@ -4952,6 +4952,79 @@ ${parts.nav}
 ${parts.ctaFooter}`;
 }
 
+function renderExoAnonsTechnologySection(sectionLabel) {
+  const techCardsHtml = anonsHighlights
+    .map(
+      (item) => `<article class="rounded-2xl bg-white border border-ink/10 p-5 sm:p-6 shadow-sm shadow-ink/5">
+        <div class="flex items-start justify-between gap-4">
+          <span class="font-mono text-[12px] text-pink2">${item.label}</span>
+          <span class="h-2 w-2 rounded-full bg-gradient-to-br from-indigo2 to-pink2 mt-1.5"></span>
+        </div>
+        <h3 class="mt-5 font-display text-[22px] sm:text-[26px] leading-tight font-bold text-ink text-balance">${escapeHtml(item.title)}</h3>
+        <p class="mt-3 text-[15px] sm:text-[16px] leading-relaxed text-ink/68 text-pretty">${escapeHtml(item.text)}</p>
+      </article>`
+    )
+    .join("\n");
+
+  return `<section class="py-10 sm:py-12 lg:py-16 bg-cream border-y border-ink/5">
+  <div class="max-w-[1400px] mx-auto px-5 lg:px-10">
+    ${sectionLabel("Новые разработки", "text-pink2", "bg-pink2", "mb-5")}
+    <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+      <div class="lg:col-span-5">
+        <h2 class="font-display text-[26px] sm:text-[34px] lg:text-[46px] font-bold leading-[1.12] sm:leading-[1.08] tracking-tight text-balance">${escapeHtml(anonsTitle)}</h2>
+        <p class="mt-5 text-[17px] sm:text-[18px] leading-relaxed text-ink/72 text-pretty">${escapeHtml(anonsLead)}</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <span class="rounded-full bg-white border border-ink/10 px-4 py-2 text-[14px] font-semibold text-ink">100% точность воспроизводства</span>
+          <span class="rounded-full bg-white border border-ink/10 px-4 py-2 text-[14px] font-semibold text-ink">6-7 мкм</span>
+          <span class="rounded-full bg-white border border-ink/10 px-4 py-2 text-[14px] font-semibold text-ink">AI-моделирование</span>
+        </div>
+      </div>
+      <div class="lg:col-span-7 grid sm:grid-cols-2 gap-4 sm:gap-5">
+        ${techCardsHtml}
+      </div>
+    </div>
+
+    <div class="mt-8 rounded-3xl bg-gradient-to-br from-indigo2 via-violet2 to-pink2 p-6 sm:p-8 lg:p-10 text-white overflow-hidden">
+      <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-center">
+        <div class="lg:col-span-4">
+          <div class="font-mono text-[12px] uppercase tracking-[0.18em] text-white/70">точность</div>
+          <div class="mt-3 font-display text-[56px] sm:text-[72px] leading-none font-bold">6-7</div>
+          <div class="font-display text-[30px] leading-none italic">мкм</div>
+        </div>
+        <div class="lg:col-span-8">
+          <h3 class="font-display text-[28px] sm:text-[38px] leading-tight font-bold text-balance">Точность до диаметра эритроцита</h3>
+          <p class="mt-4 text-[17px] sm:text-[19px] leading-relaxed text-white/82">Новые матричные технологии из полимерных матриц для микропроцессоров позволяют работать с высокой детализацией прототипа.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 grid lg:grid-cols-12 gap-6 lg:gap-10 items-start rounded-3xl bg-white border border-ink/10 p-6 sm:p-8 shadow-sm shadow-ink/5">
+      <div class="lg:col-span-5">
+        <div class="inline-flex items-center rounded-full bg-cream border border-ink/10 px-3 py-1.5 text-[12px] uppercase tracking-[0.16em] font-semibold text-indigo2">AI reconstruction</div>
+        <h3 class="mt-5 font-display text-[28px] sm:text-[38px] lg:text-[46px] leading-tight font-bold text-ink text-balance">Воссоздание потерянной части лица</h3>
+      </div>
+      <div class="lg:col-span-7">
+        <p class="text-[18px] sm:text-[21px] leading-relaxed text-ink/76">С помощью искусственного интеллекта возможно воссоздание потерянной части лица, ее прототипирование и изготовление экзо- и эндопротезов по данной технологии.</p>
+        <div class="mt-6 grid sm:grid-cols-3 gap-3">
+          <div class="rounded-2xl bg-cream border border-ink/5 p-4">
+            <div class="text-[11px] font-mono text-pink2">01</div>
+            <div class="mt-2 font-bold text-ink">Воссоздание формы</div>
+          </div>
+          <div class="rounded-2xl bg-cream border border-ink/5 p-4">
+            <div class="text-[11px] font-mono text-pink2">02</div>
+            <div class="mt-2 font-bold text-ink">Прототипирование</div>
+          </div>
+          <div class="rounded-2xl bg-cream border border-ink/5 p-4">
+            <div class="text-[11px] font-mono text-pink2">03</div>
+            <div class="mt-2 font-bold text-ink">Изготовление протеза</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>`;
+}
+
 function renderPrivacyPage() {
   const parts = templateParts();
   const page = {
@@ -5470,6 +5543,7 @@ ${hasSensitiveGalleryImages ? renderSensitiveGalleryNotice() : ""}
       : slug === "tmj_dysfunction"
         ? renderTmjVideoSection(sectionLabel, tmjDysfunctionVideos)
         : "";
+  const exoAnonsTechnologyHtml = slug === "exo" ? `${renderExoAnonsTechnologySection(sectionLabel)}\n` : "";
 
   const seoTitleOverride = slug === "bite_restoration" ? `${biteRestorationTitle} | Москва, Одинцово | Center of Surgery` : "";
   const head = updateSeo(parts.head, page, seoTitleOverride);
@@ -5548,7 +5622,7 @@ ${tags.length ? `    <div class="${isServicePolish ? "mt-8 rounded-3xl bg-white 
   </div>
 </section>
 
-${slug === "plastic_surgeries" ? "" : `<section class="${detailsSectionClass}">
+${exoAnonsTechnologyHtml}${slug === "plastic_surgeries" ? "" : `<section class="${detailsSectionClass}">
   <div class="max-w-[1400px] mx-auto px-5 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12">
     <div class="${detailColumnClass}">
       ${sectionLabel("Подробности", "text-pink2", "bg-pink2")}
